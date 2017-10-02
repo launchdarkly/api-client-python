@@ -1,20 +1,19 @@
-# swagger_client.WebhooksApi
+# swagger_client.EnvironmentsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /webhooks/{resourceId} | Delete a webhook by ID
-[**get_webhook**](WebhooksApi.md#get_webhook) | **GET** /webhooks/{resourceId} | Get a webhook by ID
-[**get_webhooks**](WebhooksApi.md#get_webhooks) | **GET** /webhooks | Fetch a list of all webhooks
-[**patch_webhook**](WebhooksApi.md#patch_webhook) | **PATCH** /webhooks/{resourceId} | Modify a webhook by ID
-[**post_webhook**](WebhooksApi.md#post_webhook) | **POST** /webhooks | Create a webhook
+[**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
+[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /environments/{projectKey}/{environmentKey} | Get an environment by key.
+[**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
+[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /environments/{projectKey} | Create an environment
 
 
-# **delete_webhook**
-> delete_webhook(resource_id)
+# **delete_environment**
+> delete_environment(project_key, environment_key)
 
-Delete a webhook by ID
+Delete an environment by ID
 
 ### Example 
 ```python
@@ -30,21 +29,23 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.EnvironmentsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key
 
 try: 
-    # Delete a webhook by ID
-    api_instance.delete_webhook(resource_id)
+    # Delete an environment by ID
+    api_instance.delete_environment(project_key, environment_key)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->delete_webhook: %s\n" % e)
+    print("Exception when calling EnvironmentsApi->delete_environment: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -61,10 +62,10 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_webhook**
-> Webhook get_webhook(resource_id)
+# **get_environment**
+> Environment get_environment(project_key, environment_key)
 
-Get a webhook by ID
+Get an environment by key.
 
 ### Example 
 ```python
@@ -80,26 +81,28 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.EnvironmentsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key
 
 try: 
-    # Get a webhook by ID
-    api_response = api_instance.get_webhook(resource_id)
+    # Get an environment by key.
+    api_response = api_instance.get_environment(project_key, environment_key)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->get_webhook: %s\n" % e)
+    print("Exception when calling EnvironmentsApi->get_environment: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+[**Environment**](Environment.md)
 
 ### Authorization
 
@@ -112,10 +115,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_webhooks**
-> Webhooks get_webhooks()
+# **patch_environment**
+> patch_environment(project_key, environment_key, patch_delta)
 
-Fetch a list of all webhooks
+Modify an environment by ID
 
 ### Example 
 ```python
@@ -131,75 +134,29 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-
-try: 
-    # Fetch a list of all webhooks
-    api_response = api_instance.get_webhooks()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling WebhooksApi->get_webhooks: %s\n" % e)
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Webhooks**](Webhooks.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **patch_webhook**
-> Webhook patch_webhook(resource_id, patch_delta)
-
-Modify a webhook by ID
-
-### Example 
-```python
-from __future__ import print_function
-import time
-import swagger_client
-from swagger_client.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Token
-swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.EnvironmentsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key
 patch_delta = [swagger_client.PatchDelta()] # list[PatchDelta] | http://jsonpatch.com/
 
 try: 
-    # Modify a webhook by ID
-    api_response = api_instance.patch_webhook(resource_id, patch_delta)
-    pprint(api_response)
+    # Modify an environment by ID
+    api_instance.patch_environment(project_key, environment_key, patch_delta)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->patch_webhook: %s\n" % e)
+    print("Exception when calling EnvironmentsApi->patch_environment: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key | 
  **patch_delta** | [**list[PatchDelta]**](PatchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+void (empty response body)
 
 ### Authorization
 
@@ -212,10 +169,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_webhook**
-> post_webhook(webhook_body)
+# **post_environment**
+> post_environment(project_key, environment_body)
 
-Create a webhook
+Create an environment
 
 ### Example 
 ```python
@@ -231,21 +188,23 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-webhook_body = swagger_client.WebhookBody() # WebhookBody | New webhook
+api_instance = swagger_client.EnvironmentsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_body = swagger_client.EnvironmentBody() # EnvironmentBody | New environment
 
 try: 
-    # Create a webhook
-    api_instance.post_webhook(webhook_body)
+    # Create an environment
+    api_instance.post_environment(project_key, environment_body)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->post_webhook: %s\n" % e)
+    print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_body** | [**WebhookBody**](WebhookBody.md)| New webhook | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_body** | [**EnvironmentBody**](EnvironmentBody.md)| New environment | 
 
 ### Return type
 

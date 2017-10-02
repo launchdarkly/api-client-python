@@ -1,9 +1,10 @@
-# Links
+# FeatureFlagConfigFallthrough
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**_self** | [**Link**](Link.md) |  | [optional] 
+**variation** | **int** |  | [optional] 
+**rollout** | [**Rollout**](Rollout.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

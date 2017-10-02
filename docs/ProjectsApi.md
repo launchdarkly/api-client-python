@@ -1,20 +1,20 @@
-# swagger_client.WebhooksApi
+# swagger_client.ProjectsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_webhook**](WebhooksApi.md#delete_webhook) | **DELETE** /webhooks/{resourceId} | Delete a webhook by ID
-[**get_webhook**](WebhooksApi.md#get_webhook) | **GET** /webhooks/{resourceId} | Get a webhook by ID
-[**get_webhooks**](WebhooksApi.md#get_webhooks) | **GET** /webhooks | Fetch a list of all webhooks
-[**patch_webhook**](WebhooksApi.md#patch_webhook) | **PATCH** /webhooks/{resourceId} | Modify a webhook by ID
-[**post_webhook**](WebhooksApi.md#post_webhook) | **POST** /webhooks | Create a webhook
+[**delete_project**](ProjectsApi.md#delete_project) | **DELETE** /projects/{projectKey} | Delete a project by ID
+[**get_project**](ProjectsApi.md#get_project) | **GET** /projects/{projectKey} | Get a project by key.
+[**get_projects**](ProjectsApi.md#get_projects) | **GET** /projects | Returns a list of all projects in the account.
+[**patch_project**](ProjectsApi.md#patch_project) | **PATCH** /projects/{projectKey} | Modify a project by ID
+[**post_project**](ProjectsApi.md#post_project) | **POST** /projects | Create a project
 
 
-# **delete_webhook**
-> delete_webhook(resource_id)
+# **delete_project**
+> delete_project(project_key)
 
-Delete a webhook by ID
+Delete a project by ID
 
 ### Example 
 ```python
@@ -30,21 +30,21 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.ProjectsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 
 try: 
-    # Delete a webhook by ID
-    api_instance.delete_webhook(resource_id)
+    # Delete a project by ID
+    api_instance.delete_project(project_key)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->delete_webhook: %s\n" % e)
+    print("Exception when calling ProjectsApi->delete_project: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
 
 ### Return type
 
@@ -61,10 +61,10 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_webhook**
-> Webhook get_webhook(resource_id)
+# **get_project**
+> Project get_project(project_key)
 
-Get a webhook by ID
+Get a project by key.
 
 ### Example 
 ```python
@@ -80,26 +80,26 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.ProjectsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 
 try: 
-    # Get a webhook by ID
-    api_response = api_instance.get_webhook(resource_id)
+    # Get a project by key.
+    api_response = api_instance.get_project(project_key)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->get_webhook: %s\n" % e)
+    print("Exception when calling ProjectsApi->get_project: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+[**Project**](Project.md)
 
 ### Authorization
 
@@ -112,10 +112,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_webhooks**
-> Webhooks get_webhooks()
+# **get_projects**
+> Projects get_projects()
 
-Fetch a list of all webhooks
+Returns a list of all projects in the account.
 
 ### Example 
 ```python
@@ -131,14 +131,14 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
+api_instance = swagger_client.ProjectsApi()
 
 try: 
-    # Fetch a list of all webhooks
-    api_response = api_instance.get_webhooks()
+    # Returns a list of all projects in the account.
+    api_response = api_instance.get_projects()
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->get_webhooks: %s\n" % e)
+    print("Exception when calling ProjectsApi->get_projects: %s\n" % e)
 ```
 
 ### Parameters
@@ -146,7 +146,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Webhooks**](Webhooks.md)
+[**Projects**](Projects.md)
 
 ### Authorization
 
@@ -159,10 +159,10 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **patch_webhook**
-> Webhook patch_webhook(resource_id, patch_delta)
+# **patch_project**
+> patch_project(project_key, patch_delta)
 
-Modify a webhook by ID
+Modify a project by ID
 
 ### Example 
 ```python
@@ -178,28 +178,27 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-resource_id = 'resource_id_example' # str | The resource ID
+api_instance = swagger_client.ProjectsApi()
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 patch_delta = [swagger_client.PatchDelta()] # list[PatchDelta] | http://jsonpatch.com/
 
 try: 
-    # Modify a webhook by ID
-    api_response = api_instance.patch_webhook(resource_id, patch_delta)
-    pprint(api_response)
+    # Modify a project by ID
+    api_instance.patch_project(project_key, patch_delta)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->patch_webhook: %s\n" % e)
+    print("Exception when calling ProjectsApi->patch_project: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID | 
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **patch_delta** | [**list[PatchDelta]**](PatchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+void (empty response body)
 
 ### Authorization
 
@@ -212,10 +211,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_webhook**
-> post_webhook(webhook_body)
+# **post_project**
+> post_project(project_body)
 
-Create a webhook
+Create a project
 
 ### Example 
 ```python
@@ -231,21 +230,21 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.WebhooksApi()
-webhook_body = swagger_client.WebhookBody() # WebhookBody | New webhook
+api_instance = swagger_client.ProjectsApi()
+project_body = swagger_client.ProjectBody() # ProjectBody | New project
 
 try: 
-    # Create a webhook
-    api_instance.post_webhook(webhook_body)
+    # Create a project
+    api_instance.post_project(project_body)
 except ApiException as e:
-    print("Exception when calling WebhooksApi->post_webhook: %s\n" % e)
+    print("Exception when calling ProjectsApi->post_project: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_body** | [**WebhookBody**](WebhookBody.md)| New webhook | 
+ **project_body** | [**ProjectBody**](ProjectBody.md)| New project | 
 
 ### Return type
 
