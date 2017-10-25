@@ -43,7 +43,7 @@ class TestEnvironmentsApi(unittest.TestCase):
         """
         Test case for get_environment
 
-        Get an environment by key.
+        Get an environment given a project and key.
         """
         pass
 
@@ -59,7 +59,7 @@ class TestEnvironmentsApi(unittest.TestCase):
         """
         Test case for post_environment
 
-        Create an environment
+        Create a new environment in a specified project with a given name, key, and swatch color.
         """
         pass
 

@@ -34,7 +34,7 @@ class FeatureFlag(object):
         'key': 'str',
         'name': 'str',
         'kind': 'str',
-        'creation_date': 'float',
+        'creation_date': 'int',
         'include_in_snippet': 'bool',
         'temporary': 'bool',
         'maintainer_id': 'str',
@@ -172,7 +172,7 @@ class FeatureFlag(object):
         Gets the creation_date of this FeatureFlag.
 
         :return: The creation_date of this FeatureFlag.
-        :rtype: float
+        :rtype: int
         """
         return self._creation_date
 
@@ -182,7 +182,7 @@ class FeatureFlag(object):
         Sets the creation_date of this FeatureFlag.
 
         :param creation_date: The creation_date of this FeatureFlag.
-        :type: float
+        :type: int
         """
 
         self._creation_date = creation_date

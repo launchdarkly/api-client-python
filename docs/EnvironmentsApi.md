@@ -5,9 +5,9 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
-[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /environments/{projectKey}/{environmentKey} | Get an environment by key.
+[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /environments/{projectKey}/{environmentKey} | Get an environment given a project and key.
 [**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
-[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /environments/{projectKey} | Create an environment
+[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /environments/{projectKey} | Create a new environment in a specified project with a given name, key, and swatch color.
 
 
 # **delete_environment**
@@ -65,7 +65,7 @@ void (empty response body)
 # **get_environment**
 > Environment get_environment(project_key, environment_key)
 
-Get an environment by key.
+Get an environment given a project and key.
 
 ### Example 
 ```python
@@ -86,7 +86,7 @@ project_key = 'project_key_example' # str | The project key, used to tie the fla
 environment_key = 'environment_key_example' # str | The environment key
 
 try: 
-    # Get an environment by key.
+    # Get an environment given a project and key.
     api_response = api_instance.get_environment(project_key, environment_key)
     pprint(api_response)
 except ApiException as e:
@@ -172,7 +172,7 @@ void (empty response body)
 # **post_environment**
 > post_environment(project_key, environment_body)
 
-Create an environment
+Create a new environment in a specified project with a given name, key, and swatch color.
 
 ### Example 
 ```python
@@ -193,7 +193,7 @@ project_key = 'project_key_example' # str | The project key, used to tie the fla
 environment_body = swagger_client.EnvironmentBody() # EnvironmentBody | New environment
 
 try: 
-    # Create an environment
+    # Create a new environment in a specified project with a given name, key, and swatch color.
     api_instance.post_environment(project_key, environment_body)
 except ApiException as e:
     print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)

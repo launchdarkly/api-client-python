@@ -43,7 +43,7 @@ class TestUserSettingsApi(unittest.TestCase):
         """
         Test case for get_user_flag_settings
 
-        Lists the current flag settings for a given user.
+        Fetch a single flag setting for a user by key.
         """
         pass
 

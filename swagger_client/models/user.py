@@ -31,7 +31,7 @@ class User(object):
                             and the value is json key in definition.
     """
     swagger_types = {
-        'last_ping': 'str',
+        'last_ping': 'int',
         'environment_id': 'str',
         'owner_id': 'str',
         'user': 'object',
@@ -74,7 +74,7 @@ class User(object):
         Gets the last_ping of this User.
 
         :return: The last_ping of this User.
-        :rtype: str
+        :rtype: int
         """
         return self._last_ping
 
@@ -84,7 +84,7 @@ class User(object):
         Sets the last_ping of this User.
 
         :param last_ping: The last_ping of this User.
-        :type: str
+        :type: int
         """
 
         self._last_ping = last_ping

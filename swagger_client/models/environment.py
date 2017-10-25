@@ -113,6 +113,7 @@ class Environment(object):
     def id(self):
         """
         Gets the id of this Environment.
+        The unique id for the environment
 
         :return: The id of this Environment.
         :rtype: str
@@ -123,6 +124,7 @@ class Environment(object):
     def id(self, id):
         """
         Sets the id of this Environment.
+        The unique id for the environment
 
         :param id: The id of this Environment.
         :type: str
@@ -134,6 +136,7 @@ class Environment(object):
     def key(self):
         """
         Gets the key of this Environment.
+        The key for the environment
 
         :return: The key of this Environment.
         :rtype: str
@@ -144,6 +147,7 @@ class Environment(object):
     def key(self, key):
         """
         Sets the key of this Environment.
+        The key for the environment
 
         :param key: The key of this Environment.
         :type: str
@@ -155,6 +159,7 @@ class Environment(object):
     def name(self):
         """
         Gets the name of this Environment.
+        The name of the environment
 
         :return: The name of this Environment.
         :rtype: str
@@ -165,6 +170,7 @@ class Environment(object):
     def name(self, name):
         """
         Sets the name of this Environment.
+        The name of the environment
 
         :param name: The name of this Environment.
         :type: str
@@ -176,6 +182,7 @@ class Environment(object):
     def api_key(self):
         """
         Gets the api_key of this Environment.
+        The SDK key for backend LaunchDarkly SDKs
 
         :return: The api_key of this Environment.
         :rtype: str
@@ -186,6 +193,7 @@ class Environment(object):
     def api_key(self, api_key):
         """
         Sets the api_key of this Environment.
+        The SDK key for backend LaunchDarkly SDKs
 
         :param api_key: The api_key of this Environment.
         :type: str
@@ -197,6 +205,7 @@ class Environment(object):
     def mobile_key(self):
         """
         Gets the mobile_key of this Environment.
+        The SDK key for mobile LaunchDarkly SDKs
 
         :return: The mobile_key of this Environment.
         :rtype: str
@@ -207,6 +216,7 @@ class Environment(object):
     def mobile_key(self, mobile_key):
         """
         Sets the mobile_key of this Environment.
+        The SDK key for mobile LaunchDarkly SDKs
 
         :param mobile_key: The mobile_key of this Environment.
         :type: str
@@ -218,6 +228,7 @@ class Environment(object):
     def color(self):
         """
         Gets the color of this Environment.
+        The swatch color for the environment
 
         :return: The color of this Environment.
         :rtype: str
@@ -228,6 +239,7 @@ class Environment(object):
     def color(self, color):
         """
         Sets the color of this Environment.
+        The swatch color for the environment
 
         :param color: The color of this Environment.
         :type: str
@@ -239,6 +251,7 @@ class Environment(object):
     def default_ttl(self):
         """
         Gets the default_ttl of this Environment.
+        The default TTL
 
         :return: The default_ttl of this Environment.
         :rtype: float
@@ -249,6 +262,7 @@ class Environment(object):
     def default_ttl(self, default_ttl):
         """
         Sets the default_ttl of this Environment.
+        The default TTL
 
         :param default_ttl: The default_ttl of this Environment.
         :type: float
@@ -260,6 +274,7 @@ class Environment(object):
     def secure_mode(self):
         """
         Gets the secure_mode of this Environment.
+        Determines if this environment is in safe mode
 
         :return: The secure_mode of this Environment.
         :rtype: bool
@@ -270,6 +285,7 @@ class Environment(object):
     def secure_mode(self, secure_mode):
         """
         Sets the secure_mode of this Environment.
+        Determines if this environment is in safe mode
 
         :param secure_mode: The secure_mode of this Environment.
         :type: bool

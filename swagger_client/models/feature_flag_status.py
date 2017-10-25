@@ -33,7 +33,7 @@ class FeatureFlagStatus(object):
     swagger_types = {
         'links': 'Links',
         'name': 'str',
-        'last_requested': 'str',
+        'last_requested': 'int',
         'default': 'bool'
     }
 
@@ -111,7 +111,7 @@ class FeatureFlagStatus(object):
         Gets the last_requested of this FeatureFlagStatus.
 
         :return: The last_requested of this FeatureFlagStatus.
-        :rtype: str
+        :rtype: int
         """
         return self._last_requested
 
@@ -121,7 +121,7 @@ class FeatureFlagStatus(object):
         Sets the last_requested of this FeatureFlagStatus.
 
         :param last_requested: The last_requested of this FeatureFlagStatus.
-        :type: str
+        :type: int
         """
 
         self._last_requested = last_requested

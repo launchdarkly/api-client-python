@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**get_feature_flag_status**](FlagsApi.md#get_feature_flag_status) | **GET** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags
 [**get_feature_flag_statuses**](FlagsApi.md#get_feature_flag_statuses) | **GET** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 [**get_feature_flags**](FlagsApi.md#get_feature_flags) | **GET** /flags/{projectKey} | Get a list of all features in the given project.
-[**patch_feature_flag**](FlagsApi.md#patch_feature_flag) | **PATCH** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
+[**patch_feature_flag**](FlagsApi.md#patch_feature_flag) | **PATCH** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
 [**post_feature_flag**](FlagsApi.md#post_feature_flag) | **POST** /flags/{projectKey} | Creates a new feature flag.
 
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 # **patch_feature_flag**
 > FeatureFlag patch_feature_flag(project_key, feature_flag_key, patch_delta)
 
-Modify a feature flag by ID
+Perform a partial update to a feature.
 
 ### Example 
 ```python
@@ -308,7 +308,7 @@ feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. Th
 patch_delta = [swagger_client.PatchDelta()] # list[PatchDelta] | http://jsonpatch.com/
 
 try: 
-    # Modify a feature flag by ID
+    # Perform a partial update to a feature.
     api_response = api_instance.patch_feature_flag(project_key, feature_flag_key, patch_delta)
     pprint(api_response)
 except ApiException as e:

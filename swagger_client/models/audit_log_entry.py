@@ -33,7 +33,7 @@ class AuditLogEntry(object):
     swagger_types = {
         'links': 'Links',
         'id': 'str',
-        'date': 'float',
+        'date': 'int',
         'kind': 'str',
         'name': 'str',
         'description': 'str',
@@ -141,7 +141,7 @@ class AuditLogEntry(object):
         Gets the date of this AuditLogEntry.
 
         :return: The date of this AuditLogEntry.
-        :rtype: float
+        :rtype: int
         """
         return self._date
 
@@ -151,7 +151,7 @@ class AuditLogEntry(object):
         Sets the date of this AuditLogEntry.
 
         :param date: The date of this AuditLogEntry.
-        :type: float
+        :type: int
         """
 
         self._date = date

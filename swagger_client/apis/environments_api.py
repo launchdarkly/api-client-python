@@ -153,7 +153,7 @@ class EnvironmentsApi(object):
 
     def get_environment(self, project_key, environment_key, **kwargs):
         """
-        Get an environment by key.
+        Get an environment given a project and key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -179,7 +179,7 @@ class EnvironmentsApi(object):
 
     def get_environment_with_http_info(self, project_key, environment_key, **kwargs):
         """
-        Get an environment by key.
+        Get an environment given a project and key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -382,7 +382,7 @@ class EnvironmentsApi(object):
 
     def post_environment(self, project_key, environment_body, **kwargs):
         """
-        Create an environment
+        Create a new environment in a specified project with a given name, key, and swatch color.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -408,7 +408,7 @@ class EnvironmentsApi(object):
 
     def post_environment_with_http_info(self, project_key, environment_body, **kwargs):
         """
-        Create an environment
+        Create a new environment in a specified project with a given name, key, and swatch color.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

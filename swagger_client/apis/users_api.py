@@ -160,7 +160,7 @@ class UsersApi(object):
 
     def get_search_users(self, project_key, environment_key, **kwargs):
         """
-        Search users in LaunchDarkly based on their last active date, or a search query.
+        Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -176,7 +176,7 @@ class UsersApi(object):
         :param str q: Search query
         :param float limit: Pagination limit
         :param float offset: Specifies the first item to return in the collection
-        :param float after: A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
+        :param int after: A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
         :return: Users
                  If the method is called asynchronously,
                  returns the request thread.
@@ -190,7 +190,7 @@ class UsersApi(object):
 
     def get_search_users_with_http_info(self, project_key, environment_key, **kwargs):
         """
-        Search users in LaunchDarkly based on their last active date, or a search query.
+        Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -206,7 +206,7 @@ class UsersApi(object):
         :param str q: Search query
         :param float limit: Pagination limit
         :param float offset: Specifies the first item to return in the collection
-        :param float after: A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
+        :param int after: A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
         :return: Users
                  If the method is called asynchronously,
                  returns the request thread.
@@ -405,7 +405,7 @@ class UsersApi(object):
 
     def get_users(self, project_key, environment_key, **kwargs):
         """
-        List all users in the environment.
+        List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -432,7 +432,7 @@ class UsersApi(object):
 
     def get_users_with_http_info(self, project_key, environment_key, **kwargs):
         """
-        List all users in the environment.
+        List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

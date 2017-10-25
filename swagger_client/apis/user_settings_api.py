@@ -167,7 +167,7 @@ class UserSettingsApi(object):
 
     def get_user_flag_settings(self, project_key, environment_key, user_key, **kwargs):
         """
-        Lists the current flag settings for a given user.
+        Fetch a single flag setting for a user by key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -194,7 +194,7 @@ class UserSettingsApi(object):
 
     def get_user_flag_settings_with_http_info(self, project_key, environment_key, user_key, **kwargs):
         """
-        Lists the current flag settings for a given user.
+        Fetch a single flag setting for a user by key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

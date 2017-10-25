@@ -64,6 +64,7 @@ class EnvironmentBody(object):
     def name(self):
         """
         Gets the name of this EnvironmentBody.
+        The name of the new environment
 
         :return: The name of this EnvironmentBody.
         :rtype: str
@@ -74,6 +75,7 @@ class EnvironmentBody(object):
     def name(self, name):
         """
         Sets the name of this EnvironmentBody.
+        The name of the new environment
 
         :param name: The name of this EnvironmentBody.
         :type: str
@@ -87,6 +89,7 @@ class EnvironmentBody(object):
     def key(self):
         """
         Gets the key of this EnvironmentBody.
+        A project-unique key for the new environment
 
         :return: The key of this EnvironmentBody.
         :rtype: str
@@ -97,6 +100,7 @@ class EnvironmentBody(object):
     def key(self, key):
         """
         Sets the key of this EnvironmentBody.
+        A project-unique key for the new environment
 
         :param key: The key of this EnvironmentBody.
         :type: str
@@ -135,6 +139,7 @@ class EnvironmentBody(object):
     def default_ttl(self):
         """
         Gets the default_ttl of this EnvironmentBody.
+        The default TTL for the new environment
 
         :return: The default_ttl of this EnvironmentBody.
         :rtype: float
@@ -145,6 +150,7 @@ class EnvironmentBody(object):
     def default_ttl(self, default_ttl):
         """
         Sets the default_ttl of this EnvironmentBody.
+        The default TTL for the new environment
 
         :param default_ttl: The default_ttl of this EnvironmentBody.
         :type: float

@@ -609,7 +609,7 @@ class FlagsApi(object):
 
     def patch_feature_flag(self, project_key, feature_flag_key, patch_delta, **kwargs):
         """
-        Modify a feature flag by ID
+        Perform a partial update to a feature.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -636,7 +636,7 @@ class FlagsApi(object):
 
     def patch_feature_flag_with_http_info(self, project_key, feature_flag_key, patch_delta, **kwargs):
         """
-        Modify a feature flag by ID
+        Perform a partial update to a feature.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**last_ping** | **str** |  | [optional] 
+**last_ping** | **int** |  | [optional] 
 **environment_id** | **str** |  | [optional] 
 **owner_id** | **str** |  | [optional] 
 **user** | **object** |  | [optional] 

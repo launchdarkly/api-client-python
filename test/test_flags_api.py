@@ -75,7 +75,7 @@ class TestFlagsApi(unittest.TestCase):
         """
         Test case for patch_feature_flag
 
-        Modify a feature flag by ID
+        Perform a partial update to a feature.
         """
         pass
 
