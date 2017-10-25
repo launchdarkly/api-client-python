@@ -35,7 +35,7 @@ class TestAuditLogApi(unittest.TestCase):
         """
         Test case for get_audit_log_entries
 
-        Fetch a list of all webhooks
+        Fetch a list of all audit log entries
         """
         pass
 
@@ -43,7 +43,7 @@ class TestAuditLogApi(unittest.TestCase):
         """
         Test case for get_audit_log_entry
 
-        Get a webhook by ID
+        Get an audit log entry by ID
         """
         pass
 

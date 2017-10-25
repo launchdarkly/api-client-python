@@ -42,7 +42,7 @@ class AuditLogApi(object):
 
     def get_audit_log_entries(self, **kwargs):
         """
-        Fetch a list of all webhooks
+        Fetch a list of all audit log entries
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -66,7 +66,7 @@ class AuditLogApi(object):
 
     def get_audit_log_entries_with_http_info(self, **kwargs):
         """
-        Fetch a list of all webhooks
+        Fetch a list of all audit log entries
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -138,7 +138,7 @@ class AuditLogApi(object):
 
     def get_audit_log_entry(self, resource_id, **kwargs):
         """
-        Get a webhook by ID
+        Get an audit log entry by ID
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -163,7 +163,7 @@ class AuditLogApi(object):
 
     def get_audit_log_entry_with_http_info(self, resource_id, **kwargs):
         """
-        Get a webhook by ID
+        Get an audit log entry by ID
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

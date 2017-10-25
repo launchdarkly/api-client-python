@@ -146,7 +146,7 @@ class ProjectsApi(object):
 
     def get_project(self, project_key, **kwargs):
         """
-        Get a project by key.
+        Fetch a single project by key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -171,7 +171,7 @@ class ProjectsApi(object):
 
     def get_project_with_http_info(self, project_key, **kwargs):
         """
-        Get a project by key.
+        Fetch a single project by key.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

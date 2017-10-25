@@ -43,7 +43,7 @@ class TestProjectsApi(unittest.TestCase):
         """
         Test case for get_project
 
-        Get a project by key.
+        Fetch a single project by key.
         """
         pass
 

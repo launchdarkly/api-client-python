@@ -83,7 +83,7 @@ class TestFlagsApi(unittest.TestCase):
         """
         Test case for post_feature_flag
 
-        Create a feature flag
+        Creates a new feature flag.
         """
         pass
 

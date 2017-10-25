@@ -727,7 +727,7 @@ class FlagsApi(object):
 
     def post_feature_flag(self, project_key, feature_flag_body, **kwargs):
         """
-        Create a feature flag
+        Creates a new feature flag.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
@@ -753,7 +753,7 @@ class FlagsApi(object):
 
     def post_feature_flag_with_http_info(self, project_key, feature_flag_body, **kwargs):
         """
-        Create a feature flag
+        Creates a new feature flag.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.

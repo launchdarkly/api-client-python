@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /auditlog | Fetch a list of all webhooks
-[**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /auditlog/{resourceId} | Get a webhook by ID
+[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /auditlog | Fetch a list of all audit log entries
+[**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /auditlog/{resourceId} | Get an audit log entry by ID
 
 
 # **get_audit_log_entries**
 > AuditLogEntries get_audit_log_entries()
 
-Fetch a list of all webhooks
+Fetch a list of all audit log entries
 
 ### Example 
 ```python
@@ -30,7 +30,7 @@ swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = swagger_client.AuditLogApi()
 
 try: 
-    # Fetch a list of all webhooks
+    # Fetch a list of all audit log entries
     api_response = api_instance.get_audit_log_entries()
     pprint(api_response)
 except ApiException as e:
@@ -58,7 +58,7 @@ This endpoint does not need any parameter.
 # **get_audit_log_entry**
 > AuditLogEntry get_audit_log_entry(resource_id)
 
-Get a webhook by ID
+Get an audit log entry by ID
 
 ### Example 
 ```python
@@ -78,7 +78,7 @@ api_instance = swagger_client.AuditLogApi()
 resource_id = 'resource_id_example' # str | The resource ID
 
 try: 
-    # Get a webhook by ID
+    # Get an audit log entry by ID
     api_response = api_instance.get_audit_log_entry(resource_id)
     pprint(api_response)
 except ApiException as e:

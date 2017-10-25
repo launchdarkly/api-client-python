@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**get_feature_flag_statuses**](FlagsApi.md#get_feature_flag_statuses) | **GET** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 [**get_feature_flags**](FlagsApi.md#get_feature_flags) | **GET** /flags/{projectKey} | Get a list of all features in the given project.
 [**patch_feature_flag**](FlagsApi.md#patch_feature_flag) | **PATCH** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
-[**post_feature_flag**](FlagsApi.md#post_feature_flag) | **POST** /flags/{projectKey} | Create a feature flag
+[**post_feature_flag**](FlagsApi.md#post_feature_flag) | **POST** /flags/{projectKey} | Creates a new feature flag.
 
 
 # **delete_feature_flag**
@@ -341,7 +341,7 @@ Name | Type | Description  | Notes
 # **post_feature_flag**
 > post_feature_flag(project_key, feature_flag_body)
 
-Create a feature flag
+Creates a new feature flag.
 
 ### Example 
 ```python
@@ -362,7 +362,7 @@ project_key = 'project_key_example' # str | The project key, used to tie the fla
 feature_flag_body = swagger_client.FeatureFlagBody() # FeatureFlagBody | Create a new feature flag
 
 try: 
-    # Create a feature flag
+    # Creates a new feature flag.
     api_instance.post_feature_flag(project_key, feature_flag_body)
 except ApiException as e:
     print("Exception when calling FlagsApi->post_feature_flag: %s\n" % e)
