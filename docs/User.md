@@ -3,11 +3,17 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**last_ping** | **int** |  | [optional] 
-**environment_id** | **str** |  | [optional] 
-**owner_id** | **str** |  | [optional] 
-**user** | **object** |  | [optional] 
+**key** | **str** |  | [optional] 
+**secondary** | **str** |  | [optional] 
+**ip** | **str** |  | [optional] 
+**country** | **str** |  | [optional] 
+**email** | **str** |  | [optional] 
+**first_name** | **str** |  | [optional] 
+**last_name** | **str** |  | [optional] 
 **avatar** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
+**anonymous** | **bool** |  | [optional] 
+**custom** | **object** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

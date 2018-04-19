@@ -1,40 +1,41 @@
-# swagger_client.EnvironmentsApi
+# ldapi.EnvironmentsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
-[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /environments/{projectKey}/{environmentKey} | Get an environment given a project and key.
-[**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
-[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /environments/{projectKey} | Create a new environment in a specified project with a given name, key, and swatch color.
+[**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /projects/{projectKey}/environments/{environmentKey} | Delete an environment in a specific project.
+[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
+[**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID.
+[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
 
 
 # **delete_environment**
 > delete_environment(project_key, environment_key)
 
-Delete an environment by ID
+Delete an environment in a specific project.
 
-### Example 
+### Example
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import ldapi
+from ldapi.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = ldapi.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.EnvironmentsApi()
+api_instance = ldapi.EnvironmentsApi(ldapi.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 
-try: 
-    # Delete an environment by ID
+try:
+    # Delete an environment in a specific project.
     api_instance.delete_environment(project_key, environment_key)
 except ApiException as e:
     print("Exception when calling EnvironmentsApi->delete_environment: %s\n" % e)
@@ -45,7 +46,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
 
 ### Return type
 
@@ -67,25 +68,26 @@ void (empty response body)
 
 Get an environment given a project and key.
 
-### Example 
+### Example
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import ldapi
+from ldapi.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = ldapi.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.EnvironmentsApi()
+api_instance = ldapi.EnvironmentsApi(ldapi.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 
-try: 
+try:
     # Get an environment given a project and key.
     api_response = api_instance.get_environment(project_key, environment_key)
     pprint(api_response)
@@ -98,7 +100,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
 
 ### Return type
 
@@ -116,32 +118,34 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_environment**
-> patch_environment(project_key, environment_key, patch_delta)
+> Environment patch_environment(project_key, environment_key, patch_delta)
 
-Modify an environment by ID
+Modify an environment by ID.
 
-### Example 
+### Example
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import ldapi
+from ldapi.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = ldapi.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.EnvironmentsApi()
+api_instance = ldapi.EnvironmentsApi(ldapi.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key
-patch_delta = [swagger_client.PatchDelta()] # list[PatchDelta] | http://jsonpatch.com/
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+patch_delta = [ldapi.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
 
-try: 
-    # Modify an environment by ID
-    api_instance.patch_environment(project_key, environment_key, patch_delta)
+try:
+    # Modify an environment by ID.
+    api_response = api_instance.patch_environment(project_key, environment_key, patch_delta)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling EnvironmentsApi->patch_environment: %s\n" % e)
 ```
@@ -151,12 +155,12 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key | 
- **patch_delta** | [**list[PatchDelta]**](PatchDelta.md)| http://jsonpatch.com/ | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **patch_delta** | [**list[PatchOperation]**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
 
 ### Return type
 
-void (empty response body)
+[**Environment**](Environment.md)
 
 ### Authorization
 
@@ -174,25 +178,26 @@ void (empty response body)
 
 Create a new environment in a specified project with a given name, key, and swatch color.
 
-### Example 
+### Example
 ```python
 from __future__ import print_function
 import time
-import swagger_client
-from swagger_client.rest import ApiException
+import ldapi
+from ldapi.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-swagger_client.configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration = ldapi.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# swagger_client.configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = swagger_client.EnvironmentsApi()
+api_instance = ldapi.EnvironmentsApi(ldapi.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_body = swagger_client.EnvironmentBody() # EnvironmentBody | New environment
+environment_body = ldapi.EnvironmentBody() # EnvironmentBody | New environment.
 
-try: 
+try:
     # Create a new environment in a specified project with a given name, key, and swatch color.
     api_instance.post_environment(project_key, environment_body)
 except ApiException as e:
@@ -204,7 +209,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_body** | [**EnvironmentBody**](EnvironmentBody.md)| New environment | 
+ **environment_body** | [**EnvironmentBody**](EnvironmentBody.md)| New environment. | 
 
 ### Return type
 

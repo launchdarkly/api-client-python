@@ -11,7 +11,9 @@ Name | Type | Description | Notes
 **version** | **int** |  | [optional] 
 **targets** | [**list[Target]**](Target.md) |  | [optional] 
 **rules** | [**list[Rule]**](Rule.md) |  | [optional] 
-**fallthrough** | [**FeatureFlagConfigFallthrough**](FeatureFlagConfigFallthrough.md) |  | [optional] 
+**fallthrough** | [**Fallthrough**](Fallthrough.md) |  | [optional] 
+**off_variation** | **int** |  | [optional] 
+**prerequisites** | [**list[Prerequisite]**](Prerequisite.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
