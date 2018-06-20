@@ -1,4 +1,4 @@
-# ldapi.CustomRolesApi
+# launchdarkly_api.CustomRolesApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -20,18 +20,18 @@ Delete a custom role by key.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.CustomRolesApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.CustomRolesApi(launchdarkly_api.ApiClient(configuration))
 custom_role_key = 'custom_role_key_example' # str | The custom role key.
 
 try:
@@ -71,18 +71,18 @@ Get one custom role by key.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.CustomRolesApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.CustomRolesApi(launchdarkly_api.ApiClient(configuration))
 custom_role_key = 'custom_role_key_example' # str | The custom role key.
 
 try:
@@ -123,18 +123,18 @@ Return a complete list of custom roles.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.CustomRolesApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.CustomRolesApi(launchdarkly_api.ApiClient(configuration))
 
 try:
     # Return a complete list of custom roles.
@@ -171,20 +171,20 @@ Modify a custom role by key.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.CustomRolesApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.CustomRolesApi(launchdarkly_api.ApiClient(configuration))
 custom_role_key = 'custom_role_key_example' # str | The custom role key.
-patch_delta = [ldapi.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
+patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
 
 try:
     # Modify a custom role by key.
@@ -225,19 +225,19 @@ Create a new custom role.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.CustomRolesApi(ldapi.ApiClient(configuration))
-custom_role_body = ldapi.CustomRoleBody() # CustomRoleBody | New role or roles to create.
+api_instance = launchdarkly_api.CustomRolesApi(launchdarkly_api.ApiClient(configuration))
+custom_role_body = launchdarkly_api.CustomRoleBody() # CustomRoleBody | New role or roles to create.
 
 try:
     # Create a new custom role.

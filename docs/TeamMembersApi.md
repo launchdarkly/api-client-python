@@ -1,4 +1,4 @@
-# ldapi.TeamMembersApi
+# launchdarkly_api.TeamMembersApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -20,18 +20,18 @@ Delete a team member by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.TeamMembersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
 member_id = 'member_id_example' # str | The member ID.
 
 try:
@@ -71,18 +71,18 @@ Get a single team member by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.TeamMembersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
 member_id = 'member_id_example' # str | The member ID.
 
 try:
@@ -123,18 +123,18 @@ Returns a list of all members in the account.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.TeamMembersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
 
 try:
     # Returns a list of all members in the account.
@@ -171,20 +171,20 @@ Modify a team member by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.TeamMembersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
 member_id = 'member_id_example' # str | The member ID.
-patch_delta = [ldapi.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
+patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
 
 try:
     # Modify a team member by ID.
@@ -225,19 +225,19 @@ Invite new members.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.TeamMembersApi(ldapi.ApiClient(configuration))
-members_body = [ldapi.MembersBody()] # list[MembersBody] | New members to invite.
+api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
+members_body = [launchdarkly_api.MembersBody()] # list[MembersBody] | New members to invite.
 
 try:
     # Invite new members.

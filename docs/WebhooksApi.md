@@ -1,4 +1,4 @@
-# ldapi.WebhooksApi
+# launchdarkly_api.WebhooksApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -20,18 +20,18 @@ Delete a webhook by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.WebhooksApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.WebhooksApi(launchdarkly_api.ApiClient(configuration))
 resource_id = 'resource_id_example' # str | The resource ID.
 
 try:
@@ -71,18 +71,18 @@ Get a webhook by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.WebhooksApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.WebhooksApi(launchdarkly_api.ApiClient(configuration))
 resource_id = 'resource_id_example' # str | The resource ID.
 
 try:
@@ -123,18 +123,18 @@ Fetch a list of all webhooks.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.WebhooksApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.WebhooksApi(launchdarkly_api.ApiClient(configuration))
 
 try:
     # Fetch a list of all webhooks.
@@ -171,20 +171,20 @@ Modify a webhook by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.WebhooksApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.WebhooksApi(launchdarkly_api.ApiClient(configuration))
 resource_id = 'resource_id_example' # str | The resource ID.
-patch_delta = [ldapi.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
+patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
 
 try:
     # Modify a webhook by ID.
@@ -225,19 +225,19 @@ Create a webhook.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.WebhooksApi(ldapi.ApiClient(configuration))
-webhook_body = ldapi.WebhookBody() # WebhookBody | New webhook.
+api_instance = launchdarkly_api.WebhooksApi(launchdarkly_api.ApiClient(configuration))
+webhook_body = launchdarkly_api.WebhookBody() # WebhookBody | New webhook.
 
 try:
     # Create a webhook.

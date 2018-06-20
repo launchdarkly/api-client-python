@@ -1,4 +1,4 @@
-# ldapi.FeatureFlagsApi
+# launchdarkly_api.FeatureFlagsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -22,18 +22,18 @@ Delete a feature flag in all environments. Be careful-- only delete feature flag
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 
@@ -75,18 +75,18 @@ Get a single feature flag by key.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 env = 'env_example' # str | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment. (optional)
@@ -131,18 +131,18 @@ Get the status for a particular feature flag.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
@@ -187,18 +187,18 @@ Get a list of statuses for all feature flags. The status includes the last time 
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 
@@ -241,18 +241,18 @@ Get a list of all features in the given project.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 env = 'env_example' # str | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment. (optional)
 tag = 'tag_example' # str | Filter by tag. A tag can be used to group flags across projects. (optional)
@@ -297,21 +297,21 @@ Perform a partial update to a feature.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
-patch_comment = ldapi.PatchComment() # PatchComment | Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported.
+patch_comment = launchdarkly_api.PatchComment() # PatchComment | Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported.
 
 try:
     # Perform a partial update to a feature.
@@ -353,20 +353,20 @@ Creates a new feature flag.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.FeatureFlagsApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-feature_flag_body = ldapi.FeatureFlagBody() # FeatureFlagBody | Create a new feature flag.
+feature_flag_body = launchdarkly_api.FeatureFlagBody() # FeatureFlagBody | Create a new feature flag.
 
 try:
     # Creates a new feature flag.

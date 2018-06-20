@@ -1,4 +1,4 @@
-# ldapi.UsersApi
+# launchdarkly_api.UsersApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -19,18 +19,18 @@ Delete a user by ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.UsersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 user_key = 'user_key_example' # str | The user's key.
@@ -74,18 +74,18 @@ Search users in LaunchDarkly based on their last active date, or a search query.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.UsersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 q = 'q_example' # str | Search query. (optional)
@@ -136,18 +136,18 @@ Get a user by key.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.UsersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 user_key = 'user_key_example' # str | The user's key.
@@ -192,18 +192,18 @@ List all users in the environment. Includes the total count of users. In each pa
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.UsersApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 limit = 56 # int | Pagination limit. (optional)

@@ -1,4 +1,4 @@
-# ldapi.AuditLogApi
+# launchdarkly_api.AuditLogApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -17,18 +17,18 @@ Get a list of all audit log entries. The query parameters allow you to restrict 
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.AuditLogApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.AuditLogApi(launchdarkly_api.ApiClient(configuration))
 before = 8.14 # float | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. (optional)
 after = 8.14 # float | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. (optional)
 q = 'q_example' # str | Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change. (optional)
@@ -77,18 +77,18 @@ Use this endpoint to fetch a single audit log entry by its resouce ID.
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.AuditLogApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.AuditLogApi(launchdarkly_api.ApiClient(configuration))
 resource_id = 'resource_id_example' # str | The resource ID.
 
 try:

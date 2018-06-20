@@ -1,4 +1,4 @@
-# ldapi.RootApi
+# launchdarkly_api.RootApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
@@ -18,18 +18,18 @@ You can issue a GET request to the root resource to find all of the resource cat
 ```python
 from __future__ import print_function
 import time
-import ldapi
-from ldapi.rest import ApiException
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
 
 # Configure API key authorization: Token
-configuration = ldapi.Configuration()
+configuration = launchdarkly_api.Configuration()
 configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
-api_instance = ldapi.RootApi(ldapi.ApiClient(configuration))
+api_instance = launchdarkly_api.RootApi(launchdarkly_api.ApiClient(configuration))
 
 try:
     api_response = api_instance.get_root()
