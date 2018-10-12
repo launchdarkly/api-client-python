@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**id** | **str** |  | [optional] 
 **variation** | **int** |  | [optional] 
 **rollout** | [**Rollout**](Rollout.md) |  | [optional] 
 **clauses** | [**list[Clause]**](Clause.md) |  | [optional] 
