@@ -195,7 +195,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_body = launchdarkly_api.EnvironmentBody() # EnvironmentBody | New environment.
+environment_body = launchdarkly_api.EnvironmentPost() # EnvironmentPost | New environment.
 
 try:
     # Create a new environment in a specified project with a given name, key, and swatch color.
@@ -209,7 +209,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_body** | [**EnvironmentBody**](EnvironmentBody.md)| New environment. | 
+ **environment_body** | [**EnvironmentPost**](EnvironmentPost.md)| New environment. | 
 
 ### Return type
 

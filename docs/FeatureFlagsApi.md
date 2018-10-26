@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_feature_flag**
-> post_feature_flag(project_key, feature_flag_body)
+> post_feature_flag(project_key, feature_flag_body, clone=clone)
 
 Creates a new feature flag.
 
@@ -367,10 +367,11 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_body = launchdarkly_api.FeatureFlagBody() # FeatureFlagBody | Create a new feature flag.
+clone = 'clone_example' # str | The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag. (optional)
 
 try:
     # Creates a new feature flag.
-    api_instance.post_feature_flag(project_key, feature_flag_body)
+    api_instance.post_feature_flag(project_key, feature_flag_body, clone=clone)
 except ApiException as e:
     print("Exception when calling FeatureFlagsApi->post_feature_flag: %s\n" % e)
 ```
@@ -381,6 +382,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **feature_flag_body** | [**FeatureFlagBody**](FeatureFlagBody.md)| Create a new feature flag. | 
+ **clone** | **str**| The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone&#x3D;flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag. | [optional] 
 
 ### Return type
 
