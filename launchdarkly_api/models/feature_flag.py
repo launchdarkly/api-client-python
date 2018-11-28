@@ -47,6 +47,7 @@ class FeatureFlag(object):
         'maintainer_id': 'str',
         'tags': 'list[str]',
         'variations': 'list[Variation]',
+        'version': 'int',
         'custom_properties': 'CustomProperties',
         'links': 'Links',
         'maintainer': 'Member',
@@ -64,13 +65,14 @@ class FeatureFlag(object):
         'maintainer_id': 'maintainerId',
         'tags': 'tags',
         'variations': 'variations',
+        'version': '_version',
         'custom_properties': 'customProperties',
         'links': '_links',
         'maintainer': '_maintainer',
         'environments': 'environments'
     }
 
-    def __init__(self, key=None, name=None, description=None, kind=None, creation_date=None, include_in_snippet=None, temporary=None, maintainer_id=None, tags=None, variations=None, custom_properties=None, links=None, maintainer=None, environments=None):  # noqa: E501
+    def __init__(self, key=None, name=None, description=None, kind=None, creation_date=None, include_in_snippet=None, temporary=None, maintainer_id=None, tags=None, variations=None, version=None, custom_properties=None, links=None, maintainer=None, environments=None):  # noqa: E501
         """FeatureFlag - a model defined in Swagger"""  # noqa: E501
 
         self._key = None
@@ -83,6 +85,7 @@ class FeatureFlag(object):
         self._maintainer_id = None
         self._tags = None
         self._variations = None
+        self._version = None
         self._custom_properties = None
         self._links = None
         self._maintainer = None
@@ -109,6 +112,8 @@ class FeatureFlag(object):
             self.tags = tags
         if variations is not None:
             self.variations = variations
+        if version is not None:
+            self.version = version
         if custom_properties is not None:
             self.custom_properties = custom_properties
         if links is not None:
@@ -343,6 +348,27 @@ class FeatureFlag(object):
         """
 
         self._variations = variations
+
+    @property
+    def version(self):
+        """Gets the version of this FeatureFlag.  # noqa: E501
+
+
+        :return: The version of this FeatureFlag.  # noqa: E501
+        :rtype: int
+        """
+        return self._version
+
+    @version.setter
+    def version(self, version):
+        """Sets the version of this FeatureFlag.
+
+
+        :param version: The version of this FeatureFlag.  # noqa: E501
+        :type: int
+        """
+
+        self._version = version
 
     @property
     def custom_properties(self):

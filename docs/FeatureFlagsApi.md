@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_feature_flag**
-> post_feature_flag(project_key, feature_flag_body, clone=clone)
+> FeatureFlag post_feature_flag(project_key, feature_flag_body, clone=clone)
 
 Creates a new feature flag.
 
@@ -371,7 +371,8 @@ clone = 'clone_example' # str | The key of the feature flag to be cloned. The ke
 
 try:
     # Creates a new feature flag.
-    api_instance.post_feature_flag(project_key, feature_flag_body, clone=clone)
+    api_response = api_instance.post_feature_flag(project_key, feature_flag_body, clone=clone)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling FeatureFlagsApi->post_feature_flag: %s\n" % e)
 ```
@@ -386,7 +387,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**FeatureFlag**](FeatureFlag.md)
 
 ### Authorization
 

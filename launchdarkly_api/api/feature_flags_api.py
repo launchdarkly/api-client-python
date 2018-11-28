@@ -695,7 +695,7 @@ class FeatureFlagsApi(object):
         :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
         :param FeatureFlagBody feature_flag_body: Create a new feature flag. (required)
         :param str clone: The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
-        :return: None
+        :return: FeatureFlag
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -718,7 +718,7 @@ class FeatureFlagsApi(object):
         :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
         :param FeatureFlagBody feature_flag_body: Create a new feature flag. (required)
         :param str clone: The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
-        :return: None
+        :return: FeatureFlag
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -784,7 +784,7 @@ class FeatureFlagsApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type='FeatureFlag',  # noqa: E501
             auth_settings=auth_settings,
             async=params.get('async'),
             _return_http_data_only=params.get('_return_http_data_only'),
