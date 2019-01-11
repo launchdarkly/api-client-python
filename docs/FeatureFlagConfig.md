@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **last_modified** | **int** |  | [optional] 
 **version** | **int** |  | [optional] 
 **targets** | [**list[Target]**](Target.md) |  | [optional] 
-**goal_ids** | **list[str]** |  | [optional] 
 **rules** | [**list[Rule]**](Rule.md) |  | [optional] 
 **fallthrough** | [**Fallthrough**](Fallthrough.md) |  | [optional] 
 **off_variation** | **int** |  | [optional] 
