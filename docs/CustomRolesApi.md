@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_custom_role**
-> post_custom_role(custom_role_body)
+> CustomRole post_custom_role(custom_role_body)
 
 Create a new custom role.
 
@@ -241,7 +241,8 @@ custom_role_body = launchdarkly_api.CustomRoleBody() # CustomRoleBody | New role
 
 try:
     # Create a new custom role.
-    api_instance.post_custom_role(custom_role_body)
+    api_response = api_instance.post_custom_role(custom_role_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling CustomRolesApi->post_custom_role: %s\n" % e)
 ```
@@ -254,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**CustomRole**](CustomRole.md)
 
 ### Authorization
 

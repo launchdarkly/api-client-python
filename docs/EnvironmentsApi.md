@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_environment**
-> post_environment(project_key, environment_body)
+> Environment post_environment(project_key, environment_body)
 
 Create a new environment in a specified project with a given name, key, and swatch color.
 
@@ -199,7 +199,8 @@ environment_body = launchdarkly_api.EnvironmentPost() # EnvironmentPost | New en
 
 try:
     # Create a new environment in a specified project with a given name, key, and swatch color.
-    api_instance.post_environment(project_key, environment_body)
+    api_response = api_instance.post_environment(project_key, environment_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)
 ```
@@ -213,7 +214,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Environment**](Environment.md)
 
 ### Authorization
 

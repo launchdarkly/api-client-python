@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_members**
-> post_members(members_body)
+> Members post_members(members_body)
 
 Invite new members.
 
@@ -241,7 +241,8 @@ members_body = [launchdarkly_api.MembersBody()] # list[MembersBody] | New member
 
 try:
     # Invite new members.
-    api_instance.post_members(members_body)
+    api_response = api_instance.post_members(members_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling TeamMembersApi->post_members: %s\n" % e)
 ```
@@ -254,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Members**](Members.md)
 
 ### Authorization
 

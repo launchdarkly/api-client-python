@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**Links**](Links.md) |  | [optional] 
 **name** | **str** | Name of the custom role. | [optional] 
-**key** | [**CustomRoleKeyOrId**](CustomRoleKeyOrId.md) |  | [optional] 
+**key** | **str** | The 20-hexdigit id or the key for a custom role. | [optional] 
 **description** | **str** | Description of the custom role. | [optional] 
 **id** | [**Id**](Id.md) |  | [optional] 
 **policy** | [**list[Policy]**](Policy.md) |  | [optional] 

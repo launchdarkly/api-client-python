@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_project**
-> post_project(project_body)
+> Project post_project(project_body)
 
 Create a new project with the given key and name.
 
@@ -241,7 +241,8 @@ project_body = launchdarkly_api.ProjectBody() # ProjectBody | Project keys must 
 
 try:
     # Create a new project with the given key and name.
-    api_instance.post_project(project_body)
+    api_response = api_instance.post_project(project_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling ProjectsApi->post_project: %s\n" % e)
 ```
@@ -254,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Project**](Project.md)
 
 ### Authorization
 

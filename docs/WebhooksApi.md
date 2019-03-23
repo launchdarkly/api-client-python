@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_webhook**
-> post_webhook(webhook_body)
+> Webhook post_webhook(webhook_body)
 
 Create a webhook.
 
@@ -241,7 +241,8 @@ webhook_body = launchdarkly_api.WebhookBody() # WebhookBody | New webhook.
 
 try:
     # Create a webhook.
-    api_instance.post_webhook(webhook_body)
+    api_response = api_instance.post_webhook(webhook_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling WebhooksApi->post_webhook: %s\n" % e)
 ```
@@ -254,7 +255,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Webhook**](Webhook.md)
 
 ### Authorization
 

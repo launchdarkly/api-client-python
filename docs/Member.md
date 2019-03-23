@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **id** | [**Id**](Id.md) |  | [optional] 
 **role** | [**Role**](Role.md) |  | [optional] 
 **email** | **str** |  | [optional] 
+**first_name** | **str** |  | [optional] 
+**last_name** | **str** |  | [optional] 
 **pending_invite** | **bool** |  | [optional] 
 **is_beta** | **bool** |  | [optional] 
 **custom_roles** | [**list[Id]**](Id.md) |  | [optional] 

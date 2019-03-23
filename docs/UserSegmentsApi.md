@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_user_segment**
-> post_user_segment(project_key, environment_key, user_segment_body)
+> UserSegment post_user_segment(project_key, environment_key, user_segment_body)
 
 Creates a new user segment.
 
@@ -263,7 +263,8 @@ user_segment_body = launchdarkly_api.UserSegmentBody() # UserSegmentBody | Creat
 
 try:
     # Creates a new user segment.
-    api_instance.post_user_segment(project_key, environment_key, user_segment_body)
+    api_response = api_instance.post_user_segment(project_key, environment_key, user_segment_body)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling UserSegmentsApi->post_user_segment: %s\n" % e)
 ```
@@ -278,7 +279,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UserSegment**](UserSegment.md)
 
 ### Authorization
 
