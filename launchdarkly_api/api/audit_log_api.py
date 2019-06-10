@@ -42,8 +42,8 @@ class AuditLogApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param float before: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp.
-        :param float after: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp.
+        :param int before: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp.
+        :param int after: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp.
         :param str q: Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change.
         :param float limit: A limit on the number of audit log entries to be returned, between 1 and 20.
         :param str spec: A resource specifier, allowing you to filter audit log listings by resource.
@@ -67,8 +67,8 @@ class AuditLogApi(object):
         >>> result = thread.get()
 
         :param async_req bool
-        :param float before: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp.
-        :param float after: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp.
+        :param int before: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp.
+        :param int after: A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp.
         :param str q: Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change.
         :param float limit: A limit on the number of audit log entries to be returned, between 1 and 20.
         :param str spec: A resource specifier, allowing you to filter audit log listings by resource.

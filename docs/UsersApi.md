@@ -91,7 +91,7 @@ environment_key = 'environment_key_example' # str | The environment key, used to
 q = 'q_example' # str | Search query. (optional)
 limit = 56 # int | Pagination limit. (optional)
 offset = 56 # int | Specifies the first item to return in the collection. (optional)
-after = 8.14 # float | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. (optional)
+after = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. (optional)
 
 try:
     # Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
  **q** | **str**| Search query. | [optional] 
  **limit** | **int**| Pagination limit. | [optional] 
  **offset** | **int**| Specifies the first item to return in the collection. | [optional] 
- **after** | **float**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | [optional] 
+ **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | [optional] 
 
 ### Return type
 

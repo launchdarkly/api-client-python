@@ -65,8 +65,8 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = launchdarkly_api.AuditLogApi(launchdarkly_api.ApiClient(configuration))
-before = 8.14 # float | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. (optional)
-after = 8.14 # float | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. (optional)
+before = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. (optional)
+after = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. (optional)
 q = 'q_example' # str | Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change. (optional)
 limit = 8.14 # float | A limit on the number of audit log entries to be returned, between 1 and 20. (optional)
 spec = 'spec_example' # str | A resource specifier, allowing you to filter audit log listings by resource. (optional)
