@@ -44,7 +44,9 @@ class Environment(object):
         'default_ttl': 'float',
         'secure_mode': 'bool',
         'default_track_events': 'bool',
-        'tags': 'list[str]'
+        'tags': 'list[str]',
+        'require_comments': 'bool',
+        'confirm_changes': 'bool'
     }
 
     attribute_map = {
@@ -58,10 +60,12 @@ class Environment(object):
         'default_ttl': 'defaultTtl',
         'secure_mode': 'secureMode',
         'default_track_events': 'defaultTrackEvents',
-        'tags': 'tags'
+        'tags': 'tags',
+        'require_comments': 'requireComments',
+        'confirm_changes': 'confirmChanges'
     }
 
-    def __init__(self, links=None, id=None, key=None, name=None, api_key=None, mobile_key=None, color=None, default_ttl=None, secure_mode=None, default_track_events=None, tags=None):  # noqa: E501
+    def __init__(self, links=None, id=None, key=None, name=None, api_key=None, mobile_key=None, color=None, default_ttl=None, secure_mode=None, default_track_events=None, tags=None, require_comments=None, confirm_changes=None):  # noqa: E501
         """Environment - a model defined in Swagger"""  # noqa: E501
 
         self._links = None
@@ -75,6 +79,8 @@ class Environment(object):
         self._secure_mode = None
         self._default_track_events = None
         self._tags = None
+        self._require_comments = None
+        self._confirm_changes = None
         self.discriminator = None
 
         if links is not None:
@@ -99,6 +105,10 @@ class Environment(object):
             self.default_track_events = default_track_events
         if tags is not None:
             self.tags = tags
+        if require_comments is not None:
+            self.require_comments = require_comments
+        if confirm_changes is not None:
+            self.confirm_changes = confirm_changes
 
     @property
     def links(self):
@@ -348,6 +358,52 @@ class Environment(object):
         """
 
         self._tags = tags
+
+    @property
+    def require_comments(self):
+        """Gets the require_comments of this Environment.  # noqa: E501
+
+        Determines if this environment requires comments for flag and segment changes.  # noqa: E501
+
+        :return: The require_comments of this Environment.  # noqa: E501
+        :rtype: bool
+        """
+        return self._require_comments
+
+    @require_comments.setter
+    def require_comments(self, require_comments):
+        """Sets the require_comments of this Environment.
+
+        Determines if this environment requires comments for flag and segment changes.  # noqa: E501
+
+        :param require_comments: The require_comments of this Environment.  # noqa: E501
+        :type: bool
+        """
+
+        self._require_comments = require_comments
+
+    @property
+    def confirm_changes(self):
+        """Gets the confirm_changes of this Environment.  # noqa: E501
+
+        Determines if this environment requires confirmation for flag and segment changes.  # noqa: E501
+
+        :return: The confirm_changes of this Environment.  # noqa: E501
+        :rtype: bool
+        """
+        return self._confirm_changes
+
+    @confirm_changes.setter
+    def confirm_changes(self, confirm_changes):
+        """Sets the confirm_changes of this Environment.
+
+        Determines if this environment requires confirmation for flag and segment changes.  # noqa: E501
+
+        :param confirm_changes: The confirm_changes of this Environment.  # noqa: E501
+        :type: bool
+        """
+
+        self._confirm_changes = confirm_changes
 
     def to_dict(self):
         """Returns the model properties as a dict"""
