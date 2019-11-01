@@ -10,6 +10,7 @@ from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
 from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.root_api import RootApi
 from launchdarkly_api.api.team_members_api import TeamMembersApi
+from launchdarkly_api.api.usage_api import UsageApi
 from launchdarkly_api.api.user_segments_api import UserSegmentsApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
