@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**delete_feature_flag**](FeatureFlagsApi.md#delete_feature_flag) | **DELETE** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
 [**get_feature_flag**](FeatureFlagsApi.md#get_feature_flag) | **GET** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
 [**get_feature_flag_status**](FeatureFlagsApi.md#get_feature_flag_status) | **GET** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get the status for a particular feature flag.
-[**get_feature_flag_status_across_environments**](FeatureFlagsApi.md#get_feature_flag_status_across_environments) | **GET** /flag-status/{projectKey}/{featureFlagKey} | [BETA] Get the status for a particular feature flag across environments
+[**get_feature_flag_status_across_environments**](FeatureFlagsApi.md#get_feature_flag_status_across_environments) | **GET** /flag-status/{projectKey}/{featureFlagKey} | Get the status for a particular feature flag across environments
 [**get_feature_flag_statuses**](FeatureFlagsApi.md#get_feature_flag_statuses) | **GET** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.
 [**get_feature_flags**](FeatureFlagsApi.md#get_feature_flags) | **GET** /flags/{projectKey} | Get a list of all features in the given project.
 [**patch_feature_flag**](FeatureFlagsApi.md#patch_feature_flag) | **PATCH** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
@@ -239,7 +239,7 @@ Name | Type | Description  | Notes
 # **get_feature_flag_status_across_environments**
 > FeatureFlagStatusAcrossEnvironments get_feature_flag_status_across_environments(project_key, feature_flag_key)
 
-[BETA] Get the status for a particular feature flag across environments
+Get the status for a particular feature flag across environments
 
 ### Example
 ```python
@@ -261,7 +261,7 @@ project_key = 'project_key_example' # str | The project key, used to tie the fla
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 
 try:
-    # [BETA] Get the status for a particular feature flag across environments
+    # Get the status for a particular feature flag across environments
     api_response = api_instance.get_feature_flag_status_across_environments(project_key, feature_flag_key)
     pprint(api_response)
 except ApiException as e:
