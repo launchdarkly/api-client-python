@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_feature_flags**
-> FeatureFlags get_feature_flags(project_key, env=env, tag=tag)
+> FeatureFlags get_feature_flags(project_key, env=env, summary=summary, archived=archived, tag=tag)
 
 Get a list of all features in the given project.
 
@@ -367,11 +367,13 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 env = 'env_example' # str | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment. (optional)
+summary = 'summary_example' # str | By default in api version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned. (optional)
+archived = 'archived_example' # str | When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. (optional)
 tag = 'tag_example' # str | Filter by tag. A tag can be used to group flags across projects. (optional)
 
 try:
     # Get a list of all features in the given project.
-    api_response = api_instance.get_feature_flags(project_key, env=env, tag=tag)
+    api_response = api_instance.get_feature_flags(project_key, env=env, summary=summary, archived=archived, tag=tag)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling FeatureFlagsApi->get_feature_flags: %s\n" % e)
@@ -383,6 +385,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **env** | **str**| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;production will restrict the returned configurations to just your production environment. | [optional] 
+ **summary** | **str**| By default in api version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned. | [optional] 
+ **archived** | **str**| When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. | [optional] 
  **tag** | **str**| Filter by tag. A tag can be used to group flags across projects. | [optional] 
 
 ### Return type
