@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **off_variation** | **int** |  | [optional] 
 **prerequisites** | [**list[Prerequisite]**](Prerequisite.md) |  | [optional] 
 **track_events** | **bool** | Set to true to send detailed event information for this flag. | [optional] 
+**track_events_fallthrough** | **bool** | Set to true to send detailed event information when targeting is enabled but no individual targeting rule is matched. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
