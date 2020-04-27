@@ -147,7 +147,7 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
-env = 'env_example' # str | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment. (optional)
+env = ['env_example'] # list[str] | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment. (optional)
 
 try:
     # Get a single feature flag by key.
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
- **env** | **str**| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;production will restrict the returned configurations to just your production environment. | [optional] 
+ **env** | [**list[str]**](str.md)| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;[\&quot;production\&quot;] will restrict the returned configurations to just your production environment. | [optional] 
 
 ### Return type
 
@@ -345,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_feature_flags**
-> FeatureFlags get_feature_flags(project_key, env=env, summary=summary, archived=archived, tag=tag)
+> FeatureFlags get_feature_flags(project_key, env=env, summary=summary, archived=archived, limit=limit, number=number, filter=filter, sort=sort, tag=tag)
 
 Get a list of all features in the given project.
 
@@ -366,14 +366,18 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-env = 'env_example' # str | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=production will restrict the returned configurations to just your production environment. (optional)
+env = ['env_example'] # list[str] | By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment. (optional)
 summary = true # bool | By default in api version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned. (optional)
 archived = true # bool | When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. (optional)
+limit = 8.14 # float | The number of objects to return. Defaults to -1, which returns everything. (optional)
+number = true # bool | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. (optional)
+filter = 'filter_example' # str | A comma-separated list of filters. Each filter is of the form field:value. (optional)
+sort = 'sort_example' # str | A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. (optional)
 tag = 'tag_example' # str | Filter by tag. A tag can be used to group flags across projects. (optional)
 
 try:
     # Get a list of all features in the given project.
-    api_response = api_instance.get_feature_flags(project_key, env=env, summary=summary, archived=archived, tag=tag)
+    api_response = api_instance.get_feature_flags(project_key, env=env, summary=summary, archived=archived, limit=limit, number=number, filter=filter, sort=sort, tag=tag)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling FeatureFlagsApi->get_feature_flags: %s\n" % e)
@@ -384,9 +388,13 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **env** | **str**| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;production will restrict the returned configurations to just your production environment. | [optional] 
+ **env** | [**list[str]**](str.md)| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;[\&quot;production\&quot;] will restrict the returned configurations to just your production environment. | [optional] 
  **summary** | **bool**| By default in api version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned. | [optional] 
  **archived** | **bool**| When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. | [optional] 
+ **limit** | **float**| The number of objects to return. Defaults to -1, which returns everything. | [optional] 
+ **number** | **bool**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. Each filter is of the form field:value. | [optional] 
+ **sort** | **str**| A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. | [optional] 
  **tag** | **str**| Filter by tag. A tag can be used to group flags across projects. | [optional] 
 
 ### Return type
