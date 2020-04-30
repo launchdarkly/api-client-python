@@ -4,10 +4,68 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_expiring_user_targets_for_user**](UserSettingsApi.md#get_expiring_user_targets_for_user) | **GET** /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Get expiring dates on flags for user
 [**get_user_flag_setting**](UserSettingsApi.md#get_user_flag_setting) | **GET** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Fetch a single flag setting for a user by key.
 [**get_user_flag_settings**](UserSettingsApi.md#get_user_flag_settings) | **GET** /users/{projectKey}/{environmentKey}/{userKey}/flags | Fetch a single flag setting for a user by key.
+[**patch_expiring_user_targets_for_flags**](UserSettingsApi.md#patch_expiring_user_targets_for_flags) | **PATCH** /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets for a single user on all flags
 [**put_flag_setting**](UserSettingsApi.md#put_flag_setting) | **PUT** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Specifically enable or disable a feature flag for a user based on their key.
 
+
+# **get_expiring_user_targets_for_user**
+> UserTargetingExpirationOnFlagsForUser get_expiring_user_targets_for_user(project_key, environment_key, user_key)
+
+Get expiring dates on flags for user
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.UserSettingsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+user_key = 'user_key_example' # str | The user's key.
+
+try:
+    # Get expiring dates on flags for user
+    api_response = api_instance.get_expiring_user_targets_for_user(project_key, environment_key, user_key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UserSettingsApi->get_expiring_user_targets_for_user: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **user_key** | **str**| The user&#39;s key. | 
+
+### Return type
+
+[**UserTargetingExpirationOnFlagsForUser**](UserTargetingExpirationOnFlagsForUser.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user_flag_setting**
 > UserFlagSetting get_user_flag_setting(project_key, environment_key, user_key, feature_flag_key)
@@ -111,6 +169,64 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserFlagSettings**](UserFlagSettings.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_expiring_user_targets_for_flags**
+> UserTargetingExpirationOnFlagsForUser patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, patch_comment)
+
+Update, add, or delete expiring user targets for a single user on all flags
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.UserSettingsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+user_key = 'user_key_example' # str | The user's key.
+patch_comment = launchdarkly_api.PatchComment() # PatchComment | Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported.
+
+try:
+    # Update, add, or delete expiring user targets for a single user on all flags
+    api_response = api_instance.patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, patch_comment)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UserSettingsApi->patch_expiring_user_targets_for_flags: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **user_key** | **str**| The user&#39;s key. | 
+ **patch_comment** | [**PatchComment**](PatchComment.md)| Requires a JSON Patch representation of the desired changes to the project, and an optional comment. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported. | 
+
+### Return type
+
+[**UserTargetingExpirationOnFlagsForUser**](UserTargetingExpirationOnFlagsForUser.md)
 
 ### Authorization
 
