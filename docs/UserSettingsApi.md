@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_expiring_user_targets_for_flags**
-> UserTargetingExpirationOnFlagsForUser patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, patch_comment)
+> UserTargetingExpirationOnFlagsForUser patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, semantic_patch_with_comment)
 
 Update, add, or delete expiring user targets for a single user on all flags
 
@@ -205,11 +205,11 @@ api_instance = launchdarkly_api.UserSettingsApi(launchdarkly_api.ApiClient(confi
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 user_key = 'user_key_example' # str | The user's key.
-patch_comment = launchdarkly_api.PatchComment() # PatchComment | Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported.
+semantic_patch_with_comment = NULL # object | Requires a Semantic Patch representation of the desired changes to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'. The addition of comments is also supported.
 
 try:
     # Update, add, or delete expiring user targets for a single user on all flags
-    api_response = api_instance.patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, patch_comment)
+    api_response = api_instance.patch_expiring_user_targets_for_flags(project_key, environment_key, user_key, semantic_patch_with_comment)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling UserSettingsApi->patch_expiring_user_targets_for_flags: %s\n" % e)
@@ -222,7 +222,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
  **user_key** | **str**| The user&#39;s key. | 
- **patch_comment** | [**PatchComment**](PatchComment.md)| Requires a JSON Patch representation of the desired changes to the project, and an optional comment. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported. | 
+ **semantic_patch_with_comment** | **object**| Requires a Semantic Patch representation of the desired changes to the resource. &#39;https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches&#39;. The addition of comments is also supported. | 
 
 ### Return type
 

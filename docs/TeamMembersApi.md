@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_members**
-> Members get_members(limit=limit, number=number, filter=filter, sort=sort)
+> Members get_members(limit=limit, offset=offset, filter=filter, sort=sort)
 
 Returns a list of all members in the account.
 
@@ -185,13 +185,13 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = launchdarkly_api.TeamMembersApi(launchdarkly_api.ApiClient(configuration))
 limit = 8.14 # float | The number of objects to return. Defaults to -1, which returns everything. (optional)
-number = true # bool | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. (optional)
+offset = 8.14 # float | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. (optional)
 filter = 'filter_example' # str | A comma-separated list of filters. Each filter is of the form field:value. (optional)
 sort = 'sort_example' # str | A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. (optional)
 
 try:
     # Returns a list of all members in the account.
-    api_response = api_instance.get_members(limit=limit, number=number, filter=filter, sort=sort)
+    api_response = api_instance.get_members(limit=limit, offset=offset, filter=filter, sort=sort)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TeamMembersApi->get_members: %s\n" % e)
@@ -202,7 +202,7 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **float**| The number of objects to return. Defaults to -1, which returns everything. | [optional] 
- **number** | **bool**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | [optional] 
+ **offset** | **float**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | [optional] 
  **filter** | **str**| A comma-separated list of filters. Each filter is of the form field:value. | [optional] 
  **sort** | **str**| A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. | [optional] 
 
