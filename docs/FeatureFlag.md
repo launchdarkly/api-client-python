@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **name** | **str** | Name of the feature flag. | [optional] 
 **description** | **str** | Description of the feature flag. | [optional] 
 **kind** | **str** | Whether the feature flag is a boolean flag or multivariate. | [optional] 
-**creation_date** | **float** | A unix epoch time in milliseconds specifying the creation time of this flag. | [optional] 
+**creation_date** | **int** | A unix epoch time in milliseconds specifying the creation time of this flag. | [optional] 
 **include_in_snippet** | **bool** |  | [optional] 
 **temporary** | **bool** | Whether or not this flag is temporary. | [optional] 
 **maintainer_id** | **str** | The ID of the member that should maintain this flag. | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **links** | [**Links**](Links.md) |  | [optional] 
 **maintainer** | [**Member**](Member.md) |  | [optional] 
 **environments** | [**dict(str, FeatureFlagConfig)**](FeatureFlagConfig.md) |  | [optional] 
-**archived_date** | **float** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] 
+**archived_date** | **int** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] 
 **archived** | **bool** | Whether or not this flag is archived. | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 
