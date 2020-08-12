@@ -3,6 +3,7 @@ from __future__ import absolute_import
 # flake8: noqa
 
 # import apis into api package
+from launchdarkly_api.api.access_tokens_api import AccessTokensApi
 from launchdarkly_api.api.audit_log_api import AuditLogApi
 from launchdarkly_api.api.custom_roles_api import CustomRolesApi
 from launchdarkly_api.api.customer_metrics_api import CustomerMetricsApi
