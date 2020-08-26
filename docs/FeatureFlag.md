@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **environments** | [**dict(str, FeatureFlagConfig)**](FeatureFlagConfig.md) |  | [optional] 
 **archived_date** | **int** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] 
 **archived** | **bool** | Whether or not this flag is archived. | [optional] 
+**client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

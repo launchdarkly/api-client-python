@@ -16,12 +16,12 @@ from __future__ import absolute_import
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.models.user_segment_rule import UserSegmentRule  # noqa: E501
+from launchdarkly_api.models.client_side_availability import ClientSideAvailability  # noqa: E501
 from launchdarkly_api.rest import ApiException
 
 
-class TestUserSegmentRule(unittest.TestCase):
-    """UserSegmentRule unit test stubs"""
+class TestClientSideAvailability(unittest.TestCase):
+    """ClientSideAvailability unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,10 +29,10 @@ class TestUserSegmentRule(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testUserSegmentRule(self):
-        """Test UserSegmentRule"""
+    def testClientSideAvailability(self):
+        """Test ClientSideAvailability"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = launchdarkly_api.models.user_segment_rule.UserSegmentRule()  # noqa: E501
+        # model = launchdarkly_api.models.client_side_availability.ClientSideAvailability()  # noqa: E501
         pass
 
 
