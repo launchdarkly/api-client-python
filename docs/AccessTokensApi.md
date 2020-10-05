@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**delete_token**](AccessTokensApi.md#delete_token) | **DELETE** /tokens/{tokenId} | Delete an access token by ID.
 [**get_token**](AccessTokensApi.md#get_token) | **GET** /tokens/{tokenId} | Get a single access token by ID.
 [**get_tokens**](AccessTokensApi.md#get_tokens) | **GET** /tokens | Returns a list of tokens in the account.
-[**patch_token**](AccessTokensApi.md#patch_token) | **PATCH** /tokens/{tokenId} | Modify an access tokenby ID.
+[**patch_token**](AccessTokensApi.md#patch_token) | **PATCH** /tokens/{tokenId} | Modify an access token by ID.
 [**post_token**](AccessTokensApi.md#post_token) | **POST** /tokens | Create a new token.
 [**reset_token**](AccessTokensApi.md#reset_token) | **POST** /tokens/{tokenId}/reset | Reset an access token&#39;s secret key with an optional expiry time for the old key.
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 # **patch_token**
 > Token patch_token(token_id, patch_delta)
 
-Modify an access tokenby ID.
+Modify an access token by ID.
 
 ### Example
 ```python
@@ -192,7 +192,7 @@ token_id = 'token_id_example' # str | The access token ID.
 patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
 
 try:
-    # Modify an access tokenby ID.
+    # Modify an access token by ID.
     api_response = api_instance.patch_token(token_id, patch_delta)
     pprint(api_response)
 except ApiException as e:

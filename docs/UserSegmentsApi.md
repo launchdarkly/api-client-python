@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**patch_expiring_user_targets_on_segment**](UserSegmentsApi.md#patch_expiring_user_targets_on_segment) | **PATCH** /segments/{projectKey}/{userSegmentKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on user segment
 [**patch_user_segment**](UserSegmentsApi.md#patch_user_segment) | **PATCH** /segments/{projectKey}/{environmentKey}/{userSegmentKey} | Perform a partial update to a user segment.
 [**post_user_segment**](UserSegmentsApi.md#post_user_segment) | **POST** /segments/{projectKey}/{environmentKey} | Creates a new user segment.
+[**updated_unbounded_segment_targets**](UserSegmentsApi.md#updated_unbounded_segment_targets) | **POST** /segments/{projectKey}/{environmentKey}/{userSegmentKey}/unbounded-users | Update targets included or excluded in an unbounded segment
 
 
 # **delete_user_segment**
@@ -396,6 +397,63 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserSegment**](UserSegment.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updated_unbounded_segment_targets**
+> updated_unbounded_segment_targets(project_key, environment_key, user_segment_key, unbounded_segment_targets_body)
+
+Update targets included or excluded in an unbounded segment
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.UserSegmentsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+user_segment_key = 'user_segment_key_example' # str | The user segment's key. The key identifies the user segment in your code.
+unbounded_segment_targets_body = launchdarkly_api.UnboundedSegmentTargetsBody() # UnboundedSegmentTargetsBody | Add or remove user targets to the included or excluded lists on an unbounded segment
+
+try:
+    # Update targets included or excluded in an unbounded segment
+    api_instance.updated_unbounded_segment_targets(project_key, environment_key, user_segment_key, unbounded_segment_targets_body)
+except ApiException as e:
+    print("Exception when calling UserSegmentsApi->updated_unbounded_segment_targets: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **user_segment_key** | **str**| The user segment&#39;s key. The key identifies the user segment in your code. | 
+ **unbounded_segment_targets_body** | [**UnboundedSegmentTargetsBody**](UnboundedSegmentTargetsBody.md)| Add or remove user targets to the included or excluded lists on an unbounded segment | 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
