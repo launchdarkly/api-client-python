@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
 [**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID.
 [**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
+[**reset_environment_mobile_key**](EnvironmentsApi.md#reset_environment_mobile_key) | **POST** /projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset an environment&#39;s mobile key with an optional expiry time for the old key.
+[**reset_environment_sdk_key**](EnvironmentsApi.md#reset_environment_sdk_key) | **POST** /projects/{projectKey}/environments/{environmentKey}/apiKey | Reset an environment&#39;s SDK key with an optional expiry time for the old key.
 
 
 # **delete_environment**
@@ -211,6 +213,118 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environment_body** | [**EnvironmentPost**](EnvironmentPost.md)| New environment. | 
+
+### Return type
+
+[**Environment**](Environment.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **reset_environment_mobile_key**
+> Environment reset_environment_mobile_key(project_key, environment_key, expiry=expiry)
+
+Reset an environment's mobile key with an optional expiry time for the old key.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+expiry = 789 # int | An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately (optional)
+
+try:
+    # Reset an environment's mobile key with an optional expiry time for the old key.
+    api_response = api_instance.reset_environment_mobile_key(project_key, environment_key, expiry=expiry)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling EnvironmentsApi->reset_environment_mobile_key: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **expiry** | **int**| An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately | [optional] 
+
+### Return type
+
+[**Environment**](Environment.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **reset_environment_sdk_key**
+> Environment reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
+
+Reset an environment's SDK key with an optional expiry time for the old key.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+expiry = 789 # int | An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately (optional)
+
+try:
+    # Reset an environment's SDK key with an optional expiry time for the old key.
+    api_response = api_instance.reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **expiry** | **int**| An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately | [optional] 
 
 ### Return type
 
