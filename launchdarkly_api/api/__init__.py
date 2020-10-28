@@ -10,6 +10,7 @@ from launchdarkly_api.api.customer_metrics_api import CustomerMetricsApi
 from launchdarkly_api.api.data_export_destinations_api import DataExportDestinationsApi
 from launchdarkly_api.api.environments_api import EnvironmentsApi
 from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
+from launchdarkly_api.api.integrations_api import IntegrationsApi
 from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
 from launchdarkly_api.api.root_api import RootApi
