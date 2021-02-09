@@ -5,22 +5,28 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**copy_feature_flag**](FeatureFlagsApi.md#copy_feature_flag) | **POST** /flags/{projectKey}/{featureFlagKey}/copy | Copies the feature flag configuration from one environment to the same feature flag in another environment.
+[**delete_approval_request**](FeatureFlagsApi.md#delete_approval_request) | **DELETE** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Delete an approval request for a feature flag config
 [**delete_feature_flag**](FeatureFlagsApi.md#delete_feature_flag) | **DELETE** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
-[**delete_feature_flag_approval_request**](FeatureFlagsApi.md#delete_feature_flag_approval_request) | **DELETE** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Delete an approval request for a feature flag
+[**delete_flag_config_scheduled_changes**](FeatureFlagsApi.md#delete_flag_config_scheduled_changes) | **DELETE** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Delete a scheduled change on a feature flag in an environment.
+[**get_approval_request**](FeatureFlagsApi.md#get_approval_request) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Get a single approval request for a feature flag config
+[**get_approval_requests**](FeatureFlagsApi.md#get_approval_requests) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests for a feature flag config
 [**get_expiring_user_targets**](FeatureFlagsApi.md#get_expiring_user_targets) | **GET** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for feature flag
 [**get_feature_flag**](FeatureFlagsApi.md#get_feature_flag) | **GET** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
-[**get_feature_flag_approval_request**](FeatureFlagsApi.md#get_feature_flag_approval_request) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Get a single approval request for a feature flag
-[**get_feature_flag_approval_requests**](FeatureFlagsApi.md#get_feature_flag_approval_requests) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests for a feature flag
 [**get_feature_flag_status**](FeatureFlagsApi.md#get_feature_flag_status) | **GET** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get the status for a particular feature flag.
 [**get_feature_flag_status_across_environments**](FeatureFlagsApi.md#get_feature_flag_status_across_environments) | **GET** /flag-status/{projectKey}/{featureFlagKey} | Get the status for a particular feature flag across environments
 [**get_feature_flag_statuses**](FeatureFlagsApi.md#get_feature_flag_statuses) | **GET** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.
 [**get_feature_flags**](FeatureFlagsApi.md#get_feature_flags) | **GET** /flags/{projectKey} | Get a list of all features in the given project.
+[**get_flag_config_scheduled_change**](FeatureFlagsApi.md#get_flag_config_scheduled_change) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Get a scheduled change on a feature flag by id.
+[**get_flag_config_scheduled_changes**](FeatureFlagsApi.md#get_flag_config_scheduled_changes) | **GET** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Get all scheduled workflows for a feature flag by key.
+[**get_flag_config_scheduled_changes_conflicts**](FeatureFlagsApi.md#get_flag_config_scheduled_changes_conflicts) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts | Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.
 [**patch_expiring_user_targets**](FeatureFlagsApi.md#patch_expiring_user_targets) | **PATCH** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on feature flag
 [**patch_feature_flag**](FeatureFlagsApi.md#patch_feature_flag) | **PATCH** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
-[**post_apply_feature_flag_approval_request**](FeatureFlagsApi.md#post_apply_feature_flag_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/apply | Apply approval request for a feature flag
+[**patch_flag_config_scheduled_change**](FeatureFlagsApi.md#patch_flag_config_scheduled_change) | **PATCH** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Updates an existing scheduled-change on a feature flag in an environment.
+[**post_apply_approval_request**](FeatureFlagsApi.md#post_apply_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/apply | Apply approval request for a feature flag config
+[**post_approval_request**](FeatureFlagsApi.md#post_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Create an approval request for a feature flag config
 [**post_feature_flag**](FeatureFlagsApi.md#post_feature_flag) | **POST** /flags/{projectKey} | Creates a new feature flag.
-[**post_feature_flag_approval_request**](FeatureFlagsApi.md#post_feature_flag_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Create an approval request for a feature flag
-[**post_review_feature_flag_approval_request**](FeatureFlagsApi.md#post_review_feature_flag_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/review | Review approval request for a feature flag
+[**post_flag_config_scheduled_changes**](FeatureFlagsApi.md#post_flag_config_scheduled_changes) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Creates a new scheduled change for a feature flag.
+[**post_review_approval_request**](FeatureFlagsApi.md#post_review_approval_request) | **POST** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/review | Review approval request for a feature flag config
 
 
 # **copy_feature_flag**
@@ -67,6 +73,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_approval_request**
+> delete_approval_request(project_key, environment_key, feature_flag_key, approval_request_id, approval_request_config_body=approval_request_config_body)
+
+Delete an approval request for a feature flag config
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+approval_request_id = 'approval_request_id_example' # str | The approval request ID
+approval_request_config_body = launchdarkly_api.ApprovalRequestConfigBody() # ApprovalRequestConfigBody | Create a new approval request (optional)
+
+try:
+    # Delete an approval request for a feature flag config
+    api_instance.delete_approval_request(project_key, environment_key, feature_flag_key, approval_request_id, approval_request_config_body=approval_request_config_body)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->delete_approval_request: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **approval_request_id** | **str**| The approval request ID | 
+ **approval_request_config_body** | [**ApprovalRequestConfigBody**](ApprovalRequestConfigBody.md)| Create a new approval request | [optional] 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
@@ -132,10 +197,10 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **delete_feature_flag_approval_request**
-> delete_feature_flag_approval_request(project_key, environment_key, feature_flag_key, feature_flag_approval_request_id, feature_flag_approval_request_config_body=feature_flag_approval_request_config_body)
+# **delete_flag_config_scheduled_changes**
+> delete_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key, scheduled_change_id)
 
-Delete an approval request for a feature flag
+Delete a scheduled change on a feature flag in an environment.
 
 ### Example
 ```python
@@ -154,16 +219,15 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
-feature_flag_approval_request_id = 'feature_flag_approval_request_id_example' # str | The feature flag approval request ID
-feature_flag_approval_request_config_body = launchdarkly_api.FeatureFlagApprovalRequestConfigBody() # FeatureFlagApprovalRequestConfigBody | Create a new feature flag approval request (optional)
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+scheduled_change_id = 'scheduled_change_id_example' # str | The id of the scheduled change
 
 try:
-    # Delete an approval request for a feature flag
-    api_instance.delete_feature_flag_approval_request(project_key, environment_key, feature_flag_key, feature_flag_approval_request_id, feature_flag_approval_request_config_body=feature_flag_approval_request_config_body)
+    # Delete a scheduled change on a feature flag in an environment.
+    api_instance.delete_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key, scheduled_change_id)
 except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->delete_feature_flag_approval_request: %s\n" % e)
+    print("Exception when calling FeatureFlagsApi->delete_flag_config_scheduled_changes: %s\n" % e)
 ```
 
 ### Parameters
@@ -171,14 +235,127 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
  **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
- **feature_flag_approval_request_id** | **str**| The feature flag approval request ID | 
- **feature_flag_approval_request_config_body** | [**FeatureFlagApprovalRequestConfigBody**](FeatureFlagApprovalRequestConfigBody.md)| Create a new feature flag approval request | [optional] 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **scheduled_change_id** | **str**| The id of the scheduled change | 
 
 ### Return type
 
 void (empty response body)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_approval_request**
+> ApprovalRequests get_approval_request(project_key, feature_flag_key, environment_key, approval_request_id)
+
+Get a single approval request for a feature flag config
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+approval_request_id = 'approval_request_id_example' # str | The approval request ID
+
+try:
+    # Get a single approval request for a feature flag config
+    api_response = api_instance.get_approval_request(project_key, feature_flag_key, environment_key, approval_request_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->get_approval_request: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **approval_request_id** | **str**| The approval request ID | 
+
+### Return type
+
+[**ApprovalRequests**](ApprovalRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_approval_requests**
+> ApprovalRequests get_approval_requests(project_key, feature_flag_key, environment_key)
+
+Get all approval requests for a feature flag config
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+
+try:
+    # Get all approval requests for a feature flag config
+    api_response = api_instance.get_approval_requests(project_key, feature_flag_key, environment_key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->get_approval_requests: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+
+### Return type
+
+[**ApprovalRequests**](ApprovalRequests.md)
 
 ### Authorization
 
@@ -291,120 +468,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_feature_flag_approval_request**
-> FeatureFlagApprovalRequests get_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id)
-
-Get a single approval request for a feature flag
-
-### Example
-```python
-from __future__ import print_function
-import time
-import launchdarkly_api
-from launchdarkly_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-feature_flag_approval_request_id = 'feature_flag_approval_request_id_example' # str | The feature flag approval request ID
-
-try:
-    # Get a single approval request for a feature flag
-    api_response = api_instance.get_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->get_feature_flag_approval_request: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **feature_flag_approval_request_id** | **str**| The feature flag approval request ID | 
-
-### Return type
-
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_feature_flag_approval_requests**
-> FeatureFlagApprovalRequests get_feature_flag_approval_requests(project_key, feature_flag_key, environment_key)
-
-Get all approval requests for a feature flag
-
-### Example
-```python
-from __future__ import print_function
-import time
-import launchdarkly_api
-from launchdarkly_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-
-try:
-    # Get all approval requests for a feature flag
-    api_response = api_instance.get_feature_flag_approval_requests(project_key, feature_flag_key, environment_key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->get_feature_flag_approval_requests: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-
-### Return type
-
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
 
 ### Authorization
 
@@ -649,6 +712,178 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_flag_config_scheduled_change**
+> FeatureFlagScheduledChange get_flag_config_scheduled_change(project_key, feature_flag_key, environment_key, scheduled_change_id)
+
+Get a scheduled change on a feature flag by id.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+scheduled_change_id = 'scheduled_change_id_example' # str | The id of the scheduled change
+
+try:
+    # Get a scheduled change on a feature flag by id.
+    api_response = api_instance.get_flag_config_scheduled_change(project_key, feature_flag_key, environment_key, scheduled_change_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->get_flag_config_scheduled_change: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **scheduled_change_id** | **str**| The id of the scheduled change | 
+
+### Return type
+
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_flag_config_scheduled_changes**
+> FeatureFlagScheduledChanges get_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key)
+
+Get all scheduled workflows for a feature flag by key.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+
+try:
+    # Get all scheduled workflows for a feature flag by key.
+    api_response = api_instance.get_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->get_flag_config_scheduled_changes: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+
+### Return type
+
+[**FeatureFlagScheduledChanges**](FeatureFlagScheduledChanges.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_flag_config_scheduled_changes_conflicts**
+> FeatureFlagScheduledChangesConflicts get_flag_config_scheduled_changes_conflicts(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body)
+
+Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+flag_config_scheduled_changes_conflicts_body = launchdarkly_api.FlagConfigScheduledChangesConflictsBody() # FlagConfigScheduledChangesConflictsBody | Used to determine if a semantic patch will result in conflicts with scheduled changes on a feature flag.
+
+try:
+    # Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.
+    api_response = api_instance.get_flag_config_scheduled_changes_conflicts(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->get_flag_config_scheduled_changes_conflicts: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **flag_config_scheduled_changes_conflicts_body** | [**FlagConfigScheduledChangesConflictsBody**](FlagConfigScheduledChangesConflictsBody.md)| Used to determine if a semantic patch will result in conflicts with scheduled changes on a feature flag. | 
+
+### Return type
+
+[**FeatureFlagScheduledChangesConflicts**](FeatureFlagScheduledChangesConflicts.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **patch_expiring_user_targets**
 > UserTargetingExpirationForFlags patch_expiring_user_targets(project_key, environment_key, feature_flag_key, semantic_patch_with_comment)
 
@@ -763,10 +998,70 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_apply_feature_flag_approval_request**
-> FeatureFlagApprovalRequests post_apply_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_apply_config_body)
+# **patch_flag_config_scheduled_change**
+> FeatureFlagScheduledChange patch_flag_config_scheduled_change(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id)
 
-Apply approval request for a feature flag
+Updates an existing scheduled-change on a feature flag in an environment.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+flag_config_scheduled_changes_patch_body = launchdarkly_api.FlagConfigScheduledChangesPatchBody() # FlagConfigScheduledChangesPatchBody | Update scheduled changes on a feature flag.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+scheduled_change_id = 'scheduled_change_id_example' # str | The id of the scheduled change
+
+try:
+    # Updates an existing scheduled-change on a feature flag in an environment.
+    api_response = api_instance.patch_flag_config_scheduled_change(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->patch_flag_config_scheduled_change: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **flag_config_scheduled_changes_patch_body** | [**FlagConfigScheduledChangesPatchBody**](FlagConfigScheduledChangesPatchBody.md)| Update scheduled changes on a feature flag. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **scheduled_change_id** | **str**| The id of the scheduled change | 
+
+### Return type
+
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_apply_approval_request**
+> ApprovalRequests post_apply_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body)
+
+Apply approval request for a feature flag config
 
 ### Example
 ```python
@@ -787,15 +1082,15 @@ api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(confi
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-feature_flag_approval_request_id = 'feature_flag_approval_request_id_example' # str | The feature flag approval request ID
-feature_flag_approval_request_apply_config_body = launchdarkly_api.FeatureFlagApprovalRequestApplyConfigBody() # FeatureFlagApprovalRequestApplyConfigBody | Apply a new feature flag approval request
+approval_request_id = 'approval_request_id_example' # str | The approval request ID
+approval_request_apply_config_body = launchdarkly_api.ApprovalRequestApplyConfigBody() # ApprovalRequestApplyConfigBody | Apply an approval request
 
 try:
-    # Apply approval request for a feature flag
-    api_response = api_instance.post_apply_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_apply_config_body)
+    # Apply approval request for a feature flag config
+    api_response = api_instance.post_apply_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->post_apply_feature_flag_approval_request: %s\n" % e)
+    print("Exception when calling FeatureFlagsApi->post_apply_approval_request: %s\n" % e)
 ```
 
 ### Parameters
@@ -805,12 +1100,72 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **feature_flag_approval_request_id** | **str**| The feature flag approval request ID | 
- **feature_flag_approval_request_apply_config_body** | [**FeatureFlagApprovalRequestApplyConfigBody**](FeatureFlagApprovalRequestApplyConfigBody.md)| Apply a new feature flag approval request | 
+ **approval_request_id** | **str**| The approval request ID | 
+ **approval_request_apply_config_body** | [**ApprovalRequestApplyConfigBody**](ApprovalRequestApplyConfigBody.md)| Apply an approval request | 
 
 ### Return type
 
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
+[**ApprovalRequests**](ApprovalRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_approval_request**
+> ApprovalRequest post_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_config_body=approval_request_config_body)
+
+Create an approval request for a feature flag config
+
+### Example
+```python
+from __future__ import print_function
+import time
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Token
+configuration = launchdarkly_api.Configuration()
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
+project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
+environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+approval_request_id = 'approval_request_id_example' # str | The approval request ID
+approval_request_config_body = launchdarkly_api.ApprovalRequestConfigBody() # ApprovalRequestConfigBody | Create a new approval request (optional)
+
+try:
+    # Create an approval request for a feature flag config
+    api_response = api_instance.post_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_config_body=approval_request_config_body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling FeatureFlagsApi->post_approval_request: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+ **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **approval_request_id** | **str**| The approval request ID | 
+ **approval_request_config_body** | [**ApprovalRequestConfigBody**](ApprovalRequestConfigBody.md)| Create a new approval request | [optional] 
+
+### Return type
+
+[**ApprovalRequest**](ApprovalRequest.md)
 
 ### Authorization
 
@@ -879,10 +1234,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_feature_flag_approval_request**
-> FeatureFlagApprovalRequest post_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_config_body=feature_flag_approval_request_config_body)
+# **post_flag_config_scheduled_changes**
+> FeatureFlagScheduledChange post_flag_config_scheduled_changes(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key)
 
-Create an approval request for a feature flag
+Creates a new scheduled change for a feature flag.
 
 ### Example
 ```python
@@ -901,17 +1256,16 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(configuration))
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+flag_config_scheduled_changes_post_body = launchdarkly_api.FlagConfigScheduledChangesPostBody() # FlagConfigScheduledChangesPostBody | Create scheduled changes on a feature flag.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-feature_flag_approval_request_id = 'feature_flag_approval_request_id_example' # str | The feature flag approval request ID
-feature_flag_approval_request_config_body = launchdarkly_api.FeatureFlagApprovalRequestConfigBody() # FeatureFlagApprovalRequestConfigBody | Create a new feature flag approval request (optional)
 
 try:
-    # Create an approval request for a feature flag
-    api_response = api_instance.post_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_config_body=feature_flag_approval_request_config_body)
+    # Creates a new scheduled change for a feature flag.
+    api_response = api_instance.post_flag_config_scheduled_changes(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->post_feature_flag_approval_request: %s\n" % e)
+    print("Exception when calling FeatureFlagsApi->post_flag_config_scheduled_changes: %s\n" % e)
 ```
 
 ### Parameters
@@ -919,14 +1273,13 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **flag_config_scheduled_changes_post_body** | [**FlagConfigScheduledChangesPostBody**](FlagConfigScheduledChangesPostBody.md)| Create scheduled changes on a feature flag. | 
  **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **feature_flag_approval_request_id** | **str**| The feature flag approval request ID | 
- **feature_flag_approval_request_config_body** | [**FeatureFlagApprovalRequestConfigBody**](FeatureFlagApprovalRequestConfigBody.md)| Create a new feature flag approval request | [optional] 
 
 ### Return type
 
-[**FeatureFlagApprovalRequest**](FeatureFlagApprovalRequest.md)
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
 
 ### Authorization
 
@@ -939,10 +1292,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_review_feature_flag_approval_request**
-> FeatureFlagApprovalRequests post_review_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_review_config_body)
+# **post_review_approval_request**
+> ApprovalRequests post_review_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body)
 
-Review approval request for a feature flag
+Review approval request for a feature flag config
 
 ### Example
 ```python
@@ -963,15 +1316,15 @@ api_instance = launchdarkly_api.FeatureFlagsApi(launchdarkly_api.ApiClient(confi
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 feature_flag_key = 'feature_flag_key_example' # str | The feature flag's key. The key identifies the flag in your code.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-feature_flag_approval_request_id = 'feature_flag_approval_request_id_example' # str | The feature flag approval request ID
-feature_flag_approval_request_review_config_body = launchdarkly_api.FeatureFlagApprovalRequestReviewConfigBody() # FeatureFlagApprovalRequestReviewConfigBody | Review a feature flag approval request
+approval_request_id = 'approval_request_id_example' # str | The approval request ID
+approval_request_review_config_body = launchdarkly_api.ApprovalRequestReviewConfigBody() # ApprovalRequestReviewConfigBody | Review an approval request
 
 try:
-    # Review approval request for a feature flag
-    api_response = api_instance.post_review_feature_flag_approval_request(project_key, feature_flag_key, environment_key, feature_flag_approval_request_id, feature_flag_approval_request_review_config_body)
+    # Review approval request for a feature flag config
+    api_response = api_instance.post_review_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling FeatureFlagsApi->post_review_feature_flag_approval_request: %s\n" % e)
+    print("Exception when calling FeatureFlagsApi->post_review_approval_request: %s\n" % e)
 ```
 
 ### Parameters
@@ -981,12 +1334,12 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **feature_flag_key** | **str**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **feature_flag_approval_request_id** | **str**| The feature flag approval request ID | 
- **feature_flag_approval_request_review_config_body** | [**FeatureFlagApprovalRequestReviewConfigBody**](FeatureFlagApprovalRequestReviewConfigBody.md)| Review a feature flag approval request | 
+ **approval_request_id** | **str**| The approval request ID | 
+ **approval_request_review_config_body** | [**ApprovalRequestReviewConfigBody**](ApprovalRequestReviewConfigBody.md)| Review an approval request | 
 
 ### Return type
 
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
+[**ApprovalRequests**](ApprovalRequests.md)
 
 ### Authorization
 

@@ -15,6 +15,7 @@ from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
 from launchdarkly_api.api.root_api import RootApi
 from launchdarkly_api.api.team_members_api import TeamMembersApi
+from launchdarkly_api.api.user_record_api import UserRecordApi
 from launchdarkly_api.api.user_segments_api import UserSegmentsApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
