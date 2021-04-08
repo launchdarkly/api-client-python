@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**patch_expiring_user_targets_on_segment**](UserSegmentsApi.md#patch_expiring_user_targets_on_segment) | **PATCH** /segments/{projectKey}/{userSegmentKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on user segment
 [**patch_user_segment**](UserSegmentsApi.md#patch_user_segment) | **PATCH** /segments/{projectKey}/{environmentKey}/{userSegmentKey} | Perform a partial update to a user segment.
 [**post_user_segment**](UserSegmentsApi.md#post_user_segment) | **POST** /segments/{projectKey}/{environmentKey} | Creates a new user segment.
-[**updated_unbounded_segment_targets**](UserSegmentsApi.md#updated_unbounded_segment_targets) | **POST** /segments/{projectKey}/{environmentKey}/{userSegmentKey}/unbounded-users | Update targets included or excluded in an unbounded segment
+[**updated_big_segment_targets**](UserSegmentsApi.md#updated_big_segment_targets) | **POST** /segments/{projectKey}/{environmentKey}/{userSegmentKey}/users | Update targets included or excluded in a big segment
 
 
 # **delete_user_segment**
@@ -409,10 +409,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updated_unbounded_segment_targets**
-> updated_unbounded_segment_targets(project_key, environment_key, user_segment_key, unbounded_segment_targets_body)
+# **updated_big_segment_targets**
+> updated_big_segment_targets(project_key, environment_key, user_segment_key, big_segment_targets_body)
 
-Update targets included or excluded in an unbounded segment
+Update targets included or excluded in a big segment
 
 ### Example
 ```python
@@ -433,13 +433,13 @@ api_instance = launchdarkly_api.UserSegmentsApi(launchdarkly_api.ApiClient(confi
 project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
 environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
 user_segment_key = 'user_segment_key_example' # str | The user segment's key. The key identifies the user segment in your code.
-unbounded_segment_targets_body = launchdarkly_api.UnboundedSegmentTargetsBody() # UnboundedSegmentTargetsBody | Add or remove user targets to the included or excluded lists on an unbounded segment
+big_segment_targets_body = launchdarkly_api.BigSegmentTargetsBody() # BigSegmentTargetsBody | Add or remove user targets to the included or excluded lists on a big segment. Contact your account manager for early access to this feature.
 
 try:
-    # Update targets included or excluded in an unbounded segment
-    api_instance.updated_unbounded_segment_targets(project_key, environment_key, user_segment_key, unbounded_segment_targets_body)
+    # Update targets included or excluded in a big segment
+    api_instance.updated_big_segment_targets(project_key, environment_key, user_segment_key, big_segment_targets_body)
 except ApiException as e:
-    print("Exception when calling UserSegmentsApi->updated_unbounded_segment_targets: %s\n" % e)
+    print("Exception when calling UserSegmentsApi->updated_big_segment_targets: %s\n" % e)
 ```
 
 ### Parameters
@@ -449,7 +449,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
  **user_segment_key** | **str**| The user segment&#39;s key. The key identifies the user segment in your code. | 
- **unbounded_segment_targets_body** | [**UnboundedSegmentTargetsBody**](UnboundedSegmentTargetsBody.md)| Add or remove user targets to the included or excluded lists on an unbounded segment | 
+ **big_segment_targets_body** | [**BigSegmentTargetsBody**](BigSegmentTargetsBody.md)| Add or remove user targets to the included or excluded lists on a big segment. Contact your account manager for early access to this feature. | 
 
 ### Return type
 

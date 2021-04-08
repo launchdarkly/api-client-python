@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**Links**](Links.md) |  | [optional] 
+**links** | [**FeatureFlagStatusLinks**](FeatureFlagStatusLinks.md) |  | [optional] 
 **key** | **str** |  | [optional] 
 **environments** | [**dict(str, FeatureFlagStatusForQueriedEnvironment)**](FeatureFlagStatusForQueriedEnvironment.md) |  | [optional] 
 
