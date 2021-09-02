@@ -1,13 +1,15 @@
 # Statement
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resources** | **list[str]** |  | [optional] 
-**not_resources** | **list[str]** | Targeted resource will be those resources NOT in this list. The \&quot;resources&#x60;\&quot; field must be empty to use this field. | [optional] 
-**actions** | **list[str]** |  | [optional] 
-**not_actions** | **list[str]** | Targeted actions will be those actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
-**effect** | **str** |  | [optional] 
+**effect** | **str** |  | 
+**resources** | **[dict]** |  | [optional] 
+**not_resources** | **[dict]** |  | [optional] 
+**actions** | **[str]** |  | [optional] 
+**not_actions** | **[str]** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

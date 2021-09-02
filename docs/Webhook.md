@@ -1,16 +1,19 @@
 # Webhook
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**Links**](Links.md) |  | [optional] 
-**id** | [**Id**](Id.md) |  | [optional] 
-**url** | **str** | The URL of the remote webhook. | [optional] 
-**secret** | **str** | If defined, the webhooks post request will include a X-LD-Signature header whose value will contain an HMAC SHA256 hex digest of the webhook payload, using the secret as the key. | [optional] 
-**on** | **bool** | Whether this webhook is enabled or not. | [optional] 
-**name** | **str** | The name of the webhook. | [optional] 
-**statements** | [**list[Statement]**](Statement.md) |  | [optional] 
-**tags** | **list[str]** | Tags assigned to this webhook. | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) |  | 
+**id** | **str** |  | 
+**url** | **str** |  | 
+**on** | **bool** |  | 
+**tags** | **[str]** |  | 
+**name** | **str** |  | [optional] 
+**secret** | **str** |  | [optional] 
+**statements** | [**[StatementRep]**](StatementRep.md) |  | [optional] 
+**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

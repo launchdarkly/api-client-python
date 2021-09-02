@@ -1,51 +1,69 @@
 # launchdarkly_api.ProjectsApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_project**](ProjectsApi.md#delete_project) | **DELETE** /projects/{projectKey} | Delete a project by key. Caution-- deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
-[**get_project**](ProjectsApi.md#get_project) | **GET** /projects/{projectKey} | Fetch a single project by key.
-[**get_projects**](ProjectsApi.md#get_projects) | **GET** /projects | Returns a list of all projects in the account.
-[**patch_project**](ProjectsApi.md#patch_project) | **PATCH** /projects/{projectKey} | Modify a project by ID.
-[**post_project**](ProjectsApi.md#post_project) | **POST** /projects | Create a new project with the given key and name.
+[**delete_project**](ProjectsApi.md#delete_project) | **DELETE** /api/v2/projects/{projectKey} | Delete project
+[**get_project**](ProjectsApi.md#get_project) | **GET** /api/v2/projects/{projectKey} | Get project
+[**get_projects**](ProjectsApi.md#get_projects) | **GET** /api/v2/projects | List projects
+[**patch_project**](ProjectsApi.md#patch_project) | **PATCH** /api/v2/projects/{projectKey} | Update project
+[**post_project**](ProjectsApi.md#post_project) | **POST** /api/v2/projects | Create project
 
 
 # **delete_project**
 > delete_project(project_key)
 
-Delete a project by key. Caution-- deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
+Delete project
+
+Delete a project by key. Caution: deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import projects_api
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.ProjectsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
 
-try:
-    # Delete a project by key. Caution-- deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
-    api_instance.delete_project(project_key)
-except ApiException as e:
-    print("Exception when calling ProjectsApi->delete_project: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete project
+        api_instance.delete_project(project_key)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ProjectsApi->delete_project: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **project_key** | **str**| The project key |
 
 ### Return type
 
@@ -53,51 +71,82 @@ void (empty response body)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Action completed successfully |  -  |
+**400** | Cannot delete last project in an account |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Unknown project key |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_project**
 > Project get_project(project_key)
 
-Fetch a single project by key.
+Get project
+
+Get a single project by key.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import projects_api
+from launchdarkly_api.model.project import Project
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.ProjectsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
 
-try:
-    # Fetch a single project by key.
-    api_response = api_instance.get_project(project_key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProjectsApi->get_project: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get project
+        api_response = api_instance.get_project(project_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ProjectsApi->get_project: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **project_key** | **str**| The project key |
 
 ### Return type
 
@@ -105,44 +154,74 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Project response JSON |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Unknown project key |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_projects**
 > Projects get_projects()
 
-Returns a list of all projects in the account.
+List projects
+
+Get a list of all projects in the account.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import projects_api
+from launchdarkly_api.model.projects import Projects
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.ProjectsApi(launchdarkly_api.ApiClient(configuration))
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
 
-try:
-    # Returns a list of all projects in the account.
-    api_response = api_instance.get_projects()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProjectsApi->get_projects: %s\n" % e)
+    # example, this endpoint has no required or optional parameters
+    try:
+        # List projects
+        api_response = api_instance.get_projects()
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ProjectsApi->get_projects: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -153,53 +232,89 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Project collection response JSON |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_project**
-> Project patch_project(project_key, patch_delta)
+> Project patch_project(project_key, json_patch)
 
-Modify a project by ID.
+Update project
+
+Update a project. Requires a [JSON Patch](http://tools.ietf.org/html/rfc6902) representation of the desired changes to the project.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import projects_api
+from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.project import Project
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.ProjectsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    json_patch = JSONPatch([
+        PatchOperation(
+            op="replace",
+            path="/biscuits",
+            value=None,
+        ),
+    ]) # JSONPatch | 
 
-try:
-    # Modify a project by ID.
-    api_response = api_instance.patch_project(project_key, patch_delta)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProjectsApi->patch_project: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Update project
+        api_response = api_instance.patch_project(project_key, json_patch)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ProjectsApi->patch_project: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **patch_delta** | [**list[PatchOperation]**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
+ **project_key** | **str**| The project key |
+ **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
 
 ### Return type
 
@@ -207,51 +322,96 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Project response JSON |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Unknown project key |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_project**
-> Project post_project(project_body)
+> Project post_project(project_post)
 
-Create a new project with the given key and name.
+Create project
+
+Create a new project with the given key and name. Project keys must be unique within an account.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import projects_api
+from launchdarkly_api.model.project_post import ProjectPost
+from launchdarkly_api.model.project import Project
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.ProjectsApi(launchdarkly_api.ApiClient(configuration))
-project_body = launchdarkly_api.ProjectBody() # ProjectBody | Project keys must be unique within an account.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = projects_api.ProjectsApi(api_client)
+    project_post = ProjectPost(
+        name="My Project",
+        key="my-project",
+        include_in_snippet_by_default=True,
+        default_client_side_availability=DefaultClientSideAvailabilityPost(
+            using_environment_id=True,
+            using_mobile_key=True,
+        ),
+        tags=["ops"],
+        environments=[
+            {},
+        ],
+    ) # ProjectPost | 
 
-try:
-    # Create a new project with the given key and name.
-    api_response = api_instance.post_project(project_body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling ProjectsApi->post_project: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Create project
+        api_response = api_instance.post_project(project_post)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ProjectsApi->post_project: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_body** | [**ProjectBody**](ProjectBody.md)| Project keys must be unique within an account. | 
+ **project_post** | [**ProjectPost**](ProjectPost.md)|  |
 
 ### Return type
 
@@ -259,12 +419,24 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful project response |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

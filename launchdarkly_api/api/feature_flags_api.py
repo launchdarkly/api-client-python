@@ -1,31 +1,44 @@
-# coding: utf-8
-
 """
     LaunchDarkly REST API
 
-    Build custom integrations with the LaunchDarkly REST API  # noqa: E501
+    # Authentication  All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export | | SDK keys                                                                                        | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API                     | | Mobile keys                                                                                     | Can only access read-only mobile SDK-specific resources, restricted to a single environment           | Mobile SDKs                                        | | Client-side ID                                                                                  | Single environment, only flags marked available to client-side                                        | Client-side JavaScript                             |  > ### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ## Via request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [Account Settings](https://app.launchdarkly.com/settings/tokens) page.  ## Via session cookie  For testing purposes, you can make API calls directly from your web browser. If you're logged in to the application, the API will use your existing session to authenticate calls.  If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  # Representations  All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API.  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ## Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a _detailed representation_ containing all of the attributes of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ## Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object. - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.  Each link has two attributes: an href (the URL) and a type (the content type). For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  # Updates  Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  ## Updates via JSON Patch  [JSON Patch](http://tools.ietf.org/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ```  You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  JSON Patch documents are always arrays. You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that aren't editable, like a resource's `_links`, have names that start with an underscore.  ## Updates via JSON Merge Patch  The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.  JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ## Updates with comments  You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.  To submit a comment along with a JSON Patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON Merge Patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  ## Updates via semantic patches  The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.  JSON Patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, semantic patch instructions can also be defined independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  For example, in this feature flag configuration in environment Production:  ```json {     \"name\": \"Alternate sort order\",     \"kind\": \"boolean\",     \"key\": \"sort.order\",    ...     \"environments\": {         \"production\": {             \"on\": true,             \"archived\": false,             \"salt\": \"c29ydC5vcmRlcg==\",             \"sel\": \"8de1085cb7354b0ab41c0e778376dfd3\",             \"lastModified\": 1469131558260,             \"version\": 81,             \"targets\": [                 {                     \"values\": [                         \"Gerhard.Little@yahoo.com\"                     ],                     \"variation\": 0                 },                 {                     \"values\": [                         \"1461797806429-33-861961230\",                         \"438580d8-02ee-418d-9eec-0085cab2bdf0\"                     ],                     \"variation\": 1                 }             ],             \"rules\": [],             \"fallthrough\": {                 \"variation\": 0             },             \"offVariation\": 1,             \"prerequisites\": [],             \"_site\": {                 \"href\": \"/default/production/features/sort.order\",                 \"type\": \"text/html\"             }        }     } } ```  You can add a date you want a user to be removed from the feature flag's user targets. For example, “remove user 1461797806429-33-861961230 from the user target for variation 0 on the Alternate sort order flag in the production environment on Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:  ```json {   \"comment\": \"update expiring user targets\",   \"instructions\": [     {       \"kind\": \"removeExpireUserTargetDate\",       \"userKey\": \"userKey\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"     },     {       \"kind\": \"updateExpireUserTargetDate\",       \"userKey\": \"userKey2\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",       \"value\": 1587582000000     },     {       \"kind\": \"addExpireUserTargetDate\",       \"userKey\": \"userKey3\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",       \"value\": 1594247266386     }   ] } ```  Here is another example. In this feature flag configuration:  ```json {   \"name\": \"New recommendations engine\",   \"key\": \"engine.enable\",   \"environments\": {     \"test\": {       \"on\": true     }   } } ```  You can change the feature flag's description with the following patch document as a set of executable instructions. For example, “add user X to targets for variation Y and remove user A from targets for variation B for test flag”:  ```json {   \"comment\": \"\",   \"instructions\": [     {       \"kind\": \"removeUserTargets\",       \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],       \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"     },     {       \"kind\": \"addUserTargets\",       \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],       \"variationId\": \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"     }   ] } ```  > ### Supported semantic patch API endpoints > > - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) > - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets) > - [Update expiring user target for flags](/tag/User-Settings#operation/patchExpiringFlagsForUser) > - [Update expiring user targets on segment](/tag/Segments#operation/patchExpiringUserTargetsOnSegment)  # Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly support to debug a problem with a specific API call.  ## HTTP Status - Error Response Codes  | Code | Definition        | Desc.                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Bad Request       | A request that fails may return this HTTP response code.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Unauthorized      | User doesn't have permission to an API call.                                                | Ensure your SDK key is good.                                     | | 403  | Forbidden         | User does not have permission for operation.                                                | Ensure that the user or access token has proper permissions set. | | 409  | Conflict          | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request.                                              | | 429  | Too many requests | See [Rate limiting](/#section/Rate-limiting).                                               | Wait and try again later.                                        |  # CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](#section/Authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.  # Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs will return a `429` status code. Calls to our APIs will include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ## Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ## Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits will return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ## IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  # OpenAPI (Swagger)  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  You can use this specification to generate client libraries to interact with our REST API in your language of choice.  This specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to ease use in navigating the APIs in the tooling.  # Client libraries  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).  # Method Overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request.  For example, if you wish to call one of our `PATCH` resources via a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  # Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).  ## Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you'll receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  # Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ## Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20191212 ```  The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released. In the example above the version `20191212` corresponds to December 12, 2019.  ## Setting the API version per access token  When creating an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426` (the version of the API that existed before versioning) so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.   # noqa: E501
 
-    OpenAPI spec version: 5.3.0
+    The version of the OpenAPI document: 2.0
     Contact: support@launchdarkly.com
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
+    Generated by: https://openapi-generator.tech
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from launchdarkly_api.api_client import ApiClient
+from launchdarkly_api.api_client import ApiClient, Endpoint as _Endpoint
+from launchdarkly_api.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
+)
+from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
+from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.model.feature_flag import FeatureFlag
+from launchdarkly_api.model.feature_flag_body import FeatureFlagBody
+from launchdarkly_api.model.feature_flag_status_across_environments import FeatureFlagStatusAcrossEnvironments
+from launchdarkly_api.model.feature_flag_statuses import FeatureFlagStatuses
+from launchdarkly_api.model.feature_flags import FeatureFlags
+from launchdarkly_api.model.flag_copy_config_post import FlagCopyConfigPost
+from launchdarkly_api.model.flag_status_rep import FlagStatusRep
+from launchdarkly_api.model.patch_with_comment import PatchWithComment
 
 
 class FeatureFlagsApi(object):
-    """NOTE: This class is auto generated by the swagger code generator program.
+    """NOTE: This class is auto generated by OpenAPI Generator
+    Ref: https://openapi-generator.tech
 
     Do not edit the class manually.
-    Ref: https://github.com/swagger-api/swagger-codegen
     """
 
     def __init__(self, api_client=None):
@@ -33,2925 +46,1545 @@ class FeatureFlagsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def copy_feature_flag(self, project_key, feature_flag_key, feature_flag_copy_body, **kwargs):  # noqa: E501
-        """Copies the feature flag configuration from one environment to the same feature flag in another environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.copy_feature_flag(project_key, feature_flag_key, feature_flag_copy_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param FeatureFlagCopyBody feature_flag_copy_body: Copy feature flag configurations between environments. (required)
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.copy_feature_flag_with_http_info(project_key, feature_flag_key, feature_flag_copy_body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.copy_feature_flag_with_http_info(project_key, feature_flag_key, feature_flag_copy_body, **kwargs)  # noqa: E501
-            return data
-
-    def copy_feature_flag_with_http_info(self, project_key, feature_flag_key, feature_flag_copy_body, **kwargs):  # noqa: E501
-        """Copies the feature flag configuration from one environment to the same feature flag in another environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.copy_feature_flag_with_http_info(project_key, feature_flag_key, feature_flag_copy_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param FeatureFlagCopyBody feature_flag_copy_body: Copy feature flag configurations between environments. (required)
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'feature_flag_copy_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method copy_feature_flag" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `copy_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `copy_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_copy_body' is set
-        if ('feature_flag_copy_body' not in params or
-                params['feature_flag_copy_body'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_copy_body` when calling `copy_feature_flag`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'feature_flag_copy_body' in params:
-            body_params = params['feature_flag_copy_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}/copy', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def delete_approval_request(self, project_key, environment_key, feature_flag_key, approval_request_id, **kwargs):  # noqa: E501
-        """Delete an approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_approval_request(project_key, environment_key, feature_flag_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestConfigBody approval_request_config_body: Create a new approval request
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.delete_approval_request_with_http_info(project_key, environment_key, feature_flag_key, approval_request_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.delete_approval_request_with_http_info(project_key, environment_key, feature_flag_key, approval_request_id, **kwargs)  # noqa: E501
-            return data
-
-    def delete_approval_request_with_http_info(self, project_key, environment_key, feature_flag_key, approval_request_id, **kwargs):  # noqa: E501
-        """Delete an approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_approval_request_with_http_info(project_key, environment_key, feature_flag_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestConfigBody approval_request_config_body: Create a new approval request
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key', 'feature_flag_key', 'approval_request_id', 'approval_request_config_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_approval_request" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `delete_approval_request`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `delete_approval_request`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `delete_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_id' is set
-        if ('approval_request_id' not in params or
-                params['approval_request_id'] is None):
-            raise ValueError("Missing the required parameter `approval_request_id` when calling `delete_approval_request`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'approval_request_id' in params:
-            path_params['approvalRequestId'] = params['approval_request_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'approval_request_config_body' in params:
-            body_params = params['approval_request_config_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def delete_feature_flag(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_feature_flag(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.delete_feature_flag_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.delete_feature_flag_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def delete_feature_flag_with_http_info(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_feature_flag_with_http_info(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_feature_flag" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `delete_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `delete_feature_flag`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def delete_flag_config_scheduled_changes(self, project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Delete a scheduled change on a feature flag in an environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.delete_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.delete_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-            return data
-
-    def delete_flag_config_scheduled_changes_with_http_info(self, project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Delete a scheduled change on a feature flag in an environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'scheduled_change_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_flag_config_scheduled_changes" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `delete_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `delete_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `delete_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'scheduled_change_id' is set
-        if ('scheduled_change_id' not in params or
-                params['scheduled_change_id'] is None):
-            raise ValueError("Missing the required parameter `scheduled_change_id` when calling `delete_flag_config_scheduled_changes`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'scheduled_change_id' in params:
-            path_params['scheduledChangeId'] = params['scheduled_change_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type=None,  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def flags_project_key_environment_key_feature_flag_key_dependent_flags_get(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get dependent flags for the flag in the environment specified in path parameters  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.flags_project_key_environment_key_feature_flag_key_dependent_flags_get(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: DependentFlagsByEnvironment
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.flags_project_key_environment_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.flags_project_key_environment_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def flags_project_key_environment_key_feature_flag_key_dependent_flags_get_with_http_info(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get dependent flags for the flag in the environment specified in path parameters  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.flags_project_key_environment_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: DependentFlagsByEnvironment
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method flags_project_key_environment_key_feature_flag_key_dependent_flags_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `flags_project_key_environment_key_feature_flag_key_dependent_flags_get`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `flags_project_key_environment_key_feature_flag_key_dependent_flags_get`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `flags_project_key_environment_key_feature_flag_key_dependent_flags_get`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='DependentFlagsByEnvironment',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def flags_project_key_feature_flag_key_dependent_flags_get(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get dependent flags across all environments for the flag specified in the path parameters  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.flags_project_key_feature_flag_key_dependent_flags_get(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: MultiEnvironmentDependentFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.flags_project_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.flags_project_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def flags_project_key_feature_flag_key_dependent_flags_get_with_http_info(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get dependent flags across all environments for the flag specified in the path parameters  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.flags_project_key_feature_flag_key_dependent_flags_get_with_http_info(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: MultiEnvironmentDependentFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method flags_project_key_feature_flag_key_dependent_flags_get" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `flags_project_key_feature_flag_key_dependent_flags_get`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `flags_project_key_feature_flag_key_dependent_flags_get`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}/dependent-flags', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='MultiEnvironmentDependentFlags',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_approval_request(self, project_key, feature_flag_key, environment_key, approval_request_id, **kwargs):  # noqa: E501
-        """Get a single approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, **kwargs)  # noqa: E501
-            return data
-
-    def get_approval_request_with_http_info(self, project_key, feature_flag_key, environment_key, approval_request_id, **kwargs):  # noqa: E501
-        """Get a single approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'approval_request_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_approval_request" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_approval_request`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_approval_request`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_id' is set
-        if ('approval_request_id' not in params or
-                params['approval_request_id'] is None):
-            raise ValueError("Missing the required parameter `approval_request_id` when calling `get_approval_request`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'approval_request_id' in params:
-            path_params['approvalRequestId'] = params['approval_request_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ApprovalRequests',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_approval_requests(self, project_key, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Get all approval requests for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_approval_requests(project_key, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_approval_requests_with_http_info(project_key, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_approval_requests_with_http_info(project_key, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_approval_requests_with_http_info(self, project_key, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Get all approval requests for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_approval_requests_with_http_info(project_key, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_approval_requests" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_approval_requests`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_approval_requests`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_approval_requests`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ApprovalRequests',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_expiring_user_targets(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get expiring user targets for feature flag  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_expiring_user_targets(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: UserTargetingExpirationForFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_expiring_user_targets_with_http_info(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get expiring user targets for feature flag  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: UserTargetingExpirationForFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_expiring_user_targets" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_expiring_user_targets`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_expiring_user_targets`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_expiring_user_targets`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='UserTargetingExpirationForFlags',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_feature_flag(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get a single feature flag by key.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param list[str] env: By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment.
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_feature_flag_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_feature_flag_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_feature_flag_with_http_info(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get a single feature flag by key.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_with_http_info(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param list[str] env: By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment.
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'env']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_feature_flag" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_feature_flag`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-        if 'env' in params:
-            query_params.append(('env', params['env']))  # noqa: E501
-            collection_formats['env'] = 'multi'  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_feature_flag_status(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get the status for a particular feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_status(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: FeatureFlagStatus
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_feature_flag_status_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_feature_flag_status_with_http_info(project_key, environment_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_feature_flag_status_with_http_info(self, project_key, environment_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get the status for a particular feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_status_with_http_info(project_key, environment_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: FeatureFlagStatus
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_feature_flag_status" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_feature_flag_status`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_feature_flag_status`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_feature_flag_status`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagStatus',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_feature_flag_status_across_environments(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get the status for a particular feature flag across environments  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_status_across_environments(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: FeatureFlagStatusAcrossEnvironments
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_feature_flag_status_across_environments_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_feature_flag_status_across_environments_with_http_info(project_key, feature_flag_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_feature_flag_status_across_environments_with_http_info(self, project_key, feature_flag_key, **kwargs):  # noqa: E501
-        """Get the status for a particular feature flag across environments  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_status_across_environments_with_http_info(project_key, feature_flag_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :return: FeatureFlagStatusAcrossEnvironments
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_feature_flag_status_across_environments" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_feature_flag_status_across_environments`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_feature_flag_status_across_environments`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flag-status/{projectKey}/{featureFlagKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagStatusAcrossEnvironments',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_feature_flag_statuses(self, project_key, environment_key, **kwargs):  # noqa: E501
-        """Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_statuses(project_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagStatuses
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_feature_flag_statuses_with_http_info(project_key, environment_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_feature_flag_statuses_with_http_info(project_key, environment_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_feature_flag_statuses_with_http_info(self, project_key, environment_key, **kwargs):  # noqa: E501
-        """Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flag_statuses_with_http_info(project_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagStatuses
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_feature_flag_statuses" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_feature_flag_statuses`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_feature_flag_statuses`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flag-statuses/{projectKey}/{environmentKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagStatuses',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_feature_flags(self, project_key, **kwargs):  # noqa: E501
-        """Get a list of all features in the given project.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flags(project_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param list[str] env: By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment.
-        :param bool summary: By default in api version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned.
-        :param bool archived: When set to 1, only archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags.
-        :param float limit: The number of objects to return. Defaults to -1, which returns everything.
-        :param float offset: Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items.
-        :param str filter: A comma-separated list of filters. Each filter is of the form field:value.
-        :param str sort: A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order.
-        :param str tag: Filter by tag. A tag can be used to group flags across projects.
-        :return: FeatureFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_feature_flags_with_http_info(project_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_feature_flags_with_http_info(project_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_feature_flags_with_http_info(self, project_key, **kwargs):  # noqa: E501
-        """Get a list of all features in the given project.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_feature_flags_with_http_info(project_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param list[str] env: By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env=[\"production\"] will restrict the returned configurations to just your production environment.
-        :param bool summary: By default in api version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned.
-        :param bool archived: When set to 1, only archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags.
-        :param float limit: The number of objects to return. Defaults to -1, which returns everything.
-        :param float offset: Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items.
-        :param str filter: A comma-separated list of filters. Each filter is of the form field:value.
-        :param str sort: A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order.
-        :param str tag: Filter by tag. A tag can be used to group flags across projects.
-        :return: FeatureFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'env', 'summary', 'archived', 'limit', 'offset', 'filter', 'sort', 'tag']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_feature_flags" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_feature_flags`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-
-        query_params = []
-        if 'env' in params:
-            query_params.append(('env', params['env']))  # noqa: E501
-            collection_formats['env'] = 'multi'  # noqa: E501
-        if 'summary' in params:
-            query_params.append(('summary', params['summary']))  # noqa: E501
-        if 'archived' in params:
-            query_params.append(('archived', params['archived']))  # noqa: E501
-        if 'limit' in params:
-            query_params.append(('limit', params['limit']))  # noqa: E501
-        if 'offset' in params:
-            query_params.append(('offset', params['offset']))  # noqa: E501
-        if 'filter' in params:
-            query_params.append(('filter', params['filter']))  # noqa: E501
-        if 'sort' in params:
-            query_params.append(('sort', params['sort']))  # noqa: E501
-        if 'tag' in params:
-            query_params.append(('tag', params['tag']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlags',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_flag_config_scheduled_change(self, project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Get a scheduled change on a feature flag by id.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_change(project_key, feature_flag_key, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-            return data
-
-    def get_flag_config_scheduled_change_with_http_info(self, project_key, feature_flag_key, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Get a scheduled change on a feature flag by id.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'scheduled_change_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_flag_config_scheduled_change" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'scheduled_change_id' is set
-        if ('scheduled_change_id' not in params or
-                params['scheduled_change_id'] is None):
-            raise ValueError("Missing the required parameter `scheduled_change_id` when calling `get_flag_config_scheduled_change`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'scheduled_change_id' in params:
-            path_params['scheduledChangeId'] = params['scheduled_change_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagScheduledChange',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_flag_config_scheduled_changes(self, project_key, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Get all scheduled workflows for a feature flag by key.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_changes(project_key, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagScheduledChanges
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-            return data
-
-    def get_flag_config_scheduled_changes_with_http_info(self, project_key, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Get all scheduled workflows for a feature flag by key.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_changes_with_http_info(project_key, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagScheduledChanges
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_flag_config_scheduled_changes" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_flag_config_scheduled_changes`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagScheduledChanges',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_flag_config_scheduled_changes_conflicts(self, project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, **kwargs):  # noqa: E501
-        """Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_changes_conflicts(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param FlagConfigScheduledChangesConflictsBody flag_config_scheduled_changes_conflicts_body: Used to determine if a semantic patch will result in conflicts with scheduled changes on a feature flag. (required)
-        :return: FeatureFlagScheduledChangesConflicts
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_flag_config_scheduled_changes_conflicts_with_http_info(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.get_flag_config_scheduled_changes_conflicts_with_http_info(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, **kwargs)  # noqa: E501
-            return data
-
-    def get_flag_config_scheduled_changes_conflicts_with_http_info(self, project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, **kwargs):  # noqa: E501
-        """Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_flag_config_scheduled_changes_conflicts_with_http_info(project_key, feature_flag_key, environment_key, flag_config_scheduled_changes_conflicts_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param FlagConfigScheduledChangesConflictsBody flag_config_scheduled_changes_conflicts_body: Used to determine if a semantic patch will result in conflicts with scheduled changes on a feature flag. (required)
-        :return: FeatureFlagScheduledChangesConflicts
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'flag_config_scheduled_changes_conflicts_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_flag_config_scheduled_changes_conflicts" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `get_flag_config_scheduled_changes_conflicts`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `get_flag_config_scheduled_changes_conflicts`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `get_flag_config_scheduled_changes_conflicts`")  # noqa: E501
-        # verify the required parameter 'flag_config_scheduled_changes_conflicts_body' is set
-        if ('flag_config_scheduled_changes_conflicts_body' not in params or
-                params['flag_config_scheduled_changes_conflicts_body'] is None):
-            raise ValueError("Missing the required parameter `flag_config_scheduled_changes_conflicts_body` when calling `get_flag_config_scheduled_changes_conflicts`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'flag_config_scheduled_changes_conflicts_body' in params:
-            body_params = params['flag_config_scheduled_changes_conflicts_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagScheduledChangesConflicts',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def patch_expiring_user_targets(self, project_key, environment_key, feature_flag_key, semantic_patch_with_comment, **kwargs):  # noqa: E501
-        """Update, add, or delete expiring user targets on feature flag  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_expiring_user_targets(project_key, environment_key, feature_flag_key, semantic_patch_with_comment, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param object semantic_patch_with_comment: Requires a Semantic Patch representation of the desired changes to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'. The addition of comments is also supported. (required)
-        :return: UserTargetingExpirationForFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.patch_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, semantic_patch_with_comment, **kwargs)  # noqa: E501
-        else:
-            (data) = self.patch_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, semantic_patch_with_comment, **kwargs)  # noqa: E501
-            return data
-
-    def patch_expiring_user_targets_with_http_info(self, project_key, environment_key, feature_flag_key, semantic_patch_with_comment, **kwargs):  # noqa: E501
-        """Update, add, or delete expiring user targets on feature flag  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_expiring_user_targets_with_http_info(project_key, environment_key, feature_flag_key, semantic_patch_with_comment, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param object semantic_patch_with_comment: Requires a Semantic Patch representation of the desired changes to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'. The addition of comments is also supported. (required)
-        :return: UserTargetingExpirationForFlags
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'environment_key', 'feature_flag_key', 'semantic_patch_with_comment']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method patch_expiring_user_targets" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `patch_expiring_user_targets`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `patch_expiring_user_targets`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `patch_expiring_user_targets`")  # noqa: E501
-        # verify the required parameter 'semantic_patch_with_comment' is set
-        if ('semantic_patch_with_comment' not in params or
-                params['semantic_patch_with_comment'] is None):
-            raise ValueError("Missing the required parameter `semantic_patch_with_comment` when calling `patch_expiring_user_targets`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'semantic_patch_with_comment' in params:
-            body_params = params['semantic_patch_with_comment']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='UserTargetingExpirationForFlags',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def patch_feature_flag(self, project_key, feature_flag_key, patch_comment, **kwargs):  # noqa: E501
-        """Perform a partial update to a feature.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_feature_flag(project_key, feature_flag_key, patch_comment, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param PatchComment patch_comment: Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported. (required)
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.patch_feature_flag_with_http_info(project_key, feature_flag_key, patch_comment, **kwargs)  # noqa: E501
-        else:
-            (data) = self.patch_feature_flag_with_http_info(project_key, feature_flag_key, patch_comment, **kwargs)  # noqa: E501
-            return data
-
-    def patch_feature_flag_with_http_info(self, project_key, feature_flag_key, patch_comment, **kwargs):  # noqa: E501
-        """Perform a partial update to a feature.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_feature_flag_with_http_info(project_key, feature_flag_key, patch_comment, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param PatchComment patch_comment: Requires a JSON Patch representation of the desired changes to the project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported. (required)
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'patch_comment']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method patch_feature_flag" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `patch_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `patch_feature_flag`")  # noqa: E501
-        # verify the required parameter 'patch_comment' is set
-        if ('patch_comment' not in params or
-                params['patch_comment'] is None):
-            raise ValueError("Missing the required parameter `patch_comment` when calling `patch_feature_flag`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'patch_comment' in params:
-            body_params = params['patch_comment']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}/{featureFlagKey}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def patch_flag_config_scheduled_change(self, project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Updates an existing scheduled-change on a feature flag in an environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_flag_config_scheduled_change(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param FlagConfigScheduledChangesPatchBody flag_config_scheduled_changes_patch_body: Update scheduled changes on a feature flag. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.patch_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.patch_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, **kwargs)  # noqa: E501
-            return data
-
-    def patch_flag_config_scheduled_change_with_http_info(self, project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, **kwargs):  # noqa: E501
-        """Updates an existing scheduled-change on a feature flag in an environment.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.patch_flag_config_scheduled_change_with_http_info(project_key, feature_flag_key, flag_config_scheduled_changes_patch_body, environment_key, scheduled_change_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param FlagConfigScheduledChangesPatchBody flag_config_scheduled_changes_patch_body: Update scheduled changes on a feature flag. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str scheduled_change_id: The id of the scheduled change (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'flag_config_scheduled_changes_patch_body', 'environment_key', 'scheduled_change_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method patch_flag_config_scheduled_change" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `patch_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `patch_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'flag_config_scheduled_changes_patch_body' is set
-        if ('flag_config_scheduled_changes_patch_body' not in params or
-                params['flag_config_scheduled_changes_patch_body'] is None):
-            raise ValueError("Missing the required parameter `flag_config_scheduled_changes_patch_body` when calling `patch_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `patch_flag_config_scheduled_change`")  # noqa: E501
-        # verify the required parameter 'scheduled_change_id' is set
-        if ('scheduled_change_id' not in params or
-                params['scheduled_change_id'] is None):
-            raise ValueError("Missing the required parameter `scheduled_change_id` when calling `patch_flag_config_scheduled_change`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'scheduled_change_id' in params:
-            path_params['scheduledChangeId'] = params['scheduled_change_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'flag_config_scheduled_changes_patch_body' in params:
-            body_params = params['flag_config_scheduled_changes_patch_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagScheduledChange',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def post_apply_approval_request(self, project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, **kwargs):  # noqa: E501
-        """Apply approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_apply_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestApplyConfigBody approval_request_apply_config_body: Apply an approval request (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.post_apply_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.post_apply_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, **kwargs)  # noqa: E501
-            return data
-
-    def post_apply_approval_request_with_http_info(self, project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, **kwargs):  # noqa: E501
-        """Apply approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_apply_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_apply_config_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestApplyConfigBody approval_request_apply_config_body: Apply an approval request (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'approval_request_id', 'approval_request_apply_config_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_apply_approval_request" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `post_apply_approval_request`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `post_apply_approval_request`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `post_apply_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_id' is set
-        if ('approval_request_id' not in params or
-                params['approval_request_id'] is None):
-            raise ValueError("Missing the required parameter `approval_request_id` when calling `post_apply_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_apply_config_body' is set
-        if ('approval_request_apply_config_body' not in params or
-                params['approval_request_apply_config_body'] is None):
-            raise ValueError("Missing the required parameter `approval_request_apply_config_body` when calling `post_apply_approval_request`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'approval_request_id' in params:
-            path_params['approvalRequestId'] = params['approval_request_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'approval_request_apply_config_body' in params:
-            body_params = params['approval_request_apply_config_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/apply', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ApprovalRequests',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def post_approval_request(self, project_key, feature_flag_key, environment_key, approval_request_id, **kwargs):  # noqa: E501
-        """Create an approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestConfigBody approval_request_config_body: Create a new approval request
-        :return: ApprovalRequest
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.post_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, **kwargs)  # noqa: E501
-        else:
-            (data) = self.post_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, **kwargs)  # noqa: E501
-            return data
-
-    def post_approval_request_with_http_info(self, project_key, feature_flag_key, environment_key, approval_request_id, **kwargs):  # noqa: E501
-        """Create an approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestConfigBody approval_request_config_body: Create a new approval request
-        :return: ApprovalRequest
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'approval_request_id', 'approval_request_config_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_approval_request" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `post_approval_request`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `post_approval_request`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `post_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_id' is set
-        if ('approval_request_id' not in params or
-                params['approval_request_id'] is None):
-            raise ValueError("Missing the required parameter `approval_request_id` when calling `post_approval_request`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'approval_request_id' in params:
-            path_params['approvalRequestId'] = params['approval_request_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'approval_request_config_body' in params:
-            body_params = params['approval_request_config_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ApprovalRequest',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def post_feature_flag(self, project_key, feature_flag_body, **kwargs):  # noqa: E501
-        """Creates a new feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_feature_flag(project_key, feature_flag_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param FeatureFlagBody feature_flag_body: Create a new feature flag. (required)
-        :param str clone: The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.post_feature_flag_with_http_info(project_key, feature_flag_body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.post_feature_flag_with_http_info(project_key, feature_flag_body, **kwargs)  # noqa: E501
-            return data
-
-    def post_feature_flag_with_http_info(self, project_key, feature_flag_body, **kwargs):  # noqa: E501
-        """Creates a new feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_feature_flag_with_http_info(project_key, feature_flag_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param FeatureFlagBody feature_flag_body: Create a new feature flag. (required)
-        :param str clone: The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone=flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
-        :return: FeatureFlag
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_body', 'clone']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_feature_flag" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `post_feature_flag`")  # noqa: E501
-        # verify the required parameter 'feature_flag_body' is set
-        if ('feature_flag_body' not in params or
-                params['feature_flag_body'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_body` when calling `post_feature_flag`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-
-        query_params = []
-        if 'clone' in params:
-            query_params.append(('clone', params['clone']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'feature_flag_body' in params:
-            body_params = params['feature_flag_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/flags/{projectKey}', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlag',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def post_flag_config_scheduled_changes(self, project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Creates a new scheduled change for a feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_flag_config_scheduled_changes(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param FlagConfigScheduledChangesPostBody flag_config_scheduled_changes_post_body: Create scheduled changes on a feature flag. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.post_flag_config_scheduled_changes_with_http_info(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-        else:
-            (data) = self.post_flag_config_scheduled_changes_with_http_info(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, **kwargs)  # noqa: E501
-            return data
-
-    def post_flag_config_scheduled_changes_with_http_info(self, project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, **kwargs):  # noqa: E501
-        """Creates a new scheduled change for a feature flag.  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_flag_config_scheduled_changes_with_http_info(project_key, flag_config_scheduled_changes_post_body, feature_flag_key, environment_key, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param FlagConfigScheduledChangesPostBody flag_config_scheduled_changes_post_body: Create scheduled changes on a feature flag. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :return: FeatureFlagScheduledChange
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'flag_config_scheduled_changes_post_body', 'feature_flag_key', 'environment_key']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_flag_config_scheduled_changes" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `post_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'flag_config_scheduled_changes_post_body' is set
-        if ('flag_config_scheduled_changes_post_body' not in params or
-                params['flag_config_scheduled_changes_post_body'] is None):
-            raise ValueError("Missing the required parameter `flag_config_scheduled_changes_post_body` when calling `post_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `post_flag_config_scheduled_changes`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `post_flag_config_scheduled_changes`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'flag_config_scheduled_changes_post_body' in params:
-            body_params = params['flag_config_scheduled_changes_post_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='FeatureFlagScheduledChange',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def post_review_approval_request(self, project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, **kwargs):  # noqa: E501
-        """Review approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_review_approval_request(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestReviewConfigBody approval_request_review_config_body: Review an approval request (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.post_review_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, **kwargs)  # noqa: E501
-        else:
-            (data) = self.post_review_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, **kwargs)  # noqa: E501
-            return data
-
-    def post_review_approval_request_with_http_info(self, project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, **kwargs):  # noqa: E501
-        """Review approval request for a feature flag config  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.post_review_approval_request_with_http_info(project_key, feature_flag_key, environment_key, approval_request_id, approval_request_review_config_body, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool
-        :param str project_key: The project key, used to tie the flags together under one project so they can be managed together. (required)
-        :param str feature_flag_key: The feature flag's key. The key identifies the flag in your code. (required)
-        :param str environment_key: The environment key, used to tie together flag configuration and users under one environment so they can be managed together. (required)
-        :param str approval_request_id: The approval request ID (required)
-        :param ApprovalRequestReviewConfigBody approval_request_review_config_body: Review an approval request (required)
-        :return: ApprovalRequests
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['project_key', 'feature_flag_key', 'environment_key', 'approval_request_id', 'approval_request_review_config_body']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in six.iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method post_review_approval_request" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'project_key' is set
-        if ('project_key' not in params or
-                params['project_key'] is None):
-            raise ValueError("Missing the required parameter `project_key` when calling `post_review_approval_request`")  # noqa: E501
-        # verify the required parameter 'feature_flag_key' is set
-        if ('feature_flag_key' not in params or
-                params['feature_flag_key'] is None):
-            raise ValueError("Missing the required parameter `feature_flag_key` when calling `post_review_approval_request`")  # noqa: E501
-        # verify the required parameter 'environment_key' is set
-        if ('environment_key' not in params or
-                params['environment_key'] is None):
-            raise ValueError("Missing the required parameter `environment_key` when calling `post_review_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_id' is set
-        if ('approval_request_id' not in params or
-                params['approval_request_id'] is None):
-            raise ValueError("Missing the required parameter `approval_request_id` when calling `post_review_approval_request`")  # noqa: E501
-        # verify the required parameter 'approval_request_review_config_body' is set
-        if ('approval_request_review_config_body' not in params or
-                params['approval_request_review_config_body'] is None):
-            raise ValueError("Missing the required parameter `approval_request_review_config_body` when calling `post_review_approval_request`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'project_key' in params:
-            path_params['projectKey'] = params['project_key']  # noqa: E501
-        if 'feature_flag_key' in params:
-            path_params['featureFlagKey'] = params['feature_flag_key']  # noqa: E501
-        if 'environment_key' in params:
-            path_params['environmentKey'] = params['environment_key']  # noqa: E501
-        if 'approval_request_id' in params:
-            path_params['approvalRequestId'] = params['approval_request_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'approval_request_review_config_body' in params:
-            body_params = params['approval_request_review_config_body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Token']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/review', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='ApprovalRequests',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+        def __copy_feature_flag(
+            self,
+            proj_key,
+            feature_flag_key,
+            flag_copy_config_post,
+            **kwargs
+        ):
+            """Copy feature flag  # noqa: E501
+
+            The includedActions and excludedActions define the parts of the flag configuration that are copied or not copied. By default, the entire flag configuration is copied.  You can have either `includedActions` or `excludedActions` but not both.  Valid `includedActions` and `excludedActions` include:  - `updateOn` - `updatePrerequisites` - `updateTargets` - `updateRules` - `updateFallthrough` - `updateOffVariation`    The `source` and `target` must be JSON objects if using curl, specifying the environment key and (optional) current flag configuration version in that environment. For example:  ```json {   \"key\": \"production\",   \"currentVersion\": 3 } ```  If target is specified as above, the API will test to ensure that the current flag version in the `production` environment is `3`, and reject attempts to copy settings to `production` otherwise. You can use this to enforce optimistic locking on copy attempts.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.copy_feature_flag(proj_key, feature_flag_key, flag_copy_config_post, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                feature_flag_key (str): The feature flag's key. The key identifies the flag in your code.
+                flag_copy_config_post (FlagCopyConfigPost):
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['feature_flag_key'] = \
+                feature_flag_key
+            kwargs['flag_copy_config_post'] = \
+                flag_copy_config_post
+            return self.call_with_http_info(**kwargs)
+
+        self.copy_feature_flag = _Endpoint(
+            settings={
+                'response_type': (FeatureFlag,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{featureFlagKey}/copy',
+                'operation_id': 'copy_feature_flag',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'feature_flag_key',
+                    'flag_copy_config_post',
+                ],
+                'required': [
+                    'proj_key',
+                    'feature_flag_key',
+                    'flag_copy_config_post',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'feature_flag_key':
+                        (str,),
+                    'flag_copy_config_post':
+                        (FlagCopyConfigPost,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'feature_flag_key': 'featureFlagKey',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'feature_flag_key': 'path',
+                    'flag_copy_config_post': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__copy_feature_flag
+        )
+
+        def __delete_feature_flag(
+            self,
+            proj_key,
+            key,
+            **kwargs
+        ):
+            """Delete feature flag  # noqa: E501
+
+            Delete a feature flag in all environments. Use with caution: only delete feature flags your application no longer uses.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.delete_feature_flag(proj_key, key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                key (str): The feature flag's key. The key identifies the flag in your code.
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                None
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['key'] = \
+                key
+            return self.call_with_http_info(**kwargs)
+
+        self.delete_feature_flag = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{key}',
+                'operation_id': 'delete_feature_flag',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'key',
+                ],
+                'required': [
+                    'proj_key',
+                    'key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'key': 'key',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'key': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__delete_feature_flag
+        )
+
+        def __get_expiring_user_targets(
+            self,
+            proj_key,
+            env_key,
+            flag_key,
+            **kwargs
+        ):
+            """Get expiring user targets for feature flag  # noqa: E501
+
+            Get a list of user targets on a feature flag that are scheduled for removal.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_expiring_user_targets(proj_key, env_key, flag_key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                env_key (str): The environment key.
+                flag_key (str): The feature flag key.
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                ExpiringUserTargetGetResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['env_key'] = \
+                env_key
+            kwargs['flag_key'] = \
+                flag_key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_expiring_user_targets = _Endpoint(
+            settings={
+                'response_type': (ExpiringUserTargetGetResponse,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey}',
+                'operation_id': 'get_expiring_user_targets',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'env_key',
+                    'flag_key',
+                ],
+                'required': [
+                    'proj_key',
+                    'env_key',
+                    'flag_key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'env_key':
+                        (str,),
+                    'flag_key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'env_key': 'envKey',
+                    'flag_key': 'flagKey',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'env_key': 'path',
+                    'flag_key': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_expiring_user_targets
+        )
+
+        def __get_feature_flag(
+            self,
+            proj_key,
+            key,
+            **kwargs
+        ):
+            """Get feature flag  # noqa: E501
+
+            Get a single feature flag by key. By default, this returns the configurations for all environments. You can filter environments with the `env` query parameter. For example, setting `env=production` restricts the returned configurations to just the `production` environment.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_feature_flag(proj_key, key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key
+                key (str): The feature flag key
+
+            Keyword Args:
+                env (str): Filter configurations by environment. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['key'] = \
+                key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_feature_flag = _Endpoint(
+            settings={
+                'response_type': (FeatureFlag,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{key}',
+                'operation_id': 'get_feature_flag',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'key',
+                    'env',
+                ],
+                'required': [
+                    'proj_key',
+                    'key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'key':
+                        (str,),
+                    'env':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'key': 'key',
+                    'env': 'env',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'key': 'path',
+                    'env': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_feature_flag
+        )
+
+        def __get_feature_flag_status(
+            self,
+            proj_key,
+            env_key,
+            key,
+            **kwargs
+        ):
+            """Get feature flag status  # noqa: E501
+
+            Get the status for a particular feature flag.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_feature_flag_status(proj_key, env_key, key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key
+                env_key (str): The environment key
+                key (str): The feature flag key
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FlagStatusRep
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['env_key'] = \
+                env_key
+            kwargs['key'] = \
+                key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_feature_flag_status = _Endpoint(
+            settings={
+                'response_type': (FlagStatusRep,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flag-statuses/{projKey}/{envKey}/{key}',
+                'operation_id': 'get_feature_flag_status',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'env_key',
+                    'key',
+                ],
+                'required': [
+                    'proj_key',
+                    'env_key',
+                    'key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'env_key':
+                        (str,),
+                    'key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'env_key': 'envKey',
+                    'key': 'key',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'env_key': 'path',
+                    'key': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_feature_flag_status
+        )
+
+        def __get_feature_flag_status_across_environments(
+            self,
+            proj_key,
+            key,
+            **kwargs
+        ):
+            """Get flag status across environments  # noqa: E501
+
+            Get the status for a particular feature flag across environments.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_feature_flag_status_across_environments(proj_key, key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key
+                key (str): The feature flag key
+
+            Keyword Args:
+                env (str): Optional environment filter. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlagStatusAcrossEnvironments
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['key'] = \
+                key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_feature_flag_status_across_environments = _Endpoint(
+            settings={
+                'response_type': (FeatureFlagStatusAcrossEnvironments,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flag-status/{projKey}/{key}',
+                'operation_id': 'get_feature_flag_status_across_environments',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'key',
+                    'env',
+                ],
+                'required': [
+                    'proj_key',
+                    'key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'key':
+                        (str,),
+                    'env':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'key': 'key',
+                    'env': 'env',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'key': 'path',
+                    'env': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_feature_flag_status_across_environments
+        )
+
+        def __get_feature_flag_statuses(
+            self,
+            proj_key,
+            env_key,
+            **kwargs
+        ):
+            """List feature flag statuses  # noqa: E501
+
+            Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as a state, which is one of the following:  - `new`: the feature flag was created within the last seven days, and has not been requested yet - `active`: the feature flag was requested by your servers or clients within the last seven days - `inactive`: the feature flag was created more than seven days ago, and hasn't been requested by your servers or clients within the past seven days - `launched`: one variation of the feature flag has been rolled out to all your users for at least 7 days   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_feature_flag_statuses(proj_key, env_key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key
+                env_key (str): Filter configurations by environment
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlagStatuses
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['env_key'] = \
+                env_key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_feature_flag_statuses = _Endpoint(
+            settings={
+                'response_type': (FeatureFlagStatuses,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flag-statuses/{projKey}/{envKey}',
+                'operation_id': 'get_feature_flag_statuses',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'env_key',
+                ],
+                'required': [
+                    'proj_key',
+                    'env_key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'env_key':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'env_key': 'envKey',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'env_key': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_feature_flag_statuses
+        )
+
+        def __get_feature_flags(
+            self,
+            proj_key,
+            **kwargs
+        ):
+            """List feature flags  # noqa: E501
+
+            Get a list of all features in the given project. By default, each feature includes configurations for each environment. You can filter environments with the env query parameter. For example, setting `env=production` restricts the returned configurations to just your production environment. You can also filter feature flags by tag with the tag query parameter.  We support the following fields for filters:  - `query` is a string that matches against the flags' keys and names. It is not case sensitive. - `archived` is a boolean to filter the list to archived flags. When this is absent, only unarchived flags are returned. - `type` is a string allowing filtering to `temporary` or `permanent` flags. - `status` is a string allowing filtering to `new`, `inactive`, `active`, or `launched` flags in the specified environment. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=status:active,filterEnv:production`. - `tags` is a + separated list of tags. It filters the list to members who have all of the tags in the list. - `hasExperiment` is a boolean with values of true or false and returns any flags that have an attached metric. - `hasDataExport` is a boolean with values of true or false and returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data via Experimentation. This filter also requires a `filterEnv` field to be set to a valid environment key. e.g. `filter=hasExperiment:true,filterEnv:production` - `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=evaluated:{\"after\": 1590768455282},filterEnv:production`. - `filterEnv` is a string with the key of a valid environment. The filterEnv field is used for filters that are environment specific. If there are multiple environment specific filters you should only declare this parameter once. For example: `filter=evaluated:{\"after\": 1590768455282},filterEnv:production,status:active`.  An example filter is `query:abc,tags:foo+bar`. This matches flags with the string `abc` in their key or name, ignoring case, which also have the tags `foo` and `bar`.  By default, this returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.   # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.get_feature_flags(proj_key, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key
+
+            Keyword Args:
+                env (str): Filter configurations by environment. [optional]
+                tag (str): Filter feature flags by tag. [optional]
+                limit (int): The number of feature flags to return. Defaults to -1, which returns all flags. [optional]
+                offset (int): Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items. [optional]
+                query (str): A string that matches against the flags' keys and names. It is not case sensitive. [optional]
+                archived (bool): A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned. [optional]
+                summary (bool): By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned. [optional]
+                filter (str): A comma-separated list of filters. Each filter is of the form field:value. [optional]
+                sort (str): A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlags
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            return self.call_with_http_info(**kwargs)
+
+        self.get_feature_flags = _Endpoint(
+            settings={
+                'response_type': (FeatureFlags,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}',
+                'operation_id': 'get_feature_flags',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'env',
+                    'tag',
+                    'limit',
+                    'offset',
+                    'query',
+                    'archived',
+                    'summary',
+                    'filter',
+                    'sort',
+                ],
+                'required': [
+                    'proj_key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'env':
+                        (str,),
+                    'tag':
+                        (str,),
+                    'limit':
+                        (int,),
+                    'offset':
+                        (int,),
+                    'query':
+                        (str,),
+                    'archived':
+                        (bool,),
+                    'summary':
+                        (bool,),
+                    'filter':
+                        (str,),
+                    'sort':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'env': 'env',
+                    'tag': 'tag',
+                    'limit': 'limit',
+                    'offset': 'offset',
+                    'query': 'query',
+                    'archived': 'archived',
+                    'summary': 'summary',
+                    'filter': 'filter',
+                    'sort': 'sort',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'env': 'query',
+                    'tag': 'query',
+                    'limit': 'query',
+                    'offset': 'query',
+                    'query': 'query',
+                    'archived': 'query',
+                    'summary': 'query',
+                    'filter': 'query',
+                    'sort': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_feature_flags
+        )
+
+        def __patch_expiring_user_targets(
+            self,
+            proj_key,
+            env_key,
+            flag_key,
+            patch_with_comment,
+            **kwargs
+        ):
+            """Update expiring user targets on feature flag  # noqa: E501
+
+            Update the list of user targets on a feature flag that are scheduled for removal.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.patch_expiring_user_targets(proj_key, env_key, flag_key, patch_with_comment, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                env_key (str): The environment key.
+                flag_key (str): The feature flag key.
+                patch_with_comment (PatchWithComment):
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                ExpiringUserTargetPatchResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['env_key'] = \
+                env_key
+            kwargs['flag_key'] = \
+                flag_key
+            kwargs['patch_with_comment'] = \
+                patch_with_comment
+            return self.call_with_http_info(**kwargs)
+
+        self.patch_expiring_user_targets = _Endpoint(
+            settings={
+                'response_type': (ExpiringUserTargetPatchResponse,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey}',
+                'operation_id': 'patch_expiring_user_targets',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'env_key',
+                    'flag_key',
+                    'patch_with_comment',
+                ],
+                'required': [
+                    'proj_key',
+                    'env_key',
+                    'flag_key',
+                    'patch_with_comment',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'env_key':
+                        (str,),
+                    'flag_key':
+                        (str,),
+                    'patch_with_comment':
+                        (PatchWithComment,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'env_key': 'envKey',
+                    'flag_key': 'flagKey',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'env_key': 'path',
+                    'flag_key': 'path',
+                    'patch_with_comment': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__patch_expiring_user_targets
+        )
+
+        def __patch_feature_flag(
+            self,
+            proj_key,
+            key,
+            patch_with_comment,
+            **kwargs
+        ):
+            """Update feature flag  # noqa: E501
+
+            Perform a partial update to a feature  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.patch_feature_flag(proj_key, key, patch_with_comment, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                key (str): The feature flag's key. The key identifies the flag in your code.
+                patch_with_comment (PatchWithComment):
+
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['key'] = \
+                key
+            kwargs['patch_with_comment'] = \
+                patch_with_comment
+            return self.call_with_http_info(**kwargs)
+
+        self.patch_feature_flag = _Endpoint(
+            settings={
+                'response_type': (FeatureFlag,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}/{key}',
+                'operation_id': 'patch_feature_flag',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'key',
+                    'patch_with_comment',
+                ],
+                'required': [
+                    'proj_key',
+                    'key',
+                    'patch_with_comment',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'key':
+                        (str,),
+                    'patch_with_comment':
+                        (PatchWithComment,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'key': 'key',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'key': 'path',
+                    'patch_with_comment': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__patch_feature_flag
+        )
+
+        def __post_feature_flag(
+            self,
+            proj_key,
+            feature_flag_body,
+            **kwargs
+        ):
+            """Create a feature flag  # noqa: E501
+
+            Create a feature flag with the given name, key, and variations  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+
+            >>> thread = api.post_feature_flag(proj_key, feature_flag_body, async_req=True)
+            >>> result = thread.get()
+
+            Args:
+                proj_key (str): The project key.
+                feature_flag_body (FeatureFlagBody):
+
+            Keyword Args:
+                clone (str): The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag.. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (int/float/tuple): timeout setting for this request. If
+                    one number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
+
+            Returns:
+                FeatureFlag
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['proj_key'] = \
+                proj_key
+            kwargs['feature_flag_body'] = \
+                feature_flag_body
+            return self.call_with_http_info(**kwargs)
+
+        self.post_feature_flag = _Endpoint(
+            settings={
+                'response_type': (FeatureFlag,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/flags/{projKey}',
+                'operation_id': 'post_feature_flag',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'proj_key',
+                    'feature_flag_body',
+                    'clone',
+                ],
+                'required': [
+                    'proj_key',
+                    'feature_flag_body',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'proj_key':
+                        (str,),
+                    'feature_flag_body':
+                        (FeatureFlagBody,),
+                    'clone':
+                        (str,),
+                },
+                'attribute_map': {
+                    'proj_key': 'projKey',
+                    'clone': 'clone',
+                },
+                'location_map': {
+                    'proj_key': 'path',
+                    'feature_flag_body': 'body',
+                    'clone': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__post_feature_flag
+        )

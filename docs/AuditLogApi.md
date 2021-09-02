@@ -1,122 +1,183 @@
 # launchdarkly_api.AuditLogApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /auditlog | Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.
-[**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /auditlog/{resourceId} | Use this endpoint to fetch a single audit log entry by its resouce ID.
+[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /api/v2/auditlog | List audit log feature flag entries
+[**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /api/v2/auditlog/{id} | Get audit log entry
 
 
 # **get_audit_log_entries**
-> AuditLogEntries get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
+> AuditLogEntryListingRepCollection get_audit_log_entries()
 
-Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.
+List audit log feature flag entries
+
+Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import audit_log_api
+from launchdarkly_api.model.audit_log_entry_listing_rep_collection import AuditLogEntryListingRepCollection
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.AuditLogApi(launchdarkly_api.ApiClient(configuration))
-before = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. (optional)
-after = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. (optional)
-q = 'q_example' # str | Text to search for. You can search for the full or partial name of the resource involved or full or partial email address of the member who made the change. (optional)
-limit = 8.14 # float | A limit on the number of audit log entries to be returned, between 1 and 20. (optional)
-spec = 'spec_example' # str | A resource specifier, allowing you to filter audit log listings by resource. (optional)
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = audit_log_api.AuditLogApi(api_client)
+    before = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
+    after = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
+    q = "q_example" # str | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
+    limit = 1 # int | A limit on the number of audit log entries that return. Set between 1 and 20. (optional)
+    spec = "spec_example" # str | A resource specifier that lets you filter audit log listings by resource (optional)
 
-try:
-    # Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.
-    api_response = api_instance.get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditLogApi->get_audit_log_entries: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # List audit log feature flag entries
+        api_response = api_instance.get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling AuditLogApi->get_audit_log_entries: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. | [optional] 
- **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | [optional] 
- **q** | **str**| Text to search for. You can search for the full or partial name of the resource involved or full or partial email address of the member who made the change. | [optional] 
- **limit** | **float**| A limit on the number of audit log entries to be returned, between 1 and 20. | [optional] 
- **spec** | **str**| A resource specifier, allowing you to filter audit log listings by resource. | [optional] 
+ **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | [optional]
+ **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | [optional]
+ **q** | **str**| Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | [optional]
+ **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. | [optional]
+ **spec** | **str**| A resource specifier that lets you filter audit log listings by resource | [optional]
 
 ### Return type
 
-[**AuditLogEntries**](AuditLogEntries.md)
+[**AuditLogEntryListingRepCollection**](AuditLogEntryListingRepCollection.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Audit log entries response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_audit_log_entry**
-> AuditLogEntry get_audit_log_entry(resource_id)
+> AuditLogEntryRep get_audit_log_entry(id)
 
-Use this endpoint to fetch a single audit log entry by its resouce ID.
+Get audit log entry
+
+Fetch a detailed audit log entry representation. The detailed representation includes several fields that are not present in the summary representation:  - `delta`: the JSON patch body that was used in the request to update the entity - `previousVersion`: a JSON representation of the previous version of the entity - `currentVersion`: a JSON representation of the current version of the entity 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import audit_log_api
+from launchdarkly_api.model.audit_log_entry_rep import AuditLogEntryRep
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.AuditLogApi(launchdarkly_api.ApiClient(configuration))
-resource_id = 'resource_id_example' # str | The resource ID.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = audit_log_api.AuditLogApi(api_client)
+    id = "id_example" # str | The ID of the audit log entry
 
-try:
-    # Use this endpoint to fetch a single audit log entry by its resouce ID.
-    api_response = api_instance.get_audit_log_entry(resource_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling AuditLogApi->get_audit_log_entry: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get audit log entry
+        api_response = api_instance.get_audit_log_entry(id)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling AuditLogApi->get_audit_log_entry: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resource_id** | **str**| The resource ID. | 
+ **id** | **str**| The ID of the audit log entry |
 
 ### Return type
 
-[**AuditLogEntry**](AuditLogEntry.md)
+[**AuditLogEntryRep**](AuditLogEntryRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Audit log entry response |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

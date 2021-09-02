@@ -1,12 +1,18 @@
 # FeatureFlagScheduledChange
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_date** | **int** | A unix epoch time in milliseconds specifying the date the scheduled changes will be applied | [optional] 
-**version** | **int** |  | [optional] 
-**id** | **str** |  | [optional] 
-**instructions** | [**SemanticPatchInstruction**](SemanticPatchInstruction.md) |  | [optional] 
+**id** | **str** |  | 
+**creation_date** | **int** |  | 
+**maintainer_id** | **str** |  | 
+**version** | **int** |  | 
+**execution_date** | **int** |  | 
+**instructions** | [**Instructions**](Instructions.md) |  | 
+**conflicts** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

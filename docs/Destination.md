@@ -1,15 +1,18 @@
 # Destination
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**Links**](Links.md) |  | [optional] 
-**id** | **str** | Unique destination ID. | [optional] 
-**name** | **str** | The destination name | [optional] 
-**kind** | **str** | Destination type (\&quot;google-pubsub\&quot;, \&quot;kinesis\&quot;, \&quot;mparticle\&quot;, or \&quot;segment\&quot;) | [optional] 
-**config** | **object** | destination-specific configuration. | [optional] 
-**on** | **bool** | Whether the data export destination is on or not. | [optional] 
-**version** | **int** |  | [optional] 
+**id** | **str** |  | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) |  | [optional] 
+**name** | **str** |  | [optional] 
+**kind** | **str** |  | [optional] 
+**version** | **float** |  | [optional] 
+**config** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
+**on** | **bool** |  | [optional] 
+**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

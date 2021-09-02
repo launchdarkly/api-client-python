@@ -1,14 +1,17 @@
 # CustomRole
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**Links**](Links.md) |  | [optional] 
-**name** | **str** | Name of the custom role. | [optional] 
-**key** | **str** | The 20-hexdigit id or the key for a custom role. | [optional] 
-**description** | **str** | Description of the custom role. | [optional] 
-**id** | [**Id**](Id.md) |  | [optional] 
-**policy** | [**list[Policy]**](Policy.md) |  | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) |  | 
+**name** | **str** |  | 
+**key** | **str** |  | 
+**id** | **str** |  | 
+**policy** | [**[Statement]**](Statement.md) |  | 
+**description** | **str** |  | [optional] 
+**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

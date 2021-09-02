@@ -1,54 +1,72 @@
 # launchdarkly_api.UsersApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_user**](UsersApi.md#delete_user) | **DELETE** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID.
-[**get_search_users**](UsersApi.md#get_search_users) | **GET** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
-[**get_user**](UsersApi.md#get_user) | **GET** /users/{projectKey}/{environmentKey}/{userKey} | Get a user by key.
-[**get_users**](UsersApi.md#get_users) | **GET** /users/{projectKey}/{environmentKey} | List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
+[**delete_user**](UsersApi.md#delete_user) | **DELETE** /api/v2/users/{projKey}/{envKey}/{key} | Delete user
+[**get_search_users**](UsersApi.md#get_search_users) | **GET** /api/v2/user-search/{projKey}/{envKey} | Find users
+[**get_user**](UsersApi.md#get_user) | **GET** /api/v2/users/{projKey}/{envKey}/{key} | Get user
+[**get_users**](UsersApi.md#get_users) | **GET** /api/v2/users/{projKey}/{envKey} | List users
 
 
 # **delete_user**
-> delete_user(project_key, environment_key, user_key)
+> delete_user(proj_key, env_key, key)
 
-Delete a user by ID.
+Delete user
+
+Delete a user by key
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import users_api
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-user_key = 'user_key_example' # str | The user's key.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = users_api.UsersApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    key = "key_example" # str | The user key
 
-try:
-    # Delete a user by ID.
-    api_instance.delete_user(project_key, environment_key, user_key)
-except ApiException as e:
-    print("Exception when calling UsersApi->delete_user: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete user
+        api_instance.delete_user(proj_key, env_key, key)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **user_key** | **str**| The user&#39;s key. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **key** | **str**| The user key |
 
 ### Return type
 
@@ -56,61 +74,103 @@ void (empty response body)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Action completed successfully |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_search_users**
-> Users get_search_users(project_key, environment_key, q=q, limit=limit, offset=offset, after=after)
+> Users get_search_users(proj_key, env_key)
 
-Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
+Find users
+
+Search users in LaunchDarkly based on their last active date, or a search query. Do not use to enumerate all users in LaunchDarkly. Instead use the [List users](getUsers) API resource.  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not. 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import users_api
+from launchdarkly_api.model.users import Users
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-q = 'q_example' # str | Search query. (optional)
-limit = 56 # int | Pagination limit. (optional)
-offset = 56 # int | Specifies the first item to return in the collection. (optional)
-after = 789 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. (optional)
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = users_api.UsersApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    q = "q_example" # str | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
+    limit = 1 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
+    offset = 1 # int | Specifies the first item to return in the collection (optional)
+    after = 1 # int | A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly (optional)
+    search_after = "searchAfter_example" # str | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
 
-try:
-    # Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
-    api_response = api_instance.get_search_users(project_key, environment_key, q=q, limit=limit, offset=offset, after=after)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling UsersApi->get_search_users: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Find users
+        api_response = api_instance.get_search_users(proj_key, env_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->get_search_users: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Find users
+        api_response = api_instance.get_search_users(proj_key, env_key, q=q, limit=limit, offset=offset, after=after, search_after=search_after)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->get_search_users: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **q** | **str**| Search query. | [optional] 
- **limit** | **int**| Pagination limit. | [optional] 
- **offset** | **int**| Specifies the first item to return in the collection. | [optional] 
- **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | [optional] 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **q** | **str**| Full-text search for users based on name, first name, last name, e-mail address, or key | [optional]
+ **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional]
+ **offset** | **int**| Specifies the first item to return in the collection | [optional]
+ **after** | **int**| A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly | [optional]
+ **search_after** | **str**| Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | [optional]
 
 ### Return type
 
@@ -118,115 +178,184 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Users collection response |  -  |
+**400** | Bad request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user**
-> UserRecord get_user(project_key, environment_key, user_key)
+> User get_user(proj_key, env_key, key)
 
-Get a user by key.
+Get user
+
+Get a user by key. The `user` object contains all attributes sent in `variation` calls for that key.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import users_api
+from launchdarkly_api.model.user import User
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-user_key = 'user_key_example' # str | The user's key.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = users_api.UsersApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    key = "key_example" # str | The user key
 
-try:
-    # Get a user by key.
-    api_response = api_instance.get_user(project_key, environment_key, user_key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling UsersApi->get_user: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get user
+        api_response = api_instance.get_user(proj_key, env_key, key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->get_user: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **user_key** | **str**| The user&#39;s key. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **key** | **str**| The user key |
 
 ### Return type
 
-[**UserRecord**](UserRecord.md)
+[**User**](User.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | User response |  -  |
+**400** | Bad request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_users**
-> Users get_users(project_key, environment_key, limit=limit, h=h, scroll_id=scroll_id)
+> Users get_users(proj_key, env_key)
 
-List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
+List users
+
+List all users in the environment. Includes the total count of users. In each page, there is up to `limit` users returned. The default is 20. This is useful for exporting all users in the system for further analysis. To paginate through, follow the `next` link in the `_links` object, as [described in Representations](/#section/Representations). 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import users_api
+from launchdarkly_api.model.users import Users
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.UsersApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-limit = 56 # int | Pagination limit. (optional)
-h = 'h_example' # str | This parameter is required when following \"next\" links. (optional)
-scroll_id = 'scroll_id_example' # str | This parameter is required when following \"next\" links. (optional)
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = users_api.UsersApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    limit = 1 # int | The number of elements to return per page (optional)
+    search_after = "searchAfter_example" # str | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
 
-try:
-    # List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
-    api_response = api_instance.get_users(project_key, environment_key, limit=limit, h=h, scroll_id=scroll_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling UsersApi->get_users: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # List users
+        api_response = api_instance.get_users(proj_key, env_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->get_users: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # List users
+        api_response = api_instance.get_users(proj_key, env_key, limit=limit, search_after=search_after)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling UsersApi->get_users: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **limit** | **int**| Pagination limit. | [optional] 
- **h** | **str**| This parameter is required when following \&quot;next\&quot; links. | [optional] 
- **scroll_id** | **str**| This parameter is required when following \&quot;next\&quot; links. | [optional] 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **limit** | **int**| The number of elements to return per page | [optional]
+ **search_after** | **str**| Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | [optional]
 
 ### Return type
 
@@ -234,12 +363,24 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Users collection response |  -  |
+**400** | Bad request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

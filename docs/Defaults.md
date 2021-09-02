@@ -1,10 +1,12 @@
 # Defaults
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**on_variation** | **int** | The index of the variation to be served when a flag&#39;s targeting is on (default variation). | 
-**off_variation** | **int** | The index of the variation to be served when a flag is off. | 
+**on_variation** | **int** |  | 
+**off_variation** | **int** |  | 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

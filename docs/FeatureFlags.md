@@ -1,11 +1,13 @@
 # FeatureFlags
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**Links**](Links.md) |  | [optional] 
-**items** | [**list[FeatureFlag]**](FeatureFlag.md) |  | [optional] 
-**total_count** | **float** |  | [optional] 
+**items** | [**[FeatureFlag]**](FeatureFlag.md) |  | 
+**links** | [**{str: (Link,)}**](Link.md) |  | 
+**total_count** | **int** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

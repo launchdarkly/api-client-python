@@ -1,55 +1,73 @@
 # launchdarkly_api.DataExportDestinationsApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_destination**](DataExportDestinationsApi.md#delete_destination) | **DELETE** /destinations/{projectKey}/{environmentKey}/{destinationId} | Get a single data export destination by ID
-[**get_destination**](DataExportDestinationsApi.md#get_destination) | **GET** /destinations/{projectKey}/{environmentKey}/{destinationId} | Get a single data export destination by ID
-[**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /destinations | Returns a list of all data export destinations.
-[**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /destinations/{projectKey}/{environmentKey}/{destinationId} | Perform a partial update to a data export destination.
-[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /destinations/{projectKey}/{environmentKey} | Create a new data export destination
+[**delete_destination**](DataExportDestinationsApi.md#delete_destination) | **DELETE** /api/v2/destinations/{projKey}/{envKey}/{id} | Delete Data Export destination
+[**get_destination**](DataExportDestinationsApi.md#get_destination) | **GET** /api/v2/destinations/{projKey}/{envKey}/{id} | Get destination
+[**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /api/v2/destinations | List destinations
+[**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projKey}/{envKey}/{id} | Update Data Export destination
+[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projKey}/{envKey} | Create data export destination
 
 
 # **delete_destination**
-> delete_destination(project_key, environment_key, destination_id)
+> delete_destination(proj_key, env_key, id)
 
-Get a single data export destination by ID
+Delete Data Export destination
+
+Delete Data Export destination by ID
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import data_export_destinations_api
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.DataExportDestinationsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-destination_id = 'destination_id_example' # str | The data export destination ID.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    id = "id_example" # str | The Data Export destination ID
 
-try:
-    # Get a single data export destination by ID
-    api_instance.delete_destination(project_key, environment_key, destination_id)
-except ApiException as e:
-    print("Exception when calling DataExportDestinationsApi->delete_destination: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete Data Export destination
+        api_instance.delete_destination(proj_key, env_key, id)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->delete_destination: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **destination_id** | **str**| The data export destination ID. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **id** | **str**| The Data Export destination ID |
 
 ### Return type
 
@@ -57,55 +75,85 @@ void (empty response body)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Destination response |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_destination**
-> Destination get_destination(project_key, environment_key, destination_id)
+> Destination get_destination(proj_key, env_key, id)
 
-Get a single data export destination by ID
+Get destination
+
+Get a single Data Export destination by ID
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import data_export_destinations_api
+from launchdarkly_api.model.destination import Destination
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.DataExportDestinationsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-destination_id = 'destination_id_example' # str | The data export destination ID.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    id = "id_example" # str | The Data Export destination ID
 
-try:
-    # Get a single data export destination by ID
-    api_response = api_instance.get_destination(project_key, environment_key, destination_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataExportDestinationsApi->get_destination: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get destination
+        api_response = api_instance.get_destination(proj_key, env_key, id)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->get_destination: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **destination_id** | **str**| The data export destination ID. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **id** | **str**| The Data Export destination ID |
 
 ### Return type
 
@@ -113,44 +161,74 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Destination response |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_destinations**
 > Destinations get_destinations()
 
-Returns a list of all data export destinations.
+List destinations
+
+Get a list of Data Export destinations configured across all projects and environments.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import data_export_destinations_api
+from launchdarkly_api.model.destinations import Destinations
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.DataExportDestinationsApi(launchdarkly_api.ApiClient(configuration))
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
 
-try:
-    # Returns a list of all data export destinations.
-    api_response = api_instance.get_destinations()
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataExportDestinationsApi->get_destinations: %s\n" % e)
+    # example, this endpoint has no required or optional parameters
+    try:
+        # List destinations
+        api_response = api_instance.get_destinations()
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->get_destinations: %s\n" % e)
 ```
+
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -161,57 +239,93 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Destination collection response |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_destination**
-> Destination patch_destination(project_key, environment_key, destination_id, patch_only)
+> Destination patch_destination(proj_key, env_key, id, json_patch)
 
-Perform a partial update to a data export destination.
+Update Data Export destination
+
+Update a Data Export destination. This requires a JSON Patch representation of the modified destination.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import data_export_destinations_api
+from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.destination import Destination
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.DataExportDestinationsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-destination_id = 'destination_id_example' # str | The data export destination ID.
-patch_only = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments is also supported.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    id = "id_example" # str | The Data Export destination ID
+    json_patch = JSONPatch([
+        PatchOperation(
+            op="replace",
+            path="/biscuits",
+            value=None,
+        ),
+    ]) # JSONPatch | 
 
-try:
-    # Perform a partial update to a data export destination.
-    api_response = api_instance.patch_destination(project_key, environment_key, destination_id, patch_only)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataExportDestinationsApi->patch_destination: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Update Data Export destination
+        api_response = api_instance.patch_destination(proj_key, env_key, id, json_patch)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->patch_destination: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **destination_id** | **str**| The data export destination ID. | 
- **patch_only** | [**list[PatchOperation]**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **id** | **str**| The Data Export destination ID |
+ **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
 
 ### Return type
 
@@ -219,55 +333,93 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Destination response |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_destination**
-> Destination post_destination(project_key, environment_key, destination_body)
+> Destination post_destination(proj_key, env_key, destination_post)
 
-Create a new data export destination
+Create data export destination
+
+Create a new destination. The `config` body parameter represents the configuration parameters required for a destination type.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import data_export_destinations_api
+from launchdarkly_api.model.destination_post import DestinationPost
+from launchdarkly_api.model.destination import Destination
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.DataExportDestinationsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-destination_body = launchdarkly_api.DestinationBody() # DestinationBody | Create a new data export destination.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    proj_key = "projKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    destination_post = DestinationPost(
+        name="name_example",
+        kind="google-pubsub",
+        config=None,
+        on=True,
+    ) # DestinationPost | 
 
-try:
-    # Create a new data export destination
-    api_response = api_instance.post_destination(project_key, environment_key, destination_body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DataExportDestinationsApi->post_destination: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Create data export destination
+        api_response = api_instance.post_destination(proj_key, env_key, destination_post)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->post_destination: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **destination_body** | [**DestinationBody**](DestinationBody.md)| Create a new data export destination. | 
+ **proj_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **destination_post** | [**DestinationPost**](DestinationPost.md)|  |
 
 ### Return type
 
@@ -275,12 +427,24 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Destination response |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

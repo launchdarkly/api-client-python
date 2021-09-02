@@ -1,21 +1,3 @@
-from __future__ import absolute_import
-
-# flake8: noqa
-
-# import apis into api package
-from launchdarkly_api.api.access_tokens_api import AccessTokensApi
-from launchdarkly_api.api.audit_log_api import AuditLogApi
-from launchdarkly_api.api.custom_roles_api import CustomRolesApi
-from launchdarkly_api.api.customer_metrics_api import CustomerMetricsApi
-from launchdarkly_api.api.data_export_destinations_api import DataExportDestinationsApi
-from launchdarkly_api.api.environments_api import EnvironmentsApi
-from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
-from launchdarkly_api.api.integrations_api import IntegrationsApi
-from launchdarkly_api.api.projects_api import ProjectsApi
-from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
-from launchdarkly_api.api.root_api import RootApi
-from launchdarkly_api.api.team_members_api import TeamMembersApi
-from launchdarkly_api.api.user_segments_api import UserSegmentsApi
-from launchdarkly_api.api.user_settings_api import UserSettingsApi
-from launchdarkly_api.api.users_api import UsersApi
-from launchdarkly_api.api.webhooks_api import WebhooksApi
+# do not import all apis into this module because that uses a lot of memory and stack frames
+# if you need the ability to import all apis from one package, import them with
+# from launchdarkly_api.apis import AccessTokensApi

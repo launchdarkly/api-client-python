@@ -1,54 +1,72 @@
 # launchdarkly_api.EnvironmentsApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /projects/{projectKey}/environments/{environmentKey} | Delete an environment in a specific project.
-[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
-[**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID. If you try to patch the environment by setting both required and requiredApprovalTags, it will result in an error. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates with either mechanism.
-[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
-[**reset_environment_mobile_key**](EnvironmentsApi.md#reset_environment_mobile_key) | **POST** /projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset an environment&#39;s mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
-[**reset_environment_sdk_key**](EnvironmentsApi.md#reset_environment_sdk_key) | **POST** /projects/{projectKey}/environments/{environmentKey}/apiKey | Reset an environment&#39;s SDK key with an optional expiry time for the old key.
+[**delete_environment**](EnvironmentsApi.md#delete_environment) | **DELETE** /api/v2/projects/{projectKey}/environments/{environmentKey} | Delete environment
+[**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
+[**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
+[**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /api/v2/projects/{projectKey}/environments | Create environment
+[**reset_environment_mobile_key**](EnvironmentsApi.md#reset_environment_mobile_key) | **POST** /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey | Reset environment mobile SDK key
+[**reset_environment_sdk_key**](EnvironmentsApi.md#reset_environment_sdk_key) | **POST** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Reset environment SDK key
 
 
 # **delete_environment**
 > delete_environment(project_key, environment_key)
 
-Delete an environment in a specific project.
+Delete environment
+
+Delete a environment by key.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
 
-try:
-    # Delete an environment in a specific project.
-    api_instance.delete_environment(project_key, environment_key)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->delete_environment: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete environment
+        api_instance.delete_environment(project_key, environment_key)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->delete_environment: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
 
 ### Return type
 
@@ -56,53 +74,83 @@ void (empty response body)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Action completed successfully |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_environment**
 > Environment get_environment(project_key, environment_key)
 
-Get an environment given a project and key.
+Get environment
+
+> ### Approval settings > > The `approvalSettings` key is only returned when the Flag Approvals feature is enabled.  Get an environment given a project and key. 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
+from launchdarkly_api.model.environment import Environment
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
 
-try:
-    # Get an environment given a project and key.
-    api_response = api_instance.get_environment(project_key, environment_key)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->get_environment: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Get environment
+        api_response = api_instance.get_environment(project_key, environment_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->get_environment: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
 
 ### Return type
 
@@ -110,55 +158,92 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Environment response JSON |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_environment**
-> Environment patch_environment(project_key, environment_key, patch_delta)
+> Environment patch_environment(project_key, environment_key, json_patch)
 
-Modify an environment by ID. If you try to patch the environment by setting both required and requiredApprovalTags, it will result in an error. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates with either mechanism.
+Update environment
+
+> ### Approval settings > > The `approvalSettings` key is only returned when the Flag Approvals feature is enabled. > > Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable. > > If you try to patch the environment by setting both `required` and `requiredApprovalTags`, it fails and an error appears. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates by either mechanism. 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
+from launchdarkly_api.model.environment import Environment
+from launchdarkly_api.model.json_patch import JSONPatch
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-patch_delta = [launchdarkly_api.PatchOperation()] # list[PatchOperation] | Requires a JSON Patch representation of the desired changes to the project. 'http://jsonpatch.com/'
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    json_patch = JSONPatch([
+        PatchOperation(
+            op="replace",
+            path="/biscuits",
+            value=None,
+        ),
+    ]) # JSONPatch | 
 
-try:
-    # Modify an environment by ID. If you try to patch the environment by setting both required and requiredApprovalTags, it will result in an error. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates with either mechanism.
-    api_response = api_instance.patch_environment(project_key, environment_key, patch_delta)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->patch_environment: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Update environment
+        api_response = api_instance.patch_environment(project_key, environment_key, json_patch)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->patch_environment: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **patch_delta** | [**list[PatchOperation]**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
 
 ### Return type
 
@@ -166,53 +251,95 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Environment response JSON |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_environment**
-> Environment post_environment(project_key, environment_body)
+> Environment post_environment(project_key, environment_post)
 
-Create a new environment in a specified project with a given name, key, and swatch color.
+Create environment
+
+> ### Approval settings > > The `approvalSettings` key is only returned when the Flag Approvals feature is enabled.  Create a new environment in a specified project with a given name, key, swatch color, and default TTL. 
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
+from launchdarkly_api.model.environment import Environment
+from launchdarkly_api.model.environment_post import EnvironmentPost
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_body = launchdarkly_api.EnvironmentPost() # EnvironmentPost | New environment.
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    environment_post = EnvironmentPost(
+        name="My Environment",
+        key="my-environment",
+        color="F5A623",
+        default_ttl=5,
+        secure_mode=True,
+        default_track_events=False,
+        confirm_changes=False,
+        require_comments=False,
+        tags=["ops"],
+    ) # EnvironmentPost | 
 
-try:
-    # Create a new environment in a specified project with a given name, key, and swatch color.
-    api_response = api_instance.post_environment(project_key, environment_body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Create environment
+        api_response = api_instance.post_environment(project_key, environment_post)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_body** | [**EnvironmentPost**](EnvironmentPost.md)| New environment. | 
+ **project_key** | **str**| The project key |
+ **environment_post** | [**EnvironmentPost**](EnvironmentPost.md)|  |
 
 ### Return type
 
@@ -220,55 +347,85 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successful environment response |  -  |
+**400** | Invalid request body |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_environment_mobile_key**
-> Environment reset_environment_mobile_key(project_key, environment_key, expiry=expiry)
+> Environment reset_environment_mobile_key(project_key, env_key)
+
+Reset environment mobile SDK key
 
 Reset an environment's mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
+from launchdarkly_api.model.environment import Environment
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-expiry = 789 # int | The expiry parameter is deprecated for this endpoint, so the old mobile key will always expire immediately. This parameter will be removed in an upcoming major API client version. (optional)
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
 
-try:
-    # Reset an environment's mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
-    api_response = api_instance.reset_environment_mobile_key(project_key, environment_key, expiry=expiry)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->reset_environment_mobile_key: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Reset environment mobile SDK key
+        api_response = api_instance.reset_environment_mobile_key(project_key, env_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->reset_environment_mobile_key: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **expiry** | **int**| The expiry parameter is deprecated for this endpoint, so the old mobile key will always expire immediately. This parameter will be removed in an upcoming major API client version. | [optional] 
+ **project_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
 
 ### Return type
 
@@ -276,55 +433,95 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful environment response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_environment_sdk_key**
-> Environment reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
+> Environment reset_environment_sdk_key(project_key, env_key)
+
+Reset environment SDK key
 
 Reset an environment's SDK key with an optional expiry time for the old key.
 
 ### Example
+
+* Api Key Authentication (ApiKey):
+
 ```python
-from __future__ import print_function
 import time
 import launchdarkly_api
-from launchdarkly_api.rest import ApiException
+from launchdarkly_api.api import environments_api
+from launchdarkly_api.model.environment import Environment
 from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
 
-# Configure API key authorization: Token
-configuration = launchdarkly_api.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
 
-# create an instance of the API class
-api_instance = launchdarkly_api.EnvironmentsApi(launchdarkly_api.ApiClient(configuration))
-project_key = 'project_key_example' # str | The project key, used to tie the flags together under one project so they can be managed together.
-environment_key = 'environment_key_example' # str | The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
-expiry = 789 # int | An expiration time for the old environment SDK key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately. (optional)
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = environments_api.EnvironmentsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    env_key = "envKey_example" # str | The environment key
+    expiry = 1 # int | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. (optional)
 
-try:
-    # Reset an environment's SDK key with an optional expiry time for the old key.
-    api_response = api_instance.reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
+    # example passing only required values which don't have defaults set
+    try:
+        # Reset environment SDK key
+        api_response = api_instance.reset_environment_sdk_key(project_key, env_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Reset environment SDK key
+        api_response = api_instance.reset_environment_sdk_key(project_key, env_key, expiry=expiry)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
 ```
+
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environment_key** | **str**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **expiry** | **int**| An expiration time for the old environment SDK key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately. | [optional] 
+ **project_key** | **str**| The project key |
+ **env_key** | **str**| The environment key |
+ **expiry** | **int**| The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. | [optional]
 
 ### Return type
 
@@ -332,12 +529,24 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful environment response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource specifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

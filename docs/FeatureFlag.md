@@ -1,28 +1,32 @@
 # FeatureFlag
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | [optional] 
-**name** | **str** | Name of the feature flag. | [optional] 
-**description** | **str** | Description of the feature flag. | [optional] 
-**kind** | **str** | Whether the feature flag is a boolean flag or multivariate. | [optional] 
-**creation_date** | **int** | A unix epoch time in milliseconds specifying the creation time of this flag. | [optional] 
-**include_in_snippet** | **bool** |  | [optional] 
-**temporary** | **bool** | Whether or not this flag is temporary. | [optional] 
-**maintainer_id** | **str** | The ID of the member that should maintain this flag. | [optional] 
-**tags** | **list[str]** | An array of tags for this feature flag. | [optional] 
-**variations** | [**list[Variation]**](Variation.md) | The variations for this feature flag. | [optional] 
-**goal_ids** | **list[str]** | An array goals from all environments associated with this feature flag | [optional] 
-**version** | **int** |  | [optional] 
-**custom_properties** | [**dict(str, CustomProperty)**](CustomProperty.md) | A mapping of keys to CustomProperty entries. | [optional] 
-**links** | [**Links**](Links.md) |  | [optional] 
-**maintainer** | [**Member**](Member.md) |  | [optional] 
-**environments** | [**dict(str, FeatureFlagConfig)**](FeatureFlagConfig.md) |  | [optional] 
-**archived_date** | **int** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] 
-**archived** | **bool** | Whether or not this flag is archived. | [optional] 
+**name** | **str** | A human-friendly name for the feature flag | 
+**kind** | **str** | Kind of feature flag | 
+**key** | **str** | A unique key used to reference the flag in your code | 
+**version** | **int** | Version of the feature flag | 
+**creation_date** | **int** |  | 
+**variations** | [**[Variation]**](Variation.md) | An array of possible variations for the flag | 
+**temporary** | **bool** | Whether or not the flag is a temporary flag | 
+**tags** | **[str]** | Tags for the feature flag | 
+**links** | [**{str: (Link,)}**](Link.md) |  | 
+**experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
+**custom_properties** | [**CustomProperties**](CustomProperties.md) |  | 
+**archived** | **bool** | Boolean indicating if the feature flag is archived | 
+**environments** | [**{str: (FeatureFlagConfig,)}**](FeatureFlagConfig.md) |  | 
+**description** | **str** | Description of the feature flag | [optional] 
+**include_in_snippet** | **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
+**variation_json_schema** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
+**maintainer_id** | **str** | Associated maintainerId for the feature flag | [optional] 
+**maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**goal_ids** | **[str]** |  | [optional] 
+**archived_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
