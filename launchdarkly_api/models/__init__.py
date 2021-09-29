@@ -36,6 +36,8 @@ from launchdarkly_api.model.custom_role import CustomRole
 from launchdarkly_api.model.custom_role_post import CustomRolePost
 from launchdarkly_api.model.custom_role_post_data import CustomRolePostData
 from launchdarkly_api.model.custom_roles import CustomRoles
+from launchdarkly_api.model.custom_workflow_meta import CustomWorkflowMeta
+from launchdarkly_api.model.custom_workflow_stage_meta import CustomWorkflowStageMeta
 from launchdarkly_api.model.default_client_side_availability_post import DefaultClientSideAvailabilityPost
 from launchdarkly_api.model.defaults import Defaults
 from launchdarkly_api.model.dependent_flag import DependentFlag
@@ -115,6 +117,9 @@ from launchdarkly_api.model.patch_operation import PatchOperation
 from launchdarkly_api.model.patch_segment_instruction import PatchSegmentInstruction
 from launchdarkly_api.model.patch_segment_request import PatchSegmentRequest
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.permission_grant_collection_rep import PermissionGrantCollectionRep
+from launchdarkly_api.model.permission_grant_input import PermissionGrantInput
+from launchdarkly_api.model.permission_grant_rep import PermissionGrantRep
 from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
 from launchdarkly_api.model.post_approval_request_review_request import PostApprovalRequestReviewRequest
 from launchdarkly_api.model.post_flag_scheduled_changes_input import PostFlagScheduledChangesInput
@@ -158,6 +163,10 @@ from launchdarkly_api.model.statistics_root import StatisticsRoot
 from launchdarkly_api.model.subject_data_rep import SubjectDataRep
 from launchdarkly_api.model.target import Target
 from launchdarkly_api.model.target_resource_rep import TargetResourceRep
+from launchdarkly_api.model.team_collection_rep import TeamCollectionRep
+from launchdarkly_api.model.team_patch_input import TeamPatchInput
+from launchdarkly_api.model.team_post_input import TeamPostInput
+from launchdarkly_api.model.team_rep import TeamRep
 from launchdarkly_api.model.title_rep import TitleRep
 from launchdarkly_api.model.token import Token
 from launchdarkly_api.model.token_data_rep import TokenDataRep

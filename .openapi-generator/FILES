@@ -37,6 +37,8 @@ docs/CustomRolePost.md
 docs/CustomRolePostData.md
 docs/CustomRoles.md
 docs/CustomRolesApi.md
+docs/CustomWorkflowMeta.md
+docs/CustomWorkflowStageMeta.md
 docs/DataExportDestinationsApi.md
 docs/DefaultClientSideAvailabilityPost.md
 docs/Defaults.md
@@ -123,6 +125,9 @@ docs/PatchOperation.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
 docs/PatchWithComment.md
+docs/PermissionGrantCollectionRep.md
+docs/PermissionGrantInput.md
+docs/PermissionGrantRep.md
 docs/PostApprovalRequestApplyRequest.md
 docs/PostApprovalRequestReviewRequest.md
 docs/PostFlagScheduledChangesInput.md
@@ -170,6 +175,11 @@ docs/StatisticsRoot.md
 docs/SubjectDataRep.md
 docs/Target.md
 docs/TargetResourceRep.md
+docs/TeamCollectionRep.md
+docs/TeamPatchInput.md
+docs/TeamPostInput.md
+docs/TeamRep.md
+docs/TeamsBetaApi.md
 docs/TitleRep.md
 docs/Token.md
 docs/TokenDataRep.md
@@ -220,6 +230,7 @@ launchdarkly_api/api/projects_api.py
 launchdarkly_api/api/relay_proxy_configurations_api.py
 launchdarkly_api/api/scheduled_changes_api.py
 launchdarkly_api/api/segments_api.py
+launchdarkly_api/api/teams__beta_api.py
 launchdarkly_api/api/user_settings_api.py
 launchdarkly_api/api/users__beta_api.py
 launchdarkly_api/api/users_api.py
@@ -256,6 +267,8 @@ launchdarkly_api/model/custom_role.py
 launchdarkly_api/model/custom_role_post.py
 launchdarkly_api/model/custom_role_post_data.py
 launchdarkly_api/model/custom_roles.py
+launchdarkly_api/model/custom_workflow_meta.py
+launchdarkly_api/model/custom_workflow_stage_meta.py
 launchdarkly_api/model/default_client_side_availability_post.py
 launchdarkly_api/model/defaults.py
 launchdarkly_api/model/dependent_flag.py
@@ -335,6 +348,9 @@ launchdarkly_api/model/patch_operation.py
 launchdarkly_api/model/patch_segment_instruction.py
 launchdarkly_api/model/patch_segment_request.py
 launchdarkly_api/model/patch_with_comment.py
+launchdarkly_api/model/permission_grant_collection_rep.py
+launchdarkly_api/model/permission_grant_input.py
+launchdarkly_api/model/permission_grant_rep.py
 launchdarkly_api/model/post_approval_request_apply_request.py
 launchdarkly_api/model/post_approval_request_review_request.py
 launchdarkly_api/model/post_flag_scheduled_changes_input.py
@@ -378,6 +394,10 @@ launchdarkly_api/model/statistics_root.py
 launchdarkly_api/model/subject_data_rep.py
 launchdarkly_api/model/target.py
 launchdarkly_api/model/target_resource_rep.py
+launchdarkly_api/model/team_collection_rep.py
+launchdarkly_api/model/team_patch_input.py
+launchdarkly_api/model/team_post_input.py
+launchdarkly_api/model/team_rep.py
 launchdarkly_api/model/title_rep.py
 launchdarkly_api/model/token.py
 launchdarkly_api/model/token_data_rep.py
@@ -445,6 +465,8 @@ test/test_custom_role_post.py
 test/test_custom_role_post_data.py
 test/test_custom_roles.py
 test/test_custom_roles_api.py
+test/test_custom_workflow_meta.py
+test/test_custom_workflow_stage_meta.py
 test/test_data_export_destinations_api.py
 test/test_default_client_side_availability_post.py
 test/test_defaults.py
@@ -531,6 +553,9 @@ test/test_patch_operation.py
 test/test_patch_segment_instruction.py
 test/test_patch_segment_request.py
 test/test_patch_with_comment.py
+test/test_permission_grant_collection_rep.py
+test/test_permission_grant_input.py
+test/test_permission_grant_rep.py
 test/test_post_approval_request_apply_request.py
 test/test_post_approval_request_review_request.py
 test/test_post_flag_scheduled_changes_input.py
@@ -578,6 +603,11 @@ test/test_statistics_root.py
 test/test_subject_data_rep.py
 test/test_target.py
 test/test_target_resource_rep.py
+test/test_team_collection_rep.py
+test/test_team_patch_input.py
+test/test_team_post_input.py
+test/test_team_rep.py
+test/test_teams__beta_api.py
 test/test_title_rep.py
 test/test_token.py
 test/test_token_data_rep.py

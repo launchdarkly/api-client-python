@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**get_extinctions**](CodeReferencesApi.md#get_extinctions) | **GET** /api/v2/code-refs/extinctions | List extinctions
 [**get_repositories**](CodeReferencesApi.md#get_repositories) | **GET** /api/v2/code-refs/repositories | List repositories
 [**get_repository**](CodeReferencesApi.md#get_repository) | **GET** /api/v2/code-refs/repositories/{repo} | Get repository
-[**get_root_statistic**](CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get number of code references for flags
+[**get_root_statistic**](CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 [**get_statistics**](CodeReferencesApi.md#get_statistics) | **GET** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**patch_repository**](CodeReferencesApi.md#patch_repository) | **PATCH** /api/v2/code-refs/repositories/{repo} | Update repository
 [**post_extinction**](CodeReferencesApi.md#post_extinction) | **POST** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 # **get_root_statistic**
 > StatisticsRoot get_root_statistic()
 
-Get number of code references for flags
+Get links to code reference repositories for each project
 
 Get links for all projects that have Code References.
 
@@ -667,7 +667,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example, this endpoint has no required or optional parameters
     try:
-        # Get number of code references for flags
+        # Get links to code reference repositories for each project
         api_response = api_instance.get_root_statistic()
         pprint(api_response)
     except launchdarkly_api.ApiException as e:

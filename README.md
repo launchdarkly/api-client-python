@@ -3,7 +3,9 @@ generated from our [OpenAPI specification](https://app.launchdarkly.com/api/v2/o
 
 This REST API is for custom integrations, data export, or automating your feature flag workflows. *DO NOT* use this client library to include feature flags in your web or mobile application. To integrate feature flags with your application, read the [SDK documentation](https://docs.launchdarkly.com/sdk).
 # launchdarkly-api
-# Authentication
+# Overview
+
+## Authentication
 
 All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page.
 
@@ -16,19 +18,19 @@ LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used b
 | Mobile keys                                                                                     | Can only access read-only mobile SDK-specific resources, restricted to a single environment           | Mobile SDKs                                        |
 | Client-side ID                                                                                  | Single environment, only flags marked available to client-side                                        | Client-side JavaScript                             |
 
-> ### Keep your access tokens and SDK keys private
+> #### Keep your access tokens and SDK keys private
 >
 > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page.
 >
 > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.
 
-## Via request header
+### Via request header
 
 The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.
 
 Manage personal access tokens from the [Account Settings](https://app.launchdarkly.com/settings/tokens) page.
 
-## Via session cookie
+### Via session cookie
 
 For testing purposes, you can make API calls directly from your web browser. If you're logged in to the application, the API will use your existing session to authenticate calls.
 
@@ -46,7 +48,7 @@ If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) oth
 >
 > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.
 
-# Representations
+## Representations
 
 All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API.
 
@@ -54,13 +56,13 @@ In practice this means that you always get a response with a `Content-Type` head
 
 In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.
 
-## Summary and detailed representations
+### Summary and detailed representations
 
 When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a _detailed representation_ containing all of the attributes of the resource.
 
 The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.
 
-## Links and addressability
+### Links and addressability
 
 The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:
 
@@ -94,11 +96,11 @@ Collections are always represented as a JSON object with an `items` attribute co
 
 Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.
 
-# Updates
+## Updates
 
 Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
 
-## Updates via JSON Patch
+### Updates via JSON Patch
 
 [JSON Patch](http://tools.ietf.org/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
 
@@ -130,7 +132,7 @@ The above patch request tests whether the feature flag's `version` is `10`, and 
 
 Attributes that aren't editable, like a resource's `_links`, have names that start with an underscore.
 
-## Updates via JSON Merge Patch
+### Updates via JSON Merge Patch
 
 The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.
 
@@ -142,7 +144,7 @@ JSON Merge Patch is less expressive than JSON Patch but in many cases, it is sim
 }
 ```
 
-## Updates with comments
+### Updates with comments
 
 You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.
 
@@ -164,7 +166,7 @@ To submit a comment along with a JSON Merge Patch document, use the following fo
 }
 ```
 
-## Updates via semantic patches
+### Updates via semantic patches
 
 The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.
 
@@ -281,10 +283,10 @@ You can change the feature flag's description with the following patch document 
 >
 > - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag)
 > - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets)
-> - [Update expiring user target for flags](/tag/User-Settings#operation/patchExpiringFlagsForUser)
-> - [Update expiring user targets on segment](/tag/Segments#operation/patchExpiringUserTargetsOnSegment)
+> - [Update expiring user target for flags](/tag/User-settings#operation/patchExpiringFlagsForUser)
+> - [Update expiring user targets on segment](/tag/Segments#operation/patchExpiringUserTargetsForSegment)
 
-# Errors
+## Errors
 
 The API always returns errors in a common format. Here's an example:
 
@@ -298,7 +300,7 @@ The API always returns errors in a common format. Here's an example:
 
 The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly support to debug a problem with a specific API call.
 
-## HTTP Status - Error Response Codes
+### HTTP Status - Error Response Codes
 
 | Code | Definition        | Desc.                                                                                       | Possible Solution                                                |
 | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -308,7 +310,7 @@ The general class of error is indicated by the `code`. The `message` is a human-
 | 409  | Conflict          | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request.                                              |
 | 429  | Too many requests | See [Rate limiting](/#section/Rate-limiting).                                               | Wait and try again later.                                        |
 
-# CORS
+## CORS
 
 The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:
 
@@ -321,7 +323,7 @@ Access-Control-Max-Age: 300
 
 You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](#section/Authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.
 
-# Rate limiting
+## Rate limiting
 
 We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs will return a `429` status code. Calls to our APIs will include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.
 
@@ -331,7 +333,7 @@ We use several rate limiting strategies to ensure the availability of our APIs. 
 >
 > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.
 
-## Global rate limits
+### Global rate limits
 
 Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:
 
@@ -342,7 +344,7 @@ Authenticated requests are subject to a global limit. This is the maximum number
 
 We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.
 
-## Route-level rate limits
+### Route-level rate limits
 
 Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits will return the headers below:
 
@@ -355,11 +357,11 @@ A _route_ represents a specific URL pattern and verb. For example, the [Delete e
 
 We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
 
-## IP-based rate limiting
+### IP-based rate limiting
 
 We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.
 
-# OpenAPI (Swagger)
+## OpenAPI (Swagger)
 
 We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.
 
@@ -367,11 +369,11 @@ You can use this specification to generate client libraries to interact with our
 
 This specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to ease use in navigating the APIs in the tooling.
 
-# Client libraries
+## Client libraries
 
 We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
 
-# Method Overriding
+## Method Overriding
 
 Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.
 
@@ -379,7 +381,7 @@ To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allow
 
 For example, if you wish to call one of our `PATCH` resources via a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.
 
-# Beta resources
+## Beta resources
 
 We sometimes release new API resources in **beta** status before we release them with general availability.
 
@@ -393,7 +395,7 @@ We mark beta resources with a \"Beta\" callout in our documentation, pictured be
 >
 > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
 
-## Using beta resources
+### Using beta resources
 
 To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you'll receive a `403` response.
 
@@ -403,13 +405,13 @@ Use this header:
 LD-API-Version: beta
 ```
 
-# Versioning
+## Versioning
 
 We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.
 
 Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.
 
-## Setting the API version per request
+### Setting the API version per request
 
 You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:
 
@@ -419,7 +421,7 @@ LD-API-Version: 20191212
 
 The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released. In the example above the version `20191212` corresponds to December 12, 2019.
 
-## Setting the API version per access token
+### Setting the API version per access token
 
 When creating an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.
 
@@ -437,7 +439,7 @@ If you would like to upgrade your integration to use a new API version, you can 
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 2.0
-- Package version: 6.0.0
+- Package version: 6.0.1
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://support.launchdarkly.com](https://support.launchdarkly.com)
 
@@ -560,7 +562,7 @@ Class | Method | HTTP request | Description
 *CodeReferencesApi* | [**get_extinctions**](docs/CodeReferencesApi.md#get_extinctions) | **GET** /api/v2/code-refs/extinctions | List extinctions
 *CodeReferencesApi* | [**get_repositories**](docs/CodeReferencesApi.md#get_repositories) | **GET** /api/v2/code-refs/repositories | List repositories
 *CodeReferencesApi* | [**get_repository**](docs/CodeReferencesApi.md#get_repository) | **GET** /api/v2/code-refs/repositories/{repo} | Get repository
-*CodeReferencesApi* | [**get_root_statistic**](docs/CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get number of code references for flags
+*CodeReferencesApi* | [**get_root_statistic**](docs/CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 *CodeReferencesApi* | [**get_statistics**](docs/CodeReferencesApi.md#get_statistics) | **GET** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 *CodeReferencesApi* | [**patch_repository**](docs/CodeReferencesApi.md#patch_repository) | **PATCH** /api/v2/code-refs/repositories/{repo} | Update repository
 *CodeReferencesApi* | [**post_extinction**](docs/CodeReferencesApi.md#post_extinction) | **POST** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
@@ -631,6 +633,11 @@ Class | Method | HTTP request | Description
 *SegmentsApi* | [**patch_segment**](docs/SegmentsApi.md#patch_segment) | **PATCH** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
 *SegmentsApi* | [**post_segment**](docs/SegmentsApi.md#post_segment) | **POST** /api/v2/segments/{projKey}/{envKey} | Create segment
 *SegmentsApi* | [**update_big_segment_targets**](docs/SegmentsApi.md#update_big_segment_targets) | **POST** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
+*TeamsBetaApi* | [**delete_team**](docs/TeamsBetaApi.md#delete_team) | **DELETE** /api/v2/teams/{key} | Delete team by key
+*TeamsBetaApi* | [**get_team**](docs/TeamsBetaApi.md#get_team) | **GET** /api/v2/teams/{key} | Get team by key
+*TeamsBetaApi* | [**get_teams**](docs/TeamsBetaApi.md#get_teams) | **GET** /api/v2/teams | Get all teams
+*TeamsBetaApi* | [**patch_team**](docs/TeamsBetaApi.md#patch_team) | **PATCH** /api/v2/teams/{key} | Patch team by key
+*TeamsBetaApi* | [**post_team**](docs/TeamsBetaApi.md#post_team) | **POST** /api/v2/teams | Create team
 *UserSettingsApi* | [**get_expiring_flags_for_user**](docs/UserSettingsApi.md#get_expiring_flags_for_user) | **GET** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Get expiring dates on flags for user
 *UserSettingsApi* | [**get_user_flag_setting**](docs/UserSettingsApi.md#get_user_flag_setting) | **GET** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Get flag setting for user
 *UserSettingsApi* | [**get_user_flag_settings**](docs/UserSettingsApi.md#get_user_flag_settings) | **GET** /api/v2/users/{projKey}/{envKey}/{key}/flags | List flag settings for user
@@ -677,6 +684,8 @@ Class | Method | HTTP request | Description
  - [CustomRolePost](docs/CustomRolePost.md)
  - [CustomRolePostData](docs/CustomRolePostData.md)
  - [CustomRoles](docs/CustomRoles.md)
+ - [CustomWorkflowMeta](docs/CustomWorkflowMeta.md)
+ - [CustomWorkflowStageMeta](docs/CustomWorkflowStageMeta.md)
  - [DefaultClientSideAvailabilityPost](docs/DefaultClientSideAvailabilityPost.md)
  - [Defaults](docs/Defaults.md)
  - [DependentFlag](docs/DependentFlag.md)
@@ -756,6 +765,9 @@ Class | Method | HTTP request | Description
  - [PatchSegmentInstruction](docs/PatchSegmentInstruction.md)
  - [PatchSegmentRequest](docs/PatchSegmentRequest.md)
  - [PatchWithComment](docs/PatchWithComment.md)
+ - [PermissionGrantCollectionRep](docs/PermissionGrantCollectionRep.md)
+ - [PermissionGrantInput](docs/PermissionGrantInput.md)
+ - [PermissionGrantRep](docs/PermissionGrantRep.md)
  - [PostApprovalRequestApplyRequest](docs/PostApprovalRequestApplyRequest.md)
  - [PostApprovalRequestReviewRequest](docs/PostApprovalRequestReviewRequest.md)
  - [PostFlagScheduledChangesInput](docs/PostFlagScheduledChangesInput.md)
@@ -799,6 +811,10 @@ Class | Method | HTTP request | Description
  - [SubjectDataRep](docs/SubjectDataRep.md)
  - [Target](docs/Target.md)
  - [TargetResourceRep](docs/TargetResourceRep.md)
+ - [TeamCollectionRep](docs/TeamCollectionRep.md)
+ - [TeamPatchInput](docs/TeamPatchInput.md)
+ - [TeamPostInput](docs/TeamPostInput.md)
+ - [TeamRep](docs/TeamRep.md)
  - [TitleRep](docs/TitleRep.md)
  - [Token](docs/Token.md)
  - [TokenDataRep](docs/TokenDataRep.md)

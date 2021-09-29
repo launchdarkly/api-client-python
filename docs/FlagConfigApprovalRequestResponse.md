@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **operating_on_id** | **str** | ID of scheduled change to edit or delete | [optional] 
 **integration_metadata** | [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
 **source** | [**CopiedFromEnv**](CopiedFromEnv.md) |  | [optional] 
+**custom_workflow_meta_data** | [**CustomWorkflowMeta**](CustomWorkflowMeta.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

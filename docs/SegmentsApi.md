@@ -275,7 +275,7 @@ Name | Type | Description  | Notes
 
 Get Big Segment membership for user
 
-Returns the membership status (included/excluded) for a given user in this segment. Note this operation
+Returns the membership status (included/excluded) for a given user in this segment. This operation does not support basic Segments.
 
 ### Example
 

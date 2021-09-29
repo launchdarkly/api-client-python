@@ -32,6 +32,7 @@ from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
 from launchdarkly_api.api.scheduled_changes_api import ScheduledChangesApi
 from launchdarkly_api.api.segments_api import SegmentsApi
+from launchdarkly_api.api.teams__beta_api import TeamsBetaApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
 from launchdarkly_api.api.users__beta_api import UsersBetaApi
