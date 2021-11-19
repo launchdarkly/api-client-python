@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**post_approval_request**](ApprovalsApi.md#post_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**post_approval_request_apply_request**](ApprovalsApi.md#post_approval_request_apply_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**post_approval_request_review**](ApprovalsApi.md#post_approval_request_review) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
-[**post_flag_copy_config_approval_request**](ApprovalsApi.md#post_flag_copy_config_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
+[**post_flag_copy_config_approval_request**](ApprovalsApi.md#post_flag_copy_config_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 
 
 # **delete_approval_request**
@@ -28,6 +28,10 @@ Delete an approval request for a feature flag
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -84,14 +88,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
+**204** | Action succeeded |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -114,7 +118,11 @@ Get a single approval request for a feature flag
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -202,6 +210,10 @@ Get all approval requests for a feature flag
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.flag_config_approval_requests_response import FlagConfigApprovalRequestsResponse
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -288,7 +300,11 @@ Create an approval request for a feature flag
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.create_flag_config_approval_request_request import CreateFlagConfigApprovalRequestRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -371,7 +387,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful approval request response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |
@@ -393,8 +409,13 @@ Apply approval request by either approving or declining changes.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -464,7 +485,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful approval request apply response |  -  |
-**400** | Bad request |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -487,8 +508,13 @@ Review approval request by either approving or declining changes.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.post_approval_request_review_request import PostApprovalRequestReviewRequest
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -559,7 +585,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful approval request review response |  -  |
-**400** | Bad request |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -583,7 +609,12 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import approvals_api
 from launchdarkly_api.model.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -665,10 +696,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful approval request response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**409** | Conflict |  -  |
+**409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

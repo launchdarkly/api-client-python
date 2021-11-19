@@ -30,6 +30,11 @@ Delete a user segment.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -84,16 +89,16 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
+**204** | Action succeeded |  -  |
 **401** | Invalid access token |  -  |
-**403** | Access to the requested resource was denied |  -  |
+**403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
@@ -115,7 +120,10 @@ Get a list of a segment's user targets that are scheduled for removal
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -201,6 +209,9 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
 from launchdarkly_api.model.user_segment import UserSegment
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -285,7 +296,11 @@ Returns the membership status (included/excluded) for a given user in this segme
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.big_segment_target import BigSegmentTarget
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -351,9 +366,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Segment membership for user response |  -  |
-**400** | Invalid segment |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
-**404** | Unknown segment key |  -  |
+**404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -373,6 +388,8 @@ Get a list of all user segments in the given project
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.user_segments import UserSegments
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -455,8 +472,14 @@ Update the list of a segment's user targets that are scheduled for removal<br />
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.patch_segment_request import PatchSegmentRequest
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -533,7 +556,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Expiring user target response. |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -558,7 +581,13 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
 from launchdarkly_api.model.user_segment import UserSegment
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -633,9 +662,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Segment response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
-**403** | Access to the requested resource was denied |  -  |
+**403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
@@ -658,7 +687,12 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
 from launchdarkly_api.model.user_segment import UserSegment
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.segment_body import SegmentBody
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -728,9 +762,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Segment response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
-**403** | Access to the requested resource was denied |  -  |
+**403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 
@@ -751,6 +785,10 @@ Update targets included or excluded in a Big Segment
 import time
 import launchdarkly_api
 from launchdarkly_api.api import segments_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.segment_user_state import SegmentUserState
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -825,15 +863,15 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
-**400** | Invalid request body |  -  |
+**204** | Action succeeded |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |

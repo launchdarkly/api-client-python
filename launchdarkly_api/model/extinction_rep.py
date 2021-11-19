@@ -115,11 +115,11 @@ class ExtinctionRep(ModelNormal):
         """ExtinctionRep - a model defined in OpenAPI
 
         Args:
-            revision (str):
-            message (str):
+            revision (str): The identifier for the revision where flag became extinct. For example, a commit SHA.
+            message (str): Description of the extinction. For example, the commit message for the revision.
             time (int):
-            flag_key (str):
-            proj_key (str):
+            flag_key (str): The feature flag key
+            proj_key (str): The project key
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -208,11 +208,11 @@ class ExtinctionRep(ModelNormal):
         """ExtinctionRep - a model defined in OpenAPI
 
         Args:
-            revision (str):
-            message (str):
+            revision (str): The identifier for the revision where flag became extinct. For example, a commit SHA.
+            message (str): Description of the extinction. For example, the commit message for the revision.
             time (int):
-            flag_key (str):
-            proj_key (str):
+            flag_key (str): The feature flag key
+            proj_key (str): The project key
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

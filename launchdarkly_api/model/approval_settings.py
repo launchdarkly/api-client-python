@@ -100,7 +100,7 @@ class ApprovalSettings(ModelNormal):
 
 
     attribute_map = {
-        'required': 'Required',  # noqa: E501
+        'required': 'required',  # noqa: E501
         'bypass_approvals_for_pending_changes': 'bypassApprovalsForPendingChanges',  # noqa: E501
         'min_num_approvals': 'minNumApprovals',  # noqa: E501
         'can_review_own_request': 'canReviewOwnRequest',  # noqa: E501

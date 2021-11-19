@@ -24,7 +24,12 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.webhook import Webhook
 from launchdarkly_api.model.webhook_post import WebhookPost
 from launchdarkly_api.model.webhooks import Webhooks
@@ -152,7 +157,9 @@ class WebhooksApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,

@@ -90,11 +90,11 @@ class TeamPostInput(ModelNormal):
         """
         lazy_import()
         return {
+            'key': (str,),  # noqa: E501
+            'name': (str,),  # noqa: E501
             'custom_role_keys': ([str],),  # noqa: E501
             'description': (str,),  # noqa: E501
-            'key': (str,),  # noqa: E501
             'member_ids': ([str],),  # noqa: E501
-            'name': (str,),  # noqa: E501
             'permission_grants': ([PermissionGrantInput],),  # noqa: E501
         }
 
@@ -104,11 +104,11 @@ class TeamPostInput(ModelNormal):
 
 
     attribute_map = {
+        'key': 'key',  # noqa: E501
+        'name': 'name',  # noqa: E501
         'custom_role_keys': 'customRoleKeys',  # noqa: E501
         'description': 'description',  # noqa: E501
-        'key': 'key',  # noqa: E501
         'member_ids': 'memberIDs',  # noqa: E501
-        'name': 'name',  # noqa: E501
         'permission_grants': 'permissionGrants',  # noqa: E501
     }
 
@@ -119,8 +119,12 @@ class TeamPostInput(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, key, name, *args, **kwargs):  # noqa: E501
         """TeamPostInput - a model defined in OpenAPI
+
+        Args:
+            key (str): The team's key or ID
+            name (str): A human-friendly name for the team
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -153,12 +157,10 @@ class TeamPostInput(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            custom_role_keys ([str]): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
-            key (str): [optional]  # noqa: E501
-            member_ids ([str]): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            permission_grants ([PermissionGrantInput]): [optional]  # noqa: E501
+            custom_role_keys ([str]): List of custom role keys the team will access. [optional]  # noqa: E501
+            description (str): A description of the team. [optional]  # noqa: E501
+            member_ids ([str]): A list of member IDs who belong to the team. [optional]  # noqa: E501
+            permission_grants ([PermissionGrantInput]): A list of permission grants to apply to the team. Can use \"maintainTeam\" to add team maintainers. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -186,6 +188,8 @@ class TeamPostInput(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.key = key
+        self.name = name
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \
@@ -206,8 +210,12 @@ class TeamPostInput(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, key, name, *args, **kwargs):  # noqa: E501
         """TeamPostInput - a model defined in OpenAPI
+
+        Args:
+            key (str): The team's key or ID
+            name (str): A human-friendly name for the team
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -240,12 +248,10 @@ class TeamPostInput(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            custom_role_keys ([str]): [optional]  # noqa: E501
-            description (str): [optional]  # noqa: E501
-            key (str): [optional]  # noqa: E501
-            member_ids ([str]): [optional]  # noqa: E501
-            name (str): [optional]  # noqa: E501
-            permission_grants ([PermissionGrantInput]): [optional]  # noqa: E501
+            custom_role_keys ([str]): List of custom role keys the team will access. [optional]  # noqa: E501
+            description (str): A description of the team. [optional]  # noqa: E501
+            member_ids ([str]): A list of member IDs who belong to the team. [optional]  # noqa: E501
+            permission_grants ([PermissionGrantInput]): A list of permission grants to apply to the team. Can use \"maintainTeam\" to add team maintainers. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -271,6 +277,8 @@ class TeamPostInput(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.key = key
+        self.name = name
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

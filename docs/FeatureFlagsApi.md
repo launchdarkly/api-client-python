@@ -32,8 +32,13 @@ The includedActions and excludedActions define the parts of the flag configurati
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.flag_copy_config_post import FlagCopyConfigPost
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag import FeatureFlag
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -113,7 +118,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Global flag response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **405** | Method not allowed |  -  |
 **409** | Status conflict |  -  |
@@ -136,6 +141,9 @@ Delete a feature flag in all environments. Use with caution: only delete feature
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -188,14 +196,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
+**204** | Action succeeded |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
@@ -217,7 +225,11 @@ Get a list of user targets on a feature flag that are scheduled for removal.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -303,6 +315,10 @@ Get a single feature flag by key. By default, this returns the configurations fo
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag import FeatureFlag
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -398,6 +414,10 @@ Get the status for a particular feature flag.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.flag_status_rep import FlagStatusRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -484,6 +504,10 @@ Get the status for a particular feature flag across environments.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag_status_across_environments import FeatureFlagStatusAcrossEnvironments
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -579,7 +603,11 @@ Get a list of statuses for all feature flags. The status includes the last time 
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.feature_flag_statuses import FeatureFlagStatuses
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -663,6 +691,11 @@ Get a list of all features in the given project. By default, each feature includ
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flags import FeatureFlags
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -750,7 +783,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Global flags collection response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -773,8 +806,13 @@ Update the list of user targets on a feature flag that are scheduled for removal
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -849,7 +887,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | User targeting expirations on feature flag response. |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -872,8 +910,13 @@ Perform a partial update to a feature flag.  ## Using JSON Patches on a feature 
 import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag import FeatureFlag
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -946,7 +989,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Global flag response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
 **409** | Status conflict |  -  |
@@ -970,7 +1013,11 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import feature_flags_api
 from launchdarkly_api.model.feature_flag_body import FeatureFlagBody
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag import FeatureFlag
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1077,7 +1124,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Global flag response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |

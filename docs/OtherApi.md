@@ -245,7 +245,10 @@ Get the latest API version, the list of valid API versions in ascending order, a
 import time
 import launchdarkly_api
 from launchdarkly_api.api import other_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.versions_rep import VersionsRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.

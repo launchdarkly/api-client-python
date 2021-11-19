@@ -23,7 +23,11 @@ Get a list of all audit log entries. The query parameters let you restrict the r
 import time
 import launchdarkly_api
 from launchdarkly_api.api import audit_log_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.audit_log_entry_listing_rep_collection import AuditLogEntryListingRepCollection
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -114,7 +118,11 @@ Fetch a detailed audit log entry representation. The detailed representation inc
 import time
 import launchdarkly_api
 from launchdarkly_api.api import audit_log_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.audit_log_entry_rep import AuditLogEntryRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -176,7 +184,7 @@ Name | Type | Description  | Notes
 **200** | Audit log entry response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**404** | Invalid resource specifier |  -  |
+**404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

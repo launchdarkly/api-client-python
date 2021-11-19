@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**get_root_statistic**](CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 [**get_statistics**](CodeReferencesApi.md#get_statistics) | **GET** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**patch_repository**](CodeReferencesApi.md#patch_repository) | **PATCH** /api/v2/code-refs/repositories/{repo} | Update repository
-[**post_extinction**](CodeReferencesApi.md#post_extinction) | **POST** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
+[**post_extinction**](CodeReferencesApi.md#post_extinction) | **POST** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 [**post_repository**](CodeReferencesApi.md#post_repository) | **POST** /api/v2/code-refs/repositories | Create repository
 [**put_branch**](CodeReferencesApi.md#put_branch) | **PUT** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 
@@ -34,6 +34,11 @@ Asynchronously delete a number of branches.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -88,15 +93,15 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
-**400** | Invalid request body |  -  |
+**200** | Action succeeded |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -119,6 +124,11 @@ Delete a repository with the specified name
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -169,14 +179,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
+**204** | Action succeeded |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -201,6 +211,11 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
 from launchdarkly_api.model.branch_rep import BranchRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -298,6 +313,11 @@ Get a list of branches.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.branch_collection_rep import BranchCollectionRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -381,7 +401,10 @@ Get a list of all extinctions.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.extinction_collection_rep import ExtinctionCollectionRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -405,7 +428,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo_name = "repoName_example" # str | Filter results to a specific repository (optional)
-    branch_name = "branchName_example" # str | Filter results to a specific branch (optional)
+    branch_name = "branchName_example" # str | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
     proj_key = "projKey_example" # str | Filter results to a specific project (optional)
     flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
 
@@ -425,7 +448,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo_name** | **str**| Filter results to a specific repository | [optional]
- **branch_name** | **str**| Filter results to a specific branch | [optional]
+ **branch_name** | **str**| Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | [optional]
  **proj_key** | **str**| Filter results to a specific project | [optional]
  **flag_key** | **str**| Filter results to a specific flag key | [optional]
 
@@ -447,10 +470,9 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Branch response |  -  |
+**200** | Extinction collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -470,7 +492,10 @@ Get a list of connected repositories. Optionally, you can include branch metadat
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.repository_collection_rep import RepositoryCollectionRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -558,7 +583,12 @@ Get a single repository by name.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.repository_rep import RepositoryRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -641,6 +671,10 @@ Get links for all projects that have Code References.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.statistics_root import StatisticsRoot
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -719,6 +753,10 @@ Get the number of code references across repositories for all flags in your proj
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.statistic_collection_rep import StatisticCollectionRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -813,7 +851,12 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
 from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.repository_rep import RepositoryRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -881,7 +924,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Repository response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -890,7 +933,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_extinction**
-> post_extinction(repo, branch, inline_object)
+> post_extinction(repo, branch, extinction_rep)
 
 Create extinction
 
@@ -904,7 +947,12 @@ Create a new extinction
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.inline_object import InlineObject
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.extinction_rep import ExtinctionRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -929,20 +977,20 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name
     branch = "branch_example" # str | The url-encoded branch name
-    inline_object = [
-        InlineObject(
-            revision="revision_example",
-            message="message_example",
+    extinction_rep = [
+        ExtinctionRep(
+            revision="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
+            message="Remove flag for launched feature",
             time=1,
-            flag_key="flag_key_example",
-            project_key="project_key_example",
+            flag_key="enable-feature",
+            proj_key="default",
         ),
-    ] # [InlineObject] | 
+    ] # [ExtinctionRep] | 
 
     # example passing only required values which don't have defaults set
     try:
         # Create extinction
-        api_instance.post_extinction(repo, branch, inline_object)
+        api_instance.post_extinction(repo, branch, extinction_rep)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->post_extinction: %s\n" % e)
 ```
@@ -954,7 +1002,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo** | **str**| The repository name |
  **branch** | **str**| The url-encoded branch name |
- **inline_object** | [**[InlineObject]**](InlineObject.md)|  |
+ **extinction_rep** | [**[ExtinctionRep]**](ExtinctionRep.md)|  |
 
 ### Return type
 
@@ -967,15 +1015,15 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Extinction response |  -  |
-**400** | Invalid request body |  -  |
+**200** | Action succeeded |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -984,7 +1032,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_repository**
-> post_repository(repository_post)
+> RepositoryRep post_repository(repository_post)
 
 Create repository
 
@@ -998,7 +1046,13 @@ Create a repository with the specified name.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.repository_post import RepositoryPost
+from launchdarkly_api.model.repository_rep import RepositoryRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1022,18 +1076,19 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repository_post = RepositoryPost(
-        name="name_example",
-        source_link="source_link_example",
-        commit_url_template="commit_url_template_example",
-        hunk_url_template="hunk_url_template_example",
+        name="LaunchDarkly-Docs",
+        source_link="https://github.com/launchdarkly/LaunchDarkly-Docs",
+        commit_url_template="/commit/${sha}",
+        hunk_url_template="/blob/${sha}/${filePath}#L${lineNumber}",
         type="github",
-        default_branch="default_branch_example",
+        default_branch="main",
     ) # RepositoryPost | 
 
     # example passing only required values which don't have defaults set
     try:
         # Create repository
-        api_instance.post_repository(repository_post)
+        api_response = api_instance.post_repository(repository_post)
+        pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->post_repository: %s\n" % e)
 ```
@@ -1047,7 +1102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**RepositoryRep**](RepositoryRep.md)
 
 ### Authorization
 
@@ -1056,7 +1111,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1064,15 +1119,16 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Repository response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
+**409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_branch**
-> put_branch(repo, branch, branch_rep)
+> put_branch(repo, branch, put_branch)
 
 Upsert branch
 
@@ -1086,7 +1142,13 @@ Create a new branch if it doesn't exist, or updates the branch if it already exi
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.branch_rep import BranchRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.put_branch import PutBranch
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1111,37 +1173,32 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name
     branch = "branch_example" # str | The url-encoded branch name
-    branch_rep = BranchRep(
-        name="name_example",
-        head="head_example",
-        update_sequence_id=1,
+    put_branch = PutBranch(
+        name="main",
+        head="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
+        update_sequence_id=25,
         sync_time=1,
         references=[
             ReferenceRep(
-                path="path_example",
-                hint="hint_example",
+                path="/main/index.js",
+                hint="javascript",
                 hunks=[
                     HunkRep(
-                        starting_line_number=1,
-                        lines="lines_example",
-                        proj_key="proj_key_example",
-                        flag_key="flag_key_example",
-                        aliases=[
-                            "aliases_example",
-                        ],
+                        starting_line_number=45,
+                        lines="var enableFeature = 'enable-feature';",
+                        proj_key="default",
+                        flag_key="enable-feature",
+                        aliases=["enableFeature","EnableFeature"],
                     ),
                 ],
             ),
         ],
-        links={
-            "key": None,
-        },
-    ) # BranchRep | 
+    ) # PutBranch | 
 
     # example passing only required values which don't have defaults set
     try:
         # Upsert branch
-        api_instance.put_branch(repo, branch, branch_rep)
+        api_instance.put_branch(repo, branch, put_branch)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->put_branch: %s\n" % e)
 ```
@@ -1153,7 +1210,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo** | **str**| The repository name |
  **branch** | **str**| The url-encoded branch name |
- **branch_rep** | [**BranchRep**](BranchRep.md)|  |
+ **put_branch** | [**PutBranch**](PutBranch.md)|  |
 
 ### Return type
 
@@ -1166,18 +1223,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Branch response |  -  |
-**400** | Invalid request body |  -  |
+**200** | Action succeeded |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

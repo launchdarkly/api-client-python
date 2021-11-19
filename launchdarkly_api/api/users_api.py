@@ -24,6 +24,12 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.user import User
 from launchdarkly_api.model.users import Users
 
@@ -170,7 +176,9 @@ class UsersApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -185,7 +193,7 @@ class UsersApi(object):
         ):
             """Find users  # noqa: E501
 
-            Search users in LaunchDarkly based on their last active date, or a search query. Do not use to enumerate all users in LaunchDarkly. Instead use the [List users](getUsers) API resource.  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not.   # noqa: E501
+            Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query. Do not use to list all users in LaunchDarkly. Instead, use the [List users](getUsers) API resource.  An example user attribute filter set is `filter=firstName:Anna,activeTrial:false`. This matches users that have the user attribute `firstName` set to `Anna`, that also have the attribute `activeTrial` set to `false`.  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not.   # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
@@ -201,7 +209,9 @@ class UsersApi(object):
                 limit (int): Specifies the maximum number of items in the collection to return (max: 50, default: 20). [optional]
                 offset (int): Specifies the first item to return in the collection. [optional]
                 after (int): A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly. [optional]
+                sort (str): Specifies a field by which to sort. LaunchDarkly supports the `userKey` and `lastSeen` fields. Fields prefixed by a dash ( - ) sort in descending order.. [optional]
                 search_after (str): Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead.. [optional]
+                filter (str): A comma-separated list of user attribute filters. Each filter is in the form of attributeKey:attributeValue. [optional]
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -271,7 +281,9 @@ class UsersApi(object):
                     'limit',
                     'offset',
                     'after',
+                    'sort',
                     'search_after',
+                    'filter',
                 ],
                 'required': [
                     'proj_key',
@@ -302,7 +314,11 @@ class UsersApi(object):
                         (int,),
                     'after':
                         (int,),
+                    'sort':
+                        (str,),
                     'search_after':
+                        (str,),
+                    'filter':
                         (str,),
                 },
                 'attribute_map': {
@@ -312,7 +328,9 @@ class UsersApi(object):
                     'limit': 'limit',
                     'offset': 'offset',
                     'after': 'after',
+                    'sort': 'sort',
                     'search_after': 'searchAfter',
+                    'filter': 'filter',
                 },
                 'location_map': {
                     'proj_key': 'path',
@@ -321,7 +339,9 @@ class UsersApi(object):
                     'limit': 'query',
                     'offset': 'query',
                     'after': 'query',
+                    'sort': 'query',
                     'search_after': 'query',
+                    'filter': 'query',
                 },
                 'collection_format_map': {
                 }

@@ -24,10 +24,16 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
-from launchdarkly_api.model.inline_object1 import InlineObject1
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.json_patch import JSONPatch
 from launchdarkly_api.model.member import Member
 from launchdarkly_api.model.members import Members
+from launchdarkly_api.model.new_member_form import NewMemberForm
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class AccountMembersApi(object):
@@ -49,7 +55,7 @@ class AccountMembersApi(object):
         ):
             """Delete account member  # noqa: E501
 
-            Delete a single account member by ID  # noqa: E501
+            Delete a single account member by ID. Requests to delete account members will not work if SCIM is enabled for the account.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
@@ -152,7 +158,9 @@ class AccountMembersApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -295,7 +303,7 @@ class AccountMembersApi(object):
             Keyword Args:
                 limit (int): The number of members to return in the response. Defaults to 20.. [optional]
                 offset (int): Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items.. [optional]
-                filter (str): A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained below.. [optional]
+                filter (str): A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above.. [optional]
                 sort (str): A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order.. [optional]
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
@@ -417,7 +425,7 @@ class AccountMembersApi(object):
         ):
             """Modify an account member  # noqa: E501
 
-            Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member.  # noqa: E501
+            Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member. Requests to update account members will not work if SCIM is enabled for the account.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
@@ -541,20 +549,20 @@ class AccountMembersApi(object):
 
         def __post_members(
             self,
-            inline_object1,
+            new_member_form,
             **kwargs
         ):
             """Invite new members  # noqa: E501
 
-            > ### Full use of this API resource is only available to accounts with paid subscriptions > > The ability to bulk invite members is a paid feature. Single members may be invited if not on a paid plan.  Invite one or more new members to join an account. Each member is sent an invitation. Members with \"admin\" or \"owner\" roles may create new members, as well as anyone with a \"createMember\" permission for \"member/\\*\". If a member cannot be invited, the entire request is rejected and no members are invited from that request.  Each member _must_ have an `email` field and either a `role` or a `customRoles` field. If any of the fields are not populated correctly, the request is rejected with the reason specified in the \"message\" field of the response.  _No more than 50 members may be created per request._  A request may also fail because of conflicts with existing members. These conflicts are reported using the additional `code` and `invalid_emails` response fields with the following possible values for `code`:  - **email_already_exists_in_account**: A member with this email address already exists in this account. - **email_taken_in_different_account**: A member with this email address exists in another account. - **duplicate_email**s: This request contains two or more members with the same email address.  A request that fails for one of the above reasons returns an HTTP response code of 400 (Bad Request).   # noqa: E501
+            > ### Full use of this API resource is only available to accounts with paid subscriptions > > The ability to bulk invite members is a paid feature. Single members may be invited if not on a paid plan.  Invite one or more new members to join an account. Each member is sent an invitation. Members with \"admin\" or \"owner\" roles may create new members, as well as anyone with a \"createMember\" permission for \"member/\\*\". If a member cannot be invited, the entire request is rejected and no members are invited from that request.  Each member _must_ have an `email` field and either a `role` or a `customRoles` field. If any of the fields are not populated correctly, the request is rejected with the reason specified in the \"message\" field of the response.  Requests to create account members will not work if SCIM is enabled for the account.  _No more than 50 members may be created per request._  A request may also fail because of conflicts with existing members. These conflicts are reported using the additional `code` and `invalid_emails` response fields with the following possible values for `code`:  - **email_already_exists_in_account**: A member with this email address already exists in this account. - **email_taken_in_different_account**: A member with this email address exists in another account. - **duplicate_email**s: This request contains two or more members with the same email address.  A request that fails for one of the above reasons returns an HTTP response code of 400 (Bad Request).   # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.post_members(inline_object1, async_req=True)
+            >>> thread = api.post_members(new_member_form, async_req=True)
             >>> result = thread.get()
 
             Args:
-                inline_object1 ([InlineObject1]):
+                new_member_form ([NewMemberForm]):
 
             Keyword Args:
                 _return_http_data_only (bool): response data without head status
@@ -601,8 +609,8 @@ class AccountMembersApi(object):
                 '_check_return_type', True
             )
             kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['inline_object1'] = \
-                inline_object1
+            kwargs['new_member_form'] = \
+                new_member_form
             return self.call_with_http_info(**kwargs)
 
         self.post_members = _Endpoint(
@@ -618,10 +626,10 @@ class AccountMembersApi(object):
             },
             params_map={
                 'all': [
-                    'inline_object1',
+                    'new_member_form',
                 ],
                 'required': [
-                    'inline_object1',
+                    'new_member_form',
                 ],
                 'nullable': [
                 ],
@@ -636,13 +644,13 @@ class AccountMembersApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'inline_object1':
-                        ([InlineObject1],),
+                    'new_member_form':
+                        ([NewMemberForm],),
                 },
                 'attribute_map': {
                 },
                 'location_map': {
-                    'inline_object1': 'body',
+                    'new_member_form': 'body',
                 },
                 'collection_format_map': {
                 }

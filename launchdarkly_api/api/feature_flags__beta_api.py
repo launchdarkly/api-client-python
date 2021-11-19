@@ -25,7 +25,11 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     validate_and_convert_types
 )
 from launchdarkly_api.model.dependent_flags_by_environment import DependentFlagsByEnvironment
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.multi_environment_dependent_flags import MultiEnvironmentDependentFlags
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class FeatureFlagsBetaApi(object):

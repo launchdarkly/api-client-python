@@ -111,8 +111,11 @@ class HunkRep(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, starting_line_number, *args, **kwargs):  # noqa: E501
         """HunkRep - a model defined in OpenAPI
+
+        Args:
+            starting_line_number (int): Line number of beginning of code reference hunk
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -145,11 +148,10 @@ class HunkRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            starting_line_number (int): [optional]  # noqa: E501
-            lines (str): [optional]  # noqa: E501
-            proj_key (str): [optional]  # noqa: E501
-            flag_key (str): [optional]  # noqa: E501
-            aliases ([str]): [optional]  # noqa: E501
+            lines (str): Contextual lines of code that include the referenced feature flag. [optional]  # noqa: E501
+            proj_key (str): The project key. [optional]  # noqa: E501
+            flag_key (str): The feature flag key. [optional]  # noqa: E501
+            aliases ([str]): An array of flag key aliases. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -177,6 +179,7 @@ class HunkRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.starting_line_number = starting_line_number
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \
@@ -197,8 +200,11 @@ class HunkRep(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, starting_line_number, *args, **kwargs):  # noqa: E501
         """HunkRep - a model defined in OpenAPI
+
+        Args:
+            starting_line_number (int): Line number of beginning of code reference hunk
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -231,11 +237,10 @@ class HunkRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            starting_line_number (int): [optional]  # noqa: E501
-            lines (str): [optional]  # noqa: E501
-            proj_key (str): [optional]  # noqa: E501
-            flag_key (str): [optional]  # noqa: E501
-            aliases ([str]): [optional]  # noqa: E501
+            lines (str): Contextual lines of code that include the referenced feature flag. [optional]  # noqa: E501
+            proj_key (str): The project key. [optional]  # noqa: E501
+            flag_key (str): The feature flag key. [optional]  # noqa: E501
+            aliases ([str]): An array of flag key aliases. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -261,6 +266,7 @@ class HunkRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.starting_line_number = starting_line_number
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

@@ -116,6 +116,7 @@ class UserSegment(ModelNormal):
             'unbounded_metadata': (SegmentMetadata,),  # noqa: E501
             'external': (str,),  # noqa: E501
             'external_link': (str,),  # noqa: E501
+            'import_in_progress': (bool,),  # noqa: E501
         }
 
     @cached_property
@@ -142,6 +143,7 @@ class UserSegment(ModelNormal):
         'unbounded_metadata': '_unboundedMetadata',  # noqa: E501
         'external': '_external',  # noqa: E501
         'external_link': '_externalLink',  # noqa: E501
+        'import_in_progress': '_importInProgress',  # noqa: E501
     }
 
     read_only_vars = {
@@ -205,6 +207,7 @@ class UserSegment(ModelNormal):
             unbounded_metadata (SegmentMetadata): [optional]  # noqa: E501
             external (str): [optional]  # noqa: E501
             external_link (str): [optional]  # noqa: E501
+            import_in_progress (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -315,6 +318,7 @@ class UserSegment(ModelNormal):
             unbounded_metadata (SegmentMetadata): [optional]  # noqa: E501
             external (str): [optional]  # noqa: E501
             external_link (str): [optional]  # noqa: E501
+            import_in_progress (bool): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

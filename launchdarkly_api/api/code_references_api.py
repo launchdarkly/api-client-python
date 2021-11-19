@@ -27,13 +27,20 @@ from launchdarkly_api.model_utils import (  # noqa: F401
 from launchdarkly_api.model.branch_collection_rep import BranchCollectionRep
 from launchdarkly_api.model.branch_rep import BranchRep
 from launchdarkly_api.model.extinction_collection_rep import ExtinctionCollectionRep
-from launchdarkly_api.model.inline_object import InlineObject
+from launchdarkly_api.model.extinction_rep import ExtinctionRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.put_branch import PutBranch
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.repository_collection_rep import RepositoryCollectionRep
 from launchdarkly_api.model.repository_post import RepositoryPost
 from launchdarkly_api.model.repository_rep import RepositoryRep
 from launchdarkly_api.model.statistic_collection_rep import StatisticCollectionRep
 from launchdarkly_api.model.statistics_root import StatisticsRoot
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class CodeReferencesApi(object):
@@ -167,7 +174,9 @@ class CodeReferencesApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [
                     'application/json'
                 ]
@@ -286,7 +295,9 @@ class CodeReferencesApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -569,7 +580,7 @@ class CodeReferencesApi(object):
 
             Keyword Args:
                 repo_name (str): Filter results to a specific repository. [optional]
-                branch_name (str): Filter results to a specific branch. [optional]
+                branch_name (str): Filter results to a specific branch. By default, only the default branch will be queried for extinctions.. [optional]
                 proj_key (str): Filter results to a specific project. [optional]
                 flag_key (str): Filter results to a specific flag key. [optional]
                 _return_http_data_only (bool): response data without head status
@@ -1300,7 +1311,7 @@ class CodeReferencesApi(object):
             self,
             repo,
             branch,
-            inline_object,
+            extinction_rep,
             **kwargs
         ):
             """Create extinction  # noqa: E501
@@ -1309,13 +1320,13 @@ class CodeReferencesApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.post_extinction(repo, branch, inline_object, async_req=True)
+            >>> thread = api.post_extinction(repo, branch, extinction_rep, async_req=True)
             >>> result = thread.get()
 
             Args:
                 repo (str): The repository name
                 branch (str): The url-encoded branch name
-                inline_object ([InlineObject]):
+                extinction_rep ([ExtinctionRep]):
 
             Keyword Args:
                 _return_http_data_only (bool): response data without head status
@@ -1366,8 +1377,8 @@ class CodeReferencesApi(object):
                 repo
             kwargs['branch'] = \
                 branch
-            kwargs['inline_object'] = \
-                inline_object
+            kwargs['extinction_rep'] = \
+                extinction_rep
             return self.call_with_http_info(**kwargs)
 
         self.post_extinction = _Endpoint(
@@ -1376,7 +1387,7 @@ class CodeReferencesApi(object):
                 'auth': [
                     'ApiKey'
                 ],
-                'endpoint_path': '/api/v2/code-refs/repositories/{repo}/branches/{branch}',
+                'endpoint_path': '/api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events',
                 'operation_id': 'post_extinction',
                 'http_method': 'POST',
                 'servers': None,
@@ -1385,12 +1396,12 @@ class CodeReferencesApi(object):
                 'all': [
                     'repo',
                     'branch',
-                    'inline_object',
+                    'extinction_rep',
                 ],
                 'required': [
                     'repo',
                     'branch',
-                    'inline_object',
+                    'extinction_rep',
                 ],
                 'nullable': [
                 ],
@@ -1409,8 +1420,8 @@ class CodeReferencesApi(object):
                         (str,),
                     'branch':
                         (str,),
-                    'inline_object':
-                        ([InlineObject],),
+                    'extinction_rep':
+                        ([ExtinctionRep],),
                 },
                 'attribute_map': {
                     'repo': 'repo',
@@ -1419,13 +1430,15 @@ class CodeReferencesApi(object):
                 'location_map': {
                     'repo': 'path',
                     'branch': 'path',
-                    'inline_object': 'body',
+                    'extinction_rep': 'body',
                 },
                 'collection_format_map': {
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [
                     'application/json'
                 ]
@@ -1473,7 +1486,7 @@ class CodeReferencesApi(object):
                 async_req (bool): execute request asynchronously
 
             Returns:
-                None
+                RepositoryRep
                     If the method is called asynchronously, returns the request
                     thread.
             """
@@ -1502,7 +1515,7 @@ class CodeReferencesApi(object):
 
         self.post_repository = _Endpoint(
             settings={
-                'response_type': None,
+                'response_type': (RepositoryRep,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -1543,7 +1556,9 @@ class CodeReferencesApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [
                     'application/json'
                 ]
@@ -1556,7 +1571,7 @@ class CodeReferencesApi(object):
             self,
             repo,
             branch,
-            branch_rep,
+            put_branch,
             **kwargs
         ):
             """Upsert branch  # noqa: E501
@@ -1565,13 +1580,13 @@ class CodeReferencesApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.put_branch(repo, branch, branch_rep, async_req=True)
+            >>> thread = api.put_branch(repo, branch, put_branch, async_req=True)
             >>> result = thread.get()
 
             Args:
                 repo (str): The repository name
                 branch (str): The url-encoded branch name
-                branch_rep (BranchRep):
+                put_branch (PutBranch):
 
             Keyword Args:
                 _return_http_data_only (bool): response data without head status
@@ -1622,8 +1637,8 @@ class CodeReferencesApi(object):
                 repo
             kwargs['branch'] = \
                 branch
-            kwargs['branch_rep'] = \
-                branch_rep
+            kwargs['put_branch'] = \
+                put_branch
             return self.call_with_http_info(**kwargs)
 
         self.put_branch = _Endpoint(
@@ -1641,12 +1656,12 @@ class CodeReferencesApi(object):
                 'all': [
                     'repo',
                     'branch',
-                    'branch_rep',
+                    'put_branch',
                 ],
                 'required': [
                     'repo',
                     'branch',
-                    'branch_rep',
+                    'put_branch',
                 ],
                 'nullable': [
                 ],
@@ -1665,8 +1680,8 @@ class CodeReferencesApi(object):
                         (str,),
                     'branch':
                         (str,),
-                    'branch_rep':
-                        (BranchRep,),
+                    'put_branch':
+                        (PutBranch,),
                 },
                 'attribute_map': {
                     'repo': 'repo',
@@ -1675,13 +1690,15 @@ class CodeReferencesApi(object):
                 'location_map': {
                     'repo': 'path',
                     'branch': 'path',
-                    'branch_rep': 'body',
+                    'put_branch': 'body',
                 },
                 'collection_format_map': {
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [
                     'application/json'
                 ]

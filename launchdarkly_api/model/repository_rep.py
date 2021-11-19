@@ -64,6 +64,11 @@ class RepositoryRep(ModelNormal):
     """
 
     allowed_values = {
+        ('type',): {
+            'GITHUB': "github",
+            'BITBUCKET': "bitbucket",
+            'CUSTOM': "custom",
+        },
     }
 
     validations = {
@@ -135,11 +140,11 @@ class RepositoryRep(ModelNormal):
         """RepositoryRep - a model defined in OpenAPI
 
         Args:
-            name (str):
-            type (str):
-            default_branch (str):
-            enabled (bool):
-            version (int):
+            name (str): The repository name
+            type (str): The type of repository
+            default_branch (str): The repository's default branch
+            enabled (bool): Whether or not a repository is enabled for code reference scanning
+            version (int): The version of the repository's saved information
             links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}):
 
         Keyword Args:
@@ -173,10 +178,10 @@ class RepositoryRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            source_link (str): [optional]  # noqa: E501
-            commit_url_template (str): [optional]  # noqa: E501
-            hunk_url_template (str): [optional]  # noqa: E501
-            branches ([BranchRep]): [optional]  # noqa: E501
+            source_link (str): A URL to access the repository. [optional]  # noqa: E501
+            commit_url_template (str): A template for constructing a valid URL to view the commit. [optional]  # noqa: E501
+            hunk_url_template (str): A template for constructing a valid URL to view the hunk. [optional]  # noqa: E501
+            branches ([BranchRep]): An array of the repository's branches that have been scanned for code references. [optional]  # noqa: E501
             access (AccessRep): [optional]  # noqa: E501
         """
 
@@ -235,11 +240,11 @@ class RepositoryRep(ModelNormal):
         """RepositoryRep - a model defined in OpenAPI
 
         Args:
-            name (str):
-            type (str):
-            default_branch (str):
-            enabled (bool):
-            version (int):
+            name (str): The repository name
+            type (str): The type of repository
+            default_branch (str): The repository's default branch
+            enabled (bool): Whether or not a repository is enabled for code reference scanning
+            version (int): The version of the repository's saved information
             links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}):
 
         Keyword Args:
@@ -273,10 +278,10 @@ class RepositoryRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            source_link (str): [optional]  # noqa: E501
-            commit_url_template (str): [optional]  # noqa: E501
-            hunk_url_template (str): [optional]  # noqa: E501
-            branches ([BranchRep]): [optional]  # noqa: E501
+            source_link (str): A URL to access the repository. [optional]  # noqa: E501
+            commit_url_template (str): A template for constructing a valid URL to view the commit. [optional]  # noqa: E501
+            hunk_url_template (str): A template for constructing a valid URL to view the hunk. [optional]  # noqa: E501
+            branches ([BranchRep]): An array of the repository's branches that have been scanned for code references. [optional]  # noqa: E501
             access (AccessRep): [optional]  # noqa: E501
         """
 

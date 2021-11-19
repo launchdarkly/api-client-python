@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **mfa** | **str** | Whether or not multi-factor authentication is enabled for this member | 
 **excluded_dashboards** | **[str]** | Default dashboards that the member has chosen to ignore | 
 **last_seen** | **int** |  | 
+**creation_date** | **int** |  | 
 **first_name** | **str** | The member&#39;s first name | [optional] 
 **last_name** | **str** | The member&#39;s last name | [optional] 
 **pending_email** | **str** |  | [optional] 

@@ -27,10 +27,16 @@ from launchdarkly_api.model_utils import (  # noqa: F401
 from launchdarkly_api.model.big_segment_target import BigSegmentTarget
 from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
 from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_segment_request import PatchSegmentRequest
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.segment_body import SegmentBody
 from launchdarkly_api.model.segment_user_state import SegmentUserState
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.user_segment import UserSegment
 from launchdarkly_api.model.user_segments import UserSegments
 
@@ -177,7 +183,9 @@ class SegmentsApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -1319,7 +1327,9 @@ class SegmentsApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [
                     'application/json'
                 ]

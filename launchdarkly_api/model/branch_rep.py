@@ -92,10 +92,10 @@ class BranchRep(ModelNormal):
         return {
             'name': (str,),  # noqa: E501
             'head': (str,),  # noqa: E501
-            'update_sequence_id': (int,),  # noqa: E501
             'sync_time': (int,),  # noqa: E501
-            'references': ([ReferenceRep],),  # noqa: E501
             'links': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
+            'update_sequence_id': (int,),  # noqa: E501
+            'references': ([ReferenceRep],),  # noqa: E501
         }
 
     @cached_property
@@ -106,10 +106,10 @@ class BranchRep(ModelNormal):
     attribute_map = {
         'name': 'name',  # noqa: E501
         'head': 'head',  # noqa: E501
-        'update_sequence_id': 'updateSequenceId',  # noqa: E501
         'sync_time': 'syncTime',  # noqa: E501
-        'references': 'references',  # noqa: E501
         'links': '_links',  # noqa: E501
+        'update_sequence_id': 'updateSequenceId',  # noqa: E501
+        'references': 'references',  # noqa: E501
     }
 
     read_only_vars = {
@@ -119,8 +119,14 @@ class BranchRep(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, name, head, sync_time, links, *args, **kwargs):  # noqa: E501
         """BranchRep - a model defined in OpenAPI
+
+        Args:
+            name (str): The branch name
+            head (str): An ID representing the branch HEAD. For example, a commit SHA.
+            sync_time (int):
+            links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -153,12 +159,8 @@ class BranchRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            name (str): [optional]  # noqa: E501
-            head (str): [optional]  # noqa: E501
-            update_sequence_id (int): [optional]  # noqa: E501
-            sync_time (int): [optional]  # noqa: E501
-            references ([ReferenceRep]): [optional]  # noqa: E501
-            links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): [optional]  # noqa: E501
+            update_sequence_id (int): An optional ID used to prevent older data from overwriting newer data. [optional]  # noqa: E501
+            references ([ReferenceRep]): An array of flag references found on the branch. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -186,6 +188,10 @@ class BranchRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.name = name
+        self.head = head
+        self.sync_time = sync_time
+        self.links = links
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \
@@ -206,8 +212,14 @@ class BranchRep(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, *args, **kwargs):  # noqa: E501
+    def __init__(self, name, head, sync_time, links, *args, **kwargs):  # noqa: E501
         """BranchRep - a model defined in OpenAPI
+
+        Args:
+            name (str): The branch name
+            head (str): An ID representing the branch HEAD. For example, a commit SHA.
+            sync_time (int):
+            links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -240,12 +252,8 @@ class BranchRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            name (str): [optional]  # noqa: E501
-            head (str): [optional]  # noqa: E501
-            update_sequence_id (int): [optional]  # noqa: E501
-            sync_time (int): [optional]  # noqa: E501
-            references ([ReferenceRep]): [optional]  # noqa: E501
-            links ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): [optional]  # noqa: E501
+            update_sequence_id (int): An optional ID used to prevent older data from overwriting newer data. [optional]  # noqa: E501
+            references ([ReferenceRep]): An array of flag references found on the branch. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -271,6 +279,10 @@ class BranchRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.name = name
+        self.head = head
+        self.sync_time = sync_time
+        self.links = links
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

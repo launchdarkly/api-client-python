@@ -118,7 +118,7 @@ class RepositoryCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ([RepositoryRep]):
+            items ([RepositoryRep]): An array of repositories
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -205,7 +205,7 @@ class RepositoryCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ([RepositoryRep]):
+            items ([RepositoryRep]): An array of repositories
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

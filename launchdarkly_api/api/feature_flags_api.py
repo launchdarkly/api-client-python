@@ -33,7 +33,14 @@ from launchdarkly_api.model.feature_flag_statuses import FeatureFlagStatuses
 from launchdarkly_api.model.feature_flags import FeatureFlags
 from launchdarkly_api.model.flag_copy_config_post import FlagCopyConfigPost
 from launchdarkly_api.model.flag_status_rep import FlagStatusRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class FeatureFlagsApi(object):
@@ -308,7 +315,9 @@ class FeatureFlagsApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,

@@ -94,6 +94,7 @@ class CustomRolePost(ModelNormal):
             'key': (str,),  # noqa: E501
             'policy': (StatementPostList,),  # noqa: E501
             'description': (str,),  # noqa: E501
+            'base_permissions': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -106,6 +107,7 @@ class CustomRolePost(ModelNormal):
         'key': 'key',  # noqa: E501
         'policy': 'policy',  # noqa: E501
         'description': 'description',  # noqa: E501
+        'base_permissions': 'basePermissions',  # noqa: E501
     }
 
     read_only_vars = {
@@ -155,6 +157,7 @@ class CustomRolePost(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             description (str): Description of custom role. [optional]  # noqa: E501
+            base_permissions (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -245,6 +248,7 @@ class CustomRolePost(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             description (str): Description of custom role. [optional]  # noqa: E501
+            base_permissions (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

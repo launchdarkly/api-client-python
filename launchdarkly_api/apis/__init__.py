@@ -37,3 +37,4 @@ from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
 from launchdarkly_api.api.users__beta_api import UsersBetaApi
 from launchdarkly_api.api.webhooks_api import WebhooksApi
+from launchdarkly_api.api.workflows__beta_api import WorkflowsBetaApi

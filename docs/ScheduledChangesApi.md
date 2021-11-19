@@ -26,6 +26,12 @@ Delete a scheduled changes workflow
 import time
 import launchdarkly_api
 from launchdarkly_api.api import scheduled_changes_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -82,14 +88,14 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Action completed successfully |  -  |
+**204** | Action succeeded |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -114,6 +120,9 @@ Get a scheduled change that will be applied to the feature flag by ID
 import time
 import launchdarkly_api
 from launchdarkly_api.api import scheduled_changes_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag_scheduled_change import FeatureFlagScheduledChange
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -202,6 +211,10 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import scheduled_changes_api
 from launchdarkly_api.model.feature_flag_scheduled_changes import FeatureFlagScheduledChanges
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -265,7 +278,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Scheduled changes collection response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -287,8 +300,15 @@ Update a scheduled change, overriding existing instructions with the new ones.<b
 import time
 import launchdarkly_api
 from launchdarkly_api.api import scheduled_changes_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.flag_scheduled_changes_input import FlagScheduledChangesInput
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag_scheduled_change import FeatureFlagScheduledChange
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -374,10 +394,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful scheduled changes response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**404** | Invalid resource ID |  -  |
+**404** | Invalid resource identifier |  -  |
 **405** | Method not allowed |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
@@ -399,8 +419,15 @@ Create scheduled changes for a feature flag. If the ignoreConficts query paramet
 import time
 import launchdarkly_api
 from launchdarkly_api.api import scheduled_changes_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.post_flag_scheduled_changes_input import PostFlagScheduledChangesInput
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.feature_flag_scheduled_change import FeatureFlagScheduledChange
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -485,10 +512,10 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Successful scheduled changes response |  -  |
-**400** | Invalid request body |  -  |
+**400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**404** | Invalid resource ID |  -  |
+**404** | Invalid resource identifier |  -  |
 **405** | Method not allowed |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |

@@ -24,10 +24,17 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.relay_auto_config_collection_rep import RelayAutoConfigCollectionRep
 from launchdarkly_api.model.relay_auto_config_post import RelayAutoConfigPost
 from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class RelayProxyConfigurationsApi(object):
@@ -152,7 +159,9 @@ class RelayProxyConfigurationsApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,

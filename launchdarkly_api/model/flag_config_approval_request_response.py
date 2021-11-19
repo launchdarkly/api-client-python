@@ -121,7 +121,7 @@ class FlagConfigApprovalRequestResponse(ModelNormal):
             'operating_on_id': (str,),  # noqa: E501
             'integration_metadata': (IntegrationMetadata,),  # noqa: E501
             'source': (CopiedFromEnv,),  # noqa: E501
-            'custom_workflow_meta_data': (CustomWorkflowMeta,),  # noqa: E501
+            'custom_workflow_metadata': (CustomWorkflowMeta,),  # noqa: E501
         }
 
     @cached_property
@@ -149,7 +149,7 @@ class FlagConfigApprovalRequestResponse(ModelNormal):
         'operating_on_id': 'operatingOnId',  # noqa: E501
         'integration_metadata': 'integrationMetadata',  # noqa: E501
         'source': 'source',  # noqa: E501
-        'custom_workflow_meta_data': 'customWorkflowMetaData',  # noqa: E501
+        'custom_workflow_metadata': 'customWorkflowMetadata',  # noqa: E501
     }
 
     read_only_vars = {
@@ -214,7 +214,7 @@ class FlagConfigApprovalRequestResponse(ModelNormal):
             operating_on_id (str): ID of scheduled change to edit or delete. [optional]  # noqa: E501
             integration_metadata (IntegrationMetadata): [optional]  # noqa: E501
             source (CopiedFromEnv): [optional]  # noqa: E501
-            custom_workflow_meta_data (CustomWorkflowMeta): [optional]  # noqa: E501
+            custom_workflow_metadata (CustomWorkflowMeta): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -328,7 +328,7 @@ class FlagConfigApprovalRequestResponse(ModelNormal):
             operating_on_id (str): ID of scheduled change to edit or delete. [optional]  # noqa: E501
             integration_metadata (IntegrationMetadata): [optional]  # noqa: E501
             source (CopiedFromEnv): [optional]  # noqa: E501
-            custom_workflow_meta_data (CustomWorkflowMeta): [optional]  # noqa: E501
+            custom_workflow_metadata (CustomWorkflowMeta): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

@@ -108,6 +108,7 @@ class Member(ModelNormal):
             'mfa': (str,),  # noqa: E501
             'excluded_dashboards': ([str],),  # noqa: E501
             'last_seen': (int,),  # noqa: E501
+            'creation_date': (int,),  # noqa: E501
             'first_name': (str,),  # noqa: E501
             'last_name': (str,),  # noqa: E501
             'pending_email': (str,),  # noqa: E501
@@ -133,6 +134,7 @@ class Member(ModelNormal):
         'mfa': 'mfa',  # noqa: E501
         'excluded_dashboards': 'excludedDashboards',  # noqa: E501
         'last_seen': '_lastSeen',  # noqa: E501
+        'creation_date': 'creationDate',  # noqa: E501
         'first_name': 'firstName',  # noqa: E501
         'last_name': 'lastName',  # noqa: E501
         'pending_email': '_pendingEmail',  # noqa: E501
@@ -149,7 +151,7 @@ class Member(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, links, id, role, email, pending_invite, verified, custom_roles, mfa, excluded_dashboards, last_seen, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, links, id, role, email, pending_invite, verified, custom_roles, mfa, excluded_dashboards, last_seen, creation_date, *args, **kwargs):  # noqa: E501
         """Member - a model defined in OpenAPI
 
         Args:
@@ -163,6 +165,7 @@ class Member(ModelNormal):
             mfa (str): Whether or not multi-factor authentication is enabled for this member
             excluded_dashboards ([str]): Default dashboards that the member has chosen to ignore
             last_seen (int):
+            creation_date (int):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -239,6 +242,7 @@ class Member(ModelNormal):
         self.mfa = mfa
         self.excluded_dashboards = excluded_dashboards
         self.last_seen = last_seen
+        self.creation_date = creation_date
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \
@@ -259,7 +263,7 @@ class Member(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, links, id, role, email, pending_invite, verified, custom_roles, mfa, excluded_dashboards, last_seen, *args, **kwargs):  # noqa: E501
+    def __init__(self, links, id, role, email, pending_invite, verified, custom_roles, mfa, excluded_dashboards, last_seen, creation_date, *args, **kwargs):  # noqa: E501
         """Member - a model defined in OpenAPI
 
         Args:
@@ -273,6 +277,7 @@ class Member(ModelNormal):
             mfa (str): Whether or not multi-factor authentication is enabled for this member
             excluded_dashboards ([str]): Default dashboards that the member has chosen to ignore
             last_seen (int):
+            creation_date (int):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -347,6 +352,7 @@ class Member(ModelNormal):
         self.mfa = mfa
         self.excluded_dashboards = excluded_dashboards
         self.last_seen = last_seen
+        self.creation_date = creation_date
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

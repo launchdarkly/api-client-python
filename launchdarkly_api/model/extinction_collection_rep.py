@@ -118,7 +118,7 @@ class ExtinctionCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ({str: ([ExtinctionRep],)}):
+            items ({str: ([ExtinctionRep],)}): An array of extinction events
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -205,7 +205,7 @@ class ExtinctionCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ({str: ([ExtinctionRep],)}):
+            items ({str: ([ExtinctionRep],)}): An array of extinction events
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

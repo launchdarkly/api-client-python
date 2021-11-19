@@ -118,7 +118,7 @@ class BranchCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ([BranchRep]):
+            items ([BranchRep]): An array of branches
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -205,7 +205,7 @@ class BranchCollectionRep(ModelNormal):
 
         Args:
             links ({str: (Link,)}):
-            items ([BranchRep]):
+            items ([BranchRep]): An array of branches
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

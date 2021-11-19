@@ -156,8 +156,8 @@ class RepositoryPost(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             source_link (str): [optional]  # noqa: E501
-            commit_url_template (str): [optional]  # noqa: E501
-            hunk_url_template (str): [optional]  # noqa: E501
+            commit_url_template (str): A template for constructing a valid URL to view the commit. [optional]  # noqa: E501
+            hunk_url_template (str): A template for constructing a valid URL to view the hunk. [optional]  # noqa: E501
             type (str): Optionally specify a repository type. The default value is <code>custom</code>. [optional]  # noqa: E501
             default_branch (str): The default branch, if not specified, is <code>master</code>. [optional]  # noqa: E501
         """
@@ -246,8 +246,8 @@ class RepositoryPost(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             source_link (str): [optional]  # noqa: E501
-            commit_url_template (str): [optional]  # noqa: E501
-            hunk_url_template (str): [optional]  # noqa: E501
+            commit_url_template (str): A template for constructing a valid URL to view the commit. [optional]  # noqa: E501
+            hunk_url_template (str): A template for constructing a valid URL to view the hunk. [optional]  # noqa: E501
             type (str): Optionally specify a repository type. The default value is <code>custom</code>. [optional]  # noqa: E501
             default_branch (str): The default branch, if not specified, is <code>master</code>. [optional]  # noqa: E501
         """

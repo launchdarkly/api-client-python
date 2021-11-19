@@ -28,8 +28,14 @@ from launchdarkly_api.model.create_copy_flag_config_approval_request_request imp
 from launchdarkly_api.model.create_flag_config_approval_request_request import CreateFlagConfigApprovalRequestRequest
 from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
 from launchdarkly_api.model.flag_config_approval_requests_response import FlagConfigApprovalRequestsResponse
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
 from launchdarkly_api.model.post_approval_request_review_request import PostApprovalRequestReviewRequest
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class ApprovalsApi(object):
@@ -184,7 +190,9 @@ class ApprovalsApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -1033,7 +1041,7 @@ class ApprovalsApi(object):
                 'auth': [
                     'ApiKey'
                 ],
-                'endpoint_path': '/api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy',
+                'endpoint_path': '/api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy',
                 'operation_id': 'post_flag_copy_config_approval_request',
                 'http_method': 'POST',
                 'servers': None,

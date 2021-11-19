@@ -27,7 +27,14 @@ from launchdarkly_api.model_utils import (  # noqa: F401
 from launchdarkly_api.model.feature_flag_scheduled_change import FeatureFlagScheduledChange
 from launchdarkly_api.model.feature_flag_scheduled_changes import FeatureFlagScheduledChanges
 from launchdarkly_api.model.flag_scheduled_changes_input import FlagScheduledChangesInput
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.post_flag_scheduled_changes_input import PostFlagScheduledChangesInput
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class ScheduledChangesApi(object):
@@ -182,7 +189,9 @@ class ScheduledChangesApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,

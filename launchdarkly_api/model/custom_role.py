@@ -94,13 +94,14 @@ class CustomRole(ModelNormal):
         """
         lazy_import()
         return {
-            'links': ({str: (Link,)},),  # noqa: E501
-            'name': (str,),  # noqa: E501
-            'key': (str,),  # noqa: E501
             'id': (str,),  # noqa: E501
+            'links': ({str: (Link,)},),  # noqa: E501
+            'key': (str,),  # noqa: E501
+            'name': (str,),  # noqa: E501
             'policy': ([Statement],),  # noqa: E501
-            'description': (str,),  # noqa: E501
             'access': (AccessRep,),  # noqa: E501
+            'description': (str,),  # noqa: E501
+            'base_permissions': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -109,13 +110,14 @@ class CustomRole(ModelNormal):
 
 
     attribute_map = {
-        'links': '_links',  # noqa: E501
-        'name': 'name',  # noqa: E501
-        'key': 'key',  # noqa: E501
         'id': '_id',  # noqa: E501
+        'links': '_links',  # noqa: E501
+        'key': 'key',  # noqa: E501
+        'name': 'name',  # noqa: E501
         'policy': 'policy',  # noqa: E501
-        'description': 'description',  # noqa: E501
         'access': '_access',  # noqa: E501
+        'description': 'description',  # noqa: E501
+        'base_permissions': 'basePermissions',  # noqa: E501
     }
 
     read_only_vars = {
@@ -125,14 +127,14 @@ class CustomRole(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, links, name, key, id, policy, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, id, links, key, name, policy, *args, **kwargs):  # noqa: E501
         """CustomRole - a model defined in OpenAPI
 
         Args:
-            links ({str: (Link,)}):
-            name (str):
-            key (str):
             id (str):
+            links ({str: (Link,)}):
+            key (str):
+            name (str):
             policy ([Statement]):
 
         Keyword Args:
@@ -166,8 +168,9 @@ class CustomRole(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            description (str): [optional]  # noqa: E501
             access (AccessRep): [optional]  # noqa: E501
+            description (str): [optional]  # noqa: E501
+            base_permissions (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -195,10 +198,10 @@ class CustomRole(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
-        self.links = links
-        self.name = name
-        self.key = key
         self.id = id
+        self.links = links
+        self.key = key
+        self.name = name
         self.policy = policy
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
@@ -220,14 +223,14 @@ class CustomRole(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, links, name, key, id, policy, *args, **kwargs):  # noqa: E501
+    def __init__(self, id, links, key, name, policy, *args, **kwargs):  # noqa: E501
         """CustomRole - a model defined in OpenAPI
 
         Args:
-            links ({str: (Link,)}):
-            name (str):
-            key (str):
             id (str):
+            links ({str: (Link,)}):
+            key (str):
+            name (str):
             policy ([Statement]):
 
         Keyword Args:
@@ -261,8 +264,9 @@ class CustomRole(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            description (str): [optional]  # noqa: E501
             access (AccessRep): [optional]  # noqa: E501
+            description (str): [optional]  # noqa: E501
+            base_permissions (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -288,10 +292,10 @@ class CustomRole(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
-        self.links = links
-        self.name = name
-        self.key = key
         self.id = id
+        self.links = links
+        self.key = key
+        self.name = name
         self.policy = policy
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \

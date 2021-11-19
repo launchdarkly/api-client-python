@@ -27,8 +27,13 @@ from launchdarkly_api.model_utils import (  # noqa: F401
 from launchdarkly_api.model.custom_role import CustomRole
 from launchdarkly_api.model.custom_role_post import CustomRolePost
 from launchdarkly_api.model.custom_roles import CustomRoles
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.patch_with_comment import PatchWithComment
-from launchdarkly_api.model.statement_post_list import StatementPostList
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 
 
 class CustomRolesApi(object):
@@ -153,7 +158,9 @@ class CustomRolesApi(object):
                 }
             },
             headers_map={
-                'accept': [],
+                'accept': [
+                    'application/json'
+                ],
                 'content_type': [],
             },
             api_client=api_client,
@@ -199,7 +206,7 @@ class CustomRolesApi(object):
                 async_req (bool): execute request asynchronously
 
             Returns:
-                CustomRolePost
+                CustomRole
                     If the method is called asynchronously, returns the request
                     thread.
             """
@@ -228,7 +235,7 @@ class CustomRolesApi(object):
 
         self.get_custom_role = _Endpoint(
             settings={
-                'response_type': (CustomRolePost,),
+                'response_type': (CustomRole,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -518,7 +525,7 @@ class CustomRolesApi(object):
 
         def __post_custom_role(
             self,
-            statement_post_list,
+            custom_role_post,
             **kwargs
         ):
             """Create custom role  # noqa: E501
@@ -527,11 +534,11 @@ class CustomRolesApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.post_custom_role(statement_post_list, async_req=True)
+            >>> thread = api.post_custom_role(custom_role_post, async_req=True)
             >>> result = thread.get()
 
             Args:
-                statement_post_list (StatementPostList):
+                custom_role_post (CustomRolePost):
 
             Keyword Args:
                 _return_http_data_only (bool): response data without head status
@@ -578,8 +585,8 @@ class CustomRolesApi(object):
                 '_check_return_type', True
             )
             kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['statement_post_list'] = \
-                statement_post_list
+            kwargs['custom_role_post'] = \
+                custom_role_post
             return self.call_with_http_info(**kwargs)
 
         self.post_custom_role = _Endpoint(
@@ -595,10 +602,10 @@ class CustomRolesApi(object):
             },
             params_map={
                 'all': [
-                    'statement_post_list',
+                    'custom_role_post',
                 ],
                 'required': [
-                    'statement_post_list',
+                    'custom_role_post',
                 ],
                 'nullable': [
                 ],
@@ -613,13 +620,13 @@ class CustomRolesApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'statement_post_list':
-                        (StatementPostList,),
+                    'custom_role_post':
+                        (CustomRolePost,),
                 },
                 'attribute_map': {
                 },
                 'location_map': {
-                    'statement_post_list': 'body',
+                    'custom_role_post': 'body',
                 },
                 'collection_format_map': {
                 }

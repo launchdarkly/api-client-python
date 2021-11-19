@@ -29,28 +29,28 @@ class TestTeamsBetaApi(unittest.TestCase):
     def test_delete_team(self):
         """Test case for delete_team
 
-        Delete team by key  # noqa: E501
+        Delete team  # noqa: E501
         """
         pass
 
     def test_get_team(self):
         """Test case for get_team
 
-        Get team by key  # noqa: E501
+        Get team  # noqa: E501
         """
         pass
 
     def test_get_teams(self):
         """Test case for get_teams
 
-        Get all teams  # noqa: E501
+        List teams  # noqa: E501
         """
         pass
 
     def test_patch_team(self):
         """Test case for patch_team
 
-        Patch team by key  # noqa: E501
+        Update team  # noqa: E501
         """
         pass
 
