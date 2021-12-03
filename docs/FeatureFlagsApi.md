@@ -1051,7 +1051,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             using_mobile_key=True,
         ),
         variations=[
-            Variate(
+            Variation(
                 id="id_example",
                 value=None,
                 description="description_example",

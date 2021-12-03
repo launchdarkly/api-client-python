@@ -157,7 +157,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_root**
-> {str: (InlineResponse200,)} get_root()
+> RootResponse get_root()
 
 Root resource
 
@@ -171,7 +171,7 @@ Issue a `GET` request to the root resource to find all of the resource categorie
 import time
 import launchdarkly_api
 from launchdarkly_api.api import other_api
-from launchdarkly_api.model.inline_response200 import InlineResponse200
+from launchdarkly_api.model.root_response import RootResponse
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -210,7 +210,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**{str: (InlineResponse200,)}**](InlineResponse200.md)
+[**RootResponse**](RootResponse.md)
 
 ### Authorization
 

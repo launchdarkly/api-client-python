@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**description** | **str** |  | 
 **maintainer_id** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
 **stages** | [**[StageInputRep]**](StageInputRep.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

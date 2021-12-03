@@ -411,10 +411,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         policy=[
             StatementRep(
                 resources=[
-                    {},
+                    "resources_example",
                 ],
                 not_resources=[
-                    {},
+                    "not_resources_example",
                 ],
                 actions=[
                     "actions_example",

@@ -268,7 +268,7 @@ This endpoint does not need any parameter.
 
 Update project
 
-Update a project. Requires a [JSON Patch](http://tools.ietf.org/html/rfc6902) representation of the desired changes to the project.
+Update a project. Requires a [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes to the project.
 
 ### Example
 
@@ -416,7 +416,17 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         ),
         tags=["ops"],
         environments=[
-            {},
+            EnvironmentPost(
+                name="My Environment",
+                key="my-environment",
+                color="F5A623",
+                default_ttl=5,
+                secure_mode=True,
+                default_track_events=False,
+                confirm_changes=False,
+                require_comments=False,
+                tags=["ops"],
+            ),
         ],
     ) # ProjectPost | 
 

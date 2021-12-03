@@ -376,7 +376,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_members**
-> Members post_members(new_member_form)
+> Members post_members(new_member_form_list_post)
 
 Invite new members
 
@@ -392,11 +392,11 @@ import launchdarkly_api
 from launchdarkly_api.api import account_members_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.new_member_form import NewMemberForm
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.members import Members
 from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.model.new_member_form_list_post import NewMemberFormListPost
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -419,7 +419,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = account_members_api.AccountMembersApi(api_client)
-    new_member_form = [
+    new_member_form_list_post = NewMemberFormListPost([
         NewMemberForm(
             email="email_example",
             password="password_example",
@@ -430,12 +430,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 "custom_roles_example",
             ],
         ),
-    ] # [NewMemberForm] | 
+    ]) # NewMemberFormListPost | 
 
     # example passing only required values which don't have defaults set
     try:
         # Invite new members
-        api_response = api_instance.post_members(new_member_form)
+        api_response = api_instance.post_members(new_member_form_list_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountMembersApi->post_members: %s\n" % e)
@@ -446,7 +446,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **new_member_form** | [**[NewMemberForm]**](NewMemberForm.md)|  |
+ **new_member_form_list_post** | [**NewMemberFormListPost**](NewMemberFormListPost.md)|  |
 
 ### Return type
 

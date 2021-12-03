@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_extinction**
-> post_extinction(repo, branch, extinction_rep)
+> post_extinction(repo, branch, extinction_list_post)
 
 Create extinction
 
@@ -947,12 +947,12 @@ Create a new extinction
 import time
 import launchdarkly_api
 from launchdarkly_api.api import code_references_api
+from launchdarkly_api.model.extinction_list_post import ExtinctionListPost
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.extinction_rep import ExtinctionRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -977,20 +977,20 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name
     branch = "branch_example" # str | The url-encoded branch name
-    extinction_rep = [
-        ExtinctionRep(
+    extinction_list_post = ExtinctionListPost([
+        Extinction(
             revision="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
             message="Remove flag for launched feature",
             time=1,
             flag_key="enable-feature",
             proj_key="default",
         ),
-    ] # [ExtinctionRep] | 
+    ]) # ExtinctionListPost | 
 
     # example passing only required values which don't have defaults set
     try:
         # Create extinction
-        api_instance.post_extinction(repo, branch, extinction_rep)
+        api_instance.post_extinction(repo, branch, extinction_list_post)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->post_extinction: %s\n" % e)
 ```
@@ -1002,7 +1002,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo** | **str**| The repository name |
  **branch** | **str**| The url-encoded branch name |
- **extinction_rep** | [**[ExtinctionRep]**](ExtinctionRep.md)|  |
+ **extinction_list_post** | [**ExtinctionListPost**](ExtinctionListPost.md)|  |
 
 ### Return type
 

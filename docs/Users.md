@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **total_count** | **int** |  | 
-**items** | [**[User]**](User.md) |  | 
+**items** | [**[UserRecord]**](UserRecord.md) |  | 
 **links** | [**{str: (Link,)}**](Link.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

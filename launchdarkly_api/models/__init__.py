@@ -54,6 +54,7 @@ from launchdarkly_api.model.defaults import Defaults
 from launchdarkly_api.model.dependent_flag import DependentFlag
 from launchdarkly_api.model.dependent_flag_environment import DependentFlagEnvironment
 from launchdarkly_api.model.dependent_flags_by_environment import DependentFlagsByEnvironment
+from launchdarkly_api.model.derived_attribute import DerivedAttribute
 from launchdarkly_api.model.destination import Destination
 from launchdarkly_api.model.destination_post import DestinationPost
 from launchdarkly_api.model.destinations import Destinations
@@ -76,8 +77,9 @@ from launchdarkly_api.model.expiring_user_target_error import ExpiringUserTarget
 from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
 from launchdarkly_api.model.expiring_user_target_item import ExpiringUserTargetItem
 from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.model.extinction import Extinction
 from launchdarkly_api.model.extinction_collection_rep import ExtinctionCollectionRep
-from launchdarkly_api.model.extinction_rep import ExtinctionRep
+from launchdarkly_api.model.extinction_list_post import ExtinctionListPost
 from launchdarkly_api.model.feature_flag import FeatureFlag
 from launchdarkly_api.model.feature_flag_body import FeatureFlagBody
 from launchdarkly_api.model.feature_flag_config import FeatureFlagConfig
@@ -99,7 +101,6 @@ from launchdarkly_api.model.flag_summary import FlagSummary
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.form_variable_config import FormVariableConfig
 from launchdarkly_api.model.hunk_rep import HunkRep
-from launchdarkly_api.model.inline_response200 import InlineResponse200
 from launchdarkly_api.model.instruction import Instruction
 from launchdarkly_api.model.instructions import Instructions
 from launchdarkly_api.model.integration_metadata import IntegrationMetadata
@@ -120,10 +121,12 @@ from launchdarkly_api.model.metric_collection_rep import MetricCollectionRep
 from launchdarkly_api.model.metric_listing_rep import MetricListingRep
 from launchdarkly_api.model.metric_post import MetricPost
 from launchdarkly_api.model.metric_rep import MetricRep
+from launchdarkly_api.model.metric_seen import MetricSeen
 from launchdarkly_api.model.modification import Modification
 from launchdarkly_api.model.multi_environment_dependent_flag import MultiEnvironmentDependentFlag
 from launchdarkly_api.model.multi_environment_dependent_flags import MultiEnvironmentDependentFlags
 from launchdarkly_api.model.new_member_form import NewMemberForm
+from launchdarkly_api.model.new_member_form_list_post import NewMemberFormListPost
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.parent_resource_rep import ParentResourceRep
 from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
@@ -157,6 +160,7 @@ from launchdarkly_api.model.resource_id_response import ResourceIDResponse
 from launchdarkly_api.model.review_output_rep import ReviewOutputRep
 from launchdarkly_api.model.review_response import ReviewResponse
 from launchdarkly_api.model.rollout import Rollout
+from launchdarkly_api.model.root_response import RootResponse
 from launchdarkly_api.model.rule import Rule
 from launchdarkly_api.model.schedule_condition_input_rep import ScheduleConditionInputRep
 from launchdarkly_api.model.schedule_condition_output_rep import ScheduleConditionOutputRep
@@ -201,12 +205,12 @@ from launchdarkly_api.model.user_attribute_names_rep import UserAttributeNamesRe
 from launchdarkly_api.model.user_flag_setting import UserFlagSetting
 from launchdarkly_api.model.user_flag_settings import UserFlagSettings
 from launchdarkly_api.model.user_record import UserRecord
+from launchdarkly_api.model.user_record_rep import UserRecordRep
 from launchdarkly_api.model.user_segment import UserSegment
 from launchdarkly_api.model.user_segment_rule import UserSegmentRule
 from launchdarkly_api.model.user_segments import UserSegments
 from launchdarkly_api.model.users import Users
 from launchdarkly_api.model.value_put import ValuePut
-from launchdarkly_api.model.variate import Variate
 from launchdarkly_api.model.variation import Variation
 from launchdarkly_api.model.variation_or_rollout_rep import VariationOrRolloutRep
 from launchdarkly_api.model.variation_summary import VariationSummary
