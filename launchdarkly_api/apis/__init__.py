@@ -26,6 +26,8 @@ from launchdarkly_api.api.environments_api import EnvironmentsApi
 from launchdarkly_api.api.experiments__beta_api import ExperimentsBetaApi
 from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
 from launchdarkly_api.api.feature_flags__beta_api import FeatureFlagsBetaApi
+from launchdarkly_api.api.flag_triggers_api import FlagTriggersApi
+from launchdarkly_api.api.integration_audit_log_subscriptions_api import IntegrationAuditLogSubscriptionsApi
 from launchdarkly_api.api.metrics_api import MetricsApi
 from launchdarkly_api.api.other_api import OtherApi
 from launchdarkly_api.api.projects_api import ProjectsApi

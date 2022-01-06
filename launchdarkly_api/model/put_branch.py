@@ -95,6 +95,7 @@ class PutBranch(ModelNormal):
             'sync_time': (int,),  # noqa: E501
             'update_sequence_id': (int,),  # noqa: E501
             'references': ([ReferenceRep],),  # noqa: E501
+            'commit_time': (int,),  # noqa: E501
         }
 
     @cached_property
@@ -108,6 +109,7 @@ class PutBranch(ModelNormal):
         'sync_time': 'syncTime',  # noqa: E501
         'update_sequence_id': 'updateSequenceId',  # noqa: E501
         'references': 'references',  # noqa: E501
+        'commit_time': 'commitTime',  # noqa: E501
     }
 
     read_only_vars = {
@@ -158,6 +160,7 @@ class PutBranch(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             update_sequence_id (int): An optional ID used to prevent older data from overwriting newer data. If no sequence ID is included, the newly submitted data will always be saved.. [optional]  # noqa: E501
             references ([ReferenceRep]): An array of flag references found on the branch. [optional]  # noqa: E501
+            commit_time (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -249,6 +252,7 @@ class PutBranch(ModelNormal):
                                 _visited_composed_classes = (Animal,)
             update_sequence_id (int): An optional ID used to prevent older data from overwriting newer data. If no sequence ID is included, the newly submitted data will always be saved.. [optional]  # noqa: E501
             references ([ReferenceRep]): An array of flag references found on the branch. [optional]  # noqa: E501
+            commit_time (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

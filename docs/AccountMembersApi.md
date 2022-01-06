@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**get_member**](AccountMembersApi.md#get_member) | **GET** /api/v2/members/{id} | Get account member
 [**get_members**](AccountMembersApi.md#get_members) | **GET** /api/v2/members | List account members
 [**patch_member**](AccountMembersApi.md#patch_member) | **PATCH** /api/v2/members/{id} | Modify an account member
+[**post_member_teams**](AccountMembersApi.md#post_member_teams) | **POST** /api/v2/members/{id}/teams | Add member to teams
 [**post_members**](AccountMembersApi.md#post_members) | **POST** /api/v2/members | Invite new members
 
 
@@ -281,7 +282,7 @@ Name | Type | Description  | Notes
 
 Modify an account member
 
-Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member. Requests to update account members will not work if SCIM is enabled for the account.
+ Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member.  To update fields in the account member object that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` appends to the beginning of the array. For example, to add a new custom role to a member, use the following request body:  ```   [     {       \"op\": \"add\",       \"path\": \"/customRoles/0\",       \"value\": \"some-role-id\"     }   ] ```  Requests to update account members will not work if SCIM is enabled for the account. 
 
 ### Example
 
@@ -370,6 +371,101 @@ Name | Type | Description  | Notes
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_member_teams**
+> Member post_member_teams(id, member_teams_form_post)
+
+Add member to teams
+
+Add member to team(s)
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import account_members_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.member import Member
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.member_teams_form_post import MemberTeamsFormPost
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = account_members_api.AccountMembersApi(api_client)
+    id = "id_example" # str | The member ID
+    member_teams_form_post = MemberTeamsFormPost(
+        team_keys=[
+            "team_keys_example",
+        ],
+    ) # MemberTeamsFormPost | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Add member to teams
+        api_response = api_instance.post_member_teams(id, member_teams_form_post)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling AccountMembersApi->post_member_teams: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| The member ID |
+ **member_teams_form_post** | [**MemberTeamsFormPost**](MemberTeamsFormPost.md)|  |
+
+### Return type
+
+[**Member**](Member.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Member response JSON |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
 **409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 

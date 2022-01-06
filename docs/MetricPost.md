@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **is_numeric** | **bool** |  | [optional] 
 **unit** | **str** |  | [optional] 
 **event_key** | **str** | Required for custom metrics | [optional] 
-**success_criteria** | **int** |  | [optional] 
+**success_criteria** | **str** |  | [optional] 
 **tags** | **[str]** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

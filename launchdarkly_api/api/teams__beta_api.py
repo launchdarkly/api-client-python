@@ -24,6 +24,7 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from launchdarkly_api.model.expanded_team_rep import ExpandedTeamRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
@@ -31,6 +32,7 @@ from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from launchdarkly_api.model.team_collection_rep import TeamCollectionRep
+from launchdarkly_api.model.team_imports_rep import TeamImportsRep
 from launchdarkly_api.model.team_patch_input import TeamPatchInput
 from launchdarkly_api.model.team_post_input import TeamPostInput
 from launchdarkly_api.model.team_rep import TeamRep
@@ -101,7 +103,7 @@ class TeamsBetaApi(object):
         )
         self.get_team_endpoint = _Endpoint(
             settings={
-                'response_type': (TeamRep,),
+                'response_type': (ExpandedTeamRep,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -211,7 +213,7 @@ class TeamsBetaApi(object):
         )
         self.patch_team_endpoint = _Endpoint(
             settings={
-                'response_type': (TeamCollectionRep,),
+                'response_type': (ExpandedTeamRep,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -315,6 +317,64 @@ class TeamsBetaApi(object):
                 ],
                 'content_type': [
                     'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.post_team_members_endpoint = _Endpoint(
+            settings={
+                'response_type': (TeamImportsRep,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/teams/{key}/members',
+                'operation_id': 'post_team_members',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'key',
+                    'file',
+                ],
+                'required': [
+                    'key',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'key':
+                        (str,),
+                    'file':
+                        (file_type,),
+                },
+                'attribute_map': {
+                    'key': 'key',
+                    'file': 'file',
+                },
+                'location_map': {
+                    'key': 'path',
+                    'file': 'form',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'multipart/form-data'
                 ]
             },
             api_client=api_client
@@ -425,7 +485,7 @@ class TeamsBetaApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            TeamRep
+            ExpandedTeamRep
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -557,7 +617,7 @@ class TeamsBetaApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            TeamCollectionRep
+            ExpandedTeamRep
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -651,4 +711,71 @@ class TeamsBetaApi(object):
         kwargs['team_post_input'] = \
             team_post_input
         return self.post_team_endpoint.call_with_http_info(**kwargs)
+
+    def post_team_members(
+        self,
+        key,
+        **kwargs
+    ):
+        """Add members to team  # noqa: E501
+
+        Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.  **Members are only added on a `201` response.** A `207` indicates the CSV file contains a combination of valid and invalid entries and will _not_ result in any members being added to the team.  On a `207` response, if an entry contains bad user input the `message` field will contain the row number as well as the reason for the error. The `message` field will be omitted if the entry is valid.  Example `207` response: ```json {   \"items\": [     {       \"status\": \"success\",       \"value\": \"a-valid-email@launchdarkly.com\"     },     {       \"message\": \"Line 2: empty row\",       \"status\": \"error\",       \"value\": \"\"     },     {       \"message\": \"Line 3: email already exists in the specified team\",       \"status\": \"error\",       \"value\": \"existing-team-member@launchdarkly.com\"     },     {       \"message\": \"Line 4: invalid email formatting\",       \"status\": \"error\",       \"value\": \"invalid email format\"     }   ] } ```  Message | Resolution --- | --- Empty row | This line is blank. Add an email address and try again. Duplicate entry | This email address appears in the file twice. Remove the email from the file and try again. Email already exists in the specified team | This member is already on your team. Remove the email from the file and try again. Invalid formatting | This email address is not formatted correctly. Fix the formatting and try again. Email does not belong to a LaunchDarkly member | The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them to the team.  On a `400` response, the `message` field may contain errors specific to this endpoint.  Example `400` response: ```json {   \"code\": \"invalid_request\",   \"message\": \"Unable to process file\" } ```  Message | Resolution --- | --- Unable to process file | LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again. File exceeds 25mb | Break up your file into multiple files of less than 25mbs each. All emails have invalid formatting | None of the email addresses in the file are in the correct format. Fix the formatting and try again. All emails belong to existing team members | All listed members are already on this team. Populate the file with member emails that do not belong to the team and try again. File is empty | The CSV file does not contain any email addresses. Populate the file and try again. No emails belong to members of your LaunchDarkly organization | None of the email addresses belong to members of your LaunchDarkly account. Invite these members to LaunchDarkly, then re-add them to the team.   # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.post_team_members(key, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            key (str): The team key
+
+        Keyword Args:
+            file (file_type): CSV file containing email addresses. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            TeamImportsRep
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['key'] = \
+            key
+        return self.post_team_members_endpoint.call_with_http_info(**kwargs)
 

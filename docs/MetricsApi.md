@@ -430,7 +430,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         is_numeric=True,
         unit="unit_example",
         event_key="event_key_example",
-        success_criteria=1,
+        success_criteria="HigherThanBaseline",
         tags=[
             "tags_example",
         ],

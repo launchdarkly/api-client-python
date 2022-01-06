@@ -298,6 +298,8 @@ class CodeReferencesApi(object):
                     'branch_name',
                     'proj_key',
                     'flag_key',
+                    '_from',
+                    'to',
                 ],
                 'required': [],
                 'nullable': [
@@ -321,18 +323,26 @@ class CodeReferencesApi(object):
                         (str,),
                     'flag_key':
                         (str,),
+                    '_from':
+                        (int,),
+                    'to':
+                        (int,),
                 },
                 'attribute_map': {
                     'repo_name': 'repoName',
                     'branch_name': 'branchName',
                     'proj_key': 'projKey',
                     'flag_key': 'flagKey',
+                    '_from': 'from',
+                    'to': 'to',
                 },
                 'location_map': {
                     'repo_name': 'query',
                     'branch_name': 'query',
                     'proj_key': 'query',
                     'flag_key': 'query',
+                    '_from': 'query',
+                    'to': 'query',
                 },
                 'collection_format_map': {
                 }
@@ -1092,6 +1102,8 @@ class CodeReferencesApi(object):
             branch_name (str): Filter results to a specific branch. By default, only the default branch will be queried for extinctions.. [optional]
             proj_key (str): Filter results to a specific project. [optional]
             flag_key (str): Filter results to a specific flag key. [optional]
+            _from (int): Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`.. [optional]
+            to (int): Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`.. [optional]
             _return_http_data_only (bool): response data without head status
                 code and headers. Default is True.
             _preload_content (bool): if False, the urllib3.HTTPResponse object

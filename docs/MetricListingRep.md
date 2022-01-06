@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **is_numeric** | **bool** |  | [optional] 
-**success_criteria** | **int** |  | [optional] 
+**success_criteria** | **str** |  | [optional] 
 **unit** | **str** |  | [optional] 
 **event_key** | **str** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

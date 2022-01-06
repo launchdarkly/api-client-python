@@ -431,12 +431,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     branch_name = "branchName_example" # str | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
     proj_key = "projKey_example" # str | Filter results to a specific project (optional)
     flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
+    _from = 1 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`. (optional)
+    to = 1 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # List extinctions
-        api_response = api_instance.get_extinctions(repo_name=repo_name, branch_name=branch_name, proj_key=proj_key, flag_key=flag_key)
+        api_response = api_instance.get_extinctions(repo_name=repo_name, branch_name=branch_name, proj_key=proj_key, flag_key=flag_key, _from=_from, to=to)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->get_extinctions: %s\n" % e)
@@ -451,6 +453,8 @@ Name | Type | Description  | Notes
  **branch_name** | **str**| Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | [optional]
  **proj_key** | **str**| Filter results to a specific project | [optional]
  **flag_key** | **str**| Filter results to a specific flag key | [optional]
+ **_from** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;. | [optional]
+ **to** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;. | [optional]
 
 ### Return type
 
@@ -1193,6 +1197,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 ],
             ),
         ],
+        commit_time=1,
     ) # PutBranch | 
 
     # example passing only required values which don't have defaults set

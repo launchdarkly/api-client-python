@@ -85,7 +85,7 @@ class MetricSeen(ModelNormal):
         """
         return {
             'ever': (bool,),  # noqa: E501
-            'minutes_ago': (int,),  # noqa: E501
+            'timestamp': (int,),  # noqa: E501
         }
 
     @cached_property
@@ -95,7 +95,7 @@ class MetricSeen(ModelNormal):
 
     attribute_map = {
         'ever': 'ever',  # noqa: E501
-        'minutes_ago': 'minutesAgo',  # noqa: E501
+        'timestamp': 'timestamp',  # noqa: E501
     }
 
     read_only_vars = {
@@ -140,7 +140,7 @@ class MetricSeen(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             ever (bool): [optional]  # noqa: E501
-            minutes_ago (int): [optional]  # noqa: E501
+            timestamp (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -223,7 +223,7 @@ class MetricSeen(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             ever (bool): [optional]  # noqa: E501
-            minutes_ago (int): [optional]  # noqa: E501
+            timestamp (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

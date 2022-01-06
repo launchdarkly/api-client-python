@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **is_numeric** | **bool** |  | [optional] 
-**success_criteria** | **int** |  | [optional] 
+**success_criteria** | **str** |  | [optional] 
 **unit** | **str** |  | [optional] 
 **event_key** | **str** |  | [optional] 
 **is_active** | **bool** |  | [optional] 

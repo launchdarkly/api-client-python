@@ -28,6 +28,7 @@ from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.json_patch import JSONPatch
 from launchdarkly_api.model.member import Member
+from launchdarkly_api.model.member_teams_form_post import MemberTeamsFormPost
 from launchdarkly_api.model.members import Members
 from launchdarkly_api.model.new_member_form_list_post import NewMemberFormListPost
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -257,6 +258,64 @@ class AccountMembersApi(object):
                 'location_map': {
                     'id': 'path',
                     'json_patch': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client
+        )
+        self.post_member_teams_endpoint = _Endpoint(
+            settings={
+                'response_type': (Member,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/members/{id}/teams',
+                'operation_id': 'post_member_teams',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'id',
+                    'member_teams_form_post',
+                ],
+                'required': [
+                    'id',
+                    'member_teams_form_post',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'id':
+                        (str,),
+                    'member_teams_form_post':
+                        (MemberTeamsFormPost,),
+                },
+                'attribute_map': {
+                    'id': 'id',
+                },
+                'location_map': {
+                    'id': 'path',
+                    'member_teams_form_post': 'body',
                 },
                 'collection_format_map': {
                 }
@@ -529,7 +588,7 @@ class AccountMembersApi(object):
     ):
         """Modify an account member  # noqa: E501
 
-        Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member. Requests to update account members will not work if SCIM is enabled for the account.  # noqa: E501
+         Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member.  To update fields in the account member object that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` appends to the beginning of the array. For example, to add a new custom role to a member, use the following request body:  ```   [     {       \"op\": \"add\",       \"path\": \"/customRoles/0\",       \"value\": \"some-role-id\"     }   ] ```  Requests to update account members will not work if SCIM is enabled for the account.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -590,6 +649,76 @@ class AccountMembersApi(object):
         kwargs['json_patch'] = \
             json_patch
         return self.patch_member_endpoint.call_with_http_info(**kwargs)
+
+    def post_member_teams(
+        self,
+        id,
+        member_teams_form_post,
+        **kwargs
+    ):
+        """Add member to teams  # noqa: E501
+
+        Add member to team(s)  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.post_member_teams(id, member_teams_form_post, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            id (str): The member ID
+            member_teams_form_post (MemberTeamsFormPost):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            Member
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['id'] = \
+            id
+        kwargs['member_teams_form_post'] = \
+            member_teams_form_post
+        return self.post_member_teams_endpoint.call_with_http_info(**kwargs)
 
     def post_members(
         self,

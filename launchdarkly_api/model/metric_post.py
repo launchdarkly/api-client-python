@@ -67,6 +67,10 @@ class MetricPost(ModelNormal):
             'CLICK': "click",
             'CUSTOM': "custom",
         },
+        ('success_criteria',): {
+            'HIGHERTHANBASELINE': "HigherThanBaseline",
+            'LOWERTHANBASELINE': "LowerThanBaseline",
+        },
     }
 
     validations = {
@@ -105,7 +109,7 @@ class MetricPost(ModelNormal):
             'is_numeric': (bool,),  # noqa: E501
             'unit': (str,),  # noqa: E501
             'event_key': (str,),  # noqa: E501
-            'success_criteria': (int,),  # noqa: E501
+            'success_criteria': (str,),  # noqa: E501
             'tags': ([str],),  # noqa: E501
         }
 
@@ -182,7 +186,7 @@ class MetricPost(ModelNormal):
             is_numeric (bool): [optional]  # noqa: E501
             unit (str): [optional]  # noqa: E501
             event_key (str): Required for custom metrics. [optional]  # noqa: E501
-            success_criteria (int): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
             tags ([str]): [optional]  # noqa: E501
         """
 
@@ -279,7 +283,7 @@ class MetricPost(ModelNormal):
             is_numeric (bool): [optional]  # noqa: E501
             unit (str): [optional]  # noqa: E501
             event_key (str): Required for custom metrics. [optional]  # noqa: E501
-            success_criteria (int): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
             tags ([str]): [optional]  # noqa: E501
         """
 

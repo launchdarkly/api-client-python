@@ -77,6 +77,10 @@ class MetricRep(ModelNormal):
             'CLICK': "click",
             'CUSTOM': "custom",
         },
+        ('success_criteria',): {
+            'HIGHERTHANBASELINE': "HigherThanBaseline",
+            'LOWERTHANBASELINE': "LowerThanBaseline",
+        },
     }
 
     validations = {
@@ -120,7 +124,7 @@ class MetricRep(ModelNormal):
             'maintainer': (MemberSummaryRep,),  # noqa: E501
             'description': (str,),  # noqa: E501
             'is_numeric': (bool,),  # noqa: E501
-            'success_criteria': (int,),  # noqa: E501
+            'success_criteria': (str,),  # noqa: E501
             'unit': (str,),  # noqa: E501
             'event_key': (str,),  # noqa: E501
             'is_active': (bool,),  # noqa: E501
@@ -219,7 +223,7 @@ class MetricRep(ModelNormal):
             maintainer (MemberSummaryRep): [optional]  # noqa: E501
             description (str): [optional]  # noqa: E501
             is_numeric (bool): [optional]  # noqa: E501
-            success_criteria (int): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
             unit (str): [optional]  # noqa: E501
             event_key (str): [optional]  # noqa: E501
             is_active (bool): [optional]  # noqa: E501
@@ -332,7 +336,7 @@ class MetricRep(ModelNormal):
             maintainer (MemberSummaryRep): [optional]  # noqa: E501
             description (str): [optional]  # noqa: E501
             is_numeric (bool): [optional]  # noqa: E501
-            success_criteria (int): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
             unit (str): [optional]  # noqa: E501
             event_key (str): [optional]  # noqa: E501
             is_active (bool): [optional]  # noqa: E501

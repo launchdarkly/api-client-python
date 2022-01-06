@@ -98,6 +98,7 @@ class Rule(ModelNormal):
             'variation': (int,),  # noqa: E501
             'rollout': (Rollout,),  # noqa: E501
             'description': (str,),  # noqa: E501
+            'ref': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -112,6 +113,7 @@ class Rule(ModelNormal):
         'variation': 'variation',  # noqa: E501
         'rollout': 'rollout',  # noqa: E501
         'description': 'description',  # noqa: E501
+        'ref': 'ref',  # noqa: E501
     }
 
     read_only_vars = {
@@ -163,6 +165,7 @@ class Rule(ModelNormal):
             variation (int): [optional]  # noqa: E501
             rollout (Rollout): [optional]  # noqa: E501
             description (str): [optional]  # noqa: E501
+            ref (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -254,6 +257,7 @@ class Rule(ModelNormal):
             variation (int): [optional]  # noqa: E501
             rollout (Rollout): [optional]  # noqa: E501
             description (str): [optional]  # noqa: E501
+            ref (str): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
