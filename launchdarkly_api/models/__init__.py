@@ -123,7 +123,7 @@ from launchdarkly_api.model.member_import_item_rep import MemberImportItemRep
 from launchdarkly_api.model.member_permission_grant_summary_rep import MemberPermissionGrantSummaryRep
 from launchdarkly_api.model.member_summary_rep import MemberSummaryRep
 from launchdarkly_api.model.member_team_summary_rep import MemberTeamSummaryRep
-from launchdarkly_api.model.member_teams_form_post import MemberTeamsFormPost
+from launchdarkly_api.model.member_teams_post_input import MemberTeamsPostInput
 from launchdarkly_api.model.members import Members
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.metric_collection_rep import MetricCollectionRep

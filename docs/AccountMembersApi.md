@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_member_teams**
-> Member post_member_teams(id, member_teams_form_post)
+> Member post_member_teams(id, member_teams_post_input)
 
 Add member to teams
 
@@ -396,7 +396,7 @@ from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.member import Member
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.member_teams_form_post import MemberTeamsFormPost
+from launchdarkly_api.model.member_teams_post_input import MemberTeamsPostInput
 from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -421,16 +421,16 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = account_members_api.AccountMembersApi(api_client)
     id = "id_example" # str | The member ID
-    member_teams_form_post = MemberTeamsFormPost(
+    member_teams_post_input = MemberTeamsPostInput(
         team_keys=[
             "team_keys_example",
         ],
-    ) # MemberTeamsFormPost | 
+    ) # MemberTeamsPostInput | 
 
     # example passing only required values which don't have defaults set
     try:
         # Add member to teams
-        api_response = api_instance.post_member_teams(id, member_teams_form_post)
+        api_response = api_instance.post_member_teams(id, member_teams_post_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountMembersApi->post_member_teams: %s\n" % e)
@@ -442,7 +442,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The member ID |
- **member_teams_form_post** | [**MemberTeamsFormPost**](MemberTeamsFormPost.md)|  |
+ **member_teams_post_input** | [**MemberTeamsPostInput**](MemberTeamsPostInput.md)|  |
 
 ### Return type
 

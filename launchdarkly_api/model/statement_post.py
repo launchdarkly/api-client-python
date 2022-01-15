@@ -84,10 +84,10 @@ class StatementPost(ModelNormal):
                 and the value is attribute type.
         """
         return {
-            'resources': ([str],),  # noqa: E501
-            'actions': ([str],),  # noqa: E501
             'effect': (str,),  # noqa: E501
+            'resources': ([str],),  # noqa: E501
             'not_resources': ([str],),  # noqa: E501
+            'actions': ([str],),  # noqa: E501
             'not_actions': ([str],),  # noqa: E501
         }
 
@@ -97,10 +97,10 @@ class StatementPost(ModelNormal):
 
 
     attribute_map = {
-        'resources': 'resources',  # noqa: E501
-        'actions': 'actions',  # noqa: E501
         'effect': 'effect',  # noqa: E501
+        'resources': 'resources',  # noqa: E501
         'not_resources': 'notResources',  # noqa: E501
+        'actions': 'actions',  # noqa: E501
         'not_actions': 'notActions',  # noqa: E501
     }
 
@@ -111,12 +111,10 @@ class StatementPost(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, resources, actions, effect, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, effect, *args, **kwargs):  # noqa: E501
         """StatementPost - a model defined in OpenAPI
 
         Args:
-            resources ([str]): Resource specifier strings
-            actions ([str]): Actions to perform on a resource
             effect (str):
 
         Keyword Args:
@@ -150,7 +148,9 @@ class StatementPost(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            resources ([str]): Resource specifier strings. [optional]  # noqa: E501
             not_resources ([str]): Targeted resources are the resources NOT in this list. The \"resources\" field must be empty to use this field.. [optional]  # noqa: E501
+            actions ([str]): Actions to perform on a resource. [optional]  # noqa: E501
             not_actions ([str]): Targeted actions are the actions NOT in this list. The \"actions\" field must be empty to use this field.. [optional]  # noqa: E501
         """
 
@@ -179,8 +179,6 @@ class StatementPost(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
-        self.resources = resources
-        self.actions = actions
         self.effect = effect
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
@@ -202,12 +200,10 @@ class StatementPost(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, resources, actions, effect, *args, **kwargs):  # noqa: E501
+    def __init__(self, effect, *args, **kwargs):  # noqa: E501
         """StatementPost - a model defined in OpenAPI
 
         Args:
-            resources ([str]): Resource specifier strings
-            actions ([str]): Actions to perform on a resource
             effect (str):
 
         Keyword Args:
@@ -241,7 +237,9 @@ class StatementPost(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            resources ([str]): Resource specifier strings. [optional]  # noqa: E501
             not_resources ([str]): Targeted resources are the resources NOT in this list. The \"resources\" field must be empty to use this field.. [optional]  # noqa: E501
+            actions ([str]): Actions to perform on a resource. [optional]  # noqa: E501
             not_actions ([str]): Targeted actions are the actions NOT in this list. The \"actions\" field must be empty to use this field.. [optional]  # noqa: E501
         """
 
@@ -268,8 +266,6 @@ class StatementPost(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
-        self.resources = resources
-        self.actions = actions
         self.effect = effect
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \

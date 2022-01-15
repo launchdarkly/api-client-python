@@ -28,7 +28,7 @@ from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.json_patch import JSONPatch
 from launchdarkly_api.model.member import Member
-from launchdarkly_api.model.member_teams_form_post import MemberTeamsFormPost
+from launchdarkly_api.model.member_teams_post_input import MemberTeamsPostInput
 from launchdarkly_api.model.members import Members
 from launchdarkly_api.model.new_member_form_list_post import NewMemberFormListPost
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -286,11 +286,11 @@ class AccountMembersApi(object):
             params_map={
                 'all': [
                     'id',
-                    'member_teams_form_post',
+                    'member_teams_post_input',
                 ],
                 'required': [
                     'id',
-                    'member_teams_form_post',
+                    'member_teams_post_input',
                 ],
                 'nullable': [
                 ],
@@ -307,15 +307,15 @@ class AccountMembersApi(object):
                 'openapi_types': {
                     'id':
                         (str,),
-                    'member_teams_form_post':
-                        (MemberTeamsFormPost,),
+                    'member_teams_post_input':
+                        (MemberTeamsPostInput,),
                 },
                 'attribute_map': {
                     'id': 'id',
                 },
                 'location_map': {
                     'id': 'path',
-                    'member_teams_form_post': 'body',
+                    'member_teams_post_input': 'body',
                 },
                 'collection_format_map': {
                 }
@@ -653,7 +653,7 @@ class AccountMembersApi(object):
     def post_member_teams(
         self,
         id,
-        member_teams_form_post,
+        member_teams_post_input,
         **kwargs
     ):
         """Add member to teams  # noqa: E501
@@ -662,12 +662,12 @@ class AccountMembersApi(object):
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.post_member_teams(id, member_teams_form_post, async_req=True)
+        >>> thread = api.post_member_teams(id, member_teams_post_input, async_req=True)
         >>> result = thread.get()
 
         Args:
             id (str): The member ID
-            member_teams_form_post (MemberTeamsFormPost):
+            member_teams_post_input (MemberTeamsPostInput):
 
         Keyword Args:
             _return_http_data_only (bool): response data without head status
@@ -716,8 +716,8 @@ class AccountMembersApi(object):
         kwargs['_host_index'] = kwargs.get('_host_index')
         kwargs['id'] = \
             id
-        kwargs['member_teams_form_post'] = \
-            member_teams_form_post
+        kwargs['member_teams_post_input'] = \
+            member_teams_post_input
         return self.post_member_teams_endpoint.call_with_http_info(**kwargs)
 
     def post_members(

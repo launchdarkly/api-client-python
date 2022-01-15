@@ -550,7 +550,7 @@ class MetricsApi(object):
     ):
         """Update metric  # noqa: E501
 
-        Patch a environment by key.  # noqa: E501
+        Patch a metric by key.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
