@@ -4,7 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_evaluations_usage**](AccountUsageBetaApi.md#get_evaluations_usage) | **GET** /api/v2/usage/evaluations/{projKey}/{envKey}/{flagKey} | Get evaluations usage
+[**get_evaluations_usage**](AccountUsageBetaApi.md#get_evaluations_usage) | **GET** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 [**get_events_usage**](AccountUsageBetaApi.md#get_events_usage) | **GET** /api/v2/usage/events/{type} | Get events usage
 [**get_mau_sdks_by_type**](AccountUsageBetaApi.md#get_mau_sdks_by_type) | **GET** /api/v2/usage/mau/sdks | Get MAU SDKs by type
 [**get_mau_usage**](AccountUsageBetaApi.md#get_mau_usage) | **GET** /api/v2/usage/mau | Get MAU usage
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **get_evaluations_usage**
-> SeriesListRep get_evaluations_usage(proj_key, env_key, flag_key)
+> SeriesListRep get_evaluations_usage(project_key, environment_key, feature_flag_key)
 
 Get evaluations usage
 
@@ -57,9 +57,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    flag_key = "flagKey_example" # str | The feature flag's key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
     tz = "tz_example" # str | The timezone to use for breaks between days when returning daily data. (optional)
@@ -67,7 +67,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Get evaluations usage
-        api_response = api_instance.get_evaluations_usage(proj_key, env_key, flag_key)
+        api_response = api_instance.get_evaluations_usage(project_key, environment_key, feature_flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_evaluations_usage: %s\n" % e)
@@ -76,7 +76,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get evaluations usage
-        api_response = api_instance.get_evaluations_usage(proj_key, env_key, flag_key, _from=_from, to=to, tz=tz)
+        api_response = api_instance.get_evaluations_usage(project_key, environment_key, feature_flag_key, _from=_from, to=to, tz=tz)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_evaluations_usage: %s\n" % e)
@@ -87,9 +87,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **flag_key** | **str**| The feature flag&#39;s key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
  **_from** | **str**| The series of data returned starts from this timestamp. Defaults to 30 days ago. | [optional]
  **to** | **str**| The series of data returned ends at this timestamp. Defaults to the current time. | [optional]
  **tz** | **str**| The timezone to use for breaks between days when returning daily data. | [optional]

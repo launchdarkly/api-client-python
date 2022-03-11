@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**get_repositories**](CodeReferencesApi.md#get_repositories) | **GET** /api/v2/code-refs/repositories | List repositories
 [**get_repository**](CodeReferencesApi.md#get_repository) | **GET** /api/v2/code-refs/repositories/{repo} | Get repository
 [**get_root_statistic**](CodeReferencesApi.md#get_root_statistic) | **GET** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
-[**get_statistics**](CodeReferencesApi.md#get_statistics) | **GET** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
+[**get_statistics**](CodeReferencesApi.md#get_statistics) | **GET** /api/v2/code-refs/statistics/{projectKey} | Get number of code references for flags
 [**patch_repository**](CodeReferencesApi.md#patch_repository) | **PATCH** /api/v2/code-refs/repositories/{repo} | Update repository
 [**post_extinction**](CodeReferencesApi.md#post_extinction) | **POST** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 [**post_repository**](CodeReferencesApi.md#post_repository) | **POST** /api/v2/code-refs/repositories | Create repository
@@ -743,7 +743,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_statistics**
-> StatisticCollectionRep get_statistics(proj_key)
+> StatisticCollectionRep get_statistics(project_key)
 
 Get number of code references for flags
 
@@ -784,13 +784,13 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
-    proj_key = "projKey_example" # str | The project key
+    project_key = "projectKey_example" # str | The project key
     flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get number of code references for flags
-        api_response = api_instance.get_statistics(proj_key)
+        api_response = api_instance.get_statistics(project_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->get_statistics: %s\n" % e)
@@ -799,7 +799,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get number of code references for flags
-        api_response = api_instance.get_statistics(proj_key, flag_key=flag_key)
+        api_response = api_instance.get_statistics(project_key, flag_key=flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CodeReferencesApi->get_statistics: %s\n" % e)
@@ -810,7 +810,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
+ **project_key** | **str**| The project key |
  **flag_key** | **str**| Filter results to a specific flag key | [optional]
 
 ### Return type
@@ -887,7 +887,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     json_patch = JSONPatch([
         PatchOperation(
             op="replace",
-            path="/biscuits",
+            path="/exampleField",
             value=None,
         ),
     ]) # JSONPatch | 

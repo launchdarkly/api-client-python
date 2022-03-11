@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **variation_json_schema** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
 **maintainer_id** | **str** | Associated maintainerId for the feature flag | [optional] 
-**maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **goal_ids** | **[str]** |  | [optional] 
 **archived_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 

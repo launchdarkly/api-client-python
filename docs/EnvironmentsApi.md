@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
 [**patch_environment**](EnvironmentsApi.md#patch_environment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
 [**post_environment**](EnvironmentsApi.md#post_environment) | **POST** /api/v2/projects/{projectKey}/environments | Create environment
-[**reset_environment_mobile_key**](EnvironmentsApi.md#reset_environment_mobile_key) | **POST** /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey | Reset environment mobile SDK key
-[**reset_environment_sdk_key**](EnvironmentsApi.md#reset_environment_sdk_key) | **POST** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Reset environment SDK key
+[**reset_environment_mobile_key**](EnvironmentsApi.md#reset_environment_mobile_key) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset environment mobile SDK key
+[**reset_environment_sdk_key**](EnvironmentsApi.md#reset_environment_sdk_key) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/apiKey | Reset environment SDK key
 
 
 # **delete_environment**
@@ -235,7 +235,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     json_patch = JSONPatch([
         PatchOperation(
             op="replace",
-            path="/biscuits",
+            path="/exampleField",
             value=None,
         ),
     ]) # JSONPatch | 
@@ -341,6 +341,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         confirm_changes=False,
         require_comments=False,
         tags=["ops"],
+        source=SourceEnv(
+            key="key_example",
+            version=1,
+        ),
     ) # EnvironmentPost | 
 
     # example passing only required values which don't have defaults set
@@ -389,7 +393,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_environment_mobile_key**
-> Environment reset_environment_mobile_key(project_key, env_key)
+> Environment reset_environment_mobile_key(project_key, environment_key)
 
 Reset environment mobile SDK key
 
@@ -432,12 +436,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = environments_api.EnvironmentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
     try:
         # Reset environment mobile SDK key
-        api_response = api_instance.reset_environment_mobile_key(project_key, env_key)
+        api_response = api_instance.reset_environment_mobile_key(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling EnvironmentsApi->reset_environment_mobile_key: %s\n" % e)
@@ -449,7 +453,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **environment_key** | **str**| The environment key |
 
 ### Return type
 
@@ -479,7 +483,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_environment_sdk_key**
-> Environment reset_environment_sdk_key(project_key, env_key)
+> Environment reset_environment_sdk_key(project_key, environment_key)
 
 Reset environment SDK key
 
@@ -522,13 +526,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = environments_api.EnvironmentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    environment_key = "environmentKey_example" # str | The environment key
     expiry = 1 # int | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Reset environment SDK key
-        api_response = api_instance.reset_environment_sdk_key(project_key, env_key)
+        api_response = api_instance.reset_environment_sdk_key(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
@@ -537,7 +541,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Reset environment SDK key
-        api_response = api_instance.reset_environment_sdk_key(project_key, env_key, expiry=expiry)
+        api_response = api_instance.reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
@@ -549,7 +553,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **environment_key** | **str**| The environment key |
  **expiry** | **int**| The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. | [optional]
 
 ### Return type

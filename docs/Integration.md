@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **statements** | [**[StatementRep]**](StatementRep.md) |  | [optional] 
 **on** | **bool** |  | [optional] 
 **tags** | **[str]** |  | [optional] 
-**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **status** | [**IntegrationSubscriptionStatusRep**](IntegrationSubscriptionStatusRep.md) |  | [optional] 
 **url** | **str** |  | [optional] 
 **api_key** | **str** |  | [optional] 

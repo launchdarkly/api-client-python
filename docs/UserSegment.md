@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **description** | **str** | A description of the segment&#39;s purpose | [optional] 
 **included** | **[str]** | Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted entirely. | [optional] 
 **excluded** | **[str]** | Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
-**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **flags** | [**[FlagListingRep]**](FlagListingRep.md) |  | [optional] 
 **unbounded** | **bool** |  | [optional] 
 **unbounded_metadata** | [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **key** | **str** |  | 
 **name** | **str** |  | 
 **policy** | [**[Statement]**](Statement.md) |  | 
-**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **base_permissions** | **str** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

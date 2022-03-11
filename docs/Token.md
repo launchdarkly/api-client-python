@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **creation_date** | **int** |  | 
 **last_modified** | **int** |  | 
 **links** | [**{str: (Link,)}**](Link.md) |  | 
-**member** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**member** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **custom_role_ids** | **[str]** |  | [optional] 

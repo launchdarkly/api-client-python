@@ -439,7 +439,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     json_patch = JSONPatch([
         PatchOperation(
             op="replace",
-            path="/biscuits",
+            path="/exampleField",
             value=None,
         ),
     ]) # JSONPatch | 

@@ -4,12 +4,12 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_experiment**](ExperimentsBetaApi.md#get_experiment) | **GET** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey} | Get experiment results
-[**reset_experiment**](ExperimentsBetaApi.md#reset_experiment) | **DELETE** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey}/results | Reset experiment results
+[**get_experiment**](ExperimentsBetaApi.md#get_experiment) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get experiment results
+[**reset_experiment**](ExperimentsBetaApi.md#reset_experiment) | **DELETE** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
 # **get_experiment**
-> ExperimentResultsRep get_experiment(proj_key, flag_key, env_key, metric_key)
+> ExperimentResultsRep get_experiment(project_key, feature_flag_key, environment_key, metric_key)
 
 Get experiment results
 
@@ -51,9 +51,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = experiments__beta_api.ExperimentsBetaApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | The flag key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    environment_key = "environmentKey_example" # str | The environment key
     metric_key = "metricKey_example" # str | The metric key
     _from = 1 # int | A timestamp denoting the start of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
     to = 1 # int | A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
@@ -61,7 +61,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Get experiment results
-        api_response = api_instance.get_experiment(proj_key, flag_key, env_key, metric_key)
+        api_response = api_instance.get_experiment(project_key, feature_flag_key, environment_key, metric_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
@@ -70,7 +70,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get experiment results
-        api_response = api_instance.get_experiment(proj_key, flag_key, env_key, metric_key, _from=_from, to=to)
+        api_response = api_instance.get_experiment(project_key, feature_flag_key, environment_key, metric_key, _from=_from, to=to)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
@@ -81,9 +81,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **flag_key** | **str**| The flag key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **feature_flag_key** | **str**| The feature flag key |
+ **environment_key** | **str**| The environment key |
  **metric_key** | **str**| The metric key |
  **_from** | **int**| A timestamp denoting the start of the data collection period, expressed as a Unix epoch time in milliseconds. | [optional]
  **to** | **int**| A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. | [optional]
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_experiment**
-> reset_experiment(proj_key, flag_key, env_key, metric_key)
+> reset_experiment(project_key, feature_flag_key, environment_key, metric_key)
 
 Reset experiment results
 
@@ -156,15 +156,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = experiments__beta_api.ExperimentsBetaApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | The feature flag's key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    environment_key = "environmentKey_example" # str | The environment key
     metric_key = "metricKey_example" # str | The metric's key
 
     # example passing only required values which don't have defaults set
     try:
         # Reset experiment results
-        api_instance.reset_experiment(proj_key, flag_key, env_key, metric_key)
+        api_instance.reset_experiment(project_key, feature_flag_key, environment_key, metric_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->reset_experiment: %s\n" % e)
 ```
@@ -174,9 +174,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **flag_key** | **str**| The feature flag&#39;s key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **feature_flag_key** | **str**| The feature flag key |
+ **environment_key** | **str**| The environment key |
  **metric_key** | **str**| The metric&#39;s key |
 
 ### Return type

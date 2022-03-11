@@ -4,15 +4,15 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_custom_role**](CustomRolesApi.md#delete_custom_role) | **DELETE** /api/v2/roles/{key} | Delete custom role
-[**get_custom_role**](CustomRolesApi.md#get_custom_role) | **GET** /api/v2/roles/{key} | Get custom role
+[**delete_custom_role**](CustomRolesApi.md#delete_custom_role) | **DELETE** /api/v2/roles/{customRoleKey} | Delete custom role
+[**get_custom_role**](CustomRolesApi.md#get_custom_role) | **GET** /api/v2/roles/{customRoleKey} | Get custom role
 [**get_custom_roles**](CustomRolesApi.md#get_custom_roles) | **GET** /api/v2/roles | List custom roles
-[**patch_custom_role**](CustomRolesApi.md#patch_custom_role) | **PATCH** /api/v2/roles/{key} | Update custom role
+[**patch_custom_role**](CustomRolesApi.md#patch_custom_role) | **PATCH** /api/v2/roles/{customRoleKey} | Update custom role
 [**post_custom_role**](CustomRolesApi.md#post_custom_role) | **POST** /api/v2/roles | Create custom role
 
 
 # **delete_custom_role**
-> delete_custom_role(key)
+> delete_custom_role(custom_role_key)
 
 Delete custom role
 
@@ -51,12 +51,12 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = custom_roles_api.CustomRolesApi(api_client)
-    key = "key_example" # str | The key of the custom role to delete
+    custom_role_key = "customRoleKey_example" # str | The custom role key
 
     # example passing only required values which don't have defaults set
     try:
         # Delete custom role
-        api_instance.delete_custom_role(key)
+        api_instance.delete_custom_role(custom_role_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CustomRolesApi->delete_custom_role: %s\n" % e)
 ```
@@ -66,7 +66,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The key of the custom role to delete |
+ **custom_role_key** | **str**| The custom role key |
 
 ### Return type
 
@@ -94,7 +94,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_custom_role**
-> CustomRole get_custom_role(key)
+> CustomRole get_custom_role(custom_role_key)
 
 Get custom role
 
@@ -135,12 +135,12 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = custom_roles_api.CustomRolesApi(api_client)
-    key = "key_example" # str | The custom role's key or ID
+    custom_role_key = "customRoleKey_example" # str | The custom role key or ID
 
     # example passing only required values which don't have defaults set
     try:
         # Get custom role
-        api_response = api_instance.get_custom_role(key)
+        api_response = api_instance.get_custom_role(custom_role_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CustomRolesApi->get_custom_role: %s\n" % e)
@@ -151,7 +151,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The custom role&#39;s key or ID |
+ **custom_role_key** | **str**| The custom role key or ID |
 
 ### Return type
 
@@ -260,11 +260,11 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_custom_role**
-> CustomRole patch_custom_role(key, patch_with_comment)
+> CustomRole patch_custom_role(custom_role_key, patch_with_comment)
 
 Update custom role
 
-Update a single custom role. The request must be a valid JSON Patch document describing the changes to be made to the custom role.
+Update a single custom role. The request must be a valid JSON Patch document describing the changes to be made to the custom role. To add an element to the `policy` array, set the `path` to `/policy` and then append `/<array index>`. Using `/0` adds to the beginning of the array.
 
 ### Example
 
@@ -303,12 +303,12 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = custom_roles_api.CustomRolesApi(api_client)
-    key = "key_example" # str | The key of the custom role to update
+    custom_role_key = "customRoleKey_example" # str | The custom role key
     patch_with_comment = PatchWithComment(
         patch=JSONPatch([
             PatchOperation(
                 op="replace",
-                path="/biscuits",
+                path="/exampleField",
                 value=None,
             ),
         ]),
@@ -318,7 +318,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update custom role
-        api_response = api_instance.patch_custom_role(key, patch_with_comment)
+        api_response = api_instance.patch_custom_role(custom_role_key, patch_with_comment)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CustomRolesApi->patch_custom_role: %s\n" % e)
@@ -329,7 +329,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The key of the custom role to update |
+ **custom_role_key** | **str**| The custom role key |
  **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
 
 ### Return type

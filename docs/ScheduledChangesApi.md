@@ -55,7 +55,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scheduled_changes_api.ScheduledChangesApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The scheduled change id
 
@@ -73,7 +73,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The scheduled change id |
 
@@ -147,7 +147,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scheduled_changes_api.ScheduledChangesApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The scheduled change id
 
@@ -166,7 +166,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The scheduled change id |
 
@@ -238,7 +238,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scheduled_changes_api.ScheduledChangesApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
@@ -256,7 +256,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
 
 ### Return type
@@ -332,7 +332,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scheduled_changes_api.ScheduledChangesApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The scheduled change ID
     flag_scheduled_changes_input = FlagScheduledChangesInput(
@@ -369,7 +369,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The scheduled change ID |
  **flag_scheduled_changes_input** | [**FlagScheduledChangesInput**](FlagScheduledChangesInput.md)|  |
@@ -451,7 +451,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scheduled_changes_api.ScheduledChangesApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     post_flag_scheduled_changes_input = PostFlagScheduledChangesInput(
         comment="comment_example",
@@ -488,7 +488,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **post_flag_scheduled_changes_input** | [**PostFlagScheduledChangesInput**](PostFlagScheduledChangesInput.md)|  |
  **ignore_conflicts** | **bool**| Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | [optional]

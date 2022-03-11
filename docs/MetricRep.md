@@ -13,10 +13,10 @@ Name | Type | Description | Notes
 **creation_date** | **int** |  | 
 **attached_flag_count** | **int** |  | [optional] 
 **site** | [**Link**](Link.md) |  | [optional] 
-**access** | [**AccessRep**](AccessRep.md) |  | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **last_modified** | [**Modification**](Modification.md) |  | [optional] 
 **maintainer_id** | **str** |  | [optional] 
-**maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **is_numeric** | **bool** |  | [optional] 
 **success_criteria** | **str** |  | [optional] 

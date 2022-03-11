@@ -4,15 +4,15 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_metric**](MetricsApi.md#delete_metric) | **DELETE** /api/v2/metrics/{projectKey}/{key} | Delete metric
-[**get_metric**](MetricsApi.md#get_metric) | **GET** /api/v2/metrics/{projectKey}/{key} | Get metric
+[**delete_metric**](MetricsApi.md#delete_metric) | **DELETE** /api/v2/metrics/{projectKey}/{metricKey} | Delete metric
+[**get_metric**](MetricsApi.md#get_metric) | **GET** /api/v2/metrics/{projectKey}/{metricKey} | Get metric
 [**get_metrics**](MetricsApi.md#get_metrics) | **GET** /api/v2/metrics/{projectKey} | List metrics
-[**patch_metric**](MetricsApi.md#patch_metric) | **PATCH** /api/v2/metrics/{projectKey}/{key} | Update metric
+[**patch_metric**](MetricsApi.md#patch_metric) | **PATCH** /api/v2/metrics/{projectKey}/{metricKey} | Update metric
 [**post_metric**](MetricsApi.md#post_metric) | **POST** /api/v2/metrics/{projectKey} | Create metric
 
 
 # **delete_metric**
-> delete_metric(project_key, key)
+> delete_metric(project_key, metric_key)
 
 Delete metric
 
@@ -53,12 +53,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    key = "key_example" # str | The metric key
+    metric_key = "metricKey_example" # str | The metric key
 
     # example passing only required values which don't have defaults set
     try:
         # Delete metric
-        api_instance.delete_metric(project_key, key)
+        api_instance.delete_metric(project_key, metric_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->delete_metric: %s\n" % e)
 ```
@@ -69,7 +69,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **key** | **str**| The metric key |
+ **metric_key** | **str**| The metric key |
 
 ### Return type
 
@@ -98,7 +98,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_metric**
-> MetricRep get_metric(project_key, key)
+> MetricRep get_metric(project_key, metric_key)
 
 Get metric
 
@@ -140,12 +140,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    key = "key_example" # str | The metric key
+    metric_key = "metricKey_example" # str | The metric key
 
     # example passing only required values which don't have defaults set
     try:
         # Get metric
-        api_response = api_instance.get_metric(project_key, key)
+        api_response = api_instance.get_metric(project_key, metric_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->get_metric: %s\n" % e)
@@ -157,7 +157,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **key** | **str**| The metric key |
+ **metric_key** | **str**| The metric key |
 
 ### Return type
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_metric**
-> MetricRep patch_metric(project_key, key, json_patch)
+> MetricRep patch_metric(project_key, metric_key, json_patch)
 
 Update metric
 
@@ -312,11 +312,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    key = "key_example" # str | The metric key
+    metric_key = "metricKey_example" # str | The metric key
     json_patch = JSONPatch([
         PatchOperation(
             op="replace",
-            path="/biscuits",
+            path="/exampleField",
             value=None,
         ),
     ]) # JSONPatch | 
@@ -324,7 +324,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update metric
-        api_response = api_instance.patch_metric(project_key, key, json_patch)
+        api_response = api_instance.patch_metric(project_key, metric_key, json_patch)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->patch_metric: %s\n" % e)
@@ -336,7 +336,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **key** | **str**| The metric key |
+ **metric_key** | **str**| The metric key |
  **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
 
 ### Return type

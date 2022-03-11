@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_user**](UsersApi.md#delete_user) | **DELETE** /api/v2/users/{projKey}/{envKey}/{key} | Delete user
-[**get_search_users**](UsersApi.md#get_search_users) | **GET** /api/v2/user-search/{projKey}/{envKey} | Find users
-[**get_user**](UsersApi.md#get_user) | **GET** /api/v2/users/{projKey}/{envKey}/{key} | Get user
-[**get_users**](UsersApi.md#get_users) | **GET** /api/v2/users/{projKey}/{envKey} | List users
+[**delete_user**](UsersApi.md#delete_user) | **DELETE** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Delete user
+[**get_search_users**](UsersApi.md#get_search_users) | **GET** /api/v2/user-search/{projectKey}/{environmentKey} | Find users
+[**get_user**](UsersApi.md#get_user) | **GET** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Get user
+[**get_users**](UsersApi.md#get_users) | **GET** /api/v2/users/{projectKey}/{environmentKey} | List users
 
 
 # **delete_user**
-> delete_user(proj_key, env_key, key)
+> delete_user(project_key, environment_key, user_key)
 
 Delete user
 
@@ -52,14 +52,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = users_api.UsersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    key = "key_example" # str | The user key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    user_key = "userKey_example" # str | The user key
 
     # example passing only required values which don't have defaults set
     try:
         # Delete user
-        api_instance.delete_user(proj_key, env_key, key)
+        api_instance.delete_user(project_key, environment_key, user_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->delete_user: %s\n" % e)
 ```
@@ -69,9 +69,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **key** | **str**| The user key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **user_key** | **str**| The user key |
 
 ### Return type
 
@@ -101,11 +101,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_search_users**
-> Users get_search_users(proj_key, env_key)
+> Users get_search_users(project_key, environment_key)
 
 Find users
 
-Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query. Do not use to list all users in LaunchDarkly. Instead, use the [List users](getUsers) API resource.  An example user attribute filter set is `filter=firstName:Anna,activeTrial:false`. This matches users that have the user attribute `firstName` set to `Anna`, that also have the attribute `activeTrial` set to `false`.  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not. 
+Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query.  An example user attribute filter set is `filter=firstName:Anna,activeTrial:false`. This matches users that have the user attribute `firstName` set to `Anna`, that also have the attribute `activeTrial` set to `false`.  To paginate through results, follow the `next` link in the `_links` object. To learn more, read [Representations](/#section/Representations).  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not. 
 
 ### Example
 
@@ -143,8 +143,8 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = users_api.UsersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     q = "q_example" # str | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
     limit = 1 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
     offset = 1 # int | Specifies the first item to return in the collection (optional)
@@ -156,7 +156,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Find users
-        api_response = api_instance.get_search_users(proj_key, env_key)
+        api_response = api_instance.get_search_users(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->get_search_users: %s\n" % e)
@@ -165,7 +165,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Find users
-        api_response = api_instance.get_search_users(proj_key, env_key, q=q, limit=limit, offset=offset, after=after, sort=sort, search_after=search_after, filter=filter)
+        api_response = api_instance.get_search_users(project_key, environment_key, q=q, limit=limit, offset=offset, after=after, sort=sort, search_after=search_after, filter=filter)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->get_search_users: %s\n" % e)
@@ -176,8 +176,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **q** | **str**| Full-text search for users based on name, first name, last name, e-mail address, or key | [optional]
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional]
  **offset** | **int**| Specifies the first item to return in the collection | [optional]
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user**
-> UserRecord get_user(proj_key, env_key, key)
+> UserRecord get_user(project_key, environment_key, user_key)
 
 Get user
 
@@ -256,14 +256,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = users_api.UsersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    key = "key_example" # str | The user key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    user_key = "userKey_example" # str | The user key
 
     # example passing only required values which don't have defaults set
     try:
         # Get user
-        api_response = api_instance.get_user(proj_key, env_key, key)
+        api_response = api_instance.get_user(project_key, environment_key, user_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->get_user: %s\n" % e)
@@ -274,9 +274,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **key** | **str**| The user key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **user_key** | **str**| The user key |
 
 ### Return type
 
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_users**
-> Users get_users(proj_key, env_key)
+> Users get_users(project_key, environment_key)
 
 List users
 
@@ -348,15 +348,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = users_api.UsersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     limit = 1 # int | The number of elements to return per page (optional)
     search_after = "searchAfter_example" # str | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # List users
-        api_response = api_instance.get_users(proj_key, env_key)
+        api_response = api_instance.get_users(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->get_users: %s\n" % e)
@@ -365,7 +365,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # List users
-        api_response = api_instance.get_users(proj_key, env_key, limit=limit, search_after=search_after)
+        api_response = api_instance.get_users(project_key, environment_key, limit=limit, search_after=search_after)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UsersApi->get_users: %s\n" % e)
@@ -376,8 +376,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **limit** | **int**| The number of elements to return per page | [optional]
  **search_after** | **str**| Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | [optional]
 

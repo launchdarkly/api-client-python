@@ -4,12 +4,12 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_dependent_flags**](FeatureFlagsBetaApi.md#get_dependent_flags) | **GET** /api/v2/flags/{projKey}/{flagKey}/dependent-flags | List dependent feature flags
-[**get_dependent_flags_by_env**](FeatureFlagsBetaApi.md#get_dependent_flags_by_env) | **GET** /api/v2/flags/{projKey}/{envKey}/{flagKey}/dependent-flags | List dependent feature flags by environment
+[**get_dependent_flags**](FeatureFlagsBetaApi.md#get_dependent_flags) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags | List dependent feature flags
+[**get_dependent_flags_by_env**](FeatureFlagsBetaApi.md#get_dependent_flags_by_env) | **GET** /api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags | List dependent feature flags by environment
 
 
 # **get_dependent_flags**
-> MultiEnvironmentDependentFlags get_dependent_flags(proj_key, flag_key)
+> MultiEnvironmentDependentFlags get_dependent_flags(project_key, feature_flag_key)
 
 List dependent feature flags
 
@@ -50,13 +50,13 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = feature_flags__beta_api.FeatureFlagsBetaApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
 
     # example passing only required values which don't have defaults set
     try:
         # List dependent feature flags
-        api_response = api_instance.get_dependent_flags(proj_key, flag_key)
+        api_response = api_instance.get_dependent_flags(project_key, feature_flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FeatureFlagsBetaApi->get_dependent_flags: %s\n" % e)
@@ -67,8 +67,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **feature_flag_key** | **str**| The feature flag key |
 
 ### Return type
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_dependent_flags_by_env**
-> DependentFlagsByEnvironment get_dependent_flags_by_env(proj_key, env_key, flag_key)
+> DependentFlagsByEnvironment get_dependent_flags_by_env(project_key, environment_key, feature_flag_key)
 
 List dependent feature flags by environment
 
@@ -138,14 +138,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = feature_flags__beta_api.FeatureFlagsBetaApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
 
     # example passing only required values which don't have defaults set
     try:
         # List dependent feature flags by environment
-        api_response = api_instance.get_dependent_flags_by_env(proj_key, env_key, flag_key)
+        api_response = api_instance.get_dependent_flags_by_env(project_key, environment_key, feature_flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FeatureFlagsBetaApi->get_dependent_flags_by_env: %s\n" % e)
@@ -156,9 +156,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
 
 ### Return type
 

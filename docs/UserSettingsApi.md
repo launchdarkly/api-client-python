@@ -4,15 +4,15 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_expiring_flags_for_user**](UserSettingsApi.md#get_expiring_flags_for_user) | **GET** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Get expiring dates on flags for user
-[**get_user_flag_setting**](UserSettingsApi.md#get_user_flag_setting) | **GET** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Get flag setting for user
-[**get_user_flag_settings**](UserSettingsApi.md#get_user_flag_settings) | **GET** /api/v2/users/{projKey}/{envKey}/{key}/flags | List flag settings for user
-[**patch_expiring_flags_for_user**](UserSettingsApi.md#patch_expiring_flags_for_user) | **PATCH** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Update expiring user target for flags
-[**put_flag_setting**](UserSettingsApi.md#put_flag_setting) | **PUT** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Update flag settings for user
+[**get_expiring_flags_for_user**](UserSettingsApi.md#get_expiring_flags_for_user) | **GET** /api/v2/users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Get expiring dates on flags for user
+[**get_user_flag_setting**](UserSettingsApi.md#get_user_flag_setting) | **GET** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get flag setting for user
+[**get_user_flag_settings**](UserSettingsApi.md#get_user_flag_settings) | **GET** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags | List flag settings for user
+[**patch_expiring_flags_for_user**](UserSettingsApi.md#patch_expiring_flags_for_user) | **PATCH** /api/v2/users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Update expiring user target for flags
+[**put_flag_setting**](UserSettingsApi.md#put_flag_setting) | **PUT** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Update flag settings for user
 
 
 # **get_expiring_flags_for_user**
-> ExpiringUserTargetGetResponse get_expiring_flags_for_user(proj_key, user_key, env_key)
+> ExpiringUserTargetGetResponse get_expiring_flags_for_user(project_key, user_key, environment_key)
 
 Get expiring dates on flags for user
 
@@ -53,14 +53,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = user_settings_api.UserSettingsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    user_key = "userKey_example" # str | The user key.
-    env_key = "envKey_example" # str | The environment key.
+    project_key = "projectKey_example" # str | The project key
+    user_key = "userKey_example" # str | The user key
+    environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
     try:
         # Get expiring dates on flags for user
-        api_response = api_instance.get_expiring_flags_for_user(proj_key, user_key, env_key)
+        api_response = api_instance.get_expiring_flags_for_user(project_key, user_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->get_expiring_flags_for_user: %s\n" % e)
@@ -71,9 +71,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **user_key** | **str**| The user key. |
- **env_key** | **str**| The environment key. |
+ **project_key** | **str**| The project key |
+ **user_key** | **str**| The user key |
+ **environment_key** | **str**| The environment key |
 
 ### Return type
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user_flag_setting**
-> UserFlagSetting get_user_flag_setting(proj_key, env_key, key, feature_key)
+> UserFlagSetting get_user_flag_setting(project_key, environment_key, user_key, feature_flag_key)
 
 Get flag setting for user
 
@@ -144,15 +144,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = user_settings_api.UserSettingsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    key = "key_example" # str | The user key
-    feature_key = "featureKey_example" # str | The feature flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    user_key = "userKey_example" # str | The user key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
 
     # example passing only required values which don't have defaults set
     try:
         # Get flag setting for user
-        api_response = api_instance.get_user_flag_setting(proj_key, env_key, key, feature_key)
+        api_response = api_instance.get_user_flag_setting(project_key, environment_key, user_key, feature_flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->get_user_flag_setting: %s\n" % e)
@@ -163,10 +163,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **key** | **str**| The user key |
- **feature_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **user_key** | **str**| The user key |
+ **feature_flag_key** | **str**| The feature flag key |
 
 ### Return type
 
@@ -196,7 +196,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_user_flag_settings**
-> UserFlagSettings get_user_flag_settings(proj_key, env_key, key)
+> UserFlagSettings get_user_flag_settings(project_key, environment_key, user_key)
 
 List flag settings for user
 
@@ -238,14 +238,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = user_settings_api.UserSettingsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    key = "key_example" # str | The user key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    user_key = "userKey_example" # str | The user key
 
     # example passing only required values which don't have defaults set
     try:
         # List flag settings for user
-        api_response = api_instance.get_user_flag_settings(proj_key, env_key, key)
+        api_response = api_instance.get_user_flag_settings(project_key, environment_key, user_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->get_user_flag_settings: %s\n" % e)
@@ -256,9 +256,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **key** | **str**| The user key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **user_key** | **str**| The user key |
 
 ### Return type
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_expiring_flags_for_user**
-> ExpiringUserTargetPatchResponse patch_expiring_flags_for_user(proj_key, user_key, env_key, patch_with_comment)
+> ExpiringUserTargetPatchResponse patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_with_comment)
 
 Update expiring user target for flags
 
@@ -331,14 +331,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = user_settings_api.UserSettingsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    user_key = "userKey_example" # str | The user key.
-    env_key = "envKey_example" # str | The environment key.
+    project_key = "projectKey_example" # str | The project key
+    user_key = "userKey_example" # str | The user key
+    environment_key = "environmentKey_example" # str | The environment key
     patch_with_comment = PatchWithComment(
         patch=JSONPatch([
             PatchOperation(
                 op="replace",
-                path="/biscuits",
+                path="/exampleField",
                 value=None,
             ),
         ]),
@@ -348,7 +348,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update expiring user target for flags
-        api_response = api_instance.patch_expiring_flags_for_user(proj_key, user_key, env_key, patch_with_comment)
+        api_response = api_instance.patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_with_comment)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->patch_expiring_flags_for_user: %s\n" % e)
@@ -359,9 +359,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **user_key** | **str**| The user key. |
- **env_key** | **str**| The environment key. |
+ **project_key** | **str**| The project key |
+ **user_key** | **str**| The user key |
+ **environment_key** | **str**| The environment key |
  **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
 
 ### Return type
@@ -392,7 +392,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_flag_setting**
-> put_flag_setting(proj_key, env_key, key, feature_key, value_put)
+> put_flag_setting(project_key, environment_key, user_key, feature_flag_key, value_put)
 
 Update flag settings for user
 
@@ -434,10 +434,10 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = user_settings_api.UserSettingsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    key = "key_example" # str | The user key
-    feature_key = "featureKey_example" # str | The feature flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    user_key = "userKey_example" # str | The user key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     value_put = ValuePut(
         setting=None,
         comment="comment_example",
@@ -446,7 +446,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update flag settings for user
-        api_instance.put_flag_setting(proj_key, env_key, key, feature_key, value_put)
+        api_instance.put_flag_setting(project_key, environment_key, user_key, feature_flag_key, value_put)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->put_flag_setting: %s\n" % e)
 ```
@@ -456,10 +456,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **key** | **str**| The user key |
- **feature_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **user_key** | **str**| The user key |
+ **feature_flag_key** | **str**| The feature flag key |
  **value_put** | [**ValuePut**](ValuePut.md)|  |
 
 ### Return type

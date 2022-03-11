@@ -55,7 +55,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
 
@@ -73,7 +73,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The feature flag approval request ID |
 
@@ -146,7 +146,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
 
@@ -165,7 +165,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The feature flag approval request ID |
 
@@ -238,7 +238,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
@@ -256,7 +256,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
 
 ### Return type
@@ -329,7 +329,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     create_flag_config_approval_request_request = CreateFlagConfigApprovalRequestRequest(
         comment="comment_example",
@@ -364,7 +364,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **create_flag_config_approval_request_request** | [**CreateFlagConfigApprovalRequestRequest**](CreateFlagConfigApprovalRequestRequest.md)|  |
 
@@ -439,7 +439,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
     post_approval_request_apply_request = PostApprovalRequestApplyRequest(
@@ -461,7 +461,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The feature flag approval request ID |
  **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  |
@@ -538,7 +538,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
     post_approval_request_review_request = PostApprovalRequestReviewRequest(
@@ -561,7 +561,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **id** | **str**| The feature flag approval request ID |
  **post_approval_request_review_request** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md)|  |
@@ -638,7 +638,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     create_copy_flag_config_approval_request_request = CreateCopyFlagConfigApprovalRequestRequest(
         comment="comment_example",
@@ -673,7 +673,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **create_copy_flag_config_approval_request_request** | [**CreateCopyFlagConfigApprovalRequestRequest**](CreateCopyFlagConfigApprovalRequestRequest.md)|  |
 

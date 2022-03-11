@@ -4,19 +4,19 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_segment**](SegmentsApi.md#delete_segment) | **DELETE** /api/v2/segments/{projKey}/{envKey}/{key} | Delete segment
-[**get_expiring_user_targets_for_segment**](SegmentsApi.md#get_expiring_user_targets_for_segment) | **GET** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Get expiring user targets for segment
-[**get_segment**](SegmentsApi.md#get_segment) | **GET** /api/v2/segments/{projKey}/{envKey}/{key} | Get segment
-[**get_segment_membership_for_user**](SegmentsApi.md#get_segment_membership_for_user) | **GET** /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey} | Get Big Segment membership for user
-[**get_segments**](SegmentsApi.md#get_segments) | **GET** /api/v2/segments/{projKey}/{envKey} | List segments
-[**patch_expiring_user_targets_for_segment**](SegmentsApi.md#patch_expiring_user_targets_for_segment) | **PATCH** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Update expiring user targets for segment
-[**patch_segment**](SegmentsApi.md#patch_segment) | **PATCH** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
-[**post_segment**](SegmentsApi.md#post_segment) | **POST** /api/v2/segments/{projKey}/{envKey} | Create segment
-[**update_big_segment_targets**](SegmentsApi.md#update_big_segment_targets) | **POST** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
+[**delete_segment**](SegmentsApi.md#delete_segment) | **DELETE** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Delete segment
+[**get_expiring_user_targets_for_segment**](SegmentsApi.md#get_expiring_user_targets_for_segment) | **GET** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for segment
+[**get_segment**](SegmentsApi.md#get_segment) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Get segment
+[**get_segment_membership_for_user**](SegmentsApi.md#get_segment_membership_for_user) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get Big Segment membership for user
+[**get_segments**](SegmentsApi.md#get_segments) | **GET** /api/v2/segments/{projectKey}/{environmentKey} | List segments
+[**patch_expiring_user_targets_for_segment**](SegmentsApi.md#patch_expiring_user_targets_for_segment) | **PATCH** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Update expiring user targets for segment
+[**patch_segment**](SegmentsApi.md#patch_segment) | **PATCH** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Patch segment
+[**post_segment**](SegmentsApi.md#post_segment) | **POST** /api/v2/segments/{projectKey}/{environmentKey} | Create segment
+[**update_big_segment_targets**](SegmentsApi.md#update_big_segment_targets) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update targets on a Big Segment
 
 
 # **delete_segment**
-> delete_segment(proj_key, env_key, key)
+> delete_segment(project_key, environment_key, segment_key)
 
 Delete segment
 
@@ -57,14 +57,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    key = "key_example" # str | The user segment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
 
     # example passing only required values which don't have defaults set
     try:
         # Delete segment
-        api_instance.delete_segment(proj_key, env_key, key)
+        api_instance.delete_segment(project_key, environment_key, segment_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->delete_segment: %s\n" % e)
 ```
@@ -74,9 +74,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **key** | **str**| The user segment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
 
 ### Return type
 
@@ -106,7 +106,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_expiring_user_targets_for_segment**
-> ExpiringUserTargetGetResponse get_expiring_user_targets_for_segment(proj_key, env_key, segment_key)
+> ExpiringUserTargetGetResponse get_expiring_user_targets_for_segment(project_key, environment_key, segment_key)
 
 Get expiring user targets for segment
 
@@ -146,14 +146,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    segment_key = "segmentKey_example" # str | The segment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
 
     # example passing only required values which don't have defaults set
     try:
         # Get expiring user targets for segment
-        api_response = api_instance.get_expiring_user_targets_for_segment(proj_key, env_key, segment_key)
+        api_response = api_instance.get_expiring_user_targets_for_segment(project_key, environment_key, segment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->get_expiring_user_targets_for_segment: %s\n" % e)
@@ -164,9 +164,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **segment_key** | **str**| The segment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
 
 ### Return type
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_segment**
-> UserSegment get_segment(proj_key, env_key, key)
+> UserSegment get_segment(project_key, environment_key, segment_key)
 
 Get segment
 
@@ -234,14 +234,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    key = "key_example" # str | The segment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
 
     # example passing only required values which don't have defaults set
     try:
         # Get segment
-        api_response = api_instance.get_segment(proj_key, env_key, key)
+        api_response = api_instance.get_segment(project_key, environment_key, segment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->get_segment: %s\n" % e)
@@ -252,9 +252,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **key** | **str**| The segment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
 
 ### Return type
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_segment_membership_for_user**
-> BigSegmentTarget get_segment_membership_for_user(proj_key, env_key, key, user_key)
+> BigSegmentTarget get_segment_membership_for_user(project_key, environment_key, segment_key, user_key)
 
 Get Big Segment membership for user
 
@@ -323,15 +323,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    key = "key_example" # str | The segment key.
-    user_key = "userKey_example" # str | The user key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
+    user_key = "userKey_example" # str | The user key
 
     # example passing only required values which don't have defaults set
     try:
         # Get Big Segment membership for user
-        api_response = api_instance.get_segment_membership_for_user(proj_key, env_key, key, user_key)
+        api_response = api_instance.get_segment_membership_for_user(project_key, environment_key, segment_key, user_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->get_segment_membership_for_user: %s\n" % e)
@@ -342,10 +342,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **key** | **str**| The segment key. |
- **user_key** | **str**| The user key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
+ **user_key** | **str**| The user key |
 
 ### Return type
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_segments**
-> UserSegments get_segments(proj_key, env_key)
+> UserSegments get_segments(project_key, environment_key)
 
 List segments
 
@@ -413,13 +413,13 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
     try:
         # List segments
-        api_response = api_instance.get_segments(proj_key, env_key)
+        api_response = api_instance.get_segments(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->get_segments: %s\n" % e)
@@ -430,8 +430,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
 
 ### Return type
 
@@ -458,7 +458,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_expiring_user_targets_for_segment**
-> ExpiringUserTargetPatchResponse patch_expiring_user_targets_for_segment(proj_key, env_key, segment_key, patch_segment_request)
+> ExpiringUserTargetPatchResponse patch_expiring_user_targets_for_segment(project_key, environment_key, segment_key, patch_segment_request)
 
 Update expiring user targets for segment
 
@@ -502,9 +502,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    segment_key = "segmentKey_example" # str | The user segment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
     patch_segment_request = PatchSegmentRequest(
         comment="comment_example",
         instructions=[
@@ -521,7 +521,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update expiring user targets for segment
-        api_response = api_instance.patch_expiring_user_targets_for_segment(proj_key, env_key, segment_key, patch_segment_request)
+        api_response = api_instance.patch_expiring_user_targets_for_segment(project_key, environment_key, segment_key, patch_segment_request)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->patch_expiring_user_targets_for_segment: %s\n" % e)
@@ -532,9 +532,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **segment_key** | **str**| The user segment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
  **patch_segment_request** | [**PatchSegmentRequest**](PatchSegmentRequest.md)|  |
 
 ### Return type
@@ -566,11 +566,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_segment**
-> UserSegment patch_segment(proj_key, env_key, key, patch_with_comment)
+> UserSegment patch_segment(project_key, environment_key, segment_key, patch_with_comment)
 
 Patch segment
 
-Update a user segment. The request body must be a valid JSON patch or JSON merge patch document. To learn more about semantic patches, read [Updates](/#section/Overview/Updates).
+Update a user segment. The request body must be a valid JSON patch, JSON merge patch, or semantic patch.  ## Using semantic patches on a segment  To use a [semantic patch](/reference#updates-via-semantic-patches) on a segment resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  Use this header:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  The body of a semantic patch request takes the following three properties:  1. `comment` (string): (Optional) A description of the update. 1. `environmentKey` (string): (Required) The key of the LaunchDarkly environment. 1. `instructions` (array): (Required) The list of actions to be performed by the update. Each action in the list must be an object/hash table with a `kind` property that indicates the instruction. Depending on the `kind`, the API may require other parameters. When this is the case, add the parameters as additional fields to the instruction object. Read below for more information on the specific supported semantic patch instructions.  If any instruction in the patch encounters an error, the error will be returned and the segment will not be changed. In general, instructions will silently do nothing if the segment is already in the state requested by the patch instruction. For example, `addIncludedUsers` does nothing when the targets have already been included. Specific error conditions are noted in the instruction descriptions.  ### Instructions  #### `addIncludedUsers`  Adds the user keys in `values` to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: list of user keys  #### `addExcludedUsers`  Adds the user keys in `values` to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: list of user keys  #### `removeIncludedUsers`  Removes the user keys in `values` from the individual user targets included in the segment.  ##### Parameters  - `values`: list of user keys  #### `removeExcludedUsers`  Removes the user keys in `values` from the individual user targets excluded from the segment.  ##### Parameters  - `values`: list of user keys  #### `updateName`  Updates the name of the segment to the string provided in `value`.  ##### Parameters  - `value`: string  ## Using JSON patches on a segment  If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).  For example, to update the description for a segment, use the following request body:  ```json {   \"patch\": [     {       \"op\": \"replace\",       \"path\": \"/description\",       \"value\": \"new description\"     }   ] } ```  To update fields in the segment that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` adds the new entry to the beginning of the array.  For example, to add a rule to a segment, use the following request body:  ```json {   \"patch\":[     {       \"op\": \"add\",       \"path\": \"/rules/0\",       \"value\": {         \"clauses\": [{ \"attribute\": \"email\", \"op\": \"endsWith\", \"values\": [\".edu\"], \"negate\": false }]       }     }   ] } ```  To add or remove users from segments, we recommend using semantic patch. Semantic patch for segments includes specific `instructions` for adding and removing both included and excluded users. 
 
 ### Example
 
@@ -610,14 +610,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    key = "key_example" # str | The user segment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
     patch_with_comment = PatchWithComment(
         patch=JSONPatch([
             PatchOperation(
                 op="replace",
-                path="/biscuits",
+                path="/exampleField",
                 value=None,
             ),
         ]),
@@ -627,7 +627,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Patch segment
-        api_response = api_instance.patch_segment(proj_key, env_key, key, patch_with_comment)
+        api_response = api_instance.patch_segment(project_key, environment_key, segment_key, patch_with_comment)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->patch_segment: %s\n" % e)
@@ -638,9 +638,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **key** | **str**| The user segment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
  **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
 
 ### Return type
@@ -672,7 +672,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_segment**
-> UserSegment post_segment(proj_key, env_key, segment_body)
+> UserSegment post_segment(project_key, environment_key, segment_body)
 
 Create segment
 
@@ -715,8 +715,8 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     segment_body = SegmentBody(
         name="name_example",
         key="key_example",
@@ -728,7 +728,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Create segment
-        api_response = api_instance.post_segment(proj_key, env_key, segment_body)
+        api_response = api_instance.post_segment(project_key, environment_key, segment_body)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->post_segment: %s\n" % e)
@@ -739,8 +739,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **segment_body** | [**SegmentBody**](SegmentBody.md)|  |
 
 ### Return type
@@ -771,7 +771,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_big_segment_targets**
-> update_big_segment_targets(proj_key, env_key, key, segment_user_state)
+> update_big_segment_targets(project_key, environment_key, segment_key, segment_user_state)
 
 Update targets on a Big Segment
 
@@ -812,9 +812,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = segments_api.SegmentsApi(api_client)
-    proj_key = "projKey_example" # str | The project key.
-    env_key = "envKey_example" # str | The environment key.
-    key = "key_example" # str | The segment key.
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    segment_key = "segmentKey_example" # str | The segment key
     segment_user_state = SegmentUserState(
         included=SegmentUserList(
             add=[
@@ -837,7 +837,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update targets on a Big Segment
-        api_instance.update_big_segment_targets(proj_key, env_key, key, segment_user_state)
+        api_instance.update_big_segment_targets(project_key, environment_key, segment_key, segment_user_state)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->update_big_segment_targets: %s\n" % e)
 ```
@@ -847,9 +847,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key. |
- **env_key** | **str**| The environment key. |
- **key** | **str**| The segment key. |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **segment_key** | **str**| The segment key |
  **segment_user_state** | [**SegmentUserState**](SegmentUserState.md)|  |
 
 ### Return type

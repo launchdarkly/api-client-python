@@ -4,15 +4,15 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_trigger_workflow**](FlagTriggersApi.md#create_trigger_workflow) | **POST** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey} | Create flag trigger
-[**delete_trigger_workflow**](FlagTriggersApi.md#delete_trigger_workflow) | **DELETE** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Delete flag trigger
-[**get_trigger_workflow_by_id**](FlagTriggersApi.md#get_trigger_workflow_by_id) | **GET** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Get flag trigger by ID
-[**get_trigger_workflows**](FlagTriggersApi.md#get_trigger_workflows) | **GET** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey} | List flag triggers
-[**patch_trigger_workflow**](FlagTriggersApi.md#patch_trigger_workflow) | **PATCH** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Update flag trigger
+[**create_trigger_workflow**](FlagTriggersApi.md#create_trigger_workflow) | **POST** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey} | Create flag trigger
+[**delete_trigger_workflow**](FlagTriggersApi.md#delete_trigger_workflow) | **DELETE** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Delete flag trigger
+[**get_trigger_workflow_by_id**](FlagTriggersApi.md#get_trigger_workflow_by_id) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Get flag trigger by ID
+[**get_trigger_workflows**](FlagTriggersApi.md#get_trigger_workflows) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey} | List flag triggers
+[**patch_trigger_workflow**](FlagTriggersApi.md#patch_trigger_workflow) | **PATCH** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Update flag trigger
 
 
 # **create_trigger_workflow**
-> TriggerWorkflowRep create_trigger_workflow(proj_key, env_key, flag_key, trigger_post)
+> TriggerWorkflowRep create_trigger_workflow(project_key, environment_key, feature_flag_key, trigger_post)
 
 Create flag trigger
 
@@ -55,9 +55,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     trigger_post = TriggerPost(
         comment="comment_example",
         instructions=[
@@ -71,7 +71,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Create flag trigger
-        api_response = api_instance.create_trigger_workflow(proj_key, env_key, flag_key, trigger_post)
+        api_response = api_instance.create_trigger_workflow(project_key, environment_key, feature_flag_key, trigger_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagTriggersApi->create_trigger_workflow: %s\n" % e)
@@ -82,9 +82,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
  **trigger_post** | [**TriggerPost**](TriggerPost.md)|  |
 
 ### Return type
@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_trigger_workflow**
-> delete_trigger_workflow(proj_key, env_key, flag_key, id)
+> delete_trigger_workflow(project_key, environment_key, feature_flag_key, id)
 
 Delete flag trigger
 
@@ -156,15 +156,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     id = "id_example" # str | The flag trigger ID
 
     # example passing only required values which don't have defaults set
     try:
         # Delete flag trigger
-        api_instance.delete_trigger_workflow(proj_key, env_key, flag_key, id)
+        api_instance.delete_trigger_workflow(project_key, environment_key, feature_flag_key, id)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagTriggersApi->delete_trigger_workflow: %s\n" % e)
 ```
@@ -174,9 +174,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
  **id** | **str**| The flag trigger ID |
 
 ### Return type
@@ -207,7 +207,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_trigger_workflow_by_id**
-> TriggerWorkflowRep get_trigger_workflow_by_id(proj_key, flag_key, env_key, id)
+> TriggerWorkflowRep get_trigger_workflow_by_id(project_key, feature_flag_key, environment_key, id)
 
 Get flag trigger by ID
 
@@ -248,15 +248,15 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | The flag key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The flag trigger ID
 
     # example passing only required values which don't have defaults set
     try:
         # Get flag trigger by ID
-        api_response = api_instance.get_trigger_workflow_by_id(proj_key, flag_key, env_key, id)
+        api_response = api_instance.get_trigger_workflow_by_id(project_key, feature_flag_key, environment_key, id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagTriggersApi->get_trigger_workflow_by_id: %s\n" % e)
@@ -267,9 +267,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **flag_key** | **str**| The flag key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **feature_flag_key** | **str**| The feature flag key |
+ **environment_key** | **str**| The environment key |
  **id** | **str**| The flag trigger ID |
 
 ### Return type
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_trigger_workflows**
-> TriggerWorkflowCollectionRep get_trigger_workflows(proj_key, env_key, flag_key)
+> TriggerWorkflowCollectionRep get_trigger_workflows(project_key, environment_key, feature_flag_key)
 
 List flag triggers
 
@@ -339,14 +339,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
 
     # example passing only required values which don't have defaults set
     try:
         # List flag triggers
-        api_response = api_instance.get_trigger_workflows(proj_key, env_key, flag_key)
+        api_response = api_instance.get_trigger_workflows(project_key, environment_key, feature_flag_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagTriggersApi->get_trigger_workflows: %s\n" % e)
@@ -357,9 +357,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
 
 ### Return type
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_trigger_workflow**
-> TriggerWorkflowRep patch_trigger_workflow(proj_key, env_key, flag_key, id, flag_trigger_input)
+> TriggerWorkflowRep patch_trigger_workflow(project_key, environment_key, feature_flag_key, id, flag_trigger_input)
 
 Update flag trigger
 
@@ -431,9 +431,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
-    flag_key = "flagKey_example" # str | The flag key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     id = "id_example" # str | The flag trigger ID
     flag_trigger_input = FlagTriggerInput(
         comment="comment_example",
@@ -447,7 +447,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update flag trigger
-        api_response = api_instance.patch_trigger_workflow(proj_key, env_key, flag_key, id, flag_trigger_input)
+        api_response = api_instance.patch_trigger_workflow(project_key, environment_key, feature_flag_key, id, flag_trigger_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagTriggersApi->patch_trigger_workflow: %s\n" % e)
@@ -458,9 +458,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
- **flag_key** | **str**| The flag key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **feature_flag_key** | **str**| The feature flag key |
  **id** | **str**| The flag trigger ID |
  **flag_trigger_input** | [**FlagTriggerInput**](FlagTriggerInput.md)|  |
 

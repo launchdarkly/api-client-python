@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **version** | **int** |  | [optional] 
 **creation_date** | **int** |  | [optional] 
 **maintainer_id** | **str** |  | [optional] 
-**maintainer** | [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **enabled** | **bool** |  | [optional] 
 **integration_key** | **str** |  | [optional] 
 **instructions** | [**Instructions**](Instructions.md) |  | [optional] 

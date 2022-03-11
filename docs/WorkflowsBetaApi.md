@@ -53,7 +53,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     workflow_id = "workflowId_example" # str | The workflow id
 
@@ -71,7 +71,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **workflow_id** | **str**| The workflow id |
 
@@ -145,7 +145,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     workflow_id = "workflowId_example" # str | The workflow ID
 
@@ -164,7 +164,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **workflow_id** | **str**| The workflow ID |
 
@@ -237,7 +237,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
 
     # example passing only required values which don't have defaults set
@@ -255,7 +255,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
 
 ### Return type
@@ -329,7 +329,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag's key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     custom_workflow_input_rep = CustomWorkflowInputRep(
         maintainer_id="maintainer_id_example",
@@ -340,7 +340,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 name="name_example",
                 conditions=[
                     ConditionInputRep(
+                        schedule_kind="schedule_kind_example",
                         execution_date=1,
+                        wait_duration=1,
+                        wait_duration_unit="wait_duration_unit_example",
                         execute_now=True,
                         description="description_example",
                         notify_member_ids=[
@@ -371,7 +374,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag&#39;s key |
+ **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **custom_workflow_input_rep** | [**CustomWorkflowInputRep**](CustomWorkflowInputRep.md)|  |
 

@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **anonymous** | **bool** |  | [optional] 
 **custom** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
-**derived** | [**{str: (DerivedAttribute,)}**](DerivedAttribute.md) |  | [optional] 
 **private_attrs** | **[str]** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

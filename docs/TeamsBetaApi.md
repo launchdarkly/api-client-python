@@ -4,16 +4,18 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_team**](TeamsBetaApi.md#delete_team) | **DELETE** /api/v2/teams/{key} | Delete team
-[**get_team**](TeamsBetaApi.md#get_team) | **GET** /api/v2/teams/{key} | Get team
+[**delete_team**](TeamsBetaApi.md#delete_team) | **DELETE** /api/v2/teams/{teamKey} | Delete team
+[**get_team**](TeamsBetaApi.md#get_team) | **GET** /api/v2/teams/{teamKey} | Get team
+[**get_team_maintainers**](TeamsBetaApi.md#get_team_maintainers) | **GET** /api/v2/teams/{teamKey}/maintainers | Get team maintainers
+[**get_team_roles**](TeamsBetaApi.md#get_team_roles) | **GET** /api/v2/teams/{teamKey}/roles | Get team custom roles
 [**get_teams**](TeamsBetaApi.md#get_teams) | **GET** /api/v2/teams | List teams
-[**patch_team**](TeamsBetaApi.md#patch_team) | **PATCH** /api/v2/teams/{key} | Update team
+[**patch_team**](TeamsBetaApi.md#patch_team) | **PATCH** /api/v2/teams/{teamKey} | Update team
 [**post_team**](TeamsBetaApi.md#post_team) | **POST** /api/v2/teams | Create team
-[**post_team_members**](TeamsBetaApi.md#post_team_members) | **POST** /api/v2/teams/{key}/members | Add members to team
+[**post_team_members**](TeamsBetaApi.md#post_team_members) | **POST** /api/v2/teams/{teamKey}/members | Add members to team
 
 
 # **delete_team**
-> delete_team(key)
+> delete_team(team_key)
 
 Delete team
 
@@ -52,12 +54,12 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = teams__beta_api.TeamsBetaApi(api_client)
-    key = "key_example" # str | The team key
+    team_key = "teamKey_example" # str | The team key
 
     # example passing only required values which don't have defaults set
     try:
         # Delete team
-        api_instance.delete_team(key)
+        api_instance.delete_team(team_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TeamsBetaApi->delete_team: %s\n" % e)
 ```
@@ -67,7 +69,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The team key |
+ **team_key** | **str**| The team key |
 
 ### Return type
 
@@ -95,7 +97,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_team**
-> ExpandedTeamRep get_team(key)
+> Team get_team(team_key)
 
 Get team
 
@@ -109,13 +111,13 @@ Fetch a team by key
 import time
 import launchdarkly_api
 from launchdarkly_api.api import teams__beta_api
+from launchdarkly_api.model.team import Team
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.expanded_team_rep import ExpandedTeamRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -138,12 +140,12 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = teams__beta_api.TeamsBetaApi(api_client)
-    key = "key_example" # str | The team key
+    team_key = "teamKey_example" # str | The team key
 
     # example passing only required values which don't have defaults set
     try:
         # Get team
-        api_response = api_instance.get_team(key)
+        api_response = api_instance.get_team(team_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TeamsBetaApi->get_team: %s\n" % e)
@@ -154,11 +156,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The team key |
+ **team_key** | **str**| The team key |
 
 ### Return type
 
-[**ExpandedTeamRep**](ExpandedTeamRep.md)
+[**Team**](Team.md)
 
 ### Authorization
 
@@ -184,8 +186,214 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_team_maintainers**
+> TeamMaintainers get_team_maintainers(team_key)
+
+Get team maintainers
+
+Fetch the maintainers that have been assigned to the team.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import teams__beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.team_maintainers import TeamMaintainers
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = teams__beta_api.TeamsBetaApi(api_client)
+    team_key = "teamKey_example" # str | The team key
+    limit = 1 # int | The number of maintainers to return in the response. Defaults to 20. (optional)
+    offset = 1 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get team maintainers
+        api_response = api_instance.get_team_maintainers(team_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling TeamsBetaApi->get_team_maintainers: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get team maintainers
+        api_response = api_instance.get_team_maintainers(team_key, limit=limit, offset=offset)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling TeamsBetaApi->get_team_maintainers: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **team_key** | **str**| The team key |
+ **limit** | **int**| The number of maintainers to return in the response. Defaults to 20. | [optional]
+ **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | [optional]
+
+### Return type
+
+[**TeamMaintainers**](TeamMaintainers.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Team maintainers response JSON |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**405** | Method not allowed |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_team_roles**
+> TeamCustomRoles get_team_roles(team_key)
+
+Get team custom roles
+
+Fetch the custom roles that have been assigned to the team.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import teams__beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.team_custom_roles import TeamCustomRoles
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = teams__beta_api.TeamsBetaApi(api_client)
+    team_key = "teamKey_example" # str | The team key
+    limit = 1 # int | The number of roles to return in the response. Defaults to 20. (optional)
+    offset = 1 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get team custom roles
+        api_response = api_instance.get_team_roles(team_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling TeamsBetaApi->get_team_roles: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get team custom roles
+        api_response = api_instance.get_team_roles(team_key, limit=limit, offset=offset)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling TeamsBetaApi->get_team_roles: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **team_key** | **str**| The team key |
+ **limit** | **int**| The number of roles to return in the response. Defaults to 20. | [optional]
+ **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | [optional]
+
+### Return type
+
+[**TeamCustomRoles**](TeamCustomRoles.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Team roles response JSON |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**405** | Method not allowed |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_teams**
-> TeamCollectionRep get_teams()
+> Teams get_teams()
 
 List teams
 
@@ -200,9 +408,9 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import teams__beta_api
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
+from launchdarkly_api.model.teams import Teams
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.team_collection_rep import TeamCollectionRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -250,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TeamCollectionRep**](TeamCollectionRep.md)
+[**Teams**](Teams.md)
 
 ### Authorization
 
@@ -274,7 +482,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_team**
-> ExpandedTeamRep patch_team(key, team_patch_input)
+> Team patch_team(team_key, team_patch_input)
 
 Update team
 
@@ -288,13 +496,13 @@ Perform a partial update to a team.  The body of a semantic patch request takes 
 import time
 import launchdarkly_api
 from launchdarkly_api.api import teams__beta_api
+from launchdarkly_api.model.team import Team
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.team_patch_input import TeamPatchInput
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.expanded_team_rep import ExpandedTeamRep
 from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -318,7 +526,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = teams__beta_api.TeamsBetaApi(api_client)
-    key = "key_example" # str | The team key
+    team_key = "teamKey_example" # str | The team key
     team_patch_input = TeamPatchInput(
         comment="comment_example",
         instructions=Instructions([
@@ -331,7 +539,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update team
-        api_response = api_instance.patch_team(key, team_patch_input)
+        api_response = api_instance.patch_team(team_key, team_patch_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TeamsBetaApi->patch_team: %s\n" % e)
@@ -342,12 +550,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The team key |
+ **team_key** | **str**| The team key |
  **team_patch_input** | [**TeamPatchInput**](TeamPatchInput.md)|  |
 
 ### Return type
 
-[**ExpandedTeamRep**](ExpandedTeamRep.md)
+[**Team**](Team.md)
 
 ### Authorization
 
@@ -374,7 +582,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_team**
-> TeamRep post_team(team_post_input)
+> Team post_team(team_post_input)
 
 Create team
 
@@ -388,8 +596,8 @@ Create a team
 import time
 import launchdarkly_api
 from launchdarkly_api.api import teams__beta_api
+from launchdarkly_api.model.team import Team
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.team_rep import TeamRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
@@ -428,13 +636,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         name="name_example",
         permission_grants=[
             PermissionGrantInput(
-                member_ids=[
-                    "member_ids_example",
-                ],
+                action_set="action_set_example",
                 actions=[
                     "actions_example",
                 ],
-                action_set="action_set_example",
+                member_ids=[
+                    "member_ids_example",
+                ],
             ),
         ],
     ) # TeamPostInput | 
@@ -457,7 +665,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TeamRep**](TeamRep.md)
+[**Team**](Team.md)
 
 ### Authorization
 
@@ -482,7 +690,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_team_members**
-> TeamImportsRep post_team_members(key)
+> TeamImportsRep post_team_members(team_key)
 
 Add members to team
 
@@ -523,13 +731,13 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = teams__beta_api.TeamsBetaApi(api_client)
-    key = "key_example" # str | The team key
+    team_key = "teamKey_example" # str | The team key
     file = open('/path/to/file', 'rb') # file_type | CSV file containing email addresses (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Add members to team
-        api_response = api_instance.post_team_members(key)
+        api_response = api_instance.post_team_members(team_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TeamsBetaApi->post_team_members: %s\n" % e)
@@ -538,7 +746,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Add members to team
-        api_response = api_instance.post_team_members(key, file=file)
+        api_response = api_instance.post_team_members(team_key, file=file)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TeamsBetaApi->post_team_members: %s\n" % e)
@@ -549,7 +757,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**| The team key |
+ **team_key** | **str**| The team key |
  **file** | **file_type**| CSV file containing email addresses | [optional]
 
 ### Return type

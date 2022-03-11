@@ -4,15 +4,15 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_destination**](DataExportDestinationsApi.md#delete_destination) | **DELETE** /api/v2/destinations/{projKey}/{envKey}/{id} | Delete Data Export destination
-[**get_destination**](DataExportDestinationsApi.md#get_destination) | **GET** /api/v2/destinations/{projKey}/{envKey}/{id} | Get destination
+[**delete_destination**](DataExportDestinationsApi.md#delete_destination) | **DELETE** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Delete Data Export destination
+[**get_destination**](DataExportDestinationsApi.md#get_destination) | **GET** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Get destination
 [**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /api/v2/destinations | List destinations
-[**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projKey}/{envKey}/{id} | Update Data Export destination
-[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projKey}/{envKey} | Create data export destination
+[**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
+[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projectKey}/{environmentKey} | Create data export destination
 
 
 # **delete_destination**
-> delete_destination(proj_key, env_key, id)
+> delete_destination(project_key, environment_key, id)
 
 Delete Data Export destination
 
@@ -52,14 +52,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The Data Export destination ID
 
     # example passing only required values which don't have defaults set
     try:
         # Delete Data Export destination
-        api_instance.delete_destination(proj_key, env_key, id)
+        api_instance.delete_destination(project_key, environment_key, id)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling DataExportDestinationsApi->delete_destination: %s\n" % e)
 ```
@@ -69,8 +69,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **id** | **str**| The Data Export destination ID |
 
 ### Return type
@@ -100,7 +100,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_destination**
-> Destination get_destination(proj_key, env_key, id)
+> Destination get_destination(project_key, environment_key, id)
 
 Get destination
 
@@ -141,14 +141,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The Data Export destination ID
 
     # example passing only required values which don't have defaults set
     try:
         # Get destination
-        api_response = api_instance.get_destination(proj_key, env_key, id)
+        api_response = api_instance.get_destination(project_key, environment_key, id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling DataExportDestinationsApi->get_destination: %s\n" % e)
@@ -159,8 +159,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **id** | **str**| The Data Export destination ID |
 
 ### Return type
@@ -270,7 +270,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_destination**
-> Destination patch_destination(proj_key, env_key, id, json_patch)
+> Destination patch_destination(project_key, environment_key, id, json_patch)
 
 Update Data Export destination
 
@@ -314,13 +314,13 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The Data Export destination ID
     json_patch = JSONPatch([
         PatchOperation(
             op="replace",
-            path="/biscuits",
+            path="/exampleField",
             value=None,
         ),
     ]) # JSONPatch | 
@@ -328,7 +328,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Update Data Export destination
-        api_response = api_instance.patch_destination(proj_key, env_key, id, json_patch)
+        api_response = api_instance.patch_destination(project_key, environment_key, id, json_patch)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling DataExportDestinationsApi->patch_destination: %s\n" % e)
@@ -339,8 +339,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **id** | **str**| The Data Export destination ID |
  **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
 
@@ -373,7 +373,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_destination**
-> Destination post_destination(proj_key, env_key, destination_post)
+> Destination post_destination(project_key, environment_key, destination_post)
 
 Create data export destination
 
@@ -416,8 +416,8 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    proj_key = "projKey_example" # str | The project key
-    env_key = "envKey_example" # str | The environment key
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
     destination_post = DestinationPost(
         name="name_example",
         kind="google-pubsub",
@@ -428,7 +428,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Create data export destination
-        api_response = api_instance.post_destination(proj_key, env_key, destination_post)
+        api_response = api_instance.post_destination(project_key, environment_key, destination_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling DataExportDestinationsApi->post_destination: %s\n" % e)
@@ -439,8 +439,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **proj_key** | **str**| The project key |
- **env_key** | **str**| The environment key |
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
  **destination_post** | [**DestinationPost**](DestinationPost.md)|  |
 
 ### Return type
