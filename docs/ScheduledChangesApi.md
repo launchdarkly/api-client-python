@@ -338,9 +338,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     flag_scheduled_changes_input = FlagScheduledChangesInput(
         comment="comment_example",
         instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
+            None,
         ]),
     ) # FlagScheduledChangesInput | 
     ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
@@ -457,9 +455,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         comment="comment_example",
         execution_date=1,
         instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
+            None,
         ]),
     ) # PostFlagScheduledChangesInput | 
     ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)

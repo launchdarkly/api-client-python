@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**instruction** | [**Instruction**](Instruction.md) |  | [optional] 
+**instruction** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
 **reason** | **str** | Reason why the conflict exists | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

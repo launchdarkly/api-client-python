@@ -338,6 +338,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         stages=[
             StageInputRep(
                 name="name_example",
+                execute_conditions_in_sequence=True,
                 conditions=[
                     ConditionInputRep(
                         schedule_kind="schedule_kind_example",

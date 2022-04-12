@@ -335,9 +335,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         comment="comment_example",
         description="description_example",
         instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
+            None,
         ]),
         notify_member_ids=[
             "notify_member_ids_example",

@@ -530,9 +530,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     team_patch_input = TeamPatchInput(
         comment="comment_example",
         instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
+            None,
         ]),
     ) # TeamPatchInput | 
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **enabled** | **bool** |  | 
 **version** | **int** |  | 
 **hunk_count** | **int** |  | 
+**file_count** | **int** |  | 
 **links** | [**{str: (Link,)}**](Link.md) |  | 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

@@ -143,11 +143,21 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     segment_key = "segmentKey_example" # str | The segment key
+    file = open('/path/to/file', 'rb') # file_type | CSV file containing keys (optional)
+    mode = "mode_example" # str | Import mode. Use either `merge` or `replace` (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Create Big Segment import
         api_instance.create_big_segment_import(project_key, environment_key, segment_key)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling SegmentsBetaApi->create_big_segment_import: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Create Big Segment import
+        api_instance.create_big_segment_import(project_key, environment_key, segment_key, file=file, mode=mode)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsBetaApi->create_big_segment_import: %s\n" % e)
 ```
@@ -160,6 +170,8 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **environment_key** | **str**| The environment key |
  **segment_key** | **str**| The segment key |
+ **file** | **file_type**| CSV file containing keys | [optional]
+ **mode** | **str**| Import mode. Use either &#x60;merge&#x60; or &#x60;replace&#x60; | [optional]
 
 ### Return type
 
@@ -171,7 +183,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 
@@ -179,7 +191,7 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Action succeeded |  -  |
+**204** | Import request submitted successfully |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |

@@ -61,9 +61,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     trigger_post = TriggerPost(
         comment="comment_example",
         instructions=[
-            Instruction(
-                key=None,
-            ),
+            None,
         ],
         integration_key="integration_key_example",
     ) # TriggerPost | 
@@ -438,9 +436,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     flag_trigger_input = FlagTriggerInput(
         comment="comment_example",
         instructions=[
-            Instruction(
-                key=None,
-            ),
+            None,
         ],
     ) # FlagTriggerInput | 
 
