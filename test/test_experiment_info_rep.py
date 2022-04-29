@@ -15,8 +15,8 @@ import sys
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.model.experiment_rep import ExperimentRep
-globals()['ExperimentRep'] = ExperimentRep
+from launchdarkly_api.model.legacy_experiment_rep import LegacyExperimentRep
+globals()['LegacyExperimentRep'] = LegacyExperimentRep
 from launchdarkly_api.model.experiment_info_rep import ExperimentInfoRep
 
 

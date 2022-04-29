@@ -15,9 +15,9 @@ import sys
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.model.experiment_rep import ExperimentRep
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.link import Link
-globals()['ExperimentRep'] = ExperimentRep
+globals()['Experiment'] = Experiment
 globals()['Link'] = Link
 from launchdarkly_api.model.experiment_collection_rep import ExperimentCollectionRep
 

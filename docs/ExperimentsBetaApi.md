@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_experiment**
-> ExperimentRep create_experiment(project_key, environment_key, experiment_post)
+> Experiment create_experiment(project_key, environment_key, experiment_post)
 
 Create experiment
 
@@ -29,13 +29,13 @@ Create an experiment
 import time
 import launchdarkly_api
 from launchdarkly_api.api import experiments__beta_api
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.experiment_post import ExperimentPost
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.experiment_rep import ExperimentRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -116,7 +116,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 
@@ -265,7 +265,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_experiment**
-> ExperimentRep get_experiment(project_key, environment_key, experiment_key)
+> Experiment get_experiment(project_key, environment_key, experiment_key)
 
 Get experiment
 
@@ -279,13 +279,13 @@ Get details about an experiment
 import time
 import launchdarkly_api
 from launchdarkly_api.api import experiments__beta_api
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.experiment_rep import ExperimentRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -332,7 +332,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 
@@ -652,7 +652,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_experiment**
-> ExperimentRep patch_experiment(project_key, environment_key, experiment_key, experiment_patch_input)
+> Experiment patch_experiment(project_key, environment_key, experiment_key, experiment_patch_input)
 
 Patch experiment
 
@@ -666,13 +666,13 @@ Patch an Experiment
 import time
 import launchdarkly_api
 from launchdarkly_api.api import experiments__beta_api
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.experiment_patch_input import ExperimentPatchInput
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.experiment_rep import ExperimentRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -726,7 +726,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 

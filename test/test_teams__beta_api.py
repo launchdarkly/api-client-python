@@ -78,7 +78,7 @@ class TestTeamsBetaApi(unittest.TestCase):
     def test_post_team_members(self):
         """Test case for post_team_members
 
-        Add members to team  # noqa: E501
+        Add multiple members to team  # noqa: E501
         """
         pass
 

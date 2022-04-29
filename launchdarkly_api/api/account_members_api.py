@@ -456,7 +456,7 @@ class AccountMembersApi(object):
     ):
         """Get account member  # noqa: E501
 
-        Get a single account member by ID  # noqa: E501
+        Get a single account member by ID.  `me` is a reserved value for the `id` parameter and returns the caller's member information.   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -656,9 +656,9 @@ class AccountMembersApi(object):
         member_teams_post_input,
         **kwargs
     ):
-        """Add member to teams  # noqa: E501
+        """Add a member to teams  # noqa: E501
 
-        Add member to team(s)  # noqa: E501
+        Add one member to one or more teams.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 

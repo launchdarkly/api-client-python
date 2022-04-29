@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[ExperimentRep]**](ExperimentRep.md) |  | [optional] 
+**items** | [**[Experiment]**](Experiment.md) |  | [optional] 
 **total_count** | **int** |  | [optional] 
 **links** | [**{str: (Link,)}**](Link.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

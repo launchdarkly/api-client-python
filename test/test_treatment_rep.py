@@ -15,9 +15,7 @@ import sys
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.model.null_decimal import NullDecimal
 from launchdarkly_api.model.parameter_rep import ParameterRep
-globals()['NullDecimal'] = NullDecimal
 globals()['ParameterRep'] = ParameterRep
 from launchdarkly_api.model.treatment_rep import TreatmentRep
 

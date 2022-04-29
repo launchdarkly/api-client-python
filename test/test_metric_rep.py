@@ -15,8 +15,18 @@ import sys
 import unittest
 
 import launchdarkly_api
+from launchdarkly_api.model.access import Access
+from launchdarkly_api.model.flag_listing_rep import FlagListingRep
 from launchdarkly_api.model.link import Link
+from launchdarkly_api.model.member_summary import MemberSummary
+from launchdarkly_api.model.modification import Modification
+from launchdarkly_api.model.url_matchers import UrlMatchers
+globals()['Access'] = Access
+globals()['FlagListingRep'] = FlagListingRep
 globals()['Link'] = Link
+globals()['MemberSummary'] = MemberSummary
+globals()['Modification'] = Modification
+globals()['UrlMatchers'] = UrlMatchers
 from launchdarkly_api.model.metric_rep import MetricRep
 
 

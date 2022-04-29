@@ -24,10 +24,10 @@ from launchdarkly_api.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.experiment_collection_rep import ExperimentCollectionRep
 from launchdarkly_api.model.experiment_patch_input import ExperimentPatchInput
 from launchdarkly_api.model.experiment_post import ExperimentPost
-from launchdarkly_api.model.experiment_rep import ExperimentRep
 from launchdarkly_api.model.experiment_results import ExperimentResults
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
@@ -52,7 +52,7 @@ class ExperimentsBetaApi(object):
         self.api_client = api_client
         self.create_experiment_endpoint = _Endpoint(
             settings={
-                'response_type': (ExperimentRep,),
+                'response_type': (Experiment,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -186,7 +186,7 @@ class ExperimentsBetaApi(object):
         )
         self.get_experiment_endpoint = _Endpoint(
             settings={
-                'response_type': (ExperimentRep,),
+                'response_type': (Experiment,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -454,7 +454,7 @@ class ExperimentsBetaApi(object):
         )
         self.patch_experiment_endpoint = _Endpoint(
             settings={
-                'response_type': (ExperimentRep,),
+                'response_type': (Experiment,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -635,7 +635,7 @@ class ExperimentsBetaApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            ExperimentRep
+            Experiment
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -787,7 +787,7 @@ class ExperimentsBetaApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            ExperimentRep
+            Experiment
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -1091,7 +1091,7 @@ class ExperimentsBetaApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            ExperimentRep
+            Experiment
                 If the method is called asynchronously, returns the request
                 thread.
         """

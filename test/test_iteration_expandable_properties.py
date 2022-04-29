@@ -15,9 +15,9 @@ import sys
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.model.metric_rep import MetricRep
+from launchdarkly_api.model.metric_v2_rep import MetricV2Rep
 from launchdarkly_api.model.treatment_rep import TreatmentRep
-globals()['MetricRep'] = MetricRep
+globals()['MetricV2Rep'] = MetricV2Rep
 globals()['TreatmentRep'] = TreatmentRep
 from launchdarkly_api.model.iteration_expandable_properties import IterationExpandableProperties
 

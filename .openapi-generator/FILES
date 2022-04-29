@@ -53,7 +53,6 @@ docs/CustomWorkflowOutputRep.md
 docs/CustomWorkflowStageMeta.md
 docs/CustomWorkflowsListingOutputRep.md
 docs/DataExportDestinationsApi.md
-docs/Decimal.md
 docs/DefaultClientSideAvailabilityPost.md
 docs/Defaults.md
 docs/DependentFlag.md
@@ -67,15 +66,16 @@ docs/EnvironmentPost.md
 docs/EnvironmentsApi.md
 docs/EvaluationReason.md
 docs/ExecutionOutputRep.md
+docs/Experiment.md
 docs/ExperimentAllocationRep.md
 docs/ExperimentCollectionRep.md
 docs/ExperimentEnabledPeriodRep.md
 docs/ExperimentEnvironmentSettingRep.md
+docs/ExperimentExpandableProperties.md
 docs/ExperimentInfoRep.md
 docs/ExperimentMetadataRep.md
 docs/ExperimentPatchInput.md
 docs/ExperimentPost.md
-docs/ExperimentRep.md
 docs/ExperimentResults.md
 docs/ExperimentStatsRep.md
 docs/ExperimentTimeSeriesSlice.md
@@ -148,6 +148,7 @@ docs/IterationInput.md
 docs/IterationRep.md
 docs/JSONPatch.md
 docs/LastSeenMetadata.md
+docs/LegacyExperimentRep.md
 docs/Link.md
 docs/Member.md
 docs/MemberDataRep.md
@@ -164,6 +165,7 @@ docs/MetricListingRep.md
 docs/MetricPost.md
 docs/MetricRep.md
 docs/MetricSeen.md
+docs/MetricV2Rep.md
 docs/MetricsApi.md
 docs/MetricsInput.md
 docs/ModelImport.md
@@ -173,7 +175,6 @@ docs/MultiEnvironmentDependentFlags.md
 docs/NewMemberForm.md
 docs/NewMemberFormListPost.md
 docs/NotFoundErrorRep.md
-docs/NullDecimal.md
 docs/OtherApi.md
 docs/ParameterRep.md
 docs/ParentResourceRep.md
@@ -243,6 +244,7 @@ docs/StatementPostList.md
 docs/StatementRep.md
 docs/StatisticCollectionRep.md
 docs/StatisticRep.md
+docs/StatisticsRep.md
 docs/StatisticsRoot.md
 docs/StatusConflictErrorRep.md
 docs/SubjectDataRep.md
@@ -274,6 +276,7 @@ docs/TriggerPost.md
 docs/TriggerWorkflowCollectionRep.md
 docs/TriggerWorkflowRep.md
 docs/UnauthorizedErrorRep.md
+docs/UrlMatchers.md
 docs/UrlPost.md
 docs/User.md
 docs/UserAttributeNamesRep.md
@@ -288,6 +291,7 @@ docs/UserSettingsApi.md
 docs/Users.md
 docs/UsersApi.md
 docs/UsersBetaApi.md
+docs/UsersRep.md
 docs/ValuePut.md
 docs/Variation.md
 docs/VariationOrRolloutRep.md
@@ -379,7 +383,6 @@ launchdarkly_api/model/custom_workflow_meta.py
 launchdarkly_api/model/custom_workflow_output_rep.py
 launchdarkly_api/model/custom_workflow_stage_meta.py
 launchdarkly_api/model/custom_workflows_listing_output_rep.py
-launchdarkly_api/model/decimal.py
 launchdarkly_api/model/default_client_side_availability_post.py
 launchdarkly_api/model/defaults.py
 launchdarkly_api/model/dependent_flag.py
@@ -392,15 +395,16 @@ launchdarkly_api/model/environment.py
 launchdarkly_api/model/environment_post.py
 launchdarkly_api/model/evaluation_reason.py
 launchdarkly_api/model/execution_output_rep.py
+launchdarkly_api/model/experiment.py
 launchdarkly_api/model/experiment_allocation_rep.py
 launchdarkly_api/model/experiment_collection_rep.py
 launchdarkly_api/model/experiment_enabled_period_rep.py
 launchdarkly_api/model/experiment_environment_setting_rep.py
+launchdarkly_api/model/experiment_expandable_properties.py
 launchdarkly_api/model/experiment_info_rep.py
 launchdarkly_api/model/experiment_metadata_rep.py
 launchdarkly_api/model/experiment_patch_input.py
 launchdarkly_api/model/experiment_post.py
-launchdarkly_api/model/experiment_rep.py
 launchdarkly_api/model/experiment_results.py
 launchdarkly_api/model/experiment_stats_rep.py
 launchdarkly_api/model/experiment_time_series_slice.py
@@ -466,6 +470,7 @@ launchdarkly_api/model/iteration_input.py
 launchdarkly_api/model/iteration_rep.py
 launchdarkly_api/model/json_patch.py
 launchdarkly_api/model/last_seen_metadata.py
+launchdarkly_api/model/legacy_experiment_rep.py
 launchdarkly_api/model/link.py
 launchdarkly_api/model/member.py
 launchdarkly_api/model/member_data_rep.py
@@ -482,6 +487,7 @@ launchdarkly_api/model/metric_listing_rep.py
 launchdarkly_api/model/metric_post.py
 launchdarkly_api/model/metric_rep.py
 launchdarkly_api/model/metric_seen.py
+launchdarkly_api/model/metric_v2_rep.py
 launchdarkly_api/model/metrics_input.py
 launchdarkly_api/model/model_import.py
 launchdarkly_api/model/modification.py
@@ -490,7 +496,6 @@ launchdarkly_api/model/multi_environment_dependent_flags.py
 launchdarkly_api/model/new_member_form.py
 launchdarkly_api/model/new_member_form_list_post.py
 launchdarkly_api/model/not_found_error_rep.py
-launchdarkly_api/model/null_decimal.py
 launchdarkly_api/model/parameter_rep.py
 launchdarkly_api/model/parent_resource_rep.py
 launchdarkly_api/model/patch_failed_error_rep.py
@@ -554,6 +559,7 @@ launchdarkly_api/model/statement_post_list.py
 launchdarkly_api/model/statement_rep.py
 launchdarkly_api/model/statistic_collection_rep.py
 launchdarkly_api/model/statistic_rep.py
+launchdarkly_api/model/statistics_rep.py
 launchdarkly_api/model/statistics_root.py
 launchdarkly_api/model/status_conflict_error_rep.py
 launchdarkly_api/model/subject_data_rep.py
@@ -583,6 +589,7 @@ launchdarkly_api/model/trigger_post.py
 launchdarkly_api/model/trigger_workflow_collection_rep.py
 launchdarkly_api/model/trigger_workflow_rep.py
 launchdarkly_api/model/unauthorized_error_rep.py
+launchdarkly_api/model/url_matchers.py
 launchdarkly_api/model/url_post.py
 launchdarkly_api/model/user.py
 launchdarkly_api/model/user_attribute_names_rep.py
@@ -594,6 +601,7 @@ launchdarkly_api/model/user_segment.py
 launchdarkly_api/model/user_segment_rule.py
 launchdarkly_api/model/user_segments.py
 launchdarkly_api/model/users.py
+launchdarkly_api/model/users_rep.py
 launchdarkly_api/model/value_put.py
 launchdarkly_api/model/variation.py
 launchdarkly_api/model/variation_or_rollout_rep.py
@@ -661,7 +669,6 @@ test/test_custom_workflow_output_rep.py
 test/test_custom_workflow_stage_meta.py
 test/test_custom_workflows_listing_output_rep.py
 test/test_data_export_destinations_api.py
-test/test_decimal.py
 test/test_default_client_side_availability_post.py
 test/test_defaults.py
 test/test_dependent_flag.py
@@ -675,15 +682,16 @@ test/test_environment_post.py
 test/test_environments_api.py
 test/test_evaluation_reason.py
 test/test_execution_output_rep.py
+test/test_experiment.py
 test/test_experiment_allocation_rep.py
 test/test_experiment_collection_rep.py
 test/test_experiment_enabled_period_rep.py
 test/test_experiment_environment_setting_rep.py
+test/test_experiment_expandable_properties.py
 test/test_experiment_info_rep.py
 test/test_experiment_metadata_rep.py
 test/test_experiment_patch_input.py
 test/test_experiment_post.py
-test/test_experiment_rep.py
 test/test_experiment_results.py
 test/test_experiment_stats_rep.py
 test/test_experiment_time_series_slice.py
@@ -756,6 +764,7 @@ test/test_iteration_input.py
 test/test_iteration_rep.py
 test/test_json_patch.py
 test/test_last_seen_metadata.py
+test/test_legacy_experiment_rep.py
 test/test_link.py
 test/test_member.py
 test/test_member_data_rep.py
@@ -772,6 +781,7 @@ test/test_metric_listing_rep.py
 test/test_metric_post.py
 test/test_metric_rep.py
 test/test_metric_seen.py
+test/test_metric_v2_rep.py
 test/test_metrics_api.py
 test/test_metrics_input.py
 test/test_model_import.py
@@ -781,7 +791,6 @@ test/test_multi_environment_dependent_flags.py
 test/test_new_member_form.py
 test/test_new_member_form_list_post.py
 test/test_not_found_error_rep.py
-test/test_null_decimal.py
 test/test_other_api.py
 test/test_parameter_rep.py
 test/test_parent_resource_rep.py
@@ -851,6 +860,7 @@ test/test_statement_post_list.py
 test/test_statement_rep.py
 test/test_statistic_collection_rep.py
 test/test_statistic_rep.py
+test/test_statistics_rep.py
 test/test_statistics_root.py
 test/test_status_conflict_error_rep.py
 test/test_subject_data_rep.py
@@ -882,6 +892,7 @@ test/test_trigger_post.py
 test/test_trigger_workflow_collection_rep.py
 test/test_trigger_workflow_rep.py
 test/test_unauthorized_error_rep.py
+test/test_url_matchers.py
 test/test_url_post.py
 test/test_user.py
 test/test_user_attribute_names_rep.py
@@ -896,6 +907,7 @@ test/test_user_settings_api.py
 test/test_users.py
 test/test_users__beta_api.py
 test/test_users_api.py
+test/test_users_rep.py
 test/test_value_put.py
 test/test_variation.py
 test/test_variation_or_rollout_rep.py

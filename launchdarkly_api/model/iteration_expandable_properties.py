@@ -33,9 +33,9 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from launchdarkly_api.model.metric_rep import MetricRep
+    from launchdarkly_api.model.metric_v2_rep import MetricV2Rep
     from launchdarkly_api.model.treatment_rep import TreatmentRep
-    globals()['MetricRep'] = MetricRep
+    globals()['MetricV2Rep'] = MetricV2Rep
     globals()['TreatmentRep'] = TreatmentRep
 
 
@@ -93,7 +93,7 @@ class IterationExpandableProperties(ModelNormal):
         lazy_import()
         return {
             'treatments': ([TreatmentRep],),  # noqa: E501
-            'secondary_metrics': ([MetricRep],),  # noqa: E501
+            'secondary_metrics': ([MetricV2Rep],),  # noqa: E501
         }
 
     @cached_property
@@ -148,7 +148,7 @@ class IterationExpandableProperties(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             treatments ([TreatmentRep]): [optional]  # noqa: E501
-            secondary_metrics ([MetricRep]): [optional]  # noqa: E501
+            secondary_metrics ([MetricV2Rep]): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -231,7 +231,7 @@ class IterationExpandableProperties(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             treatments ([TreatmentRep]): [optional]  # noqa: E501
-            secondary_metrics ([MetricRep]): [optional]  # noqa: E501
+            secondary_metrics ([MetricV2Rep]): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

@@ -51,7 +51,6 @@ from launchdarkly_api.model.custom_workflow_meta import CustomWorkflowMeta
 from launchdarkly_api.model.custom_workflow_output_rep import CustomWorkflowOutputRep
 from launchdarkly_api.model.custom_workflow_stage_meta import CustomWorkflowStageMeta
 from launchdarkly_api.model.custom_workflows_listing_output_rep import CustomWorkflowsListingOutputRep
-from launchdarkly_api.model.decimal import Decimal
 from launchdarkly_api.model.default_client_side_availability_post import DefaultClientSideAvailabilityPost
 from launchdarkly_api.model.defaults import Defaults
 from launchdarkly_api.model.dependent_flag import DependentFlag
@@ -64,15 +63,16 @@ from launchdarkly_api.model.environment import Environment
 from launchdarkly_api.model.environment_post import EnvironmentPost
 from launchdarkly_api.model.evaluation_reason import EvaluationReason
 from launchdarkly_api.model.execution_output_rep import ExecutionOutputRep
+from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.experiment_allocation_rep import ExperimentAllocationRep
 from launchdarkly_api.model.experiment_collection_rep import ExperimentCollectionRep
 from launchdarkly_api.model.experiment_enabled_period_rep import ExperimentEnabledPeriodRep
 from launchdarkly_api.model.experiment_environment_setting_rep import ExperimentEnvironmentSettingRep
+from launchdarkly_api.model.experiment_expandable_properties import ExperimentExpandableProperties
 from launchdarkly_api.model.experiment_info_rep import ExperimentInfoRep
 from launchdarkly_api.model.experiment_metadata_rep import ExperimentMetadataRep
 from launchdarkly_api.model.experiment_patch_input import ExperimentPatchInput
 from launchdarkly_api.model.experiment_post import ExperimentPost
-from launchdarkly_api.model.experiment_rep import ExperimentRep
 from launchdarkly_api.model.experiment_results import ExperimentResults
 from launchdarkly_api.model.experiment_stats_rep import ExperimentStatsRep
 from launchdarkly_api.model.experiment_time_series_slice import ExperimentTimeSeriesSlice
@@ -138,6 +138,7 @@ from launchdarkly_api.model.iteration_input import IterationInput
 from launchdarkly_api.model.iteration_rep import IterationRep
 from launchdarkly_api.model.json_patch import JSONPatch
 from launchdarkly_api.model.last_seen_metadata import LastSeenMetadata
+from launchdarkly_api.model.legacy_experiment_rep import LegacyExperimentRep
 from launchdarkly_api.model.link import Link
 from launchdarkly_api.model.member import Member
 from launchdarkly_api.model.member_data_rep import MemberDataRep
@@ -154,6 +155,7 @@ from launchdarkly_api.model.metric_listing_rep import MetricListingRep
 from launchdarkly_api.model.metric_post import MetricPost
 from launchdarkly_api.model.metric_rep import MetricRep
 from launchdarkly_api.model.metric_seen import MetricSeen
+from launchdarkly_api.model.metric_v2_rep import MetricV2Rep
 from launchdarkly_api.model.metrics_input import MetricsInput
 from launchdarkly_api.model.model_import import ModelImport
 from launchdarkly_api.model.modification import Modification
@@ -162,7 +164,6 @@ from launchdarkly_api.model.multi_environment_dependent_flags import MultiEnviro
 from launchdarkly_api.model.new_member_form import NewMemberForm
 from launchdarkly_api.model.new_member_form_list_post import NewMemberFormListPost
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.null_decimal import NullDecimal
 from launchdarkly_api.model.parameter_rep import ParameterRep
 from launchdarkly_api.model.parent_resource_rep import ParentResourceRep
 from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
@@ -226,6 +227,7 @@ from launchdarkly_api.model.statement_post_list import StatementPostList
 from launchdarkly_api.model.statement_rep import StatementRep
 from launchdarkly_api.model.statistic_collection_rep import StatisticCollectionRep
 from launchdarkly_api.model.statistic_rep import StatisticRep
+from launchdarkly_api.model.statistics_rep import StatisticsRep
 from launchdarkly_api.model.statistics_root import StatisticsRoot
 from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from launchdarkly_api.model.subject_data_rep import SubjectDataRep
@@ -255,6 +257,7 @@ from launchdarkly_api.model.trigger_post import TriggerPost
 from launchdarkly_api.model.trigger_workflow_collection_rep import TriggerWorkflowCollectionRep
 from launchdarkly_api.model.trigger_workflow_rep import TriggerWorkflowRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.url_matchers import UrlMatchers
 from launchdarkly_api.model.url_post import UrlPost
 from launchdarkly_api.model.user import User
 from launchdarkly_api.model.user_attribute_names_rep import UserAttributeNamesRep
@@ -266,6 +269,7 @@ from launchdarkly_api.model.user_segment import UserSegment
 from launchdarkly_api.model.user_segment_rule import UserSegmentRule
 from launchdarkly_api.model.user_segments import UserSegments
 from launchdarkly_api.model.users import Users
+from launchdarkly_api.model.users_rep import UsersRep
 from launchdarkly_api.model.value_put import ValuePut
 from launchdarkly_api.model.variation import Variation
 from launchdarkly_api.model.variation_or_rollout_rep import VariationOrRolloutRep

@@ -33,8 +33,8 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from launchdarkly_api.model.experiment_rep import ExperimentRep
-    globals()['ExperimentRep'] = ExperimentRep
+    from launchdarkly_api.model.legacy_experiment_rep import LegacyExperimentRep
+    globals()['LegacyExperimentRep'] = LegacyExperimentRep
 
 
 class ExperimentInfoRep(ModelNormal):
@@ -91,7 +91,7 @@ class ExperimentInfoRep(ModelNormal):
         lazy_import()
         return {
             'baseline_idx': (int,),  # noqa: E501
-            'items': ([ExperimentRep],),  # noqa: E501
+            'items': ([LegacyExperimentRep],),  # noqa: E501
         }
 
     @cached_property
@@ -116,7 +116,7 @@ class ExperimentInfoRep(ModelNormal):
 
         Args:
             baseline_idx (int):
-            items ([ExperimentRep]):
+            items ([LegacyExperimentRep]):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -203,7 +203,7 @@ class ExperimentInfoRep(ModelNormal):
 
         Args:
             baseline_idx (int):
-            items ([ExperimentRep]):
+            items ([LegacyExperimentRep]):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

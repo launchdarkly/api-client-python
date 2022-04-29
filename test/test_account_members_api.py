@@ -57,7 +57,7 @@ class TestAccountMembersApi(unittest.TestCase):
     def test_post_member_teams(self):
         """Test case for post_member_teams
 
-        Add member to teams  # noqa: E501
+        Add a member to teams  # noqa: E501
         """
         pass
 

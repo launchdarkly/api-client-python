@@ -33,9 +33,7 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from launchdarkly_api.model.null_decimal import NullDecimal
     from launchdarkly_api.model.parameter_rep import ParameterRep
-    globals()['NullDecimal'] = NullDecimal
     globals()['ParameterRep'] = ParameterRep
 
 
@@ -93,7 +91,7 @@ class TreatmentRep(ModelNormal):
         lazy_import()
         return {
             'name': (str,),  # noqa: E501
-            'allocation_percent': (NullDecimal,),  # noqa: E501
+            'allocation_percent': (str,),  # noqa: E501
             'id': (str,),  # noqa: E501
             'baseline': (bool,),  # noqa: E501
             'parameters': ([ParameterRep],),  # noqa: E501
@@ -124,7 +122,7 @@ class TreatmentRep(ModelNormal):
 
         Args:
             name (str):
-            allocation_percent (NullDecimal):
+            allocation_percent (str):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -214,7 +212,7 @@ class TreatmentRep(ModelNormal):
 
         Args:
             name (str):
-            allocation_percent (NullDecimal):
+            allocation_percent (str):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

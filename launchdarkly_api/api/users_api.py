@@ -32,6 +32,7 @@ from launchdarkly_api.model.status_conflict_error_rep import StatusConflictError
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from launchdarkly_api.model.user_record import UserRecord
 from launchdarkly_api.model.users import Users
+from launchdarkly_api.model.users_rep import UsersRep
 
 
 class UsersApi(object):
@@ -265,7 +266,7 @@ class UsersApi(object):
         )
         self.get_users_endpoint = _Endpoint(
             settings={
-                'response_type': (Users,),
+                'response_type': (UsersRep,),
                 'auth': [
                     'ApiKey'
                 ],
@@ -599,7 +600,7 @@ class UsersApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            Users
+            UsersRep
                 If the method is called asynchronously, returns the request
                 thread.
         """

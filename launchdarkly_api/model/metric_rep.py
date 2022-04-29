@@ -33,8 +33,18 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
+    from launchdarkly_api.model.access import Access
+    from launchdarkly_api.model.flag_listing_rep import FlagListingRep
     from launchdarkly_api.model.link import Link
+    from launchdarkly_api.model.member_summary import MemberSummary
+    from launchdarkly_api.model.modification import Modification
+    from launchdarkly_api.model.url_matchers import UrlMatchers
+    globals()['Access'] = Access
+    globals()['FlagListingRep'] = FlagListingRep
     globals()['Link'] = Link
+    globals()['MemberSummary'] = MemberSummary
+    globals()['Modification'] = Modification
+    globals()['UrlMatchers'] = UrlMatchers
 
 
 class MetricRep(ModelNormal):
@@ -62,6 +72,15 @@ class MetricRep(ModelNormal):
     """
 
     allowed_values = {
+        ('kind',): {
+            'PAGEVIEW': "pageview",
+            'CLICK': "click",
+            'CUSTOM': "custom",
+        },
+        ('success_criteria',): {
+            'HIGHERTHANBASELINE': "HigherThanBaseline",
+            'LOWERTHANBASELINE': "LowerThanBaseline",
+        },
     }
 
     validations = {
@@ -90,9 +109,29 @@ class MetricRep(ModelNormal):
         """
         lazy_import()
         return {
+            'id': (str,),  # noqa: E501
             'key': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
+            'kind': (str,),  # noqa: E501
             'links': ({str: (Link,)},),  # noqa: E501
+            'tags': ([str],),  # noqa: E501
+            'creation_date': (int,),  # noqa: E501
+            'attached_flag_count': (int,),  # noqa: E501
+            'site': (Link,),  # noqa: E501
+            'access': (Access,),  # noqa: E501
+            'last_modified': (Modification,),  # noqa: E501
+            'maintainer_id': (str,),  # noqa: E501
+            'maintainer': (MemberSummary,),  # noqa: E501
+            'description': (str,),  # noqa: E501
+            'is_numeric': (bool,),  # noqa: E501
+            'success_criteria': (str,),  # noqa: E501
+            'unit': (str,),  # noqa: E501
+            'event_key': (str,),  # noqa: E501
+            'is_active': (bool,),  # noqa: E501
+            'attached_features': ([FlagListingRep],),  # noqa: E501
+            'version': (int,),  # noqa: E501
+            'selector': (str,),  # noqa: E501
+            'urls': (UrlMatchers,),  # noqa: E501
         }
 
     @cached_property
@@ -101,9 +140,29 @@ class MetricRep(ModelNormal):
 
 
     attribute_map = {
+        'id': '_id',  # noqa: E501
         'key': 'key',  # noqa: E501
         'name': 'name',  # noqa: E501
+        'kind': 'kind',  # noqa: E501
         'links': '_links',  # noqa: E501
+        'tags': 'tags',  # noqa: E501
+        'creation_date': '_creationDate',  # noqa: E501
+        'attached_flag_count': '_attachedFlagCount',  # noqa: E501
+        'site': '_site',  # noqa: E501
+        'access': '_access',  # noqa: E501
+        'last_modified': 'lastModified',  # noqa: E501
+        'maintainer_id': 'maintainerId',  # noqa: E501
+        'maintainer': '_maintainer',  # noqa: E501
+        'description': 'description',  # noqa: E501
+        'is_numeric': 'isNumeric',  # noqa: E501
+        'success_criteria': 'successCriteria',  # noqa: E501
+        'unit': 'unit',  # noqa: E501
+        'event_key': 'eventKey',  # noqa: E501
+        'is_active': 'isActive',  # noqa: E501
+        'attached_features': '_attachedFeatures',  # noqa: E501
+        'version': '_version',  # noqa: E501
+        'selector': 'selector',  # noqa: E501
+        'urls': 'urls',  # noqa: E501
     }
 
     read_only_vars = {
@@ -113,13 +172,17 @@ class MetricRep(ModelNormal):
 
     @classmethod
     @convert_js_args_to_python_args
-    def _from_openapi_data(cls, key, name, links, *args, **kwargs):  # noqa: E501
+    def _from_openapi_data(cls, id, key, name, kind, links, tags, creation_date, *args, **kwargs):  # noqa: E501
         """MetricRep - a model defined in OpenAPI
 
         Args:
+            id (str):
             key (str):
             name (str):
+            kind (str):
             links ({str: (Link,)}):
+            tags ([str]):
+            creation_date (int):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -152,6 +215,22 @@ class MetricRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            attached_flag_count (int): [optional]  # noqa: E501
+            site (Link): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
+            last_modified (Modification): [optional]  # noqa: E501
+            maintainer_id (str): [optional]  # noqa: E501
+            maintainer (MemberSummary): [optional]  # noqa: E501
+            description (str): [optional]  # noqa: E501
+            is_numeric (bool): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
+            unit (str): [optional]  # noqa: E501
+            event_key (str): [optional]  # noqa: E501
+            is_active (bool): [optional]  # noqa: E501
+            attached_features ([FlagListingRep]): [optional]  # noqa: E501
+            version (int): [optional]  # noqa: E501
+            selector (str): [optional]  # noqa: E501
+            urls (UrlMatchers): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -179,9 +258,13 @@ class MetricRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.id = id
         self.key = key
         self.name = name
+        self.kind = kind
         self.links = links
+        self.tags = tags
+        self.creation_date = creation_date
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \
@@ -202,13 +285,17 @@ class MetricRep(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, key, name, links, *args, **kwargs):  # noqa: E501
+    def __init__(self, id, key, name, kind, links, tags, creation_date, *args, **kwargs):  # noqa: E501
         """MetricRep - a model defined in OpenAPI
 
         Args:
+            id (str):
             key (str):
             name (str):
+            kind (str):
             links ({str: (Link,)}):
+            tags ([str]):
+            creation_date (int):
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -241,6 +328,22 @@ class MetricRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            attached_flag_count (int): [optional]  # noqa: E501
+            site (Link): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
+            last_modified (Modification): [optional]  # noqa: E501
+            maintainer_id (str): [optional]  # noqa: E501
+            maintainer (MemberSummary): [optional]  # noqa: E501
+            description (str): [optional]  # noqa: E501
+            is_numeric (bool): [optional]  # noqa: E501
+            success_criteria (str): [optional]  # noqa: E501
+            unit (str): [optional]  # noqa: E501
+            event_key (str): [optional]  # noqa: E501
+            is_active (bool): [optional]  # noqa: E501
+            attached_features ([FlagListingRep]): [optional]  # noqa: E501
+            version (int): [optional]  # noqa: E501
+            selector (str): [optional]  # noqa: E501
+            urls (UrlMatchers): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -266,9 +369,13 @@ class MetricRep(ModelNormal):
         self._configuration = _configuration
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
+        self.id = id
         self.key = key
         self.name = name
+        self.kind = kind
         self.links = links
+        self.tags = tags
+        self.creation_date = creation_date
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

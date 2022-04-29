@@ -13,7 +13,7 @@
 """
 
 
-__version__ = "9.0.0"
+__version__ = "9.0.1"
 
 # import ApiClient
 from launchdarkly_api.api_client import ApiClient

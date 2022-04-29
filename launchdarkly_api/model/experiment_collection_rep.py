@@ -33,9 +33,9 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from launchdarkly_api.model.experiment_rep import ExperimentRep
+    from launchdarkly_api.model.experiment import Experiment
     from launchdarkly_api.model.link import Link
-    globals()['ExperimentRep'] = ExperimentRep
+    globals()['Experiment'] = Experiment
     globals()['Link'] = Link
 
 
@@ -92,7 +92,7 @@ class ExperimentCollectionRep(ModelNormal):
         """
         lazy_import()
         return {
-            'items': ([ExperimentRep],),  # noqa: E501
+            'items': ([Experiment],),  # noqa: E501
             'total_count': (int,),  # noqa: E501
             'links': ({str: (Link,)},),  # noqa: E501
         }
@@ -149,7 +149,7 @@ class ExperimentCollectionRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            items ([ExperimentRep]): [optional]  # noqa: E501
+            items ([Experiment]): [optional]  # noqa: E501
             total_count (int): [optional]  # noqa: E501
             links ({str: (Link,)}): [optional]  # noqa: E501
         """
@@ -233,7 +233,7 @@ class ExperimentCollectionRep(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            items ([ExperimentRep]): [optional]  # noqa: E501
+            items ([Experiment]): [optional]  # noqa: E501
             total_count (int): [optional]  # noqa: E501
             links ({str: (Link,)}): [optional]  # noqa: E501
         """

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**get_member**](AccountMembersApi.md#get_member) | **GET** /api/v2/members/{id} | Get account member
 [**get_members**](AccountMembersApi.md#get_members) | **GET** /api/v2/members | List account members
 [**patch_member**](AccountMembersApi.md#patch_member) | **PATCH** /api/v2/members/{id} | Modify an account member
-[**post_member_teams**](AccountMembersApi.md#post_member_teams) | **POST** /api/v2/members/{id}/teams | Add member to teams
+[**post_member_teams**](AccountMembersApi.md#post_member_teams) | **POST** /api/v2/members/{id}/teams | Add a member to teams
 [**post_members**](AccountMembersApi.md#post_members) | **POST** /api/v2/members | Invite new members
 
 
@@ -103,7 +103,7 @@ void (empty response body)
 
 Get account member
 
-Get a single account member by ID
+Get a single account member by ID.  `me` is a reserved value for the `id` parameter and returns the caller's member information. 
 
 ### Example
 
@@ -379,9 +379,9 @@ Name | Type | Description  | Notes
 # **post_member_teams**
 > Member post_member_teams(id, member_teams_post_input)
 
-Add member to teams
+Add a member to teams
 
-Add member to team(s)
+Add one member to one or more teams.
 
 ### Example
 
@@ -429,7 +429,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Add member to teams
+        # Add a member to teams
         api_response = api_instance.post_member_teams(id, member_teams_post_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
