@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 Creates a webhook
 
-Create a new webhook
+Create a new webhook.
 
 ### Example
 

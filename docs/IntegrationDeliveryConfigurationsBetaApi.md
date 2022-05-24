@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 Delete delivery configuration
 
-Delete a delivery configuration
+Delete a delivery configuration.
 
 ### Example
 

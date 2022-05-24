@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete scheduled changes workflow
 
-Delete a scheduled changes workflow
+Delete a scheduled changes workflow.
 
 ### Example
 
@@ -110,7 +110,7 @@ void (empty response body)
 
 Get a scheduled change
 
-Get a scheduled change that will be applied to the feature flag by ID
+Get a scheduled change that will be applied to the feature flag by ID.
 
 ### Example
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 Update scheduled changes workflow
 
-Update a scheduled change, overriding existing instructions with the new ones.<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/reference#updates-via-semantic-patches).
+ Update a scheduled change, overriding existing instructions with the new ones. Updating a scheduled change uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating scheduled changes.  #### deleteScheduledChange  Removes the scheduled change.  #### replaceScheduledChangesInstructions  Removes the existing scheduled changes and replaces them with the new instructions.  ##### Parameters  - `value`: An array of the new actions to perform when the execution date for these scheduled changes arrives. Supported scheduled actions are `turnFlagOn` and `turnFlagOff`.  For example, to replace the scheduled changes, use this request body:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [     {       \"kind\": \"replaceScheduledChangesInstructions\",       \"value\": [ {\"kind\": \"turnFlagOff\"} ]     }   ] } ```  #### updateScheduledChangesExecutionDate  Updates the execution date for the scheduled changes.  ##### Parameters  - `value`: the new execution date, in Unix milliseconds. 
 
 ### Example
 
@@ -338,7 +338,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     flag_scheduled_changes_input = FlagScheduledChangesInput(
         comment="comment_example",
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
     ) # FlagScheduledChangesInput | 
     ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
@@ -407,7 +409,7 @@ Name | Type | Description  | Notes
 
 Create scheduled changes workflow
 
-Create scheduled changes for a feature flag. If the ignoreConficts query parameter is false and the new instructions would conflict with the current state of the feature flag or any existing scheduled changes, the request will fail. If the parameter is true and there are conflicts, the request will succeed as normal.
+Create scheduled changes for a feature flag. If the `ignoreConficts` query parameter is false and the new instructions would conflict with the current state of the feature flag or any existing scheduled changes, the request will fail. If the parameter is true and there are conflicts, the request will succeed as normal.
 
 ### Example
 
@@ -455,7 +457,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         comment="comment_example",
         execution_date=1,
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
     ) # PostFlagScheduledChangesInput | 
     ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)

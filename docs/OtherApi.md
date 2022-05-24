@@ -89,7 +89,7 @@ This endpoint does not need any parameter.
 
 Gets the OpenAPI spec in json
 
-The OpenAPI spec endpoint serves the latest version of the OpenAPI specification for LaunchDarkly's API in json format.
+Get the latest version of the OpenAPI specification for LaunchDarkly's API in JSON format.
 
 ### Example
 
@@ -161,7 +161,7 @@ void (empty response body)
 
 Root resource
 
-Issue a `GET` request to the root resource to find all of the resource categories supported by the API
+Get all of the resource categories the API supports.
 
 ### Example
 

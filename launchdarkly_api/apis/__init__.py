@@ -28,9 +28,11 @@ from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
 from launchdarkly_api.api.feature_flags__beta_api import FeatureFlagsBetaApi
 from launchdarkly_api.api.flag_links__beta_api import FlagLinksBetaApi
 from launchdarkly_api.api.flag_triggers_api import FlagTriggersApi
+from launchdarkly_api.api.follow_flags__beta_api import FollowFlagsBetaApi
 from launchdarkly_api.api.integration_audit_log_subscriptions_api import IntegrationAuditLogSubscriptionsApi
 from launchdarkly_api.api.integration_delivery_configurations__beta_api import IntegrationDeliveryConfigurationsBetaApi
 from launchdarkly_api.api.metrics_api import MetricsApi
+from launchdarkly_api.api.o_auth2_clients__beta_api import OAuth2ClientsBetaApi
 from launchdarkly_api.api.other_api import OtherApi
 from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
@@ -38,7 +40,7 @@ from launchdarkly_api.api.scheduled_changes_api import ScheduledChangesApi
 from launchdarkly_api.api.segments_api import SegmentsApi
 from launchdarkly_api.api.segments__beta_api import SegmentsBetaApi
 from launchdarkly_api.api.tags_api import TagsApi
-from launchdarkly_api.api.teams__beta_api import TeamsBetaApi
+from launchdarkly_api.api.teams_api import TeamsApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
 from launchdarkly_api.api.users__beta_api import UsersBetaApi

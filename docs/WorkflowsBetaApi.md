@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Delete workflow
 
-Delete a workflow from a feature flag
+Delete a workflow from a feature flag.
 
 ### Example
 
@@ -107,7 +107,7 @@ void (empty response body)
 
 Get custom workflow
 
-Get a specific workflow by ID
+Get a specific workflow by ID.
 
 ### Example
 
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 Get workflows
 
-Get workflows from a feature flag
+Display workflows associated with a feature flag.
 
 ### Example
 
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 Create workflow
 
-Create a workflow for a feature flag
+Create a workflow for a feature flag.
 
 ### Example
 

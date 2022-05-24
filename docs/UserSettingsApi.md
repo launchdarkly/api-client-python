@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_expiring_flags_for_user**
-> ExpiringUserTargetPatchResponse patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_with_comment)
+> ExpiringUserTargetPatchResponse patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_users_request)
 
 Update expiring user target for flags
 
@@ -306,8 +306,8 @@ from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestError
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.patch_with_comment import PatchWithComment
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.patch_users_request import PatchUsersRequest
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -334,21 +334,23 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     user_key = "userKey_example" # str | The user key
     environment_key = "environmentKey_example" # str | The environment key
-    patch_with_comment = PatchWithComment(
-        patch=JSONPatch([
-            PatchOperation(
-                op="replace",
-                path="/exampleField",
-                value=None,
-            ),
-        ]),
+    patch_users_request = PatchUsersRequest(
         comment="comment_example",
-    ) # PatchWithComment | 
+        instructions=[
+            InstructionUserRequest(
+                kind="kind_example",
+                flag_key="flag_key_example",
+                variation_id="variation_id_example",
+                value=1,
+                version=1,
+            ),
+        ],
+    ) # PatchUsersRequest | 
 
     # example passing only required values which don't have defaults set
     try:
         # Update expiring user target for flags
-        api_response = api_instance.patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_with_comment)
+        api_response = api_instance.patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_users_request)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling UserSettingsApi->patch_expiring_flags_for_user: %s\n" % e)
@@ -362,7 +364,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **user_key** | **str**| The user key |
  **environment_key** | **str**| The environment key |
- **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
+ **patch_users_request** | [**PatchUsersRequest**](PatchUsersRequest.md)|  |
 
 ### Return type
 

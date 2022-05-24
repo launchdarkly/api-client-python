@@ -62,9 +62,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name to delete branches for.
-    request_body = [
-        "request_body_example",
-    ] # [str] | 
+    request_body = ["branch-to-be-deleted","another-branch-to-be-deleted"] # [str] | 
 
     # example passing only required values which don't have defaults set
     try:
@@ -114,7 +112,7 @@ void (empty response body)
 
 Delete repository
 
-Delete a repository with the specified name
+Delete a repository with the specified name.
 
 ### Example
 
@@ -200,7 +198,7 @@ void (empty response body)
 
 Get branch
 
-Get a specific branch in a repository
+Get a specific branch in a repository.
 
 ### Example
 
@@ -391,7 +389,7 @@ Name | Type | Description  | Notes
 
 List extinctions
 
-Get a list of all extinctions.
+Get a list of all extinctions. LaunchDarkly creates an extinction event after you remove all code references to a flag. To learn more, read [Understanding extinction events](https://docs.launchdarkly.com/home/code/code-references#understanding-extinction-events).
 
 ### Example
 
@@ -665,7 +663,7 @@ Name | Type | Description  | Notes
 
 Get links to code reference repositories for each project
 
-Get links for all projects that have Code References.
+Get links for all projects that have code references.
 
 ### Example
 
@@ -747,7 +745,7 @@ This endpoint does not need any parameter.
 
 Get number of code references for flags
 
-Get the number of code references across repositories for all flags in your project that have code references in the default branch (for example: master). You can optionally include the `flagKey` query parameter to get the number of code references across repositories for a single flag. This endpoint returns the number of times your flag keys are referenced in your repositories. You can filter to a single flag with by passing in a flag key.
+Get the number of code references across repositories for all flags in your project that have code references in the default branch (for example: main). Optionally, you can include the `flagKey` query parameter to get the number of code references across repositories for a single flag. This endpoint returns the number of references to your flag keys in your repositories. You can filter to a single flag by passing in a flag key.
 
 ### Example
 
@@ -941,7 +939,7 @@ Name | Type | Description  | Notes
 
 Create extinction
 
-Create a new extinction
+Create a new extinction.
 
 ### Example
 
@@ -980,7 +978,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name
-    branch = "branch_example" # str | The url-encoded branch name
+    branch = "branch_example" # str | The URL-encoded branch name
     extinction_list_post = ExtinctionListPost([
         Extinction(
             revision="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
@@ -1005,7 +1003,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo** | **str**| The repository name |
- **branch** | **str**| The url-encoded branch name |
+ **branch** | **str**| The URL-encoded branch name |
  **extinction_list_post** | [**ExtinctionListPost**](ExtinctionListPost.md)|  |
 
 ### Return type
@@ -1136,7 +1134,7 @@ Name | Type | Description  | Notes
 
 Upsert branch
 
-Create a new branch if it doesn't exist, or updates the branch if it already exists.
+Create a new branch if it doesn't exist, or update the branch if it already exists.
 
 ### Example
 
@@ -1176,7 +1174,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = code_references_api.CodeReferencesApi(api_client)
     repo = "repo_example" # str | The repository name
-    branch = "branch_example" # str | The url-encoded branch name
+    branch = "branch_example" # str | The URL-encoded branch name
     put_branch = PutBranch(
         name="main",
         head="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
@@ -1214,7 +1212,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repo** | **str**| The repository name |
- **branch** | **str**| The url-encoded branch name |
+ **branch** | **str**| The URL-encoded branch name |
  **put_branch** | [**PutBranch**](PutBranch.md)|  |
 
 ### Return type

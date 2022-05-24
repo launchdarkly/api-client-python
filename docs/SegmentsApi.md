@@ -110,7 +110,7 @@ void (empty response body)
 
 Get expiring user targets for segment
 
-Get a list of a segment's user targets that are scheduled for removal
+Get a list of a segment's user targets that are scheduled for removal.
 
 ### Example
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 Get segment
 
-Get a single user segment by key
+Get a single user segment by key.
 
 ### Example
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 Get Big Segment membership for user
 
-Returns the membership status (included/excluded) for a given user in this segment. This operation does not support basic Segments.
+Get the membership status (included/excluded) for a given user in this Big Segment. This operation does not support standard segments.
 
 ### Example
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 
 List segments
 
-Get a list of all user segments in the given project
+Get a list of all user segments in the given project.
 
 ### Example
 
@@ -462,7 +462,7 @@ Name | Type | Description  | Notes
 
 Update expiring user targets for segment
 
-Update the list of a segment's user targets that are scheduled for removal<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/reference#updates-via-semantic-patches).<br /><br />If the request is well-formed but any of its instructions failed to process, this operation returns status code `200`. In this case, the response `errors` array will be non-empty.
+ Update expiring user targets for a segment. Updating a user target expiration uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  If the request is well-formed but any of its instructions failed to process, this operation returns status code `200`. In this case, the response `errors` array will be non-empty.  ### Instructions  Semantic patch requests support the following `kind` instructions for updating user targets.  #### addExpireUserTargetDate  Schedules a date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The date when the user should expire from the segment targeting, in Unix milliseconds.  #### updateExpireUserTargetDate  Updates the date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The new date when the user should expire from the segment targeting, in Unix milliseconds. - `version`: The segment version.  #### removeExpireUserTargetDate  Removes the scheduled expiration for the user in the segment.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. 
 
 ### Example
 
@@ -570,7 +570,7 @@ Name | Type | Description  | Notes
 
 Patch segment
 
-Update a user segment. The request body must be a valid JSON patch, JSON merge patch, or semantic patch.  ## Using semantic patches on a segment  To use a [semantic patch](/reference#updates-via-semantic-patches) on a segment resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  Use this header:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  The body of a semantic patch request takes the following three properties:  1. `comment` (string): (Optional) A description of the update. 1. `environmentKey` (string): (Required) The key of the LaunchDarkly environment. 1. `instructions` (array): (Required) The list of actions to be performed by the update. Each action in the list must be an object/hash table with a `kind` property that indicates the instruction. Depending on the `kind`, the API may require other parameters. When this is the case, add the parameters as additional fields to the instruction object. Read below for more information on the specific supported semantic patch instructions.  If any instruction in the patch encounters an error, the error will be returned and the segment will not be changed. In general, instructions will silently do nothing if the segment is already in the state requested by the patch instruction. For example, `addIncludedUsers` does nothing when the targets have already been included. Specific error conditions are noted in the instruction descriptions.  ### Instructions  #### `addIncludedUsers`  Adds the user keys in `values` to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: list of user keys  #### `addExcludedUsers`  Adds the user keys in `values` to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: list of user keys  #### `removeIncludedUsers`  Removes the user keys in `values` from the individual user targets included in the segment.  ##### Parameters  - `values`: list of user keys  #### `removeExcludedUsers`  Removes the user keys in `values` from the individual user targets excluded from the segment.  ##### Parameters  - `values`: list of user keys  #### `updateName`  Updates the name of the segment to the string provided in `value`.  ##### Parameters  - `value`: string  ## Using JSON patches on a segment  If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).  For example, to update the description for a segment, use the following request body:  ```json {   \"patch\": [     {       \"op\": \"replace\",       \"path\": \"/description\",       \"value\": \"new description\"     }   ] } ```  To update fields in the segment that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` adds the new entry to the beginning of the array.  For example, to add a rule to a segment, use the following request body:  ```json {   \"patch\":[     {       \"op\": \"add\",       \"path\": \"/rules/0\",       \"value\": {         \"clauses\": [{ \"attribute\": \"email\", \"op\": \"endsWith\", \"values\": [\".edu\"], \"negate\": false }]       }     }   ] } ```  To add or remove users from segments, we recommend using semantic patch. Semantic patch for segments includes specific `instructions` for adding and removing both included and excluded users. 
+Update a user segment. The request body must be a valid semantic patch, JSON patch, or JSON merge patch.  ## Using semantic patches on a segment  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  The body of a semantic patch request for updating segments requires an `environmentKey` in addition to `instructions` and an optional `comment`. The body of the request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required) The key of the LaunchDarkly environment. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the action requires parameters, you must include those parameters as additional fields in the object.  ### Instructions  Semantic patch requests support the following `kind` instructions for updating segments.  #### addIncludedUsers  Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: List of user keys.  #### addExcludedUsers  Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded.  ##### Parameters  - `values`: List of user keys.  #### removeIncludedUsers  Removes user keys from the individual user targets included in the segment.  ##### Parameters  - `values`: List of user keys.  #### removeExcludedUsers  Removes user keys from the individual user targets excluded from the segment.  ##### Parameters  - `values`: List of user keys.  #### updateName  Updates the name of the segment.  ##### Parameters  - `value`: Name of the segment.  ## Using JSON patches on a segment  You can also use JSON patch. To learn more, read [Updates using JSON patches](/reference#updates-using-json-patch).  For example, to update the description for a segment, use the following request body:  ```json {   \"patch\": [     {       \"op\": \"replace\",       \"path\": \"/description\",       \"value\": \"new description\"     }   ] } ```  To update fields in the segment that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` adds the new entry to the beginning of the array.  For example, to add a rule to a segment, use the following request body:  ```json {   \"patch\":[     {       \"op\": \"add\",       \"path\": \"/rules/0\",       \"value\": {         \"clauses\": [{ \"attribute\": \"email\", \"op\": \"endsWith\", \"values\": [\".edu\"], \"negate\": false }]       }     }   ] } ```  To add or remove users from segments, we recommend using semantic patch. Semantic patch for segments includes specific `instructions` for adding and removing both included and excluded users. 
 
 ### Example
 
@@ -676,7 +676,7 @@ Name | Type | Description  | Notes
 
 Create segment
 
-Create a new user segment
+Create a new user segment.
 
 ### Example
 
@@ -775,7 +775,7 @@ Name | Type | Description  | Notes
 
 Update targets on a Big Segment
 
-Update targets included or excluded in a Big Segment
+Update targets included or excluded in a Big Segment.
 
 ### Example
 

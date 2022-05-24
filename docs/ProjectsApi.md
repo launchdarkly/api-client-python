@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete project
 
-Delete a project by key. Caution: deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
+Delete a project by key. Use this endpoint with caution. Deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
 
 ### Example
 

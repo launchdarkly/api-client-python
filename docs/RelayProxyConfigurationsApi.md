@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Delete Relay Proxy config by ID
 
-Delete a Relay Proxy config
+Delete a Relay Proxy config.
 
 ### Example
 
@@ -101,7 +101,7 @@ void (empty response body)
 
 Get Relay Proxy config
 
-Get a single Relay Proxy Auto Config by ID
+Get a single Relay Proxy auto config by ID.
 
 ### Example
 
@@ -369,7 +369,7 @@ Name | Type | Description  | Notes
 
 Create a new Relay Proxy config
 
-Create a Relay Proxy config
+Create a Relay Proxy config.
 
 ### Example
 
