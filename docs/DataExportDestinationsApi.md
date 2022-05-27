@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete Data Export destination
 
-Delete Data Export destination by ID
+Delete a Data Export destination by ID.
 
 ### Example
 
@@ -104,7 +104,7 @@ void (empty response body)
 
 Get destination
 
-Get a single Data Export destination by ID
+Get a single Data Export destination by ID.
 
 ### Example
 

@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Create flag trigger
 
-Create a new flag trigger. Triggers let you initiate changes to flag targeting remotely using a unique webhook URL.
+Create a new flag trigger.
 
 ### Example
 
@@ -59,11 +59,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     trigger_post = TriggerPost(
-        comment="comment_example",
+        comment="example comment",
         instructions=[
-            None,
+            Instruction(
+                key=None,
+            ),
         ],
-        integration_key="integration_key_example",
+        integration_key="generic-trigger",
     ) # TriggerPost | 
 
     # example passing only required values which don't have defaults set
@@ -389,7 +391,7 @@ Name | Type | Description  | Notes
 
 Update flag trigger
 
-Update a flag trigger. The request body must be a valid JSON patch or JSON merge patch document. To learn more, read [Updates](/#section/Overview/Updates).
+Update a flag trigger. Updating a flag trigger uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating flag triggers.  #### replaceTriggerActionInstructions  Removes the existing trigger action and replaces it with the new instructions.  ##### Parameters  - `value`: An array of the new `kind`s of actions to perform when triggering. Supported flag actions are `turnFlagOn` and `turnFlagOff`.  For example, to replace the trigger action instructions, use this request body:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [     {       \"kind\": \"replaceTriggerActionInstructions\",       \"value\": [ {\"kind\": \"turnFlagOff\"} ]     }   ] } ```  #### cycleTriggerUrl  Generates a new URL for this trigger. You must update any clients using the trigger to use this new URL.  #### disableTrigger  Disables the trigger. This saves the trigger configuration, but the trigger stops running. To re-enable, use `enableTrigger`.  #### enableTrigger  Enables the trigger. If you previously disabled the trigger, it begins running again. 
 
 ### Example
 
@@ -436,7 +438,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     flag_trigger_input = FlagTriggerInput(
         comment="comment_example",
         instructions=[
-            None,
+            Instruction(
+                key=None,
+            ),
         ],
     ) # FlagTriggerInput | 
 

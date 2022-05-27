@@ -27,7 +27,7 @@ Create a delivery configuration.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.integration_delivery_configuration import IntegrationDeliveryConfiguration
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -56,7 +56,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     integration_key = "integrationKey_example" # str | The integration key
@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 Delete delivery configuration
 
-Delete a delivery configuration
+Delete a delivery configuration.
 
 ### Example
 
@@ -131,7 +131,7 @@ Delete a delivery configuration
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -158,7 +158,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     integration_key = "integrationKey_example" # str | The integration key
@@ -223,7 +223,7 @@ Get delivery configurations by environment.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -250,7 +250,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
 
@@ -311,7 +311,7 @@ Get delivery configuration by ID.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.integration_delivery_configuration import IntegrationDeliveryConfiguration
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -336,7 +336,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     integration_key = "integrationKey_example" # str | The integration key
@@ -399,7 +399,7 @@ List all delivery configurations.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -426,7 +426,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
 
     # example, this endpoint has no required or optional parameters
     try:
@@ -481,7 +481,7 @@ Update an integration delivery configuration.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.integration_delivery_configuration import IntegrationDeliveryConfiguration
 from launchdarkly_api.model.json_patch import JSONPatch
 from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
@@ -511,7 +511,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     integration_key = "integrationKey_example" # str | The integration key
@@ -586,7 +586,7 @@ Validate the saved delivery configuration.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_delivery_configurations__beta_api
+from launchdarkly_api.api import integration_delivery_configurations_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.integration_delivery_configuration_response import IntegrationDeliveryConfigurationResponse
@@ -614,7 +614,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_delivery_configurations__beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
+    api_instance = integration_delivery_configurations_beta_api.IntegrationDeliveryConfigurationsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     integration_key = "integrationKey_example" # str | The integration key

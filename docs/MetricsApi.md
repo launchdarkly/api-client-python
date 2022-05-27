@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 
 Create metric
 
-Create a new metric in the specified project. Note that the expected POST body differs depending on the specified kind property.
+Create a new metric in the specified project. The expected `POST` body differs depending on the specified `kind` property.
 
 ### Example
 

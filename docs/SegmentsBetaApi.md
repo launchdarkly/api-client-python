@@ -24,7 +24,7 @@ Starts a new export process for a Big Segment
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import segments__beta_api
+from launchdarkly_api.api import segments_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -50,7 +50,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments__beta_api.SegmentsBetaApi(api_client)
+    api_instance = segments_beta_api.SegmentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     segment_key = "segmentKey_example" # str | The segment key
@@ -103,7 +103,7 @@ void (empty response body)
 
 Create Big Segment import
 
-Starts a new import process for a Big Segment
+Start a new import process for a Big Segment.
 
 ### Example
 
@@ -112,7 +112,7 @@ Starts a new import process for a Big Segment
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import segments__beta_api
+from launchdarkly_api.api import segments_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -139,7 +139,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments__beta_api.SegmentsBetaApi(api_client)
+    api_instance = segments_beta_api.SegmentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     segment_key = "segmentKey_example" # str | The segment key
@@ -214,7 +214,7 @@ Returns info about a Big Segment export process.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import segments__beta_api
+from launchdarkly_api.api import segments_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -240,7 +240,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments__beta_api.SegmentsBetaApi(api_client)
+    api_instance = segments_beta_api.SegmentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     segment_key = "segmentKey_example" # str | The segment key
@@ -304,7 +304,7 @@ Returns info about a Big Segment import process.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import segments__beta_api
+from launchdarkly_api.api import segments_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.model_import import ModelImport
@@ -330,7 +330,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments__beta_api.SegmentsBetaApi(api_client)
+    api_instance = segments_beta_api.SegmentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     segment_key = "segmentKey_example" # str | The segment key

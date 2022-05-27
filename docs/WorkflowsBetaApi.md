@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Delete workflow
 
-Delete a workflow from a feature flag
+Delete a workflow from a feature flag.
 
 ### Example
 
@@ -24,7 +24,7 @@ Delete a workflow from a feature flag
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import workflows__beta_api
+from launchdarkly_api.api import workflows_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -51,7 +51,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
+    api_instance = workflows_beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
@@ -107,7 +107,7 @@ void (empty response body)
 
 Get custom workflow
 
-Get a specific workflow by ID
+Get a specific workflow by ID.
 
 ### Example
 
@@ -116,7 +116,7 @@ Get a specific workflow by ID
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import workflows__beta_api
+from launchdarkly_api.api import workflows_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -143,7 +143,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
+    api_instance = workflows_beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
@@ -199,7 +199,7 @@ Name | Type | Description  | Notes
 
 Get workflows
 
-Get workflows from a feature flag
+Display workflows associated with a feature flag.
 
 ### Example
 
@@ -208,7 +208,7 @@ Get workflows from a feature flag
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import workflows__beta_api
+from launchdarkly_api.api import workflows_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.custom_workflows_listing_output_rep import CustomWorkflowsListingOutputRep
@@ -235,7 +235,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
+    api_instance = workflows_beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 Create workflow
 
-Create a workflow for a feature flag
+Create a workflow for a feature flag.
 
 ### Example
 
@@ -298,7 +298,7 @@ Create a workflow for a feature flag
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import workflows__beta_api
+from launchdarkly_api.api import workflows_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -327,7 +327,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflows__beta_api.WorkflowsBetaApi(api_client)
+    api_instance = workflows_beta_api.WorkflowsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key

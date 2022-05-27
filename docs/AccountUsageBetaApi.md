@@ -28,7 +28,7 @@ Get time-series arrays of the number of times a flag is evaluated, broken down b
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -56,7 +56,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
@@ -135,7 +135,7 @@ Get time-series arrays of the number of times a flag is evaluated, broken down b
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -163,7 +163,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     type = "type_example" # str | The type of event to retrieve. Must be either `received` or `published`.
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 24 hours ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
@@ -236,7 +236,7 @@ Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkl
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -263,7 +263,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to seven days ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
     sdktype = "sdktype_example" # str | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server` (optional)
@@ -327,7 +327,7 @@ Get a time-series array of the number of monthly active users (MAU) seen by Laun
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -354,7 +354,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
     project = "project_example" # str | A project key to filter results to. Can be specified multiple times, one query parameter per project key, to view data for multiple projects. (optional)
@@ -428,7 +428,7 @@ Get time-series arrays of the number of monthly active users (MAU) seen by Launc
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -456,7 +456,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
 
@@ -519,7 +519,7 @@ Get a time-series array of the number of streaming connections to LaunchDarkly i
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -547,7 +547,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     source = "source_example" # str | The source of streaming connections to describe. Must be either `client` or `server`.
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
@@ -622,7 +622,7 @@ Get multiple series of the number of streaming connections to LaunchDarkly in ea
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -650,7 +650,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     source = "source_example" # str | The source of streaming connections to describe. Must be either `client` or `server`.
     _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to 24 hours ago. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
@@ -729,7 +729,7 @@ Get a list of SDK version objects, which contain an SDK name and version. These 
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import account_usage__beta_api
+from launchdarkly_api.api import account_usage_beta_api
 from launchdarkly_api.model.sdk_version_list_rep import SdkVersionListRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -755,7 +755,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = account_usage__beta_api.AccountUsageBetaApi(api_client)
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     source = "source_example" # str | The source of streaming connections to describe. Must be either `client` or `server`.
 
     # example passing only required values which don't have defaults set

@@ -22,7 +22,7 @@ List dependent feature flags
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import feature_flags__beta_api
+from launchdarkly_api.api import feature_flags_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.multi_environment_dependent_flags import MultiEnvironmentDependentFlags
@@ -49,7 +49,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = feature_flags__beta_api.FeatureFlagsBetaApi(api_client)
+    api_instance = feature_flags_beta_api.FeatureFlagsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
 
@@ -110,7 +110,7 @@ List dependent feature flags by environment
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import feature_flags__beta_api
+from launchdarkly_api.api import feature_flags_beta_api
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.dependent_flags_by_environment import DependentFlagsByEnvironment
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -137,7 +137,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = feature_flags__beta_api.FeatureFlagsBetaApi(api_client)
+    api_instance = feature_flags_beta_api.FeatureFlagsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key

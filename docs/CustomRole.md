@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **links** | [**{str: (Link,)}**](Link.md) |  | 
 **key** | **str** |  | 
 **name** | **str** |  | 
-**policy** | [**[Statement]**](Statement.md) |  | 
+**policy** | [**[StatementRep]**](StatementRep.md) |  | 
 **access** | [**Access**](Access.md) |  | [optional] 
 **description** | **str** |  | [optional] 
 **base_permissions** | **str** |  | [optional] 

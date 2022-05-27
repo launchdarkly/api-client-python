@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Delete approval request
 
-Delete an approval request for a feature flag
+Delete an approval request for a feature flag.
 
 ### Example
 
@@ -108,7 +108,7 @@ void (empty response body)
 
 Get approval request
 
-Get a single approval request for a feature flag
+Get a single approval request for a feature flag.
 
 ### Example
 
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 List all approval requests
 
-Get all approval requests for a feature flag
+Get all approval requests for a feature flag.
 
 ### Example
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 Create approval request
 
-Create an approval request for a feature flag
+Create an approval request for a feature flag.
 
 ### Example
 
@@ -335,7 +335,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         comment="comment_example",
         description="description_example",
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
         notify_member_ids=[
             "notify_member_ids_example",
@@ -397,7 +399,7 @@ Name | Type | Description  | Notes
 
 Apply approval request
 
-Apply approval request by either approving or declining changes.
+Apply an approval request by approving or denying changes.
 
 ### Example
 
@@ -496,7 +498,7 @@ Name | Type | Description  | Notes
 
 Review approval request
 
-Review approval request by either approving or declining changes.
+Review an approval request by approving or denying changes.
 
 ### Example
 
