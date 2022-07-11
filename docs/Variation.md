@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | 
+**value** | **bool, date, datetime, dict, float, int, list, str, none_type** | The value of the variation. For boolean flags, this must be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;. For multivariate flags, this may be a string, number, or JSON object. | 
 **id** | **str** |  | [optional] 
 **description** | **str** | Description of the variation | [optional] 
 **name** | **str** | A human-friendly name for the variation | [optional] 

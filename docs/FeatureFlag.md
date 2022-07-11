@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **version** | **int** | Version of the feature flag | 
 **creation_date** | **int** |  | 
 **variations** | [**[Variation]**](Variation.md) | An array of possible variations for the flag | 
-**temporary** | **bool** | Whether or not the flag is a temporary flag | 
+**temporary** | **bool** | Whether the flag is a temporary flag | 
 **tags** | **[str]** | Tags for the feature flag | 
 **links** | [**{str: (Link,)}**](Link.md) |  | 
 **experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
@@ -18,9 +18,8 @@ Name | Type | Description | Notes
 **archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **environments** | [**{str: (FeatureFlagConfig,)}**](FeatureFlagConfig.md) |  | 
 **description** | **str** | Description of the feature flag | [optional] 
-**include_in_snippet** | **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
+**include_in_snippet** | **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK | [optional] 
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
-**variation_json_schema** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
 **maintainer_id** | **str** | Associated maintainerId for the feature flag | [optional] 
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **goal_ids** | **[str]** |  | [optional] 

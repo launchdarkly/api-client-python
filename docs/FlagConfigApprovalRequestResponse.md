@@ -4,21 +4,21 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**version** | **int** |  | 
+**id** | **str** | The ID of this approval request | 
+**version** | **int** | Version of the approval request | 
 **creation_date** | **int** |  | 
 **service_kind** | **str** |  | 
-**review_status** | **str** |  | 
-**all_reviews** | [**[ReviewResponse]**](ReviewResponse.md) |  | 
+**review_status** | **str** | Current status of the review of this approval request | 
+**all_reviews** | [**[ReviewResponse]**](ReviewResponse.md) | An array of individual reviews of this approval request | 
 **notify_member_ids** | **[str]** | An array of member IDs. These members are notified to review the approval request. | 
-**status** | **str** |  | 
+**status** | **str** | Current status of the approval request | 
 **instructions** | [**Instructions**](Instructions.md) |  | 
-**conflicts** | [**[Conflict]**](Conflict.md) |  | 
-**links** | [**{str: (Link,)}**](Link.md) |  | 
-**requestor_id** | **str** |  | [optional] 
+**conflicts** | [**[Conflict]**](Conflict.md) | Details on any conflicting approval requests | 
+**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**requestor_id** | **str** | The ID of the member who requested the approval | [optional] 
 **description** | **str** | A human-friendly name for the approval request | [optional] 
 **applied_date** | **int** |  | [optional] 
-**applied_by_member_id** | **str** |  | [optional] 
+**applied_by_member_id** | **str** | The member ID of the member who applied the approval request | [optional] 
 **execution_date** | **int** |  | [optional] 
 **operating_on_id** | **str** | ID of scheduled change to edit or delete | [optional] 
 **integration_metadata** | [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 

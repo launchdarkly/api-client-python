@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete scheduled changes workflow
 
-Delete a scheduled changes workflow
+Delete a scheduled changes workflow.
 
 ### Example
 
@@ -110,7 +110,7 @@ void (empty response body)
 
 Get a scheduled change
 
-Get a scheduled change that will be applied to the feature flag by ID
+Get a scheduled change that will be applied to the feature flag by ID.
 
 ### Example
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Scheduled change response |  -  |
+**200** | Scheduled changes response |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 Update scheduled changes workflow
 
-Update a scheduled change, overriding existing instructions with the new ones.<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/reference#updates-via-semantic-patches).
+ Update a scheduled change, overriding existing instructions with the new ones. Updating a scheduled change uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating scheduled changes.  #### deleteScheduledChange  Removes the scheduled change.  #### replaceScheduledChangesInstructions  Removes the existing scheduled changes and replaces them with the new instructions.  ##### Parameters  - `value`: An array of the new actions to perform when the execution date for these scheduled changes arrives. Supported scheduled actions are `turnFlagOn` and `turnFlagOff`.  For example, to replace the scheduled changes, use this request body:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [     {       \"kind\": \"replaceScheduledChangesInstructions\",       \"value\": [ {\"kind\": \"turnFlagOff\"} ]     }   ] } ```  #### updateScheduledChangesExecutionDate  Updates the execution date for the scheduled changes.  ##### Parameters  - `value`: the new execution date, in Unix milliseconds. 
 
 ### Example
 
@@ -336,12 +336,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The scheduled change ID
     flag_scheduled_changes_input = FlagScheduledChangesInput(
-        comment="comment_example",
+        comment="optional comment",
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
     ) # FlagScheduledChangesInput | 
-    ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
+    ignore_conflicts = True # bool | Whether to succeed (`true`) or fail (`false`) when these new instructions conflict with existing scheduled changes (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -371,7 +373,7 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key |
  **id** | **str**| The scheduled change ID |
  **flag_scheduled_changes_input** | [**FlagScheduledChangesInput**](FlagScheduledChangesInput.md)|  |
- **ignore_conflicts** | **bool**| Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | [optional]
+ **ignore_conflicts** | **bool**| Whether to succeed (&#x60;true&#x60;) or fail (&#x60;false&#x60;) when these new instructions conflict with existing scheduled changes | [optional]
 
 ### Return type
 
@@ -391,7 +393,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful scheduled changes response |  -  |
+**200** | Scheduled changes response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -407,7 +409,7 @@ Name | Type | Description  | Notes
 
 Create scheduled changes workflow
 
-Create scheduled changes for a feature flag. If the ignoreConficts query parameter is false and the new instructions would conflict with the current state of the feature flag or any existing scheduled changes, the request will fail. If the parameter is true and there are conflicts, the request will succeed as normal.
+Create scheduled changes for a feature flag. If the `ignoreConficts` query parameter is false and there are conflicts between these instructions and existing scheduled changes, the request will fail. If the parameter is true and there are conflicts, the request will succeed.
 
 ### Example
 
@@ -452,13 +454,15 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     post_flag_scheduled_changes_input = PostFlagScheduledChangesInput(
-        comment="comment_example",
+        comment="optional comment",
         execution_date=1,
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
     ) # PostFlagScheduledChangesInput | 
-    ignore_conflicts = True # bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
+    ignore_conflicts = True # bool | Whether to succeed (`true`) or fail (`false`) when these instructions conflict with existing scheduled changes (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -487,7 +491,7 @@ Name | Type | Description  | Notes
  **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
  **post_flag_scheduled_changes_input** | [**PostFlagScheduledChangesInput**](PostFlagScheduledChangesInput.md)|  |
- **ignore_conflicts** | **bool**| Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | [optional]
+ **ignore_conflicts** | **bool**| Whether to succeed (&#x60;true&#x60;) or fail (&#x60;false&#x60;) when these instructions conflict with existing scheduled changes | [optional]
 
 ### Return type
 
@@ -507,7 +511,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful scheduled changes response |  -  |
+**201** | Scheduled changes response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

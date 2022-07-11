@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 Creates a webhook
 
-Create a new webhook
+Create a new webhook.
 
 ### Example
 
@@ -407,15 +407,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         secret="frobozz",
         statements=StatementPostList([
             StatementPost(
-                resources=[
-                    "resources_example",
-                ],
+                resources=["proj/*:env/*:flag/*;testing-tag"],
                 not_resources=[
                     "not_resources_example",
                 ],
-                actions=[
-                    "actions_example",
-                ],
+                actions=["*"],
                 not_actions=[
                     "not_actions_example",
                 ],

@@ -10,15 +10,15 @@ Name | Type | Description | Notes
 **sel** | **str** |  | 
 **last_modified** | **int** |  | 
 **version** | **int** |  | 
-**targets** | [**[Target]**](Target.md) |  | 
-**rules** | [**[Rule]**](Rule.md) |  | 
-**fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | 
-**prerequisites** | [**[Prerequisite]**](Prerequisite.md) |  | 
 **site** | [**Link**](Link.md) |  | 
 **environment_name** | **str** |  | 
 **track_events** | **bool** |  | 
 **track_events_fallthrough** | **bool** |  | 
+**targets** | [**[Target]**](Target.md) |  | [optional] 
+**rules** | [**[Rule]**](Rule.md) |  | [optional] 
+**fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **off_variation** | **int** |  | [optional] 
+**prerequisites** | [**[Prerequisite]**](Prerequisite.md) |  | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
 **debug_events_until_date** | **int** |  | [optional] 
 **summary** | [**FlagSummary**](FlagSummary.md) |  | [optional] 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** |  | 
 **name** | **str** |  | 
-**policy** | [**[StatementRep]**](StatementRep.md) |  | 
+**policy** | [**[Statement]**](Statement.md) |  | 
 **full_key** | **str** |  | 
 **display_key** | **str** |  | 
 **creation_date** | **int** |  | 

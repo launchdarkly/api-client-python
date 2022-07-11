@@ -4,12 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** | A human-friendly name for the approval request | 
+**description** | **str** | A brief description of the changes you&#39;re requesting | 
 **instructions** | [**Instructions**](Instructions.md) |  | 
-**notify_member_ids** | **[str]** | An array of member IDs. These members are notified to review the approval request | 
-**comment** | **str** | A comment describing the approval request | [optional] 
+**comment** | **str** | Optional comment describing the approval request | [optional] 
+**notify_member_ids** | **[str]** | An array of member IDs. These members are notified to review the approval request. | [optional] 
+**notify_team_keys** | **[str]** | An array of team keys. The members of these teams are notified to review the approval request. | [optional] 
 **execution_date** | **int** |  | [optional] 
-**operating_on_id** | **str** | ID of scheduled change to edit or delete | [optional] 
+**operating_on_id** | **str** | The ID of a scheduled change. Include this if your &lt;code&gt;instructions&lt;/code&gt; include editing or deleting a scheduled change. | [optional] 
 **integration_config** | [**FormVariableConfig**](FormVariableConfig.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

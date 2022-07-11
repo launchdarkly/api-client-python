@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Create audit log subscription
 
-Create an audit log subscription.
+Create an audit log subscription.<br /><br />For each subscription, you must specify the set of resources you wish to subscribe to audit log notifications for. You can describe these resources using a custom role policy. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/members/role-concepts).
 
 ### Example
 
@@ -57,28 +57,22 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
     integration_key = "integrationKey_example" # str | The integration key
     subscription_post = SubscriptionPost(
-        name="name_example",
+        name="Example audit log subscription.",
         statements=StatementPostList([
             StatementPost(
-                resources=[
-                    "resources_example",
-                ],
+                resources=["proj/*:env/*:flag/*;testing-tag"],
                 not_resources=[
                     "not_resources_example",
                 ],
-                actions=[
-                    "actions_example",
-                ],
+                actions=["*"],
                 not_actions=[
                     "not_actions_example",
                 ],
                 effect="effect_example",
             ),
         ]),
-        on=True,
-        tags=[
-            "tags_example",
-        ],
+        on=False,
+        tags=["testing-tag"],
         config={
             "key": None,
         },
@@ -121,7 +115,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful integration |  -  |
+**201** | Integration response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -296,7 +290,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful integrations response |  -  |
+**200** | Integration response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -382,7 +376,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful integrations response |  -  |
+**200** | Integrations response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |

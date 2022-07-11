@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**{str: (UserFlagSetting,)}**](UserFlagSetting.md) |  | 
+**items** | [**{str: (UserFlagSetting,)}**](UserFlagSetting.md) | An array of flag settings for the user. | 
 **links** | [**{str: (Link,)}**](Link.md) |  | 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

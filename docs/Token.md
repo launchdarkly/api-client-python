@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **custom_role_ids** | **[str]** |  | [optional] 
-**inline_role** | [**[StatementRep]**](StatementRep.md) |  | [optional] 
+**inline_role** | [**[Statement]**](Statement.md) |  | [optional] 
 **role** | **str** |  | [optional] 
 **token** | **str** |  | [optional] 
 **service_token** | **bool** |  | [optional] 

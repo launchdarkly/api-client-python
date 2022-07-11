@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Delete approval request
 
-Delete an approval request for a feature flag
+Delete an approval request for a feature flag.
 
 ### Example
 
@@ -108,7 +108,7 @@ void (empty response body)
 
 Get approval request
 
-Get a single approval request for a feature flag
+Get a single approval request for a feature flag.
 
 ### Example
 
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful approval request response |  -  |
+**200** | Approval request response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 List all approval requests
 
-Get all approval requests for a feature flag
+Get all approval requests for a feature flag.
 
 ### Example
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful approval request response |  -  |
+**200** | Approval request collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 Create approval request
 
-Create an approval request for a feature flag
+Create an approval request for a feature flag.
 
 ### Example
 
@@ -332,16 +332,17 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
     create_flag_config_approval_request_request = CreateFlagConfigApprovalRequestRequest(
-        comment="comment_example",
-        description="description_example",
+        comment="optional comment",
+        description="Requesting to update targeting",
         instructions=Instructions([
-            None,
+            Instruction(
+                key=None,
+            ),
         ]),
-        notify_member_ids=[
-            "notify_member_ids_example",
-        ],
+        notify_member_ids=["1234a56b7c89d012345e678f"],
+        notify_team_keys=["example-reviewer-team"],
         execution_date=1,
-        operating_on_id="operating_on_id_example",
+        operating_on_id="6297ed79dee7dc14e1f9a80c",
         integration_config=FormVariableConfig(
             key=None,
         ),
@@ -384,7 +385,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful approval request response |  -  |
+**201** | Approval request response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -397,7 +398,7 @@ Name | Type | Description  | Notes
 
 Apply approval request
 
-Apply approval request by either approving or declining changes.
+Apply an approval request that has been approved.
 
 ### Example
 
@@ -441,7 +442,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
     post_approval_request_apply_request = PostApprovalRequestApplyRequest(
-        comment="comment_example",
+        comment="Looks good, thanks for updating",
     ) # PostApprovalRequestApplyRequest | 
 
     # example passing only required values which don't have defaults set
@@ -482,7 +483,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful approval request apply response |  -  |
+**200** | Approval request apply response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -496,7 +497,7 @@ Name | Type | Description  | Notes
 
 Review approval request
 
-Review approval request by either approving or declining changes.
+Review an approval request by approving or denying changes.
 
 ### Example
 
@@ -540,8 +541,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     id = "id_example" # str | The feature flag approval request ID
     post_approval_request_review_request = PostApprovalRequestReviewRequest(
-        kind="kind_example",
-        comment="comment_example",
+        kind="approve",
+        comment="Looks good, thanks for updating",
     ) # PostApprovalRequestReviewRequest | 
 
     # example passing only required values which don't have defaults set
@@ -582,7 +583,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful approval request review response |  -  |
+**200** | Approval request review response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -637,23 +638,18 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = approvals_api.ApprovalsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
+    environment_key = "environmentKey_example" # str | The environment key for the target environment
     create_copy_flag_config_approval_request_request = CreateCopyFlagConfigApprovalRequestRequest(
-        comment="comment_example",
-        description="description_example",
-        notify_member_ids=[
-            "notify_member_ids_example",
-        ],
+        comment="optional comment",
+        description="copy flag settings to another environment",
+        notify_member_ids=["1234a56b7c89d012345e678f"],
+        notify_team_keys=["example-reviewer-team"],
         source=SourceFlag(
-            key="key_example",
+            key="example-environment-key",
             version=1,
         ),
-        included_actions=[
-            "included_actions_example",
-        ],
-        excluded_actions=[
-            "excluded_actions_example",
-        ],
+        included_actions=["updateOn"],
+        excluded_actions=["updateOn"],
     ) # CreateCopyFlagConfigApprovalRequestRequest | 
 
     # example passing only required values which don't have defaults set
@@ -672,7 +668,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
  **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
+ **environment_key** | **str**| The environment key for the target environment |
  **create_copy_flag_config_approval_request_request** | [**CreateCopyFlagConfigApprovalRequestRequest**](CreateCopyFlagConfigApprovalRequestRequest.md)|  |
 
 ### Return type
@@ -693,7 +689,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful approval request response |  -  |
+**201** | Approval request response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

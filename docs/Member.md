@@ -12,16 +12,17 @@ Name | Type | Description | Notes
 **verified** | **bool** | Whether or not the member&#39;s email address has been verified | 
 **custom_roles** | **[str]** | The set of custom roles (as keys) assigned to the member | 
 **mfa** | **str** | Whether or not multi-factor authentication is enabled for this member | 
-**excluded_dashboards** | **[str]** | Default dashboards that the member has chosen to ignore | 
 **last_seen** | **int** |  | 
 **creation_date** | **int** |  | 
 **first_name** | **str** | The member&#39;s first name | [optional] 
 **last_name** | **str** | The member&#39;s last name | [optional] 
 **pending_email** | **str** |  | [optional] 
+**excluded_dashboards** | **[str]** | Default dashboards that the member has chosen to ignore | [optional] 
 **last_seen_metadata** | [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **integration_metadata** | [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
 **teams** | [**[MemberTeamSummaryRep]**](MemberTeamSummaryRep.md) |  | [optional] 
 **permission_grants** | [**[MemberPermissionGrantSummaryRep]**](MemberPermissionGrantSummaryRep.md) |  | [optional] 
+**oauth_providers** | **[str]** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

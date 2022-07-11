@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [optional] 
-**execute_conditions_in_sequence** | **bool** |  | [optional] 
-**conditions** | [**[ConditionInputRep]**](ConditionInputRep.md) |  | [optional] 
+**name** | **str** | The stage name | [optional] 
+**execute_conditions_in_sequence** | **bool** | Whether to execute the conditions in sequence for the given stage | [optional] 
+**conditions** | [**[ConditionInputRep]**](ConditionInputRep.md) | An array of conditions for the stage. | [optional] 
 **action** | [**ActionInputRep**](ActionInputRep.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **hypothesis** | **str** |  | 
 **status** | **str** |  | 
+**created_at** | **int** |  | 
 **id** | **str** |  | [optional] 
 **started_at** | **int** |  | [optional] 
 **ended_at** | **int** |  | [optional] 

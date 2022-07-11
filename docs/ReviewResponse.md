@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The approval request id | 
-**kind** | **str** | The type of review action to take. Either \&quot;approve\&quot;, \&quot;decline\&quot; or \&quot;comment\&quot; | 
+**id** | **str** | The approval request ID | 
+**kind** | **str** | The type of review action to take | 
 **creation_date** | **int** |  | [optional] 
 **comment** | **str** | A comment describing the approval response | [optional] 
 **member_id** | **str** | ID of account member that reviewed request | [optional] 

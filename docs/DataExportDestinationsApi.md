@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**get_destination**](DataExportDestinationsApi.md#get_destination) | **GET** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Get destination
 [**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /api/v2/destinations | List destinations
 [**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
-[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projectKey}/{environmentKey} | Create data export destination
+[**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
 
 
 # **delete_destination**
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete Data Export destination
 
-Delete Data Export destination by ID
+Delete a Data Export destination by ID.
 
 ### Example
 
@@ -104,7 +104,7 @@ void (empty response body)
 
 Get destination
 
-Get a single Data Export destination by ID
+Get a single Data Export destination by ID.
 
 ### Example
 
@@ -375,9 +375,9 @@ Name | Type | Description  | Notes
 # **post_destination**
 > Destination post_destination(project_key, environment_key, destination_post)
 
-Create data export destination
+Create Data Export destination
 
-Create a new destination. The `config` body parameter represents the configuration parameters required for a destination type.
+ Create a new Data Export destination.  In the `config` request body parameter, the fields required depend on the type of Data Export destination.  <details> <summary>Click to expand <code>config</code> parameter details</summary>  #### Azure Event Hubs  To create a Data Export destination with a `kind` of `azure-event-hubs`, the `config` object requires the following fields:  * `namespace`: The Event Hub Namespace name * `name`: The Event Hub name * `policyName`: The shared access signature policy name. You can find your policy name in the settings of your Azure Event Hubs Namespace. * `policyKey`: The shared access signature key. You can find your policy key in the settings of your Azure Event Hubs Namespace.  #### Google Cloud Pub/Sub  To create a Data Export destination with a `kind` of `google-pubsub`, the `config` object requires the following fields:  * `project`: The Google PubSub project ID for the project to publish to * `topic`: The Google PubSub topic ID for the topic to publish to  #### Amazon Kinesis  To create a Data Export destination with a `kind` of `kinesis`, the `config` object requires the following fields:  * `region`: The Kinesis stream's AWS region key * `roleArn`: The Amazon Resource Name (ARN) of the AWS role that will be writing to Kinesis * `streamName`: The name of the Kinesis stream that LaunchDarkly is sending events to. This is not the ARN of the stream.  #### mParticle  To create a Data Export destination with a `kind` of `mparticle`, the `config` object requires the following fields:  * `apiKey`: The mParticle API key * `secret`: The mParticle API secret * `userIdentity`: The type of identifier you use to identify your users in mParticle * `anonymousUserIdentity`: The type of identifier you use to identify your anonymous users in mParticle  #### Segment  To create a Data Export destination with a `kind` of `segment`, the `config` object requires the following fields:  * `writeKey`: The Segment write key. This is used to authenticate LaunchDarkly's calls to Segment.  </details> 
 
 ### Example
 
@@ -419,7 +419,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     destination_post = DestinationPost(
-        name="name_example",
+        name="example-destination",
         kind="google-pubsub",
         config=None,
         on=True,
@@ -427,7 +427,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Create data export destination
+        # Create Data Export destination
         api_response = api_instance.post_destination(project_key, environment_key, destination_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:

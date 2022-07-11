@@ -404,20 +404,16 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = custom_roles_api.CustomRolesApi(api_client)
     custom_role_post = CustomRolePost(
-        name="name_example",
-        key="key_example",
-        description="description_example",
+        name="Ops team",
+        key="ops-team",
+        description="An example role for members of the ops team",
         policy=StatementPostList([
             StatementPost(
-                resources=[
-                    "resources_example",
-                ],
+                resources=["proj/*:env/*:flag/*;testing-tag"],
                 not_resources=[
                     "not_resources_example",
                 ],
-                actions=[
-                    "actions_example",
-                ],
+                actions=["*"],
                 not_actions=[
                     "not_actions_example",
                 ],

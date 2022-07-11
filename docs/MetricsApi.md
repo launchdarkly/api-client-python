@@ -371,7 +371,7 @@ Name | Type | Description  | Notes
 
 Create metric
 
-Create a new metric in the specified project. Note that the expected POST body differs depending on the specified kind property.
+Create a new metric in the specified project. The expected `POST` body differs depending on the specified `kind` property.
 
 ### Example
 
@@ -413,11 +413,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     metric_post = MetricPost(
-        key="key_example",
-        name="name_example",
-        description="description_example",
-        kind="pageview",
-        selector="selector_example",
+        key="example-metric",
+        name="Example metric",
+        description="optional description",
+        kind="custom",
+        selector=".dropdown-toggle",
         urls=[
             UrlPost(
                 kind="exact",
@@ -427,13 +427,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             ),
         ],
         is_active=True,
-        is_numeric=True,
-        unit="unit_example",
-        event_key="event_key_example",
-        success_criteria="HigherThanBaseline",
-        tags=[
-            "tags_example",
-        ],
+        is_numeric=False,
+        unit="orders",
+        event_key="sales generated",
+        success_criteria="Higher than baseline",
+        tags=["example-tag"],
     ) # MetricPost | 
 
     # example passing only required values which don't have defaults set
