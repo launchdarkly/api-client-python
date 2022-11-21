@@ -16,6 +16,7 @@
 # Import APIs into API package:
 from launchdarkly_api.api.access_tokens_api import AccessTokensApi
 from launchdarkly_api.api.account_members_api import AccountMembersApi
+from launchdarkly_api.api.account_members_beta_api import AccountMembersBetaApi
 from launchdarkly_api.api.account_usage_beta_api import AccountUsageBetaApi
 from launchdarkly_api.api.approvals_api import ApprovalsApi
 from launchdarkly_api.api.audit_log_api import AuditLogApi
@@ -41,8 +42,10 @@ from launchdarkly_api.api.segments_api import SegmentsApi
 from launchdarkly_api.api.segments_beta_api import SegmentsBetaApi
 from launchdarkly_api.api.tags_api import TagsApi
 from launchdarkly_api.api.teams_api import TeamsApi
+from launchdarkly_api.api.teams_beta_api import TeamsBetaApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
 from launchdarkly_api.api.users_beta_api import UsersBetaApi
 from launchdarkly_api.api.webhooks_api import WebhooksApi
+from launchdarkly_api.api.workflow_templates_beta_api import WorkflowTemplatesBetaApi
 from launchdarkly_api.api.workflows_beta_api import WorkflowsBetaApi

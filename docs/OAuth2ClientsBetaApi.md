@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful OAuth 2.0 client creation response |  -  |
+**201** | OAuth 2.0 client response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful |  -  |
+**200** | OAuth 2.0 client response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

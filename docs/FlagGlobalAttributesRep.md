@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **variations** | [**[Variation]**](Variation.md) | An array of possible variations for the flag | 
 **temporary** | **bool** | Whether the flag is a temporary flag | 
 **tags** | **[str]** | Tags for the feature flag | 
-**links** | [**{str: (Link,)}**](Link.md) |  | 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **custom_properties** | [**CustomProperties**](CustomProperties.md) |  | 
 **archived** | **bool** | Boolean indicating if the feature flag is archived | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **maintainer_id** | **str** | Associated maintainerId for the feature flag | [optional] 
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
-**goal_ids** | **[str]** |  | [optional] 
+**goal_ids** | **[str]** | Deprecated | [optional] 
 **archived_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

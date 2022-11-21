@@ -5,8 +5,8 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_approval_request**](ApprovalsApi.md#delete_approval_request) | **DELETE** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
-[**get_approval**](ApprovalsApi.md#get_approval) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request
-[**get_approvals**](ApprovalsApi.md#get_approvals) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List all approval requests
+[**get_approval_for_flag**](ApprovalsApi.md#get_approval_for_flag) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request for a flag
+[**get_approvals_for_flag**](ApprovalsApi.md#get_approvals_for_flag) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List approval requests for a flag
 [**post_approval_request**](ApprovalsApi.md#post_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**post_approval_request_apply_request**](ApprovalsApi.md#post_approval_request_apply_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**post_approval_request_review**](ApprovalsApi.md#post_approval_request_review) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
@@ -103,10 +103,10 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_approval**
-> FlagConfigApprovalRequestResponse get_approval(project_key, feature_flag_key, environment_key, id)
+# **get_approval_for_flag**
+> FlagConfigApprovalRequestResponse get_approval_for_flag(project_key, feature_flag_key, environment_key, id)
 
-Get approval request
+Get approval request for a flag
 
 Get a single approval request for a feature flag.
 
@@ -152,11 +152,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get approval request
-        api_response = api_instance.get_approval(project_key, feature_flag_key, environment_key, id)
+        # Get approval request for a flag
+        api_response = api_instance.get_approval_for_flag(project_key, feature_flag_key, environment_key, id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->get_approval: %s\n" % e)
+        print("Exception when calling ApprovalsApi->get_approval_for_flag: %s\n" % e)
 ```
 
 
@@ -195,10 +195,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_approvals**
-> FlagConfigApprovalRequestsResponse get_approvals(project_key, feature_flag_key, environment_key)
+# **get_approvals_for_flag**
+> FlagConfigApprovalRequestsResponse get_approvals_for_flag(project_key, feature_flag_key, environment_key)
 
-List all approval requests
+List approval requests for a flag
 
 Get all approval requests for a feature flag.
 
@@ -243,11 +243,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # List all approval requests
-        api_response = api_instance.get_approvals(project_key, feature_flag_key, environment_key)
+        # List approval requests for a flag
+        api_response = api_instance.get_approvals_for_flag(project_key, feature_flag_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->get_approvals: %s\n" % e)
+        print("Exception when calling ApprovalsApi->get_approvals_for_flag: %s\n" % e)
 ```
 
 

@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**IntegrationDeliveryConfigurationLinks**](IntegrationDeliveryConfigurationLinks.md) |  | 
-**id** | **str** |  | 
+**id** | **str** | The integration ID | 
 **integration_key** | **str** | The integration key | 
 **project_key** | **str** | The project key | 
 **environment_key** | **str** | The environment key | 
 **config** | [**FormVariableConfig**](FormVariableConfig.md) |  | 
-**on** | **bool** | Whether or not the configuration is turned on | 
+**on** | **bool** | Whether the configuration is turned on | 
 **tags** | **[str]** | List of tags for this configuration | 
 **name** | **str** | Name of the configuration | 
 **version** | **int** | Version of the current configuration | 

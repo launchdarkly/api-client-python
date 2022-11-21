@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**projects** | [**[Link]**](Link.md) |  | [optional] 
+**projects** | [**[Link]**](Link.md) | The location and content type of all projects that have code references | [optional] 
 **_self** | [**Link**](Link.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

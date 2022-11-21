@@ -255,7 +255,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Relay auto config response |  -  |
+**200** | Relay auto configs collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |
@@ -410,15 +410,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         name="name_example",
         policy=[
             Statement(
-                resources=[
-                    "resources_example",
-                ],
+                resources=["proj/*:env/*;qa_*:/flag/*"],
                 not_resources=[
                     "not_resources_example",
                 ],
-                actions=[
-                    "actions_example",
-                ],
+                actions=["*"],
                 not_actions=[
                     "not_actions_example",
                 ],

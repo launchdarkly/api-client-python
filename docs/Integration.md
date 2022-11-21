@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | [optional] 
 **id** | **str** | The ID for this integration audit log subscription | [optional] 
 **kind** | **str** | The type of integration | [optional] 
 **name** | **str** | A human-friendly name for the integration | [optional] 

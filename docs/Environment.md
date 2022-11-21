@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**{str: (Link,)}**](Link.md) | Links to related resources. | 
+**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources | 
 **id** | **str** |  | 
 **key** | **str** | A project-unique key for the new environment. | 
 **name** | **str** | A human-friendly name for the new environment. | 
@@ -14,9 +14,9 @@ Name | Type | Description | Notes
 **default_ttl** | **int** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | 
 **secure_mode** | **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | 
 **default_track_events** | **bool** | Enables tracking detailed information for new flags by default. | 
-**require_comments** | **bool** |  | 
-**confirm_changes** | **bool** |  | 
-**tags** | **[str]** |  | 
+**require_comments** | **bool** | Whether members who modify flags and user segments through the LaunchDarkly user interface are required to add a comment | 
+**confirm_changes** | **bool** | Whether members who modify flags and user segments through the LaunchDarkly user interface are required to confirm those changes | 
+**tags** | **[str]** | A list of tags for this environment | 
 **approval_settings** | [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

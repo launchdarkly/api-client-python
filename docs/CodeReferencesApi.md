@@ -1080,8 +1080,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     repository_post = RepositoryPost(
         name="LaunchDarkly-Docs",
         source_link="https://github.com/launchdarkly/LaunchDarkly-Docs",
-        commit_url_template="/commit/${sha}",
-        hunk_url_template="/blob/${sha}/${filePath}#L${lineNumber}",
+        commit_url_template="https://github.com/launchdarkly/LaunchDarkly-Docs/commit/${sha}",
+        hunk_url_template="https://github.com/launchdarkly/LaunchDarkly-Docs/blob/${sha}/${filePath}#L${lineNumber}",
         type="github",
         default_branch="main",
     ) # RepositoryPost | 

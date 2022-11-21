@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Access token response JSON |  -  |
+**200** | Access token response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Access token response JSON |  -  |
+**200** | Access tokens collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |
@@ -357,7 +357,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Access token response JSON |  -  |
+**200** | Access token response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -469,7 +469,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Access token response JSON |  -  |
+**201** | Access token response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -566,7 +566,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Access token response JSON |  -  |
+**200** | Access token response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |

@@ -264,9 +264,9 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
-    _from = "from_example" # str | The series of data returned starts from this timestamp. Defaults to seven days ago. (optional)
-    to = "to_example" # str | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
-    sdktype = "sdktype_example" # str | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server` (optional)
+    _from = "from_example" # str | The data returned starts from this timestamp. Defaults to seven days ago. The timestamp is in Unix milliseconds, for example, 1656694800000. (optional)
+    to = "to_example" # str | The data returned ends at this timestamp. Defaults to the current time. The timestamp is in Unix milliseconds, for example, 1657904400000. (optional)
+    sdktype = "sdktype_example" # str | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server`. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -283,9 +283,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **_from** | **str**| The series of data returned starts from this timestamp. Defaults to seven days ago. | [optional]
- **to** | **str**| The series of data returned ends at this timestamp. Defaults to the current time. | [optional]
- **sdktype** | **str**| The type of SDK with monthly active users (MAU) to list. Must be either &#x60;client&#x60; or &#x60;server&#x60; | [optional]
+ **_from** | **str**| The data returned starts from this timestamp. Defaults to seven days ago. The timestamp is in Unix milliseconds, for example, 1656694800000. | [optional]
+ **to** | **str**| The data returned ends at this timestamp. Defaults to the current time. The timestamp is in Unix milliseconds, for example, 1657904400000. | [optional]
+ **sdktype** | **str**| The type of SDK with monthly active users (MAU) to list. Must be either &#x60;client&#x60; or &#x60;server&#x60;. | [optional]
 
 ### Return type
 

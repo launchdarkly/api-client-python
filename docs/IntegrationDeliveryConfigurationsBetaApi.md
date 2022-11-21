@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Integration delivery configuration response |  -  |
+**200** | Integration delivery configuration collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -575,7 +575,7 @@ Name | Type | Description  | Notes
 
 Validate delivery configuration
 
-Validate the saved delivery configuration.
+Validate the saved delivery configuration, using the `validationRequest` in the integration's `manifest.json` file.
 
 ### Example
 
@@ -655,7 +655,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Integration delivery configuration response |  -  |
+**200** | Integration delivery configuration validation response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

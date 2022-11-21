@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Environment response JSON |  -  |
+**200** | Environment response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Project environments response JSON |  -  |
+**200** | Environments collection response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Environment response JSON |  -  |
+**200** | Environment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -490,7 +490,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful environment response |  -  |
+**201** | Environment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -581,7 +581,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful environment response |  -  |
+**200** | Environment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -682,7 +682,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Successful environment response |  -  |
+**200** | Environment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

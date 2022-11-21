@@ -102,7 +102,7 @@ void (empty response body)
 
 Get metric
 
-Get information for a single metric from the specific project.
+Get information for a single metric from the specific project.  ### Expanding the metric response LaunchDarkly supports two fields for expanding the \"Get metric\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `experiments` includes all experiments from the specific project that use the metric - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experiments` includes the `experiments` field in the response. 
 
 ### Example
 
@@ -141,11 +141,21 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     metric_key = "metricKey_example" # str | The metric key
+    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get metric
         api_response = api_instance.get_metric(project_key, metric_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling MetricsApi->get_metric: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get metric
+        api_response = api_instance.get_metric(project_key, metric_key, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->get_metric: %s\n" % e)
@@ -158,6 +168,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
  **metric_key** | **str**| The metric key |
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
 
 ### Return type
 
@@ -177,7 +188,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Metric response JSON |  -  |
+**200** | Metric response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -190,7 +201,7 @@ Name | Type | Description  | Notes
 
 List metrics
 
-Get a list of all metrics for the specified project.
+Get a list of all metrics for the specified project.  ### Expanding the metric list response LaunchDarkly supports expanding the \"List metrics\" response. By default, the expandable field is **not** included in the response.  To expand the response, append the `expand` query parameter and add the following supported field:  - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experimentCount` includes the `experimentCount` field for each metric in the response. 
 
 ### Example
 
@@ -226,11 +237,21 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
+    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # List metrics
         api_response = api_instance.get_metrics(project_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling MetricsApi->get_metrics: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # List metrics
+        api_response = api_instance.get_metrics(project_key, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->get_metrics: %s\n" % e)
@@ -242,6 +263,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
 
 ### Return type
 
@@ -261,7 +283,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Metrics response JSON |  -  |
+**200** | Metrics collection response |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
 
@@ -357,7 +379,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Metric response JSON |  -  |
+**200** | Metric response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **404** | Invalid resource identifier |  -  |
@@ -469,7 +491,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful metric response |  -  |
+**201** | Metric response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

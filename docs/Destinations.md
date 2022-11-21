@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | [optional] 
 **items** | [**[Destination]**](Destination.md) | An array of Data Export destinations | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

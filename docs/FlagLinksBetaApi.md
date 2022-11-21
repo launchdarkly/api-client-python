@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful flag link response |  -  |
+**201** | Flag link response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Flag link collection response JSON |  -  |
+**200** | Flag link collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |

@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**version** | **int** |  | 
+**id** | **str** | The ID of this expiring user target | 
+**version** | **int** | The version of this expiring user target | 
 **expiration_date** | **int** |  | 
 **user_key** | **str** | A unique key used to represent the user | 
 **resource_id** | [**ResourceIDResponse**](ResourceIDResponse.md) |  | 

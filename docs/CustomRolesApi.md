@@ -252,7 +252,7 @@ This endpoint does not need any parameter.
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Custom roles collection response. |  -  |
+**200** | Custom roles collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |

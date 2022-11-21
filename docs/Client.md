@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**{str: (Link,)}**](Link.md) | Links to related resources. | 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **name** | **str** | Client name | 
 **account_id** | **str** | The account ID the client is registered under | 
 **client_id** | **str** | The client&#39;s unique ID | 

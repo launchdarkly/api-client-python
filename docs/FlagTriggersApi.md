@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Successful flag trigger response |  -  |
+**201** | Flag trigger response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Flag trigger collection response JSON |  -  |
+**200** | Flag trigger collection response |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **429** | Rate limited |  -  |

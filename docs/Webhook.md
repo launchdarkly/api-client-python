@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **id** | **str** | The ID of this webhook | 
 **url** | **str** | The URL to which LaunchDarkly sends an HTTP POST payload for this webhook | 
 **on** | **bool** | Whether or not this webhook is enabled | 

@@ -4,14 +4,15 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** |  | [optional] 
-**key** | **str** |  | [optional] 
-**name** | **str** |  | [optional] 
+**description** | **str** | A description of the team | [optional] 
+**key** | **str** | The team key | [optional] 
+**name** | **str** | A human-friendly name for the team | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
 **creation_date** | **int** |  | [optional] 
-**links** | [**{str: (Link,)}**](Link.md) |  | [optional] 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | [optional] 
 **last_modified** | **int** |  | [optional] 
-**version** | **int** |  | [optional] 
+**version** | **int** | The team version | [optional] 
+**idp_synced** | **bool** | Whether the team has been synced with an external identity provider (IdP). Team sync is available to customers on an Enterprise plan. | [optional] 
 **roles** | [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
 **members** | [**TeamMembers**](TeamMembers.md) |  | [optional] 
 **projects** | [**TeamProjects**](TeamProjects.md) |  | [optional] 

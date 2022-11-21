@@ -61,36 +61,36 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_post = ExperimentPost(
-        name="name_example",
-        description="description_example",
-        maintainer_id="maintainer_id_example",
-        key="key_example",
+        name="Example experiment",
+        description="An example experiment, used in testing",
+        maintainer_id="12ab3c45de678910fgh12345",
+        key="example-experiment",
         iteration=IterationInput(
-            hypothesis="hypothesis_example",
+            hypothesis="Example hypothesis, the new button placement will increase conversion",
             can_reshuffle_traffic=True,
             metrics=MetricsInput([
                 MetricInput(
-                    key="key_example",
+                    key="example-metric",
                     primary=True,
                 ),
             ]),
             treatments=TreatmentsInput([
                 TreatmentInput(
-                    name="name_example",
+                    name="Treatment 1",
                     baseline=True,
-                    allocation_percent="allocation_percent_example",
+                    allocation_percent="10",
                     parameters=[
                         TreatmentParameterInput(
-                            flag_key="flag_key_example",
-                            variation_id="variation_id_example",
+                            flag_key="example-flag-for-experiment",
+                            variation_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
                         ),
                     ],
                 ),
             ]),
             flags=FlagsInput(
                 key=FlagInput(
-                    rule_id="rule_id_example",
-                    flag_config_version=1,
+                    rule_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
+                    flag_config_version=12,
                 ),
             ),
         ),
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Experiment response JSON |  -  |
+**201** | Experiment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -189,31 +189,31 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
     iteration_input = IterationInput(
-        hypothesis="hypothesis_example",
+        hypothesis="Example hypothesis, the new button placement will increase conversion",
         can_reshuffle_traffic=True,
         metrics=MetricsInput([
             MetricInput(
-                key="key_example",
+                key="example-metric",
                 primary=True,
             ),
         ]),
         treatments=TreatmentsInput([
             TreatmentInput(
-                name="name_example",
+                name="Treatment 1",
                 baseline=True,
-                allocation_percent="allocation_percent_example",
+                allocation_percent="10",
                 parameters=[
                     TreatmentParameterInput(
-                        flag_key="flag_key_example",
-                        variation_id="variation_id_example",
+                        flag_key="example-flag-for-experiment",
+                        variation_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
                     ),
                 ],
             ),
         ]),
         flags=FlagsInput(
             key=FlagInput(
-                rule_id="rule_id_example",
-                flag_config_version=1,
+                rule_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
+                flag_config_version=12,
             ),
         ),
     ) # IterationInput | 
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Iteration response JSON |  -  |
+**200** | Iteration response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 
 Get experiment
 
-Get details about an experiment.
+Get details about an experiment.  ### Expanding the experiment response LaunchDarkly supports four fields for expanding the \"Get experiment\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `previousIterations` includes all iterations prior to the current iteration. By default only the current iteration is included in the response. - `draftIteration` includes a draft of an iteration which has not been started yet, if any. - `secondaryMetrics` includes secondary metrics. By default only the primary metric is included in the response. - `treatments` includes all treatment and parameter details. By default treatment data is not included in the response.  For example, `expand=draftIteration,treatments` includes the `draftIteration` and `treatments` fields in the response. 
 
 ### Example
 
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Experiment response JSON |  -  |
+**200** | Experiment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -443,7 +443,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Experiment results response JSON |  -  |
+**200** | Experiment results response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 Get experiments
 
-Get details about all experiments in an environment.  ### Filtering experiments  LaunchDarkly supports the `filter` query param for filtering, with the following fields:  - `flagKey` filters for only experiments that use the flag with the given key. - `metricKey` filters for only experiments that use the metric with the given key. - `status` filters for only experiments with an iteration with the given status. An iteration can have the status `not_started`, `running` or `stopped`.  For example, `filter=flagKey:my-flag,status:running,metricKey:page-load-ms` filters for experiments for the given flag key and the given metric key which have a currently running iteration.  ### Expanding the experiments response LaunchDarkly supports four fields for expanding the \"List experiments\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `previousIterations` includes all iterations prior to the current iteration.  By default only the current iteration will be included in the response. - `draftIteration` includes a draft of an iteration which has not been started yet, if any. - `secondaryMetrics` includes secondary metrics.  By default only the primary metric is included in the response. - `treatments` includes all treatment and parameter details.  By default treatment data will not be included in the response.  For example, `expand=draftIteration,treatments` includes the `draftIteration` and `treatments` fields in the response. 
+Get details about all experiments in an environment.  ### Filtering experiments  LaunchDarkly supports the `filter` query param for filtering, with the following fields:  - `flagKey` filters for only experiments that use the flag with the given key. - `metricKey` filters for only experiments that use the metric with the given key. - `status` filters for only experiments with an iteration with the given status. An iteration can have the status `not_started`, `running` or `stopped`.  For example, `filter=flagKey:my-flag,status:running,metricKey:page-load-ms` filters for experiments for the given flag key and the given metric key which have a currently running iteration. 
 
 ### Example
 
@@ -498,10 +498,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
-    limit = 1 # int | The maximum number of experiments to return. Defaults to 20 (optional)
+    limit = 1 # int | The maximum number of experiments to return. Defaults to 20. (optional)
     offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter = "filter_example" # str | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
+    lifecycle_state = "lifecycleState_example" # str | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -515,7 +516,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get experiments
-        api_response = api_instance.get_experiments(project_key, environment_key, limit=limit, offset=offset, filter=filter, expand=expand)
+        api_response = api_instance.get_experiments(project_key, environment_key, limit=limit, offset=offset, filter=filter, expand=expand, lifecycle_state=lifecycle_state)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiments: %s\n" % e)
@@ -528,10 +529,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
  **environment_key** | **str**| The environment key |
- **limit** | **int**| The maximum number of experiments to return. Defaults to 20 | [optional]
+ **limit** | **int**| The maximum number of experiments to return. Defaults to 20. | [optional]
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
  **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | [optional]
  **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | [optional]
+ **lifecycle_state** | **str**| A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments | [optional]
 
 ### Return type
 
@@ -551,7 +553,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Experiment response JSON |  -  |
+**200** | Experiment collection response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -673,7 +675,7 @@ Name | Type | Description  | Notes
 
 Patch experiment
 
-Update an experiment. Updating an experiment uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating experiments.  #### updateName  Updates the experiment name.  ##### Parameters  - `value`: The new name.  #### updateDescription  Updates the experiment description.  ##### Parameters  - `value`: The new description.  #### startIteration  Starts a new iteration for this experiment.  #### stopIteration  Stops the current iteration for this experiment. 
+Update an experiment. Updating an experiment uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating experiments.  #### updateName  Updates the experiment name.  ##### Parameters  - `value`: The new name.  #### updateDescription  Updates the experiment description.  ##### Parameters  - `value`: The new description.  #### startIteration  Starts a new iteration for this experiment.  #### stopIteration  Stops the current iteration for this experiment.  ##### Parameters  - `winningTreatmentId`: The ID of the winning treatment - `winningReason`: The reason for the winner 
 
 ### Example
 
@@ -761,7 +763,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Experiment response JSON |  -  |
+**200** | Experiment response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

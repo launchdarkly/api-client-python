@@ -4,21 +4,21 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | A human-friendly name for the segment | 
-**tags** | **[str]** | Tags for the segment | 
+**name** | **str** | A human-friendly name for the segment. | 
+**tags** | **[str]** | Tags for the segment. Defaults to an empty array. | 
 **creation_date** | **int** |  | 
 **key** | **str** | A unique key used to reference the segment | 
-**links** | [**{str: (Link,)}**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **rules** | [**[UserSegmentRule]**](UserSegmentRule.md) | An array of the targeting rules for this segment. | 
 **version** | **int** | Version of the segment | 
 **deleted** | **bool** | Whether the segment has been deleted | 
 **generation** | **int** | For Big Segments, how many times this segment has been created | 
-**description** | **str** | A description of the segment&#39;s purpose | [optional] 
+**description** | **str** | A description of the segment&#39;s purpose. Defaults to &lt;code&gt;null&lt;/code&gt; and is omitted in the response if not provided. | [optional] 
 **included** | **[str]** | An array of user keys for included users. Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
 **excluded** | **[str]** | An array of user keys for excluded users. Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
 **flags** | [**[FlagListingRep]**](FlagListingRep.md) |  | [optional] 
-**unbounded** | **bool** | Whether this is a standard segment (false) or a Big Segment (true) | [optional] 
+**unbounded** | **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). If omitted, the segment is a standard segment. | [optional] 
 **unbounded_metadata** | [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 
 **external** | **str** | The external data store backing this segment. Only applies to Big Segments. | [optional] 
 **external_link** | **str** | The URL for the external data store backing this segment. Only applies to Big Segments. | [optional] 
