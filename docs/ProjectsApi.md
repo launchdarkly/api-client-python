@@ -738,20 +738,18 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = projects_api.ProjectsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     upsert_flag_defaults_payload = UpsertFlagDefaultsPayload(
-        tags=[
-            "tags_example",
-        ],
+        tags=["tag-1","tag-2"],
         temporary=True,
         default_client_side_availability=DefaultClientSideAvailability(
             using_mobile_key=True,
             using_environment_id=True,
         ),
         boolean_defaults=BooleanFlagDefaults(
-            true_display_name="true_display_name_example",
-            false_display_name="false_display_name_example",
-            true_description="true_description_example",
-            false_description="false_description_example",
-            on_variation=1,
+            true_display_name="True",
+            false_display_name="False",
+            true_description="serve true",
+            false_description="serve false",
+            on_variation=0,
             off_variation=1,
         ),
     ) # UpsertFlagDefaultsPayload | 

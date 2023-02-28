@@ -21,6 +21,8 @@ Name | Type | Description | Notes
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **maintainer_id** | **str** | Associated maintainerId for the feature flag | [optional] 
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**maintainer_team_key** | **str** | The key of the associated team that maintains this feature flag | [optional] 
+**maintainer_team** | [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
 **goal_ids** | **[str]** | Deprecated | [optional] 
 **archived_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 

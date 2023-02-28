@@ -68,13 +68,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                         wait_duration=2,
                         wait_duration_unit="wait_duration_unit_example",
                         execute_now=False,
-                        description="description_example",
-                        notify_member_ids=[
-                            "notify_member_ids_example",
-                        ],
-                        notify_team_keys=[
-                            "notify_team_keys_example",
-                        ],
+                        description="Require example-team approval for final stage",
+                        notify_member_ids=["507f1f77bcf86cd799439011"],
+                        notify_team_keys=["example-team"],
                         kind="kind_example",
                     ),
                 ],
@@ -231,7 +227,6 @@ Get workflow templates belonging to an account, or can optionally return templat
 import time
 import launchdarkly_api
 from launchdarkly_api.api import workflow_templates_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.workflow_templates_listing_output_rep import WorkflowTemplatesListingOutputRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
@@ -258,13 +253,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = workflow_templates_beta_api.WorkflowTemplatesBetaApi(api_client)
+    summary = True # bool | Whether the entire template object or just a summary should be returned (optional)
     search = "search_example" # str | The substring in either the name or description of a template (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get workflow templates
-        api_response = api_instance.get_workflow_templates(search=search)
+        api_response = api_instance.get_workflow_templates(summary=summary, search=search)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling WorkflowTemplatesBetaApi->get_workflow_templates: %s\n" % e)
@@ -275,6 +271,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **summary** | **bool**| Whether the entire template object or just a summary should be returned | [optional]
  **search** | **str**| The substring in either the name or description of a template | [optional]
 
 ### Return type
@@ -297,7 +294,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Workflow templates list response JSON |  -  |
 **401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 

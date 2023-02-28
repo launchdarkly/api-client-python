@@ -4,21 +4,22 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**on** | **bool** |  | 
-**archived** | **bool** |  | 
+**on** | **bool** | Whether the flag is on | 
+**archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **salt** | **str** |  | 
 **sel** | **str** |  | 
 **last_modified** | **int** |  | 
-**version** | **int** |  | 
+**version** | **int** | Version of the feature flag | 
 **site** | [**Link**](Link.md) |  | 
-**environment_name** | **str** |  | 
-**track_events** | **bool** |  | 
-**track_events_fallthrough** | **bool** |  | 
-**targets** | [**[Target]**](Target.md) |  | [optional] 
-**rules** | [**[Rule]**](Rule.md) |  | [optional] 
+**environment_name** | **str** | The environment name | 
+**track_events** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for all rules | 
+**track_events_fallthrough** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for the default rule | 
+**targets** | [**[Target]**](Target.md) | An array of the individual targets that will receive a specific variation based on their key | [optional] 
+**context_targets** | [**[Target]**](Target.md) |  | [optional] 
+**rules** | [**[Rule]**](Rule.md) | An array of the rules for how to serve a variation to specific targets based on their attributes | [optional] 
 **fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
-**off_variation** | **int** |  | [optional] 
-**prerequisites** | [**[Prerequisite]**](Prerequisite.md) |  | [optional] 
+**off_variation** | **int** | The ID of the variation to serve when the flag is off | [optional] 
+**prerequisites** | [**[Prerequisite]**](Prerequisite.md) | An array of the prerequisite flags and their variations that are required before this flag takes effect | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
 **debug_events_until_date** | **int** |  | [optional] 
 **summary** | [**FlagSummary**](FlagSummary.md) |  | [optional] 

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **status** | **str** | Current status of the approval request | 
 **instructions** | [**Instructions**](Instructions.md) |  | 
 **conflicts** | [**[Conflict]**](Conflict.md) | Details on any conflicting approval requests | 
-**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
+**links** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | The location and content type of related resources | 
 **requestor_id** | **str** | The ID of the member who requested the approval | [optional] 
 **description** | **str** | A human-friendly name for the approval request | [optional] 
 **applied_date** | **int** |  | [optional] 

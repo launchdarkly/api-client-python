@@ -442,7 +442,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     value_put = ValuePut(
         setting=None,
-        comment="make sure this user experiences a specific variation",
+        comment="make sure this context experiences a specific variation",
     ) # ValuePut | 
 
     # example passing only required values which don't have defaults set

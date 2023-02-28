@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **expiration_date** | **int** |  | 
 **user_key** | **str** | A unique key used to represent the user | 
 **resource_id** | [**ResourceIDResponse**](ResourceIDResponse.md) |  | 
-**target_type** | **str** | A segment&#39;s target type. Included when expiring user targets are updated on a user segment. | [optional] 
+**target_type** | **str** | A segment&#39;s target type. Included when expiring user targets are updated on a segment. | [optional] 
 **variation_id** | **str** | A unique key used to represent the flag variation. Included when expiring user targets are updated on a feature flag. | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

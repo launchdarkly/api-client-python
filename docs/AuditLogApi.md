@@ -4,16 +4,16 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /api/v2/auditlog | List audit log feature flag entries
+[**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /api/v2/auditlog | List audit log entries
 [**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /api/v2/auditlog/{id} | Get audit log entry
 
 
 # **get_audit_log_entries**
 > AuditLogEntryListingRepCollection get_audit_log_entries()
 
-List audit log feature flag entries
+List audit log entries
 
-Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
+Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.  LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [Understanding the resource specifier syntax](https://docs.launchdarkly.com/home/members/role-resources#understanding-the-resource-specifier-syntax). 
 
 ### Example
 
@@ -53,13 +53,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     before = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
     after = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
     q = "q_example" # str | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
-    limit = 1 # int | A limit on the number of audit log entries that return. Set between 1 and 20. (optional)
+    limit = 1 # int | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
     spec = "spec_example" # str | A resource specifier that lets you filter audit log listings by resource (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        # List audit log feature flag entries
+        # List audit log entries
         api_response = api_instance.get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
  **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | [optional]
  **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | [optional]
  **q** | **str**| Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | [optional]
- **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. | [optional]
+ **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | [optional]
  **spec** | **str**| A resource specifier that lets you filter audit log listings by resource | [optional]
 
 ### Return type

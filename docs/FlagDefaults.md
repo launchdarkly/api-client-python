@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tags** | **[str]** |  | [optional] 
-**temporary** | **bool** |  | [optional] 
+**tags** | **[str]** | A list of default tags for each flag | [optional] 
+**temporary** | **bool** | Whether the flag should be temporary by default | [optional] 
 **default_client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **boolean_defaults** | [**BooleanDefaults**](BooleanDefaults.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

@@ -454,6 +454,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         event_key="sales generated",
         success_criteria="Higher than baseline",
         tags=["example-tag"],
+        randomization_units=["user"],
     ) # MetricPost | 
 
     # example passing only required values which don't have defaults set

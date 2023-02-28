@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **custom_role_ids** | **[str]** | A list of custom role IDs to use as access limits for the access token | [optional] 
 **inline_role** | [**[Statement]**](Statement.md) | An array of policy statements, with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. | [optional] 
 **role** | **str** | Built-in role for the token | [optional] 
-**token** | **str** | Last four characters of the token value | [optional] 
+**token** | **str** | The token value. When creating or resetting, contains the entire token value. Otherwise, contains the last four characters. | [optional] 
 **service_token** | **bool** | Whether this is a service token or a personal token | [optional] 
 **default_api_version** | **int** | The default API version for this token | [optional] 
 **last_used** | **int** |  | [optional] 

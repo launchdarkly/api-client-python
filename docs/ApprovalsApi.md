@@ -4,19 +4,19 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_approval_request**](ApprovalsApi.md#delete_approval_request) | **DELETE** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
+[**delete_approval_request_for_flag**](ApprovalsApi.md#delete_approval_request_for_flag) | **DELETE** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request for a flag
 [**get_approval_for_flag**](ApprovalsApi.md#get_approval_for_flag) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request for a flag
 [**get_approvals_for_flag**](ApprovalsApi.md#get_approvals_for_flag) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List approval requests for a flag
-[**post_approval_request**](ApprovalsApi.md#post_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
-[**post_approval_request_apply_request**](ApprovalsApi.md#post_approval_request_apply_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
-[**post_approval_request_review**](ApprovalsApi.md#post_approval_request_review) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
+[**post_approval_request_apply_for_flag**](ApprovalsApi.md#post_approval_request_apply_for_flag) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request for a flag
+[**post_approval_request_for_flag**](ApprovalsApi.md#post_approval_request_for_flag) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request for a flag
+[**post_approval_request_review_for_flag**](ApprovalsApi.md#post_approval_request_review_for_flag) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request for a flag
 [**post_flag_copy_config_approval_request**](ApprovalsApi.md#post_flag_copy_config_approval_request) | **POST** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 
 
-# **delete_approval_request**
-> delete_approval_request(project_key, feature_flag_key, environment_key, id)
+# **delete_approval_request_for_flag**
+> delete_approval_request_for_flag(project_key, feature_flag_key, environment_key, id)
 
-Delete approval request
+Delete approval request for a flag
 
 Delete an approval request for a feature flag.
 
@@ -61,10 +61,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Delete approval request
-        api_instance.delete_approval_request(project_key, feature_flag_key, environment_key, id)
+        # Delete approval request for a flag
+        api_instance.delete_approval_request_for_flag(project_key, feature_flag_key, environment_key, id)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->delete_approval_request: %s\n" % e)
+        print("Exception when calling ApprovalsApi->delete_approval_request_for_flag: %s\n" % e)
 ```
 
 
@@ -285,10 +285,109 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_approval_request**
-> FlagConfigApprovalRequestResponse post_approval_request(project_key, feature_flag_key, environment_key, create_flag_config_approval_request_request)
+# **post_approval_request_apply_for_flag**
+> FlagConfigApprovalRequestResponse post_approval_request_apply_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_apply_request)
 
-Create approval request
+Apply approval request for a flag
+
+Apply an approval request that has been approved.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import approvals_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = approvals_api.ApprovalsApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    environment_key = "environmentKey_example" # str | The environment key
+    id = "id_example" # str | The feature flag approval request ID
+    post_approval_request_apply_request = PostApprovalRequestApplyRequest(
+        comment="Looks good, thanks for updating",
+    ) # PostApprovalRequestApplyRequest | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Apply approval request for a flag
+        api_response = api_instance.post_approval_request_apply_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_apply_request)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ApprovalsApi->post_approval_request_apply_for_flag: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **feature_flag_key** | **str**| The feature flag key |
+ **environment_key** | **str**| The environment key |
+ **id** | **str**| The feature flag approval request ID |
+ **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  |
+
+### Return type
+
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Approval request apply response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_approval_request_for_flag**
+> FlagConfigApprovalRequestResponse post_approval_request_for_flag(project_key, feature_flag_key, environment_key, create_flag_config_approval_request_request)
+
+Create approval request for a flag
 
 Create an approval request for a feature flag.
 
@@ -350,11 +449,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Create approval request
-        api_response = api_instance.post_approval_request(project_key, feature_flag_key, environment_key, create_flag_config_approval_request_request)
+        # Create approval request for a flag
+        api_response = api_instance.post_approval_request_for_flag(project_key, feature_flag_key, environment_key, create_flag_config_approval_request_request)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->post_approval_request: %s\n" % e)
+        print("Exception when calling ApprovalsApi->post_approval_request_for_flag: %s\n" % e)
 ```
 
 
@@ -393,109 +492,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **post_approval_request_apply_request**
-> FlagConfigApprovalRequestResponse post_approval_request_apply_request(project_key, feature_flag_key, environment_key, id, post_approval_request_apply_request)
+# **post_approval_request_review_for_flag**
+> FlagConfigApprovalRequestResponse post_approval_request_review_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_review_request)
 
-Apply approval request
-
-Apply an approval request that has been approved.
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import time
-import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from pprint import pprint
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The feature flag approval request ID
-    post_approval_request_apply_request = PostApprovalRequestApplyRequest(
-        comment="Looks good, thanks for updating",
-    ) # PostApprovalRequestApplyRequest | 
-
-    # example passing only required values which don't have defaults set
-    try:
-        # Apply approval request
-        api_response = api_instance.post_approval_request_apply_request(project_key, feature_flag_key, environment_key, id, post_approval_request_apply_request)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->post_approval_request_apply_request: %s\n" % e)
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The feature flag approval request ID |
- **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  |
-
-### Return type
-
-[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Approval request apply response |  -  |
-**400** | Invalid request |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**404** | Invalid resource identifier |  -  |
-**429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **post_approval_request_review**
-> FlagConfigApprovalRequestResponse post_approval_request_review(project_key, feature_flag_key, environment_key, id, post_approval_request_review_request)
-
-Review approval request
+Review approval request for a flag
 
 Review an approval request by approving or denying changes.
 
@@ -547,11 +547,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Review approval request
-        api_response = api_instance.post_approval_request_review(project_key, feature_flag_key, environment_key, id, post_approval_request_review_request)
+        # Review approval request for a flag
+        api_response = api_instance.post_approval_request_review_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_review_request)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->post_approval_request_review: %s\n" % e)
+        print("Exception when calling ApprovalsApi->post_approval_request_review_for_flag: %s\n" % e)
 ```
 
 
