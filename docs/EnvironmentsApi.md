@@ -441,7 +441,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_post = EnvironmentPost(
         name="My Environment",
-        key="my-environment",
+        key="environment-key-123abc",
         color="F5A623",
         default_ttl=5,
         secure_mode=True,
@@ -521,6 +521,7 @@ from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -586,6 +587,7 @@ Name | Type | Description  | Notes
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -611,6 +613,7 @@ from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -687,6 +690,7 @@ Name | Type | Description  | Notes
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

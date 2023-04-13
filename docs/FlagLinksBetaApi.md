@@ -57,7 +57,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     flag_link_post = FlagLinkPost(
-        key="example-flag-link",
+        key="flag-link-key-123abc",
         integration_key="integration_key_example",
         timestamp=1,
         deep_link="https://example.com/archives/123123123",

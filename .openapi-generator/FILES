@@ -70,6 +70,7 @@ docs/ContextSettingsBetaApi.md
 docs/Contexts.md
 docs/ContextsBetaApi.md
 docs/CopiedFromEnv.md
+docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
 docs/CreateFlagConfigApprovalRequestRequest.md
 docs/CreateWorkflowTemplateInput.md
@@ -79,6 +80,7 @@ docs/CustomProperty.md
 docs/CustomRole.md
 docs/CustomRolePost.md
 docs/CustomRolePostData.md
+docs/CustomRoleSummary.md
 docs/CustomRoles.md
 docs/CustomRolesApi.md
 docs/CustomWorkflowInput.md
@@ -504,6 +506,7 @@ launchdarkly_api/model/context_record.py
 launchdarkly_api/model/context_search.py
 launchdarkly_api/model/contexts.py
 launchdarkly_api/model/copied_from_env.py
+launchdarkly_api/model/create_approval_request_request.py
 launchdarkly_api/model/create_copy_flag_config_approval_request_request.py
 launchdarkly_api/model/create_flag_config_approval_request_request.py
 launchdarkly_api/model/create_workflow_template_input.py
@@ -513,6 +516,7 @@ launchdarkly_api/model/custom_property.py
 launchdarkly_api/model/custom_role.py
 launchdarkly_api/model/custom_role_post.py
 launchdarkly_api/model/custom_role_post_data.py
+launchdarkly_api/model/custom_role_summary.py
 launchdarkly_api/model/custom_roles.py
 launchdarkly_api/model/custom_workflow_input.py
 launchdarkly_api/model/custom_workflow_meta.py
@@ -882,6 +886,7 @@ test/test_context_settings_beta_api.py
 test/test_contexts.py
 test/test_contexts_beta_api.py
 test/test_copied_from_env.py
+test/test_create_approval_request_request.py
 test/test_create_copy_flag_config_approval_request_request.py
 test/test_create_flag_config_approval_request_request.py
 test/test_create_workflow_template_input.py
@@ -891,6 +896,7 @@ test/test_custom_property.py
 test/test_custom_role.py
 test/test_custom_role_post.py
 test/test_custom_role_post_data.py
+test/test_custom_role_summary.py
 test/test_custom_roles.py
 test/test_custom_roles_api.py
 test/test_custom_workflow_input.py

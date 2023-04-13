@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 Get experimentation keys usage
 
-Get a time-series array of the number of monthly experimentation keys from your account. The granularity is always daily, with a max of 31 days.
+Get a time-series array of the number of monthly experimentation keys from your account. The granularity is always daily, with a maximum of 31 days.
 
 ### Example
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 
 Get MAU SDKs by type
 
-Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. Use [Get client-side monthly context instances uage](/tag/Account-usage-(beta)#operation/getCMCIUsage) instead. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
+Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>LaunchDarkly's billing calculations will change on April 1, 2023. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
 
 ### Example
 
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
 
 Get MAU usage
 
-Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. Use [Get client-side monthly context instances uage](/tag/Account-usage-(beta)#operation/getCMCIUsage) instead. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
+Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>LaunchDarkly's billing calculations will change on April 1, 2023. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
 
 ### Example
 
@@ -511,7 +511,7 @@ Name | Type | Description  | Notes
 
 Get MAU usage by category
 
-Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. Use [Get client-side monthly context instances uage](/tag/Account-usage-(beta)#operation/getCMCIUsage) instead. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
+Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>LaunchDarkly's billing calculations will change on April 1, 2023. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
 
 ### Example
 

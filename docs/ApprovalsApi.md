@@ -645,7 +645,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         notify_member_ids=["1234a56b7c89d012345e678f"],
         notify_team_keys=["example-reviewer-team"],
         source=SourceFlag(
-            key="example-environment-key",
+            key="environment-key-123abc",
             version=1,
         ),
         included_actions=["updateOn"],

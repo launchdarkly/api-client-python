@@ -1011,7 +1011,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     segment_body = SegmentBody(
         name="Example segment",
-        key="example-segment",
+        key="segment-key-123abc",
         description="Bundle our sample customers together",
         tags=["testing"],
         unbounded=False,

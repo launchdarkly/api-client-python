@@ -66,13 +66,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         name="Example experiment",
         description="An example experiment, used in testing",
         maintainer_id="12ab3c45de678910fgh12345",
-        key="example-experiment",
+        key="experiment-key-123abc",
         iteration=IterationInput(
             hypothesis="Example hypothesis, the new button placement will increase conversion",
             can_reshuffle_traffic=True,
             metrics=MetricsInput([
                 MetricInput(
-                    key="example-metric",
+                    key="metric-key-123abc",
                     primary=True,
                 ),
             ]),
@@ -196,7 +196,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         can_reshuffle_traffic=True,
         metrics=MetricsInput([
             MetricInput(
-                key="example-metric",
+                key="metric-key-123abc",
                 primary=True,
             ),
         ]),

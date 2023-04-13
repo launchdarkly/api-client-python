@@ -54,7 +54,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
-    member_id = "memberId_example" # str | The memberId of the member to remove as a follower of the flag
+    member_id = "memberId_example" # str | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
 
     # example passing only required values which don't have defaults set
     try:
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
- **member_id** | **str**| The memberId of the member to remove as a follower of the flag |
+ **member_id** | **str**| The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves. |
 
 ### Return type
 
@@ -322,7 +322,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
-    member_id = "memberId_example" # str | The memberId of the member to add as a follower of the flag
+    member_id = "memberId_example" # str | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
 
     # example passing only required values which don't have defaults set
     try:
@@ -340,7 +340,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **feature_flag_key** | **str**| The feature flag key |
  **environment_key** | **str**| The environment key |
- **member_id** | **str**| The memberId of the member to add as a follower of the flag |
+ **member_id** | **str**| The memberId of the member to add as a follower of the flag. Reader roles can only add themselves. |
 
 ### Return type
 

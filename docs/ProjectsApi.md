@@ -622,7 +622,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = projects_api.ProjectsApi(api_client)
     project_post = ProjectPost(
         name="My Project",
-        key="my-project",
+        key="project-key-123abc",
         include_in_snippet_by_default=True,
         default_client_side_availability=DefaultClientSideAvailabilityPost(
             using_environment_id=True,
@@ -632,7 +632,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         environments=[
             EnvironmentPost(
                 name="My Environment",
-                key="my-environment",
+                key="environment-key-123abc",
                 color="F5A623",
                 default_ttl=5,
                 secure_mode=True,

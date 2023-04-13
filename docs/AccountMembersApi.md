@@ -517,8 +517,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         NewMemberForm(
             email="sandy@acme.com",
             password="***",
-            first_name="Sandy",
-            last_name="Smith",
+            first_name="Ariel",
+            last_name="Flores",
             role="reader",
             custom_roles=["customRole1","customRole2"],
             team_keys=["team-1","team-2"],

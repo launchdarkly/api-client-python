@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **environment_name** | **str** | The environment name | 
 **track_events** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for all rules | 
 **track_events_fallthrough** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for the default rule | 
-**targets** | [**[Target]**](Target.md) | An array of the individual targets that will receive a specific variation based on their key | [optional] 
-**context_targets** | [**[Target]**](Target.md) |  | [optional] 
+**targets** | [**[Target]**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with a context kind of &#39;user&#39; are included here. | [optional] 
+**context_targets** | [**[Target]**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with context kinds other than &#39;user&#39; are included here. | [optional] 
 **rules** | [**[Rule]**](Rule.md) | An array of the rules for how to serve a variation to specific targets based on their attributes | [optional] 
 **fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **off_variation** | **int** | The ID of the variation to serve when the flag is off | [optional] 
@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **access** | [**Access**](Access.md) |  | [optional] 
 **debug_events_until_date** | **int** |  | [optional] 
 **summary** | [**FlagSummary**](FlagSummary.md) |  | [optional] 
+**evaluation** | [**FlagConfigEvaluation**](FlagConfigEvaluation.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

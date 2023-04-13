@@ -405,7 +405,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = custom_roles_api.CustomRolesApi(api_client)
     custom_role_post = CustomRolePost(
         name="Ops team",
-        key="ops-team",
+        key="role-key-123abc",
         description="An example role for members of the ops team",
         policy=StatementPostList([
             StatementPost(

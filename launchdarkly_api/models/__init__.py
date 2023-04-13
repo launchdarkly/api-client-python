@@ -66,6 +66,7 @@ from launchdarkly_api.model.context_record import ContextRecord
 from launchdarkly_api.model.context_search import ContextSearch
 from launchdarkly_api.model.contexts import Contexts
 from launchdarkly_api.model.copied_from_env import CopiedFromEnv
+from launchdarkly_api.model.create_approval_request_request import CreateApprovalRequestRequest
 from launchdarkly_api.model.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest
 from launchdarkly_api.model.create_flag_config_approval_request_request import CreateFlagConfigApprovalRequestRequest
 from launchdarkly_api.model.create_workflow_template_input import CreateWorkflowTemplateInput
@@ -75,6 +76,7 @@ from launchdarkly_api.model.custom_property import CustomProperty
 from launchdarkly_api.model.custom_role import CustomRole
 from launchdarkly_api.model.custom_role_post import CustomRolePost
 from launchdarkly_api.model.custom_role_post_data import CustomRolePostData
+from launchdarkly_api.model.custom_role_summary import CustomRoleSummary
 from launchdarkly_api.model.custom_roles import CustomRoles
 from launchdarkly_api.model.custom_workflow_input import CustomWorkflowInput
 from launchdarkly_api.model.custom_workflow_meta import CustomWorkflowMeta

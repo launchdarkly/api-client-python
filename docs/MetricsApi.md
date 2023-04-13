@@ -435,7 +435,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     metric_post = MetricPost(
-        key="example-metric",
+        key="metric-key-123abc",
         name="Example metric",
         description="optional description",
         kind="custom",
@@ -452,7 +452,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         is_numeric=False,
         unit="orders",
         event_key="sales generated",
-        success_criteria="Higher than baseline",
+        success_criteria="HigherThanBaseline",
         tags=["example-tag"],
         randomization_units=["user"],
     ) # MetricPost | 
