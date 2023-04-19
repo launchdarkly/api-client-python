@@ -26,41 +26,6 @@ class TestContextsBetaApi(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_delete_context_instances(self):
-        """Test case for delete_context_instances
-
-        Delete context instances  # noqa: E501
-        """
-        pass
-
-    def test_evaluate_context_instance(self):
-        """Test case for evaluate_context_instance
-
-        Evaluate flags for context instance  # noqa: E501
-        """
-        pass
-
-    def test_get_context_attribute_names(self):
-        """Test case for get_context_attribute_names
-
-        Get context attribute names  # noqa: E501
-        """
-        pass
-
-    def test_get_context_attribute_values(self):
-        """Test case for get_context_attribute_values
-
-        Get context attribute values  # noqa: E501
-        """
-        pass
-
-    def test_get_context_instances(self):
-        """Test case for get_context_instances
-
-        Get context instances  # noqa: E501
-        """
-        pass
-
     def test_get_context_kinds_by_project_key(self):
         """Test case for get_context_kinds_by_project_key
 
@@ -68,31 +33,10 @@ class TestContextsBetaApi(unittest.TestCase):
         """
         pass
 
-    def test_get_contexts(self):
-        """Test case for get_contexts
-
-        Get contexts  # noqa: E501
-        """
-        pass
-
     def test_put_context_kind(self):
         """Test case for put_context_kind
 
         Create or update context kind  # noqa: E501
-        """
-        pass
-
-    def test_search_context_instances(self):
-        """Test case for search_context_instances
-
-        Search for context instances  # noqa: E501
-        """
-        pass
-
-    def test_search_contexts(self):
-        """Test case for search_contexts
-
-        Search for contexts  # noqa: E501
         """
         pass
 

@@ -14,7 +14,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "launchdarkly-api"
-VERSION = "12.1.0"
+VERSION = "13.0.0"
 # To install the library, run the following
 #
 # python setup.py install

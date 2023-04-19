@@ -119,7 +119,7 @@ class RandomizationUnitInput(ModelNormal):
         """RandomizationUnitInput - a model defined in OpenAPI
 
         Args:
-            randomization_unit (str): The unit of randomization.
+            randomization_unit (str): The unit of randomization. Must match the key of an existing context kind in this project.
             default (bool): If true, any experiment iterations created within this project will default to using this randomization unit. A project can only have one default randomization unit.
             standard_randomization_unit (str): One of LaunchDarkly's fixed set of standard randomization units.
 
@@ -212,7 +212,7 @@ class RandomizationUnitInput(ModelNormal):
         """RandomizationUnitInput - a model defined in OpenAPI
 
         Args:
-            randomization_unit (str): The unit of randomization.
+            randomization_unit (str): The unit of randomization. Must match the key of an existing context kind in this project.
             default (bool): If true, any experiment iterations created within this project will default to using this randomization unit. A project can only have one default randomization unit.
             standard_randomization_unit (str): One of LaunchDarkly's fixed set of standard randomization units.
 

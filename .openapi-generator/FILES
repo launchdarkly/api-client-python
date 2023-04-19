@@ -66,8 +66,9 @@ docs/ContextKindRep.md
 docs/ContextKindsCollectionRep.md
 docs/ContextRecord.md
 docs/ContextSearch.md
-docs/ContextSettingsBetaApi.md
+docs/ContextSettingsApi.md
 docs/Contexts.md
+docs/ContextsApi.md
 docs/ContextsBetaApi.md
 docs/CopiedFromEnv.md
 docs/CreateApprovalRequestRequest.md
@@ -414,7 +415,8 @@ launchdarkly_api/api/approvals_api.py
 launchdarkly_api/api/approvals_beta_api.py
 launchdarkly_api/api/audit_log_api.py
 launchdarkly_api/api/code_references_api.py
-launchdarkly_api/api/context_settings_beta_api.py
+launchdarkly_api/api/context_settings_api.py
+launchdarkly_api/api/contexts_api.py
 launchdarkly_api/api/contexts_beta_api.py
 launchdarkly_api/api/custom_roles_api.py
 launchdarkly_api/api/data_export_destinations_api.py
@@ -882,8 +884,9 @@ test/test_context_kind_rep.py
 test/test_context_kinds_collection_rep.py
 test/test_context_record.py
 test/test_context_search.py
-test/test_context_settings_beta_api.py
+test/test_context_settings_api.py
 test/test_contexts.py
+test/test_contexts_api.py
 test/test_contexts_beta_api.py
 test/test_copied_from_env.py
 test/test_create_approval_request_request.py

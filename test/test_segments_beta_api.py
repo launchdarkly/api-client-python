@@ -54,13 +54,6 @@ class TestSegmentsBetaApi(unittest.TestCase):
         """
         pass
 
-    def test_get_context_instance_segments_membership_by_env(self):
-        """Test case for get_context_instance_segments_membership_by_env
-
-        List segment memberships for context instance  # noqa: E501
-        """
-        pass
-
 
 if __name__ == '__main__':
     unittest.main()

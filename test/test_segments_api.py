@@ -33,6 +33,13 @@ class TestSegmentsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_context_instance_segments_membership_by_env(self):
+        """Test case for get_context_instance_segments_membership_by_env
+
+        List segment memberships for context instance  # noqa: E501
+        """
+        pass
+
     def test_get_expiring_targets_for_segment(self):
         """Test case for get_expiring_targets_for_segment
 

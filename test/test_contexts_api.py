@@ -14,22 +14,71 @@
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.api.context_settings_beta_api import ContextSettingsBetaApi  # noqa: E501
+from launchdarkly_api.api.contexts_api import ContextsApi  # noqa: E501
 
 
-class TestContextSettingsBetaApi(unittest.TestCase):
-    """ContextSettingsBetaApi unit test stubs"""
+class TestContextsApi(unittest.TestCase):
+    """ContextsApi unit test stubs"""
 
     def setUp(self):
-        self.api = ContextSettingsBetaApi()  # noqa: E501
+        self.api = ContextsApi()  # noqa: E501
 
     def tearDown(self):
         pass
 
-    def test_put_context_flag_setting(self):
-        """Test case for put_context_flag_setting
+    def test_delete_context_instances(self):
+        """Test case for delete_context_instances
 
-        Update flag settings for context  # noqa: E501
+        Delete context instances  # noqa: E501
+        """
+        pass
+
+    def test_evaluate_context_instance(self):
+        """Test case for evaluate_context_instance
+
+        Evaluate flags for context instance  # noqa: E501
+        """
+        pass
+
+    def test_get_context_attribute_names(self):
+        """Test case for get_context_attribute_names
+
+        Get context attribute names  # noqa: E501
+        """
+        pass
+
+    def test_get_context_attribute_values(self):
+        """Test case for get_context_attribute_values
+
+        Get context attribute values  # noqa: E501
+        """
+        pass
+
+    def test_get_context_instances(self):
+        """Test case for get_context_instances
+
+        Get context instances  # noqa: E501
+        """
+        pass
+
+    def test_get_contexts(self):
+        """Test case for get_contexts
+
+        Get contexts  # noqa: E501
+        """
+        pass
+
+    def test_search_context_instances(self):
+        """Test case for search_context_instances
+
+        Search for context instances  # noqa: E501
+        """
+        pass
+
+    def test_search_contexts(self):
+        """Test case for search_contexts
+
+        Search for contexts  # noqa: E501
         """
         pass
 

@@ -1,10 +1,10 @@
-# launchdarkly_api.ContextSettingsBetaApi
+# launchdarkly_api.ContextSettingsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**put_context_flag_setting**](ContextSettingsBetaApi.md#put_context_flag_setting) | **PUT** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
+[**put_context_flag_setting**](ContextSettingsApi.md#put_context_flag_setting) | **PUT** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
 
 
 # **put_context_flag_setting**
@@ -21,7 +21,7 @@ Update flag settings for context
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import context_settings_beta_api
+from launchdarkly_api.api import context_settings_api
 from launchdarkly_api.model.value_put import ValuePut
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -49,7 +49,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = context_settings_beta_api.ContextSettingsBetaApi(api_client)
+    api_instance = context_settings_api.ContextSettingsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     context_kind = "contextKind_example" # str | The context kind
@@ -65,7 +65,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         # Update flag settings for context
         api_instance.put_context_flag_setting(project_key, environment_key, context_kind, context_key, feature_flag_key, value_put)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ContextSettingsBetaApi->put_context_flag_setting: %s\n" % e)
+        print("Exception when calling ContextSettingsApi->put_context_flag_setting: %s\n" % e)
 ```
 
 

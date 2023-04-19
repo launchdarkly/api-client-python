@@ -22,7 +22,8 @@ from launchdarkly_api.api.approvals_api import ApprovalsApi
 from launchdarkly_api.api.approvals_beta_api import ApprovalsBetaApi
 from launchdarkly_api.api.audit_log_api import AuditLogApi
 from launchdarkly_api.api.code_references_api import CodeReferencesApi
-from launchdarkly_api.api.context_settings_beta_api import ContextSettingsBetaApi
+from launchdarkly_api.api.context_settings_api import ContextSettingsApi
+from launchdarkly_api.api.contexts_api import ContextsApi
 from launchdarkly_api.api.contexts_beta_api import ContextsBetaApi
 from launchdarkly_api.api.custom_roles_api import CustomRolesApi
 from launchdarkly_api.api.data_export_destinations_api import DataExportDestinationsApi
