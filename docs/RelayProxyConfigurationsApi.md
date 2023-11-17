@@ -267,7 +267,7 @@ This endpoint does not need any parameter.
 
 Update a Relay Proxy config
 
-Update a Relay Proxy config using the JSON patch format.
+Update a Relay Proxy configuration. Updating a configuration uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
 
 ### Example
 
@@ -418,7 +418,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 not_actions=[
                     "not_actions_example",
                 ],
-                effect="effect_example",
+                effect="allow",
             ),
         ],
     ) # RelayAutoConfigPost | 

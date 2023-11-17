@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **winning_reason** | **str** | The reason you stopped the experiment | [optional] 
 **can_reshuffle_traffic** | **bool** | Whether the experiment may reassign traffic to different variations when the experiment audience changes (true) or must keep all traffic assigned to its initial variation (false). | [optional] 
 **flags** | [**{str: (FlagRep,)}**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
-**primary_metric** | [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**primary_metric** | [**DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) |  | [optional] 
 **randomization_unit** | **str** | The unit of randomization for this iteration | [optional] 
 **treatments** | [**[TreatmentRep]**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
 **secondary_metrics** | [**[MetricV2Rep]**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 

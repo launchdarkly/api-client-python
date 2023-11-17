@@ -1,0 +1,448 @@
+# launchdarkly_api.ReleasePipelinesBetaApi
+
+All URIs are relative to *https://app.launchdarkly.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**delete_release_pipeline**](ReleasePipelinesBetaApi.md#delete_release_pipeline) | **DELETE** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Delete release pipeline
+[**get_all_release_pipelines**](ReleasePipelinesBetaApi.md#get_all_release_pipelines) | **GET** /api/v2/projects/{projectKey}/release-pipelines | Get all release pipelines
+[**get_release_pipeline_by_key**](ReleasePipelinesBetaApi.md#get_release_pipeline_by_key) | **GET** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Get release pipeline by key
+[**patch_release_pipeline**](ReleasePipelinesBetaApi.md#patch_release_pipeline) | **PATCH** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Update a release pipeline
+[**post_release_pipeline**](ReleasePipelinesBetaApi.md#post_release_pipeline) | **POST** /api/v2/projects/{projectKey}/release-pipelines | Create a release pipeline
+
+
+# **delete_release_pipeline**
+> delete_release_pipeline(project_key, pipeline_key)
+
+Delete release pipeline
+
+Delete a release pipeline
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import release_pipelines_beta_api
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    pipeline_key = "pipelineKey_example" # str | The release pipeline key
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Delete release pipeline
+        api_instance.delete_release_pipeline(project_key, pipeline_key)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->delete_release_pipeline: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **pipeline_key** | **str**| The release pipeline key |
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Action succeeded |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_all_release_pipelines**
+> ReleasePipelineCollection get_all_release_pipelines(project_key)
+
+Get all release pipelines
+
+Get all release pipelines for a project
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import release_pipelines_beta_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.release_pipeline_collection import ReleasePipelineCollection
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get all release pipelines
+        api_response = api_instance.get_all_release_pipelines(project_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->get_all_release_pipelines: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+
+### Return type
+
+[**ReleasePipelineCollection**](ReleasePipelineCollection.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Release pipeline collection |  -  |
+**404** | Invalid resource identifier |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_release_pipeline_by_key**
+> ReleasePipeline get_release_pipeline_by_key(project_key, pipeline_key)
+
+Get release pipeline by key
+
+Get a release pipeline by key
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import release_pipelines_beta_api
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.release_pipeline import ReleasePipeline
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    pipeline_key = "pipelineKey_example" # str | The release pipeline key
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get release pipeline by key
+        api_response = api_instance.get_release_pipeline_by_key(project_key, pipeline_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->get_release_pipeline_by_key: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **pipeline_key** | **str**| The release pipeline key |
+
+### Return type
+
+[**ReleasePipeline**](ReleasePipeline.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Release pipeline response |  -  |
+**404** | Invalid resource identifier |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_release_pipeline**
+> ReleasePipeline patch_release_pipeline(project_key, pipeline_key)
+
+Update a release pipeline
+
+Updates a release pipeline. Updating a release pipeline uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import release_pipelines_beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.release_pipeline import ReleasePipeline
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    pipeline_key = "pipelineKey_example" # str | The release pipeline key
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Update a release pipeline
+        api_response = api_instance.patch_release_pipeline(project_key, pipeline_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->patch_release_pipeline: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **pipeline_key** | **str**| The release pipeline key |
+
+### Return type
+
+[**ReleasePipeline**](ReleasePipeline.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Release pipeline response |  -  |
+**400** | Invalid request |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_release_pipeline**
+> ReleasePipeline post_release_pipeline(project_key, create_release_pipeline_input)
+
+Create a release pipeline
+
+Creates a new release pipeline
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import release_pipelines_beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.create_release_pipeline_input import CreateReleasePipelineInput
+from launchdarkly_api.model.release_pipeline import ReleasePipeline
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    create_release_pipeline_input = CreateReleasePipelineInput(
+        description="Standard pipeline to roll out to production",
+        key="standard-pipeline",
+        name="Standard Pipeline",
+        phases=[
+            CreatePhaseInput(
+                audiences=[
+                    AudiencePost(
+                        environment_key="environment_key_example",
+                        name="name_example",
+                    ),
+                ],
+                name="Phase 1 - Testing",
+            ),
+        ],
+        tags=["example-tag"],
+    ) # CreateReleasePipelineInput | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Create a release pipeline
+        api_response = api_instance.post_release_pipeline(project_key, create_release_pipeline_input)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->post_release_pipeline: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **create_release_pipeline_input** | [**CreateReleasePipelineInput**](CreateReleasePipelineInput.md)|  |
+
+### Return type
+
+[**ReleasePipeline**](ReleasePipeline.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Release pipeline response |  -  |
+**400** | Invalid request |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**409** | Status conflict |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

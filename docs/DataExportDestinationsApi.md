@@ -274,7 +274,7 @@ This endpoint does not need any parameter.
 
 Update Data Export destination
 
-Update a Data Export destination. This requires a JSON Patch representation of the modified destination.
+Update a Data Export destination. Updating a destination uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
 
 ### Example
 

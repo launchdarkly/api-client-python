@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **key** | **str** | A unique key used to reference the segment | 
 **description** | **str** | A description of the segment&#39;s purpose | [optional] 
 **tags** | **[str]** | Tags for the segment | [optional] 
-**unbounded** | **bool** | Whether to create a standard segment (false) or a Big Segment (true). Only use a Big Segment if you need to add more than 15,000 individual targets. | [optional] 
-**unbounded_context_kind** | **str** | If unbounded is true, you can use this field to set the Big Segment&#39;s context kind | [optional] 
+**unbounded** | **bool** | Whether to create a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). Standard segments include rule-based and smaller list-based segments. Big Segments include larger list-based segments and synced segments. Only use a Big Segment if you need to add more than 15,000 individual targets. | [optional] 
+**unbounded_context_kind** | **str** | For Big Segments, the targeted context kind. | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

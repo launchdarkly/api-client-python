@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **tags** | **[str]** | Tags for the feature flag. Defaults to an empty array. | [optional] 
 **custom_properties** | [**CustomProperties**](CustomProperties.md) |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
+**purpose** | **str** | Purpose of the flag | [optional]  if omitted the server will use the default value of "migration"
+**migration_settings** | [**MigrationSettingsPost**](MigrationSettingsPost.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

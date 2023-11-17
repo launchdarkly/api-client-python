@@ -470,7 +470,7 @@ This endpoint does not need any parameter.
 
 Update delivery configuration
 
-Update an integration delivery configuration.
+Update an integration delivery configuration. Updating an integration delivery configuration uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
 
 ### Example
 

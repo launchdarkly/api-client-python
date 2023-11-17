@@ -52,7 +52,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = audit_log_api.AuditLogApi(api_client)
     before = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
     after = 1 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
-    q = "q_example" # str | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
+    q = "q_example" # str | Text to search for. You can search for the full or partial name of the resource. (optional)
     limit = 1 # int | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
     spec = "spec_example" # str | A resource specifier that lets you filter audit log listings by resource (optional)
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | [optional]
  **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | [optional]
- **q** | **str**| Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | [optional]
+ **q** | **str**| Text to search for. You can search for the full or partial name of the resource. | [optional]
  **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | [optional]
  **spec** | **str**| A resource specifier that lets you filter audit log listings by resource | [optional]
 

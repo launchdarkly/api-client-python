@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 
 Update metric
 
-Patch a metric by key.
+Patch a metric by key. Updating a metric uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
 
 ### Example
 
@@ -455,6 +455,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         success_criteria="HigherThanBaseline",
         tags=["example-tag"],
         randomization_units=["user"],
+        unit_aggregation_type="average",
     ) # MetricPost | 
 
     # example passing only required values which don't have defaults set

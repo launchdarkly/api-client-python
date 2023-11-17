@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **id** | **str** | The experiment ID | [optional] 
 **description** | **str** | The experiment description | [optional] 
+**environment_key** | **str** |  | [optional] 
 **archived_date** | **int** |  | [optional] 
 **current_iteration** | [**IterationRep**](IterationRep.md) |  | [optional] 
 **draft_iteration** | [**IterationRep**](IterationRep.md) |  | [optional] 

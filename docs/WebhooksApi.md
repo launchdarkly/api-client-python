@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 
 Update webhook
 
-Update a webhook's settings. The request should be a valid JSON Patch document describing the changes to be made to the webhook.
+Update a webhook's settings. Updating webhook settings uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
 
 ### Example
 
@@ -415,7 +415,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 not_actions=[
                     "not_actions_example",
                 ],
-                effect="effect_example",
+                effect="allow",
             ),
         ]),
         sign=True,

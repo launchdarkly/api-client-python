@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Delete user
 
-Delete a user by key.
+> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Delete context instances](/tag/Contexts#operation/deleteContextInstances) instead of this endpoint.  Delete a user by key. 
 
 ### Example
 
@@ -105,7 +105,7 @@ void (empty response body)
 
 Find users
 
-Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query.  An example user attribute filter set is `filter=firstName:Anna,activeTrial:false`. This matches users that have the user attribute `firstName` set to `Anna`, that also have the attribute `activeTrial` set to `false`.  To paginate through results, follow the `next` link in the `_links` object. To learn more, read [Representations](/#section/Representations).  > ### `offset` is deprecated > > `offset` is deprecated and will be removed in a future API version. You can still use `offset` and `limit` for pagination, but we recommend you use `sort` and `searchAfter` instead. `searchAfter` allows you to page through more than 10,000 users, but `offset` and `limit` do not. 
+> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Search for context instances](/tag/Contexts#operation/searchContextInstances) instead of this endpoint.  Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query.  An example user attribute filter set is `filter=firstName:Anna,activeTrial:false`. This matches users that have the user attribute `firstName` set to `Anna`, that also have the attribute `activeTrial` set to `false`.  To paginate through results, follow the `next` link in the `_links` object. To learn more, read [Representations](/#section/Representations). 
 
 ### Example
 
@@ -147,7 +147,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     q = "q_example" # str | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
     limit = 1 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
-    offset = 1 # int | Specifies the first item to return in the collection (optional)
+    offset = 1 # int | Deprecated, use `searchAfter` instead. Specifies the first item to return in the collection. (optional)
     after = 1 # int | A Unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly (optional)
     sort = "sort_example" # str | Specifies a field by which to sort. LaunchDarkly supports the `userKey` and `lastSeen` fields. Fields prefixed by a dash ( - ) sort in descending order. (optional)
     search_after = "searchAfter_example" # str | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key |
  **q** | **str**| Full-text search for users based on name, first name, last name, e-mail address, or key | [optional]
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional]
- **offset** | **int**| Specifies the first item to return in the collection | [optional]
+ **offset** | **int**| Deprecated, use &#x60;searchAfter&#x60; instead. Specifies the first item to return in the collection. | [optional]
  **after** | **int**| A Unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly | [optional]
  **sort** | **str**| Specifies a field by which to sort. LaunchDarkly supports the &#x60;userKey&#x60; and &#x60;lastSeen&#x60; fields. Fields prefixed by a dash ( - ) sort in descending order. | [optional]
  **search_after** | **str**| Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | [optional]
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 Get user
 
-Get a user by key. The `user` object contains all attributes sent in `variation` calls for that key.
+> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get context instances](/tag/Contexts#operation/getContextInstances) instead of this endpoint.  Get a user by key. The `user` object contains all attributes sent in `variation` calls for that key. 
 
 ### Example
 
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 
 List users
 
-List all users in the environment. Includes the total count of users. This is useful for exporting all users in the system for further analysis.  Each page displays users up to a set `limit`. The default is 20. To page through, follow the `next` link in the `_links` object. To learn more, read [Representations](/#section/Representations). 
+> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Search for contexts](/tag/Contexts#operation/searchContexts) instead of this endpoint.  List all users in the environment. Includes the total count of users. This is useful for exporting all users in the system for further analysis.  Each page displays users up to a set `limit`. The default is 20. To page through, follow the `next` link in the `_links` object. To learn more, read [Representations](/#section/Representations). 
 
 ### Example
 

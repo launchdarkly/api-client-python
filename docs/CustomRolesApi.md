@@ -264,7 +264,7 @@ This endpoint does not need any parameter.
 
 Update custom role
 
-Update a single custom role. The request must be a valid JSON Patch document describing the changes to be made to the custom role. To add an element to the `policy` array, set the `path` to `/policy` and then append `/<array index>`. Using `/0` adds to the beginning of the array.
+Update a single custom role. Updating a custom role uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).<br/><br/>To add an element to the `policy` array, set the `path` to `/policy` and then append `/<array index>`. Use `/0` to add to the beginning of the array. Use `/-` to add to the end of the array.
 
 ### Example
 
@@ -417,7 +417,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 not_actions=[
                     "not_actions_example",
                 ],
-                effect="effect_example",
+                effect="allow",
             ),
         ]),
         base_permissions="base_permissions_example",

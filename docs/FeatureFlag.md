@@ -24,9 +24,11 @@ Name | Type | Description | Notes
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **maintainer_team_key** | **str** | The key of the associated team that maintains this feature flag | [optional] 
 **maintainer_team** | [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
-**goal_ids** | **[str]** | Deprecated | [optional] 
+**goal_ids** | **[str]** | Deprecated, use &lt;code&gt;experiments&lt;/code&gt; instead | [optional] 
 **archived_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
+**purpose** | **str** |  | [optional] 
+**migration_settings** | [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

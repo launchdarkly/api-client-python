@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**effect** | **str** |  | 
+**effect** | **str** | Whether this statement should allow or deny actions on the resources. | 
 **resources** | **[str]** | Resource specifier strings | [optional] 
 **not_resources** | **[str]** | Targeted resources are the resources NOT in this list. The &lt;code&gt;resources&lt;/code&gt; field must be empty to use this field. | [optional] 
 **actions** | **[str]** | Actions to perform on a resource | [optional] 

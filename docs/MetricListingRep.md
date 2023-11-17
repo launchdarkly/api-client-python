@@ -22,8 +22,12 @@ Name | Type | Description | Notes
 **is_numeric** | **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **success_criteria** | **str** | For custom metrics, the success criteria | [optional] 
 **unit** | **str** | For numeric custom metrics, the unit of measure | [optional] 
-**event_key** | **str** | For custom metrics, the event name to use in your code | [optional] 
+**event_key** | **str** | For custom metrics, the event key to use in your code | [optional] 
 **randomization_units** | **[str]** | An array of randomization units allowed for this metric | [optional] 
+**unit_aggregation_type** | **str** | The method in which multiple unit event values are aggregated | [optional] 
+**analysis_type** | **str** | The strategy for analyzing metric events | [optional] 
+**percentile_value** | **int** | The percentile, an integer denoting the target percentile between 0 and 100. Only present when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
+**event_default** | [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

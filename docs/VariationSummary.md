@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **rules** | **int** |  | 
 **null_rules** | **int** |  | 
 **targets** | **int** |  | 
-**context_targets** | **int** |  | [optional] 
+**context_targets** | **int** |  | 
 **is_fallthrough** | **bool** |  | [optional] 
 **is_off** | **bool** |  | [optional] 
 **rollout** | **int** |  | [optional] 

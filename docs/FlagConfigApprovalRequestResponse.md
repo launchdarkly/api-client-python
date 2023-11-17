@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **description** | **str** | A human-friendly name for the approval request | [optional] 
 **applied_date** | **int** |  | [optional] 
 **applied_by_member_id** | **str** | The member ID of the member who applied the approval request | [optional] 
+**applied_by_service_token_id** | **str** | The service token ID of the service token which applied the approval request | [optional] 
 **execution_date** | **int** |  | [optional] 
 **operating_on_id** | **str** | ID of scheduled change to edit or delete | [optional] 
 **integration_metadata** | [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 

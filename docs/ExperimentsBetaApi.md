@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**create_iteration**](ExperimentsBetaApi.md#create_iteration) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
 [**get_experiment**](ExperimentsBetaApi.md#get_experiment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**get_experiment_results**](ExperimentsBetaApi.md#get_experiment_results) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
+[**get_experiment_results_for_metric_group**](ExperimentsBetaApi.md#get_experiment_results_for_metric_group) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
 [**get_experimentation_settings**](ExperimentsBetaApi.md#get_experimentation_settings) | **GET** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**get_experiments**](ExperimentsBetaApi.md#get_experiments) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
 [**get_legacy_experiment_results**](ExperimentsBetaApi.md#get_legacy_experiment_results) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
@@ -73,6 +74,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             metrics=MetricsInput([
                 MetricInput(
                     key="metric-key-123abc",
+                    is_group=True,
                     primary=True,
                 ),
             ]),
@@ -197,6 +199,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         metrics=MetricsInput([
             MetricInput(
                 key="metric-key-123abc",
+                is_group=True,
                 primary=True,
             ),
         ]),
@@ -315,11 +318,21 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
+    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get experiment
         api_response = api_instance.get_experiment(project_key, environment_key, experiment_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get experiment
+        api_response = api_instance.get_experiment(project_key, environment_key, experiment_key, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
@@ -333,6 +346,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **environment_key** | **str**| The environment key |
  **experiment_key** | **str**| The experiment key |
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | [optional]
 
 ### Return type
 
@@ -409,11 +423,21 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
     metric_key = "metricKey_example" # str | The metric key
+    iteration_id = "iterationId_example" # str | The iteration ID (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get experiment results
         api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ExperimentsBetaApi->get_experiment_results: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get experiment results
+        api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key, iteration_id=iteration_id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiment_results: %s\n" % e)
@@ -428,6 +452,7 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key |
  **experiment_key** | **str**| The experiment key |
  **metric_key** | **str**| The metric key |
+ **iteration_id** | **str**| The iteration ID | [optional]
 
 ### Return type
 
@@ -448,6 +473,111 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Experiment results response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_experiment_results_for_metric_group**
+> MetricGroupResultsRep get_experiment_results_for_metric_group(project_key, environment_key, experiment_key, metric_group_key)
+
+Get experiment results for metric group
+
+Get results from an experiment for a particular metric group.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.model.metric_group_results_rep import MetricGroupResultsRep
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    project_key = "projectKey_example" # str | The project key
+    environment_key = "environmentKey_example" # str | The environment key
+    experiment_key = "experimentKey_example" # str | The experiment key
+    metric_group_key = "metricGroupKey_example" # str | The metric group key
+    iteration_id = "iterationId_example" # str | The iteration ID (optional)
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Get experiment results for metric group
+        api_response = api_instance.get_experiment_results_for_metric_group(project_key, environment_key, experiment_key, metric_group_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ExperimentsBetaApi->get_experiment_results_for_metric_group: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get experiment results for metric group
+        api_response = api_instance.get_experiment_results_for_metric_group(project_key, environment_key, experiment_key, metric_group_key, iteration_id=iteration_id)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ExperimentsBetaApi->get_experiment_results_for_metric_group: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key |
+ **environment_key** | **str**| The environment key |
+ **experiment_key** | **str**| The experiment key |
+ **metric_group_key** | **str**| The metric group key |
+ **iteration_id** | **str**| The iteration ID | [optional]
+
+### Return type
+
+[**MetricGroupResultsRep**](MetricGroupResultsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Experiment results response for metric group |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -769,7 +899,7 @@ Name | Type | Description  | Notes
 
 Patch experiment
 
-Update an experiment. Updating an experiment uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating experiments.  #### updateName  Updates the experiment name.  ##### Parameters  - `value`: The new name.  #### updateDescription  Updates the experiment description.  ##### Parameters  - `value`: The new description.  #### startIteration  Starts a new iteration for this experiment. You must [create a new iteration](/tag/Experiments-(beta)#operation/createIteration) before calling this instruction.  An iteration may not be started until it meets the following criteria:  * Its associated flag is toggled on and is not archived * Its `randomizationUnit` is set * At least one of its `treatments` has a non-zero `allocationPercent`  ##### Parameters  - `changeJustification`: The reason for starting a new iteration. Required when you call `startIteration` on an already running experiment, otherwise optional.  #### stopIteration  Stops the current iteration for this experiment.  ##### Parameters  - `winningTreatmentId`: The ID of the winning treatment - `winningReason`: The reason for the winner  #### archiveExperiment  Archives this experiment. Archived experiments are hidden by default in the LaunchDarkly user interface. You cannot start new iterations for archived experiments.  #### restoreExperiment  Restores an archived experiment. After restoring an experiment, you can start new iterations for it again. 
+Update an experiment. Updating an experiment uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating experiments.  #### updateName  Updates the experiment name.  ##### Parameters  - `value`: The new name.  Here's an example:  ```json {   \"instructions\": [{     \"kind\": \"updateName\",     \"value\": \"Example updated experiment name\"   }] } ```  #### updateDescription  Updates the experiment description.  ##### Parameters  - `value`: The new description.  Here's an example:  ```json {   \"instructions\": [{     \"kind\": \"updateDescription\",     \"value\": \"Example updated description\"   }] } ```  #### startIteration  Starts a new iteration for this experiment. You must [create a new iteration](/tag/Experiments-(beta)#operation/createIteration) before calling this instruction.  An iteration may not be started until it meets the following criteria:  * Its associated flag is toggled on and is not archived * Its `randomizationUnit` is set * At least one of its `treatments` has a non-zero `allocationPercent`  ##### Parameters  - `changeJustification`: The reason for starting a new iteration. Required when you call `startIteration` on an already running experiment, otherwise optional.  Here's an example:  ```json {   \"instructions\": [{     \"kind\": \"startIteration\",     \"changeJustification\": \"It's time to start a new iteration\"   }] } ```  #### stopIteration  Stops the current iteration for this experiment.  ##### Parameters  - `winningTreatmentId`: The ID of the winning treatment. Treatment IDs are returned as part of the [Get experiment](/tag/Experiments-(beta)#operation/getExperiment) response. They are the `_id` of each element in the `treatments` array. - `winningReason`: The reason for the winner  Here's an example:  ```json {   \"instructions\": [{     \"kind\": \"stopIteration\",     \"winningTreatmentId\": \"3a548ec2-72ac-4e59-8518-5c24f5609ccf\",     \"winningReason\": \"Example reason to stop the iteration\"   }] } ```  #### archiveExperiment  Archives this experiment. Archived experiments are hidden by default in the LaunchDarkly user interface. You cannot start new iterations for archived experiments.  Here's an example:  ```json {   \"instructions\": [{ \"kind\": \"archiveExperiment\" }] } ```  #### restoreExperiment  Restores an archived experiment. After restoring an experiment, you can start new iterations for it again.  Here's an example:  ```json {   \"instructions\": [{ \"kind\": \"restoreExperiment\" }] } ``` 
 
 ### Example
 
