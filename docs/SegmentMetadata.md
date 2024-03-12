@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **version** | **int** |  | [optional] 
 **included_count** | **int** |  | [optional] 
 **excluded_count** | **int** |  | [optional] 
+**last_modified** | **int** |  | [optional] 
 **deleted** | **bool** |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 

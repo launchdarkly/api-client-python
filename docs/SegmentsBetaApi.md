@@ -4,18 +4,18 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_big_segment_export**](SegmentsBetaApi.md#create_big_segment_export) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create Big Segment export
-[**create_big_segment_import**](SegmentsBetaApi.md#create_big_segment_import) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create Big Segment import
-[**get_big_segment_export**](SegmentsBetaApi.md#get_big_segment_export) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get Big Segment export
-[**get_big_segment_import**](SegmentsBetaApi.md#get_big_segment_import) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get Big Segment import
+[**create_big_segment_export**](SegmentsBetaApi.md#create_big_segment_export) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create big segment export
+[**create_big_segment_import**](SegmentsBetaApi.md#create_big_segment_import) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create big segment import
+[**get_big_segment_export**](SegmentsBetaApi.md#get_big_segment_export) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get big segment export
+[**get_big_segment_import**](SegmentsBetaApi.md#get_big_segment_import) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get big segment import
 
 
 # **create_big_segment_export**
 > create_big_segment_export(project_key, environment_key, segment_key)
 
-Create Big Segment export
+Create big segment export
 
-Starts a new export process for a Big Segment. This is an export for a list-based segment that can include more than 15,000 entries.
+Starts a new export process for a big segment. This is an export for a synced segment or a list-based segment that can include more than 15,000 entries.
 
 ### Example
 
@@ -57,7 +57,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Create Big Segment export
+        # Create big segment export
         api_instance.create_big_segment_export(project_key, environment_key, segment_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsBetaApi->create_big_segment_export: %s\n" % e)
@@ -101,9 +101,9 @@ void (empty response body)
 # **create_big_segment_import**
 > create_big_segment_import(project_key, environment_key, segment_key)
 
-Create Big Segment import
+Create big segment import
 
-Start a new import process for a Big Segment. This is an import for a list-based segment that can include more than 15,000 entries.
+Start a new import process for a big segment. This is an import for a list-based segment that can include more than 15,000 entries.
 
 ### Example
 
@@ -148,7 +148,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Create Big Segment import
+        # Create big segment import
         api_instance.create_big_segment_import(project_key, environment_key, segment_key)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsBetaApi->create_big_segment_import: %s\n" % e)
@@ -156,7 +156,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        # Create Big Segment import
+        # Create big segment import
         api_instance.create_big_segment_import(project_key, environment_key, segment_key, file=file, mode=mode)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsBetaApi->create_big_segment_import: %s\n" % e)
@@ -203,9 +203,9 @@ void (empty response body)
 # **get_big_segment_export**
 > Export get_big_segment_export(project_key, environment_key, segment_key, export_id)
 
-Get Big Segment export
+Get big segment export
 
-Returns information about a Big Segment export process. This is the export of a list-based segment that can include more than 15,000 entries.
+Returns information about a big segment export process. This is an export for a synced segment or a list-based segment that can include more than 15,000 entries.
 
 ### Example
 
@@ -248,7 +248,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get Big Segment export
+        # Get big segment export
         api_response = api_instance.get_big_segment_export(project_key, environment_key, segment_key, export_id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -293,9 +293,9 @@ Name | Type | Description  | Notes
 # **get_big_segment_import**
 > ModelImport get_big_segment_import(project_key, environment_key, segment_key, import_id)
 
-Get Big Segment import
+Get big segment import
 
-Returns information about a Big Segment import process. This is the import of a list-based segment that can include more than 15,000 entries.
+Returns information about a big segment import process. This is the import of a list-based segment that can include more than 15,000 entries.
 
 ### Example
 
@@ -338,7 +338,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get Big Segment import
+        # Get big segment import
         api_response = api_instance.get_big_segment_import(project_key, environment_key, segment_key, import_id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:

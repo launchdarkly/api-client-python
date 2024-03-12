@@ -224,12 +224,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = access_tokens_api.AccessTokensApi(api_client)
     show_all = True # bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
+    limit = 1 # int | The number of access tokens to return in the response. Defaults to 25. (optional)
+    offset = 1 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # List access tokens
-        api_response = api_instance.get_tokens(show_all=show_all)
+        api_response = api_instance.get_tokens(show_all=show_all, limit=limit, offset=offset)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccessTokensApi->get_tokens: %s\n" % e)
@@ -241,6 +243,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **show_all** | **bool**| If set to true, and the authentication access token has the &#39;Admin&#39; role, personal access tokens for all members will be retrieved. | [optional]
+ **limit** | **int**| The number of access tokens to return in the response. Defaults to 25. | [optional]
+ **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
 
 ### Return type
 

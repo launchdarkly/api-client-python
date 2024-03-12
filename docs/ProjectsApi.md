@@ -644,6 +644,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                     key="key_example",
                     version=1,
                 ),
+                critical=True,
             ),
         ],
     ) # ProjectPost | 
@@ -740,10 +741,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     upsert_flag_defaults_payload = UpsertFlagDefaultsPayload(
         tags=["tag-1","tag-2"],
         temporary=True,
-        default_client_side_availability=DefaultClientSideAvailability(
-            using_mobile_key=True,
-            using_environment_id=True,
-        ),
         boolean_defaults=BooleanFlagDefaults(
             true_display_name="True",
             false_display_name="False",
@@ -751,6 +748,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             false_description="serve false",
             on_variation=0,
             off_variation=1,
+        ),
+        default_client_side_availability=DefaultClientSideAvailability(
+            using_mobile_key=True,
+            using_environment_id=True,
         ),
     ) # UpsertFlagDefaultsPayload | 
 

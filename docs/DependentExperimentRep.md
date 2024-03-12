@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **key** | **str** | The experiment key | 
 **name** | **str** | The experiment name | 
 **environment_id** | **str** | The environment ID | 
+**environment_key** | **str** | The environment key | 
 **creation_date** | **int** |  | 
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **archived_date** | **int** |  | [optional] 

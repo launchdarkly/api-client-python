@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The repository name | 
+**type** | **str** | The type of repository | 
 **source_link** | **str** | A URL to access the repository | 
 **default_branch** | **str** | The repository&#39;s default branch | 
 **enabled** | **bool** | Whether or not a repository is enabled for code reference scanning | 

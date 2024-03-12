@@ -25,6 +25,7 @@ Get a list of IP ranges the LaunchDarkly service uses. You can use this list to 
 import time
 import launchdarkly_api
 from launchdarkly_api.api import other_api
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.ip_list import IpList
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -81,6 +82,7 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Public IP response |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -99,6 +101,7 @@ Get the latest version of the OpenAPI specification for LaunchDarkly's API in JS
 import time
 import launchdarkly_api
 from launchdarkly_api.api import other_api
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -145,7 +148,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -153,6 +156,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OpenAPI Spec |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -171,6 +175,7 @@ Get all of the resource categories the API supports. In the sandbox, click 'Try 
 import time
 import launchdarkly_api
 from launchdarkly_api.api import other_api
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.root_response import RootResponse
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
@@ -227,6 +232,7 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Root response |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -102,7 +102,7 @@ void (empty response body)
 
 Get metric
 
-Get information for a single metric from the specific project.  ### Expanding the metric response LaunchDarkly supports two fields for expanding the \"Get metric\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `experiments` includes all experiments from the specific project that use the metric - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experiments` includes the `experiments` field in the response. 
+Get information for a single metric from the specific project.  ### Expanding the metric response LaunchDarkly supports four fields for expanding the \"Get metric\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `experiments` includes all experiments from the specific project that use the metric - `experimentCount` includes the number of experiments from the specific project that use the metric - `metricGroups` includes all metric groups from the specific project that use the metric - `metricGroupCount` includes the number of metric groups from the specific project that use the metric  For example, `expand=experiments` includes the `experiments` field in the response. 
 
 ### Example
 
@@ -142,6 +142,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     metric_key = "metricKey_example" # str | The metric key
     expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    version_id = "versionId_example" # str | The specific version ID of the metric (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -155,7 +156,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get metric
-        api_response = api_instance.get_metric(project_key, metric_key, expand=expand)
+        api_response = api_instance.get_metric(project_key, metric_key, expand=expand, version_id=version_id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->get_metric: %s\n" % e)
@@ -169,6 +170,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **metric_key** | **str**| The metric key |
  **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **version_id** | **str**| The specific version ID of the metric | [optional]
 
 ### Return type
 

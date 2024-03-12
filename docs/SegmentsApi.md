@@ -9,15 +9,15 @@ Method | HTTP request | Description
 [**get_expiring_targets_for_segment**](SegmentsApi.md#get_expiring_targets_for_segment) | **GET** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Get expiring targets for segment
 [**get_expiring_user_targets_for_segment**](SegmentsApi.md#get_expiring_user_targets_for_segment) | **GET** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for segment
 [**get_segment**](SegmentsApi.md#get_segment) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Get segment
-[**get_segment_membership_for_context**](SegmentsApi.md#get_segment_membership_for_context) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts/{contextKey} | Get Big Segment membership for context
-[**get_segment_membership_for_user**](SegmentsApi.md#get_segment_membership_for_user) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get Big Segment membership for user
+[**get_segment_membership_for_context**](SegmentsApi.md#get_segment_membership_for_context) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts/{contextKey} | Get big segment membership for context
+[**get_segment_membership_for_user**](SegmentsApi.md#get_segment_membership_for_user) | **GET** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get big segment membership for user
 [**get_segments**](SegmentsApi.md#get_segments) | **GET** /api/v2/segments/{projectKey}/{environmentKey} | List segments
 [**patch_expiring_targets_for_segment**](SegmentsApi.md#patch_expiring_targets_for_segment) | **PATCH** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Update expiring targets for segment
 [**patch_expiring_user_targets_for_segment**](SegmentsApi.md#patch_expiring_user_targets_for_segment) | **PATCH** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Update expiring user targets for segment
 [**patch_segment**](SegmentsApi.md#patch_segment) | **PATCH** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Patch segment
 [**post_segment**](SegmentsApi.md#post_segment) | **POST** /api/v2/segments/{projectKey}/{environmentKey} | Create segment
-[**update_big_segment_context_targets**](SegmentsApi.md#update_big_segment_context_targets) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts | Update context targets on a Big Segment
-[**update_big_segment_targets**](SegmentsApi.md#update_big_segment_targets) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update user context targets on a Big Segment
+[**update_big_segment_context_targets**](SegmentsApi.md#update_big_segment_context_targets) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts | Update context targets on a big segment
+[**update_big_segment_targets**](SegmentsApi.md#update_big_segment_targets) | **POST** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update user context targets on a big segment
 
 
 # **delete_segment**
@@ -115,7 +115,7 @@ void (empty response body)
 
 List segment memberships for context instance
 
-For a given context instance with attributes, get membership details for all segments
+For a given context instance with attributes, get membership details for all segments. In the request body, pass in the context instance.
 
 ### Example
 
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 Get segment
 
-Get a single segment by key.<br/><br/>Segments can be rule-based, list-based, or synced. Big Segments include larger list-based segments and synced segments. Some fields in the response only apply to Big Segments.
+Get a single segment by key.<br/><br/>Segments can be rule-based, list-based, or synced. Big segments include larger list-based segments and synced segments. Some fields in the response only apply to big segments.
 
 ### Example
 
@@ -468,9 +468,9 @@ Name | Type | Description  | Notes
 # **get_segment_membership_for_context**
 > BigSegmentTarget get_segment_membership_for_context(project_key, environment_key, segment_key, context_key)
 
-Get Big Segment membership for context
+Get big segment membership for context
 
-Get the membership status (included/excluded) for a given context in this Big Segment. Big Segments include larger list-based segments and synced segments. This operation does not support standard segments.
+Get the membership status (included/excluded) for a given context in this big segment. Big segments include larger list-based segments and synced segments. This operation does not support standard segments.
 
 ### Example
 
@@ -514,7 +514,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get Big Segment membership for context
+        # Get big segment membership for context
         api_response = api_instance.get_segment_membership_for_context(project_key, environment_key, segment_key, context_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -560,9 +560,9 @@ Name | Type | Description  | Notes
 # **get_segment_membership_for_user**
 > BigSegmentTarget get_segment_membership_for_user(project_key, environment_key, segment_key, user_key)
 
-Get Big Segment membership for user
+Get big segment membership for user
 
-> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](/tag/Segments#operation/getExpiringTargetsForSegment) instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).  Get the membership status (included/excluded) for a given user in this Big Segment. This operation does not support standard segments. 
+> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](/tag/Segments#operation/getExpiringTargetsForSegment) instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).  Get the membership status (included/excluded) for a given user in this big segment. This operation does not support standard segments. 
 
 ### Example
 
@@ -606,7 +606,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get Big Segment membership for user
+        # Get big segment membership for user
         api_response = api_instance.get_segment_membership_for_user(project_key, environment_key, segment_key, user_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 List segments
 
-Get a list of all segments in the given project.<br/><br/>Segments can be rule-based, list-based, or synced. Big Segments include larger list-based segments and synced segments. Some fields in the response only apply to Big Segments.
+Get a list of all segments in the given project.<br/><br/>Segments can be rule-based, list-based, or synced. Big segments include larger list-based segments and synced segments. Some fields in the response only apply to big segments.
 
 ### Example
 
@@ -694,7 +694,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     limit = 1 # int | The number of segments to return. Defaults to 50. (optional)
     offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     sort = "sort_example" # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
-    filter = "filter_example" # str | Accepts filter by kind, query, or tags. To filter by kind or query, use the `equals` operator. To filter by tags, use the `anyOf` operator. Query is a 'fuzzy' search across segment key, name, and description. Example: `filter=tags anyOf ['enterprise', 'beta'],query equals 'toggle'` returns segments with 'toggle' in their key, name, or description that also have 'enterprise' or 'beta' as a tag. (optional)
+    filter = "filter_example" # str | Accepts filter by kind, query, tags, unbounded, or external. To filter by kind or query, use the `equals` operator. To filter by tags, use the `anyOf` operator. Query is a 'fuzzy' search across segment key, name, and description. Example: `filter=tags anyOf ['enterprise', 'beta'],query equals 'toggle'` returns segments with 'toggle' in their key, name, or description that also have 'enterprise' or 'beta' as a tag. To filter by unbounded, use the `equals` operator. Example: `filter=unbounded equals true`. To filter by external, use the `exists` operator. Example: `filter=external exists true`. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -724,7 +724,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| The number of segments to return. Defaults to 50. | [optional]
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
  **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#39;creationDate&#39;, &#39;name&#39;, &#39;lastModified&#39;. Example: &#x60;sort&#x3D;name&#x60; sort by names ascending or &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional]
- **filter** | **str**| Accepts filter by kind, query, or tags. To filter by kind or query, use the &#x60;equals&#x60; operator. To filter by tags, use the &#x60;anyOf&#x60; operator. Query is a &#39;fuzzy&#39; search across segment key, name, and description. Example: &#x60;filter&#x3D;tags anyOf [&#39;enterprise&#39;, &#39;beta&#39;],query equals &#39;toggle&#39;&#x60; returns segments with &#39;toggle&#39; in their key, name, or description that also have &#39;enterprise&#39; or &#39;beta&#39; as a tag. | [optional]
+ **filter** | **str**| Accepts filter by kind, query, tags, unbounded, or external. To filter by kind or query, use the &#x60;equals&#x60; operator. To filter by tags, use the &#x60;anyOf&#x60; operator. Query is a &#39;fuzzy&#39; search across segment key, name, and description. Example: &#x60;filter&#x3D;tags anyOf [&#39;enterprise&#39;, &#39;beta&#39;],query equals &#39;toggle&#39;&#x60; returns segments with &#39;toggle&#39; in their key, name, or description that also have &#39;enterprise&#39; or &#39;beta&#39; as a tag. To filter by unbounded, use the &#x60;equals&#x60; operator. Example: &#x60;filter&#x3D;unbounded equals true&#x60;. To filter by external, use the &#x60;exists&#x60; operator. Example: &#x60;filter&#x3D;external exists true&#x60;. | [optional]
 
 ### Return type
 
@@ -1176,9 +1176,9 @@ Name | Type | Description  | Notes
 # **update_big_segment_context_targets**
 > update_big_segment_context_targets(project_key, environment_key, segment_key, segment_user_state)
 
-Update context targets on a Big Segment
+Update context targets on a big segment
 
-Update context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments.
+Update context targets included or excluded in a big segment. Big segments include larger list-based segments and synced segments. This operation does not support standard segments.
 
 ### Example
 
@@ -1239,7 +1239,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Update context targets on a Big Segment
+        # Update context targets on a big segment
         api_instance.update_big_segment_context_targets(project_key, environment_key, segment_key, segment_user_state)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->update_big_segment_context_targets: %s\n" % e)
@@ -1284,9 +1284,9 @@ void (empty response body)
 # **update_big_segment_targets**
 > update_big_segment_targets(project_key, environment_key, segment_key, segment_user_state)
 
-Update user context targets on a Big Segment
+Update user context targets on a big segment
 
-Update user context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments.
+Update user context targets included or excluded in a big segment. Big segments include larger list-based segments and synced segments. This operation does not support standard segments.
 
 ### Example
 
@@ -1347,7 +1347,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Update user context targets on a Big Segment
+        # Update user context targets on a big segment
         api_instance.update_big_segment_targets(project_key, environment_key, segment_key, segment_user_state)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling SegmentsApi->update_big_segment_targets: %s\n" % e)

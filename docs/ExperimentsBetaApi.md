@@ -14,7 +14,6 @@ Method | HTTP request | Description
 [**get_legacy_experiment_results**](ExperimentsBetaApi.md#get_legacy_experiment_results) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
 [**patch_experiment**](ExperimentsBetaApi.md#patch_experiment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
 [**put_experimentation_settings**](ExperimentsBetaApi.md#put_experimentation_settings) | **PUT** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
-[**reset_experiment**](ExperimentsBetaApi.md#reset_experiment) | **DELETE** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
 # **create_experiment**
@@ -78,6 +77,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                     primary=True,
                 ),
             ]),
+            primary_single_metric_key="metric-key-123abc",
+            primary_funnel_key="metric-group-key-123abc",
             treatments=TreatmentsInput([
                 TreatmentInput(
                     name="Treatment 1",
@@ -203,6 +204,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 primary=True,
             ),
         ]),
+        primary_single_metric_key="metric-key-123abc",
+        primary_funnel_key="metric-group-key-123abc",
         treatments=TreatmentsInput([
             TreatmentInput(
                 name="Treatment 1",
@@ -381,7 +384,7 @@ Name | Type | Description  | Notes
 
 Get experiment results
 
-Get results from an experiment for a particular metric.
+Get results from an experiment for a particular metric.  LaunchDarkly supports one field for expanding the \"Get experiment results\" response. By default, this field is **not** included in the response.  To expand the response, append the `expand` query parameter with the following field: * `traffic` includes the total count of units for each treatment.  For example, `expand=traffic` includes the `traffic` field for the project in the response. 
 
 ### Example
 
@@ -424,6 +427,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     experiment_key = "experimentKey_example" # str | The experiment key
     metric_key = "metricKey_example" # str | The metric key
     iteration_id = "iterationId_example" # str | The iteration ID (optional)
+    expand = "expand_example" # str | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -437,7 +441,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get experiment results
-        api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key, iteration_id=iteration_id)
+        api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key, iteration_id=iteration_id, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->get_experiment_results: %s\n" % e)
@@ -453,6 +457,7 @@ Name | Type | Description  | Notes
  **experiment_key** | **str**| The experiment key |
  **metric_key** | **str**| The metric key |
  **iteration_id** | **str**| The iteration ID | [optional]
+ **expand** | **str**| A comma-separated list of fields to expand in the response. Supported fields are explained above. | [optional]
 
 ### Return type
 
@@ -587,7 +592,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_experimentation_settings**
-> ExperimentationSettingsRep get_experimentation_settings(project_key)
+> RandomizationSettingsRep get_experimentation_settings(project_key)
 
 Get experimentation settings
 
@@ -605,9 +610,9 @@ from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestError
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.experimentation_settings_rep import ExperimentationSettingsRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.randomization_settings_rep import RandomizationSettingsRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -650,7 +655,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+[**RandomizationSettingsRep**](RandomizationSettingsRep.md)
 
 ### Authorization
 
@@ -997,7 +1002,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **put_experimentation_settings**
-> ExperimentationSettingsRep put_experimentation_settings(project_key, experimentation_settings_put)
+> RandomizationSettingsRep put_experimentation_settings(project_key, randomization_settings_put)
 
 Update experimentation settings
 
@@ -1013,12 +1018,12 @@ import launchdarkly_api
 from launchdarkly_api.api import experiments_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.experimentation_settings_put import ExperimentationSettingsPut
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.experimentation_settings_rep import ExperimentationSettingsRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.randomization_settings_put import RandomizationSettingsPut
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.randomization_settings_rep import RandomizationSettingsRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -1042,7 +1047,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
-    experimentation_settings_put = ExperimentationSettingsPut(
+    randomization_settings_put = RandomizationSettingsPut(
         randomization_units=[
             RandomizationUnitInput(
                 randomization_unit="user",
@@ -1050,12 +1055,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 standard_randomization_unit="guest",
             ),
         ],
-    ) # ExperimentationSettingsPut | 
+    ) # RandomizationSettingsPut | 
 
     # example passing only required values which don't have defaults set
     try:
         # Update experimentation settings
-        api_response = api_instance.put_experimentation_settings(project_key, experimentation_settings_put)
+        api_response = api_instance.put_experimentation_settings(project_key, randomization_settings_put)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ExperimentsBetaApi->put_experimentation_settings: %s\n" % e)
@@ -1067,11 +1072,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
- **experimentation_settings_put** | [**ExperimentationSettingsPut**](ExperimentationSettingsPut.md)|  |
+ **randomization_settings_put** | [**RandomizationSettingsPut**](RandomizationSettingsPut.md)|  |
 
 ### Return type
 
-[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+[**RandomizationSettingsRep**](RandomizationSettingsRep.md)
 
 ### Authorization
 
@@ -1093,96 +1098,6 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **405** | Method not allowed |  -  |
-**429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **reset_experiment**
-> reset_experiment(project_key, feature_flag_key, environment_key, metric_key)
-
-Reset experiment results
-
-Reset all experiment results by deleting all existing data for an experiment.
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import time
-import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from pprint import pprint
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    metric_key = "metricKey_example" # str | The metric's key
-
-    # example passing only required values which don't have defaults set
-    try:
-        # Reset experiment results
-        api_instance.reset_experiment(project_key, feature_flag_key, environment_key, metric_key)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->reset_experiment: %s\n" % e)
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **metric_key** | **str**| The metric&#39;s key |
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | Experiment results reset successfully |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

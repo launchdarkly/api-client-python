@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_release_by_flag_key**
-> patch_release_by_flag_key(project_key, flag_key, json_patch)
+> Release patch_release_by_flag_key(project_key, flag_key, json_patch)
 
 Patch release for flag
 
@@ -106,6 +106,12 @@ import time
 import launchdarkly_api
 from launchdarkly_api.api import releases_beta_api
 from launchdarkly_api.model.json_patch import JSONPatch
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.release import Release
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -141,7 +147,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Patch release for flag
-        api_instance.patch_release_by_flag_key(project_key, flag_key, json_patch)
+        api_response = api_instance.patch_release_by_flag_key(project_key, flag_key, json_patch)
+        pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ReleasesBetaApi->patch_release_by_flag_key: %s\n" % e)
 ```
@@ -157,7 +164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Release**](Release.md)
 
 ### Authorization
 
@@ -166,8 +173,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Release response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

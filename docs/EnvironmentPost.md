@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **require_comments** | **bool** | Requires comments for all flag and segment changes via the UI in this environment | [optional] 
 **tags** | **[str]** | Tags to apply to the new environment | [optional] 
 **source** | [**SourceEnv**](SourceEnv.md) |  | [optional] 
+**critical** | **bool** | Whether the environment is critical | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

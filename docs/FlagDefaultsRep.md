@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | [optional] 
+**key** | **str** | A unique key for the flag default | [optional] 
 **tags** | **[str]** | A list of default tags for each flag | [optional] 
 **temporary** | **bool** | Whether the flag should be temporary by default | [optional] 
 **default_client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 

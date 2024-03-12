@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **custom_properties** | [**CustomProperties**](CustomProperties.md) |  | 
 **archived** | **bool** | Boolean indicating if the feature flag is archived | 
+**deprecated** | **bool** | Boolean indicating if the feature flag is deprecated | 
 **environments** | [**{str: (FeatureFlagConfig,)}**](FeatureFlagConfig.md) | Details on the environments for this flag | 
 **description** | **str** | Description of the feature flag | [optional] 
 **include_in_snippet** | **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK | [optional] 
@@ -26,6 +27,7 @@ Name | Type | Description | Notes
 **maintainer_team** | [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
 **goal_ids** | **[str]** | Deprecated, use &lt;code&gt;experiments&lt;/code&gt; instead | [optional] 
 **archived_date** | **int** |  | [optional] 
+**deprecated_date** | **int** |  | [optional] 
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 **purpose** | **str** |  | [optional] 
 **migration_settings** | [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 

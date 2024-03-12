@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | **str** | The ID of this metric group | 
 **key** | **str** | A unique key to reference the metric group | 
 **name** | **str** | A human-friendly name for the metric group | 
+**kind** | **str** | The type of the metric group | 
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **tags** | **[str]** | Tags for the metric group | 
 **creation_date** | **int** |  | 
@@ -14,7 +15,6 @@ Name | Type | Description | Notes
 **maintainer** | [**MaintainerRep**](MaintainerRep.md) |  | 
 **metrics** | [**[MetricInGroupRep]**](MetricInGroupRep.md) | An ordered list of the metrics in this metric group | 
 **version** | **int** | The version of this metric group | 
-**kind** | **str** | The type of the metric group | defaults to "funnel"
 **description** | **str** | Description of the metric group | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
 **experiments** | [**DependentExperimentListRep**](DependentExperimentListRep.md) |  | [optional] 

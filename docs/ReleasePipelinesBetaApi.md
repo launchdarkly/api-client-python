@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Delete release pipeline
 
-Delete a release pipeline
+Deletes a release pipeline.  You cannot delete the default release pipeline.  If you want to delete a release pipeline that is currently the default, create a second release pipeline and set it as the default. Then delete the first release pipeline. To change the default release pipeline, use the [Update project](/tag/Projects#operation/patchProject) API to set the `defaultReleasePipelineKey`. 
 
 ### Example
 
@@ -98,7 +98,7 @@ void (empty response body)
 
 Get all release pipelines
 
-Get all release pipelines for a project
+Get all release pipelines for a project.  ### Filtering release pipelines  LaunchDarkly supports the following fields for filters:  - `query` is a string that matches against the release pipeline `key`, `name`, and `description`. It is not case sensitive. For example: `?filter=query:examplePipeline`. 
 
 ### Example
 
@@ -133,11 +133,23 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = release_pipelines_beta_api.ReleasePipelinesBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
+    filter = "filter_example" # str | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
+    limit = 1 # int | The maximum number of items to return. Defaults to 20. (optional)
+    offset = 1 # int | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get all release pipelines
         api_response = api_instance.get_all_release_pipelines(project_key)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling ReleasePipelinesBetaApi->get_all_release_pipelines: %s\n" % e)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get all release pipelines
+        api_response = api_instance.get_all_release_pipelines(project_key, filter=filter, limit=limit, offset=offset)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ReleasePipelinesBetaApi->get_all_release_pipelines: %s\n" % e)
@@ -149,6 +161,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
+ **filter** | **str**| A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. | [optional]
+ **limit** | **int**| The maximum number of items to return. Defaults to 20. | [optional]
+ **offset** | **int**| Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
 
 ### Return type
 
@@ -346,7 +361,7 @@ Name | Type | Description  | Notes
 
 Create a release pipeline
 
-Creates a new release pipeline
+Creates a new release pipeline.  The first release pipeline you create is automatically set as the default release pipeline for your project. To change the default release pipeline, use the [Update project](/tag/Projects#operation/patchProject) API to set the `defaultReleasePipelineKey`.  You can create up to 20 release pipelines per project. 
 
 ### Example
 
