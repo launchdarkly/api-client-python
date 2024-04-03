@@ -55,7 +55,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     application_key = "applicationKey_example" # str | Comma separated list of application keys (optional)
     query = "query_example" # str | Filter events by flag key (optional)
     impact_size = "impactSize_example" # str | Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: `none`, `small`, `medium`, `large` (optional)
-    has_experiments = True # bool | Filter events to those associated with an experiment (optional)
+    has_experiments = True # bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
     _global = "global_example" # str | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
     expand = "expand_example" # str | Expand properties in response. Options: `experiments` (optional)
     limit = 1 # int | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
  **application_key** | **str**| Comma separated list of application keys | [optional]
  **query** | **str**| Filter events by flag key | [optional]
  **impact_size** | **str**| Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: &#x60;none&#x60;, &#x60;small&#x60;, &#x60;medium&#x60;, &#x60;large&#x60; | [optional]
- **has_experiments** | **bool**| Filter events to those associated with an experiment | [optional]
+ **has_experiments** | **bool**| Filter events to those associated with an experiment (&#x60;true&#x60;) or without an experiment (&#x60;false&#x60;) | [optional]
  **_global** | **str**| Filter to include or exclude global events. Default value is &#x60;include&#x60;. Options: &#x60;include&#x60;, &#x60;exclude&#x60; | [optional]
  **expand** | **str**| Expand properties in response. Options: &#x60;experiments&#x60; | [optional]
  **limit** | **int**| The number of deployments to return. Default is 20. Maximum allowed is 100. | [optional]

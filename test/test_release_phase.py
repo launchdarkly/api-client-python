@@ -15,10 +15,10 @@ import sys
 import unittest
 
 import launchdarkly_api
-from launchdarkly_api.model.audience import Audience
 from launchdarkly_api.model.completed_by import CompletedBy
-globals()['Audience'] = Audience
+from launchdarkly_api.model.release_audience import ReleaseAudience
 globals()['CompletedBy'] = CompletedBy
+globals()['ReleaseAudience'] = ReleaseAudience
 from launchdarkly_api.model.release_phase import ReleasePhase
 
 

@@ -458,6 +458,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         tags=["example-tag"],
         randomization_units=["user"],
         unit_aggregation_type="average",
+        analysis_type="mean",
+        percentile_value=95,
+        event_default=MetricEventDefaultRep(
+            disabled=True,
+            value=3.14,
+        ),
     ) # MetricPost | 
 
     # example passing only required values which don't have defaults set

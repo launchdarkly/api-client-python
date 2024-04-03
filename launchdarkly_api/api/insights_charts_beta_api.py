@@ -742,7 +742,7 @@ class InsightsChartsBetaApi(object):
         environment_key,
         **kwargs
     ):
-        """Get replease frequency chart data  # noqa: E501
+        """Get release frequency chart data  # noqa: E501
 
         Get release frequency chart data. Engineering insights displays release frequency data in the [release frequency metric view](https://docs.launchdarkly.com/home/engineering-insights/metrics/release).  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -757,7 +757,7 @@ class InsightsChartsBetaApi(object):
 
         Keyword Args:
             application_key (str): Comma separated list of application keys. [optional]
-            has_experiments (bool): Filter events to those associated with an experiment. [optional]
+            has_experiments (bool): Filter events to those associated with an experiment (`true`) or without an experiment (`false`). [optional]
             _global (str): Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude`. [optional]
             group_by (str): Property to group results by. Options: `impact`. [optional]
             _from (datetime): Unix timestamp in milliseconds. Default value is 7 days ago.. [optional]

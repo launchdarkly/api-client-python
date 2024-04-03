@@ -354,6 +354,7 @@ docs/RelayAutoConfigPost.md
 docs/RelayAutoConfigRep.md
 docs/RelayProxyConfigurationsApi.md
 docs/Release.md
+docs/ReleaseAudience.md
 docs/ReleasePhase.md
 docs/ReleasePipeline.md
 docs/ReleasePipelineCollection.md
@@ -844,6 +845,7 @@ launchdarkly_api/model/relay_auto_config_collection_rep.py
 launchdarkly_api/model/relay_auto_config_post.py
 launchdarkly_api/model/relay_auto_config_rep.py
 launchdarkly_api/model/release.py
+launchdarkly_api/model/release_audience.py
 launchdarkly_api/model/release_phase.py
 launchdarkly_api/model/release_pipeline.py
 launchdarkly_api/model/release_pipeline_collection.py
@@ -1306,6 +1308,7 @@ test/test_relay_auto_config_post.py
 test/test_relay_auto_config_rep.py
 test/test_relay_proxy_configurations_api.py
 test/test_release.py
+test/test_release_audience.py
 test/test_release_phase.py
 test/test_release_pipeline.py
 test/test_release_pipeline_collection.py

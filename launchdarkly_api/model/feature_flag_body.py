@@ -113,6 +113,8 @@ class FeatureFlagBody(ModelNormal):
             'defaults': (Defaults,),  # noqa: E501
             'purpose': (str,),  # noqa: E501
             'migration_settings': (MigrationSettingsPost,),  # noqa: E501
+            'maintainer_id': (str,),  # noqa: E501
+            'maintainer_team_key': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -133,6 +135,8 @@ class FeatureFlagBody(ModelNormal):
         'defaults': 'defaults',  # noqa: E501
         'purpose': 'purpose',  # noqa: E501
         'migration_settings': 'migrationSettings',  # noqa: E501
+        'maintainer_id': 'maintainerId',  # noqa: E501
+        'maintainer_team_key': 'maintainerTeamKey',  # noqa: E501
     }
 
     read_only_vars = {
@@ -190,6 +194,8 @@ class FeatureFlagBody(ModelNormal):
             defaults (Defaults): [optional]  # noqa: E501
             purpose (str): Purpose of the flag. [optional] if omitted the server will use the default value of "migration"  # noqa: E501
             migration_settings (MigrationSettingsPost): [optional]  # noqa: E501
+            maintainer_id (str): The ID of the member who maintains this feature flag. [optional]  # noqa: E501
+            maintainer_team_key (str): The key of the team that maintains this feature flag. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -291,6 +297,8 @@ class FeatureFlagBody(ModelNormal):
             defaults (Defaults): [optional]  # noqa: E501
             purpose (str): Purpose of the flag. [optional] if omitted the server will use the default value of "migration"  # noqa: E501
             migration_settings (MigrationSettingsPost): [optional]  # noqa: E501
+            maintainer_id (str): The ID of the member who maintains this feature flag. [optional]  # noqa: E501
+            maintainer_team_key (str): The key of the team that maintains this feature flag. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

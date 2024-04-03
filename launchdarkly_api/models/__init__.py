@@ -326,6 +326,7 @@ from launchdarkly_api.model.relay_auto_config_collection_rep import RelayAutoCon
 from launchdarkly_api.model.relay_auto_config_post import RelayAutoConfigPost
 from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
 from launchdarkly_api.model.release import Release
+from launchdarkly_api.model.release_audience import ReleaseAudience
 from launchdarkly_api.model.release_phase import ReleasePhase
 from launchdarkly_api.model.release_pipeline import ReleasePipeline
 from launchdarkly_api.model.release_pipeline_collection import ReleasePipelineCollection

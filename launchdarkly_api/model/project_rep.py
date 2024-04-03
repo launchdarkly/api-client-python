@@ -33,9 +33,11 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
+    from launchdarkly_api.model.access import Access
     from launchdarkly_api.model.client_side_availability import ClientSideAvailability
     from launchdarkly_api.model.environment import Environment
     from launchdarkly_api.model.link import Link
+    globals()['Access'] = Access
     globals()['ClientSideAvailability'] = ClientSideAvailability
     globals()['Environment'] = Environment
     globals()['Link'] = Link
@@ -102,6 +104,7 @@ class ProjectRep(ModelNormal):
             'tags': ([str],),  # noqa: E501
             'environments': ([Environment],),  # noqa: E501
             'default_client_side_availability': (ClientSideAvailability,),  # noqa: E501
+            'access': (Access,),  # noqa: E501
             'default_release_pipeline_key': (str,),  # noqa: E501
         }
 
@@ -119,6 +122,7 @@ class ProjectRep(ModelNormal):
         'tags': 'tags',  # noqa: E501
         'environments': 'environments',  # noqa: E501
         'default_client_side_availability': 'defaultClientSideAvailability',  # noqa: E501
+        'access': '_access',  # noqa: E501
         'default_release_pipeline_key': 'defaultReleasePipelineKey',  # noqa: E501
     }
 
@@ -173,6 +177,7 @@ class ProjectRep(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             default_client_side_availability (ClientSideAvailability): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
             default_release_pipeline_key (str): The key of the default release pipeline for this project. [optional]  # noqa: E501
         """
 
@@ -276,6 +281,7 @@ class ProjectRep(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             default_client_side_availability (ClientSideAvailability): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
             default_release_pipeline_key (str): The key of the default release pipeline for this project. [optional]  # noqa: E501
         """
 

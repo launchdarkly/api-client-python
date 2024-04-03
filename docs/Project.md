@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **name** | **str** | A human-friendly name for the project | 
 **tags** | **[str]** | A list of tags for the project | 
 **default_client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **default_release_pipeline_key** | **str** | The key of the default release pipeline for this project | [optional] 
 **environments** | [**Environments**](Environments.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

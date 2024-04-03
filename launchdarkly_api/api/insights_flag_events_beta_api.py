@@ -179,7 +179,7 @@ class InsightsFlagEventsBetaApi(object):
             application_key (str): Comma separated list of application keys. [optional]
             query (str): Filter events by flag key. [optional]
             impact_size (str): Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: `none`, `small`, `medium`, `large`. [optional]
-            has_experiments (bool): Filter events to those associated with an experiment. [optional]
+            has_experiments (bool): Filter events to those associated with an experiment (`true`) or without an experiment (`false`). [optional]
             _global (str): Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude`. [optional]
             expand (str): Expand properties in response. Options: `experiments`. [optional]
             limit (int): The number of deployments to return. Default is 20. Maximum allowed is 100.. [optional]

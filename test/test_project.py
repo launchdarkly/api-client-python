@@ -15,9 +15,11 @@ import sys
 import unittest
 
 import launchdarkly_api
+from launchdarkly_api.model.access import Access
 from launchdarkly_api.model.client_side_availability import ClientSideAvailability
 from launchdarkly_api.model.environments import Environments
 from launchdarkly_api.model.link import Link
+globals()['Access'] = Access
 globals()['ClientSideAvailability'] = ClientSideAvailability
 globals()['Environments'] = Environments
 globals()['Link'] = Link

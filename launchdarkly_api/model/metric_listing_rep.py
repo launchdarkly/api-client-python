@@ -242,9 +242,9 @@ class MetricListingRep(ModelNormal):
             unit (str): For numeric custom metrics, the unit of measure. [optional]  # noqa: E501
             event_key (str): For custom metrics, the event key to use in your code. [optional]  # noqa: E501
             randomization_units ([str]): An array of randomization units allowed for this metric. [optional]  # noqa: E501
-            unit_aggregation_type (str): The method in which multiple unit event values are aggregated. [optional]  # noqa: E501
-            analysis_type (str): The strategy for analyzing metric events. [optional]  # noqa: E501
-            percentile_value (int): The percentile, an integer denoting the target percentile between 0 and 100. Only present when <code>analysisType</code> is <code>percentile</code>.. [optional]  # noqa: E501
+            unit_aggregation_type (str): The method by which multiple unit event values are aggregated. [optional]  # noqa: E501
+            analysis_type (str): The method for analyzing metric events. [optional]  # noqa: E501
+            percentile_value (int): The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.. [optional]  # noqa: E501
             event_default (MetricEventDefaultRep): [optional]  # noqa: E501
         """
 
@@ -363,9 +363,9 @@ class MetricListingRep(ModelNormal):
             unit (str): For numeric custom metrics, the unit of measure. [optional]  # noqa: E501
             event_key (str): For custom metrics, the event key to use in your code. [optional]  # noqa: E501
             randomization_units ([str]): An array of randomization units allowed for this metric. [optional]  # noqa: E501
-            unit_aggregation_type (str): The method in which multiple unit event values are aggregated. [optional]  # noqa: E501
-            analysis_type (str): The strategy for analyzing metric events. [optional]  # noqa: E501
-            percentile_value (int): The percentile, an integer denoting the target percentile between 0 and 100. Only present when <code>analysisType</code> is <code>percentile</code>.. [optional]  # noqa: E501
+            unit_aggregation_type (str): The method by which multiple unit event values are aggregated. [optional]  # noqa: E501
+            analysis_type (str): The method for analyzing metric events. [optional]  # noqa: E501
+            percentile_value (int): The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.. [optional]  # noqa: E501
             event_default (MetricEventDefaultRep): [optional]  # noqa: E501
         """
 

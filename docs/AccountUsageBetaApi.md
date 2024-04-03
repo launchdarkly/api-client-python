@@ -4,6 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_data_export_events_usage**](AccountUsageBetaApi.md#get_data_export_events_usage) | **GET** /api/v2/usage/data-export-events | Get data export events usage
 [**get_evaluations_usage**](AccountUsageBetaApi.md#get_evaluations_usage) | **GET** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 [**get_events_usage**](AccountUsageBetaApi.md#get_events_usage) | **GET** /api/v2/usage/events/{type} | Get events usage
 [**get_experimentation_keys_usage**](AccountUsageBetaApi.md#get_experimentation_keys_usage) | **GET** /api/v2/usage/experimentation-keys | Get experimentation keys usage
@@ -11,10 +12,102 @@ Method | HTTP request | Description
 [**get_mau_sdks_by_type**](AccountUsageBetaApi.md#get_mau_sdks_by_type) | **GET** /api/v2/usage/mau/sdks | Get MAU SDKs by type
 [**get_mau_usage**](AccountUsageBetaApi.md#get_mau_usage) | **GET** /api/v2/usage/mau | Get MAU usage
 [**get_mau_usage_by_category**](AccountUsageBetaApi.md#get_mau_usage_by_category) | **GET** /api/v2/usage/mau/bycategory | Get MAU usage by category
+[**get_service_connection_usage**](AccountUsageBetaApi.md#get_service_connection_usage) | **GET** /api/v2/usage/service-connections | Get service connection usage
 [**get_stream_usage**](AccountUsageBetaApi.md#get_stream_usage) | **GET** /api/v2/usage/streams/{source} | Get stream usage
 [**get_stream_usage_by_sdk_version**](AccountUsageBetaApi.md#get_stream_usage_by_sdk_version) | **GET** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
 [**get_stream_usage_sdkversion**](AccountUsageBetaApi.md#get_stream_usage_sdkversion) | **GET** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
 
+
+# **get_data_export_events_usage**
+> SeriesIntervalsRep get_data_export_events_usage()
+
+Get data export events usage
+
+Get a time-series array of the number of monthly data export events from your account. The granularity is always daily, with a maximum of 31 days.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import account_usage_beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.status_service_unavailable import StatusServiceUnavailable
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.series_intervals_rep import SeriesIntervalsRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
+    _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
+    to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get data export events usage
+        api_response = api_instance.get_data_export_events_usage(_from=_from, to=to)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling AccountUsageBetaApi->get_data_export_events_usage: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
+ **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+
+### Return type
+
+[**SeriesIntervalsRep**](SeriesIntervalsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_evaluations_usage**
 > SeriesListRep get_evaluations_usage(project_key, environment_key, feature_flag_key)
@@ -686,6 +779,97 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_service_connection_usage**
+> SeriesIntervalsRep get_service_connection_usage()
+
+Get service connection usage
+
+Get a time-series array of the number of monthly service connections from your account. The granularity is always daily, with a maximum of 31 days.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import account_usage_beta_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.status_service_unavailable import StatusServiceUnavailable
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.series_intervals_rep import SeriesIntervalsRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
+    _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
+    to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+
+    # example passing only required values which don't have defaults set
+    # and optional values
+    try:
+        # Get service connection usage
+        api_response = api_instance.get_service_connection_usage(_from=_from, to=to)
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling AccountUsageBetaApi->get_service_connection_usage: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
+ **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+
+### Return type
+
+[**SeriesIntervalsRep**](SeriesIntervalsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

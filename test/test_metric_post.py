@@ -15,7 +15,9 @@ import sys
 import unittest
 
 import launchdarkly_api
+from launchdarkly_api.model.metric_event_default_rep import MetricEventDefaultRep
 from launchdarkly_api.model.url_post import UrlPost
+globals()['MetricEventDefaultRep'] = MetricEventDefaultRep
 globals()['UrlPost'] = UrlPost
 from launchdarkly_api.model.metric_post import MetricPost
 

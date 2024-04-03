@@ -47,6 +47,60 @@ class AccountUsageBetaApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+        self.get_data_export_events_usage_endpoint = _Endpoint(
+            settings={
+                'response_type': (SeriesIntervalsRep,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/usage/data-export-events',
+                'operation_id': 'get_data_export_events_usage',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    '_from',
+                    'to',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    '_from':
+                        (str,),
+                    'to':
+                        (str,),
+                },
+                'attribute_map': {
+                    '_from': 'from',
+                    'to': 'to',
+                },
+                'location_map': {
+                    '_from': 'query',
+                    'to': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_evaluations_usage_endpoint = _Endpoint(
             settings={
                 'response_type': (SeriesListRep,),
@@ -491,6 +545,60 @@ class AccountUsageBetaApi(object):
             },
             api_client=api_client
         )
+        self.get_service_connection_usage_endpoint = _Endpoint(
+            settings={
+                'response_type': (SeriesIntervalsRep,),
+                'auth': [
+                    'ApiKey'
+                ],
+                'endpoint_path': '/api/v2/usage/service-connections',
+                'operation_id': 'get_service_connection_usage',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    '_from',
+                    'to',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    '_from':
+                        (str,),
+                    'to':
+                        (str,),
+                },
+                'attribute_map': {
+                    '_from': 'from',
+                    'to': 'to',
+                },
+                'location_map': {
+                    '_from': 'query',
+                    'to': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_stream_usage_endpoint = _Endpoint(
             settings={
                 'response_type': (SeriesListRep,),
@@ -684,6 +792,86 @@ class AccountUsageBetaApi(object):
             },
             api_client=api_client
         )
+
+    def get_data_export_events_usage(
+        self,
+        **kwargs
+    ):
+        """Get data export events usage  # noqa: E501
+
+        Get a time-series array of the number of monthly data export events from your account. The granularity is always daily, with a maximum of 31 days.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_data_export_events_usage(async_req=True)
+        >>> result = thread.get()
+
+
+        Keyword Args:
+            _from (str): The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.. [optional]
+            to (str): The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            SeriesIntervalsRep
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        return self.get_data_export_events_usage_endpoint.call_with_http_info(**kwargs)
 
     def get_evaluations_usage(
         self,
@@ -1270,6 +1458,86 @@ class AccountUsageBetaApi(object):
         kwargs['_host_index'] = kwargs.get('_host_index')
         kwargs['_request_auths'] = kwargs.get('_request_auths', None)
         return self.get_mau_usage_by_category_endpoint.call_with_http_info(**kwargs)
+
+    def get_service_connection_usage(
+        self,
+        **kwargs
+    ):
+        """Get service connection usage  # noqa: E501
+
+        Get a time-series array of the number of monthly service connections from your account. The granularity is always daily, with a maximum of 31 days.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_service_connection_usage(async_req=True)
+        >>> result = thread.get()
+
+
+        Keyword Args:
+            _from (str): The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.. [optional]
+            to (str): The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.. [optional]
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            SeriesIntervalsRep
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        return self.get_service_connection_usage_endpoint.call_with_http_info(**kwargs)
 
     def get_stream_usage(
         self,

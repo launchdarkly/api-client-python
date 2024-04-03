@@ -33,9 +33,11 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
+    from launchdarkly_api.model.access import Access
     from launchdarkly_api.model.client_side_availability import ClientSideAvailability
     from launchdarkly_api.model.environments import Environments
     from launchdarkly_api.model.link import Link
+    globals()['Access'] = Access
     globals()['ClientSideAvailability'] = ClientSideAvailability
     globals()['Environments'] = Environments
     globals()['Link'] = Link
@@ -101,6 +103,7 @@ class Project(ModelNormal):
             'name': (str,),  # noqa: E501
             'tags': ([str],),  # noqa: E501
             'default_client_side_availability': (ClientSideAvailability,),  # noqa: E501
+            'access': (Access,),  # noqa: E501
             'default_release_pipeline_key': (str,),  # noqa: E501
             'environments': (Environments,),  # noqa: E501
         }
@@ -118,6 +121,7 @@ class Project(ModelNormal):
         'name': 'name',  # noqa: E501
         'tags': 'tags',  # noqa: E501
         'default_client_side_availability': 'defaultClientSideAvailability',  # noqa: E501
+        'access': '_access',  # noqa: E501
         'default_release_pipeline_key': 'defaultReleasePipelineKey',  # noqa: E501
         'environments': 'environments',  # noqa: E501
     }
@@ -172,6 +176,7 @@ class Project(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             default_client_side_availability (ClientSideAvailability): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
             default_release_pipeline_key (str): The key of the default release pipeline for this project. [optional]  # noqa: E501
             environments (Environments): [optional]  # noqa: E501
         """
@@ -274,6 +279,7 @@ class Project(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             default_client_side_availability (ClientSideAvailability): [optional]  # noqa: E501
+            access (Access): [optional]  # noqa: E501
             default_release_pipeline_key (str): The key of the default release pipeline for this project. [optional]  # noqa: E501
             environments (Environments): [optional]  # noqa: E501
         """

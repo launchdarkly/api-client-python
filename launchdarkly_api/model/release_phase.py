@@ -33,10 +33,10 @@ from launchdarkly_api.exceptions import ApiAttributeError
 
 
 def lazy_import():
-    from launchdarkly_api.model.audience import Audience
     from launchdarkly_api.model.completed_by import CompletedBy
-    globals()['Audience'] = Audience
+    from launchdarkly_api.model.release_audience import ReleaseAudience
     globals()['CompletedBy'] = CompletedBy
+    globals()['ReleaseAudience'] = ReleaseAudience
 
 
 class ReleasePhase(ModelNormal):
@@ -96,7 +96,7 @@ class ReleasePhase(ModelNormal):
             'name': (str,),  # noqa: E501
             'complete': (bool,),  # noqa: E501
             'creation_date': (int,),  # noqa: E501
-            'audiences': ([Audience],),  # noqa: E501
+            'audiences': ([ReleaseAudience],),  # noqa: E501
             'completion_date': (int,),  # noqa: E501
             'completed_by': (CompletedBy,),  # noqa: E501
         }
@@ -131,7 +131,7 @@ class ReleasePhase(ModelNormal):
             name (str): The release phase name
             complete (bool): Whether this phase is complete
             creation_date (int):
-            audiences ([Audience]): A logical grouping of one or more environments that share attributes for rolling out changes
+            audiences ([ReleaseAudience]): A logical grouping of one or more environments that share attributes for rolling out changes
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -230,7 +230,7 @@ class ReleasePhase(ModelNormal):
             name (str): The release phase name
             complete (bool): Whether this phase is complete
             creation_date (int):
-            audiences ([Audience]): A logical grouping of one or more environments that share attributes for rolling out changes
+            audiences ([ReleaseAudience]): A logical grouping of one or more environments that share attributes for rolling out changes
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types

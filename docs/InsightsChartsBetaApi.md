@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**get_deployment_frequency_chart**](InsightsChartsBetaApi.md#get_deployment_frequency_chart) | **GET** /api/v2/engineering-insights/charts/deployments/frequency | Get deployment frequency chart data
 [**get_flag_status_chart**](InsightsChartsBetaApi.md#get_flag_status_chart) | **GET** /api/v2/engineering-insights/charts/flags/status | Get flag status chart data
 [**get_lead_time_chart**](InsightsChartsBetaApi.md#get_lead_time_chart) | **GET** /api/v2/engineering-insights/charts/lead-time | Get lead time chart data
-[**get_release_frequency_chart**](InsightsChartsBetaApi.md#get_release_frequency_chart) | **GET** /api/v2/engineering-insights/charts/releases/frequency | Get replease frequency chart data
+[**get_release_frequency_chart**](InsightsChartsBetaApi.md#get_release_frequency_chart) | **GET** /api/v2/engineering-insights/charts/releases/frequency | Get release frequency chart data
 [**get_stale_flags_chart**](InsightsChartsBetaApi.md#get_stale_flags_chart) | **GET** /api/v2/engineering-insights/charts/flags/stale | Get stale flags chart data
 
 
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 # **get_release_frequency_chart**
 > InsightsChart get_release_frequency_chart(project_key, environment_key)
 
-Get replease frequency chart data
+Get release frequency chart data
 
 Get release frequency chart data. Engineering insights displays release frequency data in the [release frequency metric view](https://docs.launchdarkly.com/home/engineering-insights/metrics/release).
 
@@ -376,7 +376,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     application_key = "applicationKey_example" # str | Comma separated list of application keys (optional)
-    has_experiments = True # bool | Filter events to those associated with an experiment (optional)
+    has_experiments = True # bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
     _global = "global_example" # str | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
     group_by = "groupBy_example" # str | Property to group results by. Options: `impact` (optional)
     _from = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
@@ -387,7 +387,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     # example passing only required values which don't have defaults set
     try:
-        # Get replease frequency chart data
+        # Get release frequency chart data
         api_response = api_instance.get_release_frequency_chart(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -396,7 +396,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     # and optional values
     try:
-        # Get replease frequency chart data
+        # Get release frequency chart data
         api_response = api_instance.get_release_frequency_chart(project_key, environment_key, application_key=application_key, has_experiments=has_experiments, _global=_global, group_by=group_by, _from=_from, to=to, bucket_type=bucket_type, bucket_ms=bucket_ms, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
@@ -411,7 +411,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **environment_key** | **str**| The environment key |
  **application_key** | **str**| Comma separated list of application keys | [optional]
- **has_experiments** | **bool**| Filter events to those associated with an experiment | [optional]
+ **has_experiments** | **bool**| Filter events to those associated with an experiment (&#x60;true&#x60;) or without an experiment (&#x60;false&#x60;) | [optional]
  **_global** | **str**| Filter to include or exclude global events. Default value is &#x60;include&#x60;. Options: &#x60;include&#x60;, &#x60;exclude&#x60; | [optional]
  **group_by** | **str**| Property to group results by. Options: &#x60;impact&#x60; | [optional]
  **_from** | **datetime**| Unix timestamp in milliseconds. Default value is 7 days ago. | [optional]

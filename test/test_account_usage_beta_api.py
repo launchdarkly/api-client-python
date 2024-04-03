@@ -26,6 +26,13 @@ class TestAccountUsageBetaApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_data_export_events_usage(self):
+        """Test case for get_data_export_events_usage
+
+        Get data export events usage  # noqa: E501
+        """
+        pass
+
     def test_get_evaluations_usage(self):
         """Test case for get_evaluations_usage
 
@@ -72,6 +79,13 @@ class TestAccountUsageBetaApi(unittest.TestCase):
         """Test case for get_mau_usage_by_category
 
         Get MAU usage by category  # noqa: E501
+        """
+        pass
+
+    def test_get_service_connection_usage(self):
+        """Test case for get_service_connection_usage
+
+        Get service connection usage  # noqa: E501
         """
         pass
 

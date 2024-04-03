@@ -50,7 +50,7 @@ class TestInsightsChartsBetaApi(unittest.TestCase):
     def test_get_release_frequency_chart(self):
         """Test case for get_release_frequency_chart
 
-        Get replease frequency chart data  # noqa: E501
+        Get release frequency chart data  # noqa: E501
         """
         pass
 

@@ -26,9 +26,9 @@ Name | Type | Description | Notes
 **unit** | **str** | For numeric custom metrics, the unit of measure | [optional] 
 **event_key** | **str** | For custom metrics, the event key to use in your code | [optional] 
 **randomization_units** | **[str]** | An array of randomization units allowed for this metric | [optional] 
-**unit_aggregation_type** | **str** | The method in which multiple unit event values are aggregated | [optional] 
-**analysis_type** | **str** | The strategy for analyzing metric events | [optional] 
-**percentile_value** | **int** | The percentile, an integer denoting the target percentile between 0 and 100. Only present when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
+**unit_aggregation_type** | **str** | The method by which multiple unit event values are aggregated | [optional] 
+**analysis_type** | **str** | The method for analyzing metric events | [optional] 
+**percentile_value** | **int** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **event_default** | [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
