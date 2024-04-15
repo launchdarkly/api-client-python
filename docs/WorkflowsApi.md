@@ -241,6 +241,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     status = "status_example" # str | Filter results by workflow status. Valid status filters are `active`, `completed`, and `failed`. (optional)
     sort = "sort_example" # str | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `creationDate` or `stopDate`. (optional)
+    limit = 1 # int | The maximum number of workflows to return. Defaults to 20. (optional)
+    offset = 1 # int | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -254,7 +256,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get workflows
-        api_response = api_instance.get_workflows(project_key, feature_flag_key, environment_key, status=status, sort=sort)
+        api_response = api_instance.get_workflows(project_key, feature_flag_key, environment_key, status=status, sort=sort, limit=limit, offset=offset)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling WorkflowsApi->get_workflows: %s\n" % e)
@@ -270,6 +272,8 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key |
  **status** | **str**| Filter results by workflow status. Valid status filters are &#x60;active&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. | [optional]
  **sort** | **str**| A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;creationDate&#x60; or &#x60;stopDate&#x60;. | [optional]
+ **limit** | **int**| The maximum number of workflows to return. Defaults to 20. | [optional]
+ **offset** | **int**| Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
 
 ### Return type
 

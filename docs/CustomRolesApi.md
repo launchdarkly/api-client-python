@@ -220,11 +220,14 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = custom_roles_api.CustomRolesApi(api_client)
+    limit = 1 # int | The maximum number of custom roles to return. Defaults to 20. (optional)
+    offset = 1 # int | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    # example, this endpoint has no required or optional parameters
+    # example passing only required values which don't have defaults set
+    # and optional values
     try:
         # List custom roles
-        api_response = api_instance.get_custom_roles()
+        api_response = api_instance.get_custom_roles(limit=limit, offset=offset)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling CustomRolesApi->get_custom_roles: %s\n" % e)
@@ -232,7 +235,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int**| The maximum number of custom roles to return. Defaults to 20. | [optional]
+ **offset** | **int**| Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
 
 ### Return type
 

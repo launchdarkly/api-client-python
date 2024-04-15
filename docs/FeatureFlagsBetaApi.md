@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_dependent_flags**](FeatureFlagsBetaApi.md#get_dependent_flags) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags | List dependent feature flags
 [**get_dependent_flags_by_env**](FeatureFlagsBetaApi.md#get_dependent_flags_by_env) | **GET** /api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags | List dependent feature flags by environment
-[**post_migration_safety_issues**](FeatureFlagsBetaApi.md#post_migration_safety_issues) | **POST** /api/v2/projects/{projectKey}/flags/{flagKey}/environments/{environmentKey}/migration-safety-issues | Get migration safety issues
 
 
 # **get_dependent_flags**
@@ -184,111 +183,6 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **post_migration_safety_issues**
-> [MigrationSafetyIssueRep] post_migration_safety_issues(project_key, flag_key, environment_key, flag_sempatch)
-
-Get migration safety issues
-
-Returns the migration safety issues that are associated with the POSTed flag patch. The patch must use the semantic patch format for updating feature flags.
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import time
-import launchdarkly_api
-from launchdarkly_api.api import feature_flags_beta_api
-from launchdarkly_api.model.flag_sempatch import FlagSempatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.migration_safety_issue_rep import MigrationSafetyIssueRep
-from launchdarkly_api.model.status_service_unavailable import StatusServiceUnavailable
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from pprint import pprint
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = feature_flags_beta_api.FeatureFlagsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | The migration flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    flag_sempatch = FlagSempatch(
-        instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
-        ]),
-        comment="comment_example",
-    ) # FlagSempatch | 
-
-    # example passing only required values which don't have defaults set
-    try:
-        # Get migration safety issues
-        api_response = api_instance.post_migration_safety_issues(project_key, flag_key, environment_key, flag_sempatch)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling FeatureFlagsBetaApi->post_migration_safety_issues: %s\n" % e)
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **flag_key** | **str**| The migration flag key |
- **environment_key** | **str**| The environment key |
- **flag_sempatch** | [**FlagSempatch**](FlagSempatch.md)|  |
-
-### Return type
-
-[**[MigrationSafetyIssueRep]**](MigrationSafetyIssueRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Migration safety issues found |  -  |
-**204** | No safety issues found |  -  |
-**400** | Invalid request |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**404** | Invalid resource identifier |  -  |
-**429** | Rate limited |  -  |
-**503** | Service unavailable |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
