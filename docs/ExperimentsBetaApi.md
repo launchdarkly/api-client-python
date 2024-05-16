@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 Create experiment
 
-Create an experiment.  To run this experiment, you'll need to [create an iteration](/tag/Experiments-(beta)#operation/createIteration) and then [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` instruction.  To learn more, read [Creating experiments](https://docs.launchdarkly.com/home/creating-experiments). 
+Create an experiment.  To run this experiment, you'll need to [create an iteration](/tag/Experiments-(beta)#operation/createIteration) and then [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` instruction.  To learn more, read [Creating experiments](https://docs.launchdarkly.com/home/experimentation/create). 
 
 ### Example
 
@@ -96,6 +96,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 key=FlagInput(
                     rule_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
                     flag_config_version=12,
+                    not_in_experiment_variation_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
                 ),
             ),
             randomization_unit="user",
@@ -152,7 +153,7 @@ Name | Type | Description  | Notes
 
 Create iteration
 
-Create an experiment iteration.  Experiment iterations let you record experiments in individual blocks of time. Initially, iterations are created with a status of `not_started` and appear in the `draftIteration` field of an experiment. To start or stop an iteration, [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` or `stopIteration` instruction.   To learn more, read [Starting experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations). 
+Create an experiment iteration.  Experiment iterations let you record experiments in individual blocks of time. Initially, iterations are created with a status of `not_started` and appear in the `draftIteration` field of an experiment. To start or stop an iteration, [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` or `stopIteration` instruction.   To learn more, read [Start experiment iterations](https://docs.launchdarkly.com/home/experimentation/feature#start-experiment-iterations). 
 
 ### Example
 
@@ -223,6 +224,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             key=FlagInput(
                 rule_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
                 flag_config_version=12,
+                not_in_experiment_variation_id="e432f62b-55f6-49dd-a02f-eb24acf39d05",
             ),
         ),
         randomization_unit="user",
@@ -921,6 +923,7 @@ from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.experiment_patch_input import ExperimentPatchInput
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -997,6 +1000,7 @@ Name | Type | Description  | Notes
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
+**409** | Conflict |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
