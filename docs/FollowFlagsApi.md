@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_flag_followers**](FollowFlagsApi.md#delete_flag_followers) | **DELETE** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Remove a member as a follower of a flag in a project and environment
+[**delete_flag_follower**](FollowFlagsApi.md#delete_flag_follower) | **DELETE** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Remove a member as a follower of a flag in a project and environment
 [**get_flag_followers**](FollowFlagsApi.md#get_flag_followers) | **GET** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers | Get followers of a flag in a project and environment
 [**get_followers_by_proj_env**](FollowFlagsApi.md#get_followers_by_proj_env) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/followers | Get followers of all flags in a given project and environment
-[**put_flag_followers**](FollowFlagsApi.md#put_flag_followers) | **PUT** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Add a member as a follower of a flag in a project and environment
+[**put_flag_follower**](FollowFlagsApi.md#put_flag_follower) | **PUT** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Add a member as a follower of a flag in a project and environment
 
 
-# **delete_flag_followers**
-> delete_flag_followers(project_key, feature_flag_key, environment_key, member_id)
+# **delete_flag_follower**
+> delete_flag_follower(project_key, feature_flag_key, environment_key, member_id)
 
 Remove a member as a follower of a flag in a project and environment
 
@@ -59,9 +59,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Remove a member as a follower of a flag in a project and environment
-        api_instance.delete_flag_followers(project_key, feature_flag_key, environment_key, member_id)
+        api_instance.delete_flag_follower(project_key, feature_flag_key, environment_key, member_id)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling FollowFlagsApi->delete_flag_followers: %s\n" % e)
+        print("Exception when calling FollowFlagsApi->delete_flag_follower: %s\n" % e)
 ```
 
 
@@ -278,8 +278,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **put_flag_followers**
-> put_flag_followers(project_key, feature_flag_key, environment_key, member_id)
+# **put_flag_follower**
+> put_flag_follower(project_key, feature_flag_key, environment_key, member_id)
 
 Add a member as a follower of a flag in a project and environment
 
@@ -327,9 +327,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Add a member as a follower of a flag in a project and environment
-        api_instance.put_flag_followers(project_key, feature_flag_key, environment_key, member_id)
+        api_instance.put_flag_follower(project_key, feature_flag_key, environment_key, member_id)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling FollowFlagsApi->put_flag_followers: %s\n" % e)
+        print("Exception when calling FollowFlagsApi->put_flag_follower: %s\n" % e)
 ```
 
 

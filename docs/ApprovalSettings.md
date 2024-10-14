@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **service_kind** | **str** | Which service to use for managing approvals | 
 **service_config** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | 
 **required_approval_tags** | **[str]** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | 
+**auto_apply_approved_changes** | **bool** | Automatically apply changes that have been approved by all reviewers. This field is only applicable for approval services other than LaunchDarkly. | [optional] 
+**service_kind_configuration_id** | **str** | Optional field for integration configuration ID of a custom approval integration. This is an Enterprise-only feature. | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_tags**
-> TagCollection get_tags()
+> TagsCollection get_tags()
 
 List tags
 
@@ -22,11 +22,8 @@ Get a list of tags.
 import time
 import launchdarkly_api
 from launchdarkly_api.api import tags_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.tag_collection import TagCollection
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.tags_collection import TagsCollection
+from launchdarkly_api.model.error import Error
 from pprint import pprint
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -49,15 +46,20 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = tags_api.TagsApi(api_client)
-    kind = "kind_example" # str | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`. Returns all types by default. (optional)
+    kind = [
+        "kind_example",
+    ] # [str] | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`. Returns all types by default. (optional)
     pre = "pre_example" # str | Return tags with the specified prefix (optional)
     archived = True # bool | Whether or not to return archived flags (optional)
+    limit = 1 # int | The number of tags to return. Maximum is 1000. (optional)
+    offset = 1 # int | The index of the first tag to return. Default is 0. (optional)
+    as_of = "asOf_example" # str | The time to retrieve tags as of. Default is the current time. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # List tags
-        api_response = api_instance.get_tags(kind=kind, pre=pre, archived=archived)
+        api_response = api_instance.get_tags(kind=kind, pre=pre, archived=archived, limit=limit, offset=offset, as_of=as_of)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling TagsApi->get_tags: %s\n" % e)
@@ -68,13 +70,16 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **kind** | **str**| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;. Returns all types by default. | [optional]
+ **kind** | **[str]**| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;. Returns all types by default. | [optional]
  **pre** | **str**| Return tags with the specified prefix | [optional]
  **archived** | **bool**| Whether or not to return archived flags | [optional]
+ **limit** | **int**| The number of tags to return. Maximum is 1000. | [optional]
+ **offset** | **int**| The index of the first tag to return. Default is 0. | [optional]
+ **as_of** | **str**| The time to retrieve tags as of. Default is the current time. | [optional]
 
 ### Return type
 
-[**TagCollection**](TagCollection.md)
+[**TagsCollection**](TagsCollection.md)
 
 ### Authorization
 
@@ -91,10 +96,11 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Tag collection response |  -  |
-**400** | Invalid request |  -  |
+**400** | Bad request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
-**429** | Rate limited |  -  |
+**429** | Rate Limited |  -  |
+**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

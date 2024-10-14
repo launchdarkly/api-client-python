@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 Get context attribute names
 
-Get context attribute names. Returns only the first 100 attribute names per context.
+Get context attribute names.
 
 ### Example
 
@@ -263,6 +263,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     filter = "filter_example" # str | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `name` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). (optional)
+    limit = 1 # int | Specifies the maximum number of items in the collection to return (max: 100, default: 100) (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -276,7 +277,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get context attribute names
-        api_response = api_instance.get_context_attribute_names(project_key, environment_key, filter=filter)
+        api_response = api_instance.get_context_attribute_names(project_key, environment_key, filter=filter, limit=limit)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ContextsApi->get_context_attribute_names: %s\n" % e)
@@ -290,6 +291,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key |
  **environment_key** | **str**| The environment key |
  **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;name&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). | [optional]
+ **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 100, default: 100) | [optional]
 
 ### Return type
 
@@ -363,6 +365,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = "environmentKey_example" # str | The environment key
     attribute_name = "attributeName_example" # str | The attribute name
     filter = "filter_example" # str | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `value` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). (optional)
+    limit = 1 # int | Specifies the maximum number of items in the collection to return (max: 100, default: 50) (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -376,7 +379,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get context attribute values
-        api_response = api_instance.get_context_attribute_values(project_key, environment_key, attribute_name, filter=filter)
+        api_response = api_instance.get_context_attribute_values(project_key, environment_key, attribute_name, filter=filter, limit=limit)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling ContextsApi->get_context_attribute_values: %s\n" % e)
@@ -391,6 +394,7 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key |
  **attribute_name** | **str**| The attribute name |
  **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;value&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). | [optional]
+ **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 100, default: 50) | [optional]
 
 ### Return type
 

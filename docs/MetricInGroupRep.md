@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
 **version_id** | **str** | The version ID of the metric | [optional] 
 **is_numeric** | **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**unit_aggregation_type** | **str** | The type of unit aggregation to use for the metric | [optional] 
 **name_in_group** | **str** | Name of the metric when used within the associated metric group. Can be different from the original name of the metric. Required if and only if the metric group is a &lt;code&gt;funnel&lt;/code&gt;. | [optional] 
 **randomization_units** | **[str]** | The randomization units for the metric | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]

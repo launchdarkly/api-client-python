@@ -63,12 +63,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    project_key = "projectKey_example" # str | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environment_key = "environmentKey_example" # str | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get data export events usage
-        api_response = api_instance.get_data_export_events_usage(_from=_from, to=to)
+        api_response = api_instance.get_data_export_events_usage(_from=_from, to=to, project_key=project_key, environment_key=environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_data_export_events_usage: %s\n" % e)
@@ -81,6 +83,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
  **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+ **project_key** | **str**| A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
+ **environment_key** | **str**| An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
 
 ### Return type
 
@@ -362,12 +366,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    project_key = "projectKey_example" # str | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environment_key = "environmentKey_example" # str | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get experimentation keys usage
-        api_response = api_instance.get_experimentation_keys_usage(_from=_from, to=to)
+        api_response = api_instance.get_experimentation_keys_usage(_from=_from, to=to, project_key=project_key, environment_key=environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_experimentation_keys_usage: %s\n" % e)
@@ -380,6 +386,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
  **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+ **project_key** | **str**| A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
+ **environment_key** | **str**| An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
 
 ### Return type
 
@@ -453,12 +461,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    project_key = "projectKey_example" # str | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environment_key = "environmentKey_example" # str | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get experimentation units usage
-        api_response = api_instance.get_experimentation_units_usage(_from=_from, to=to)
+        api_response = api_instance.get_experimentation_units_usage(_from=_from, to=to, project_key=project_key, environment_key=environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_experimentation_units_usage: %s\n" % e)
@@ -471,6 +481,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
  **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+ **project_key** | **str**| A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
+ **environment_key** | **str**| An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
 
 ### Return type
 
@@ -827,12 +839,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = account_usage_beta_api.AccountUsageBetaApi(api_client)
     _from = "from_example" # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to = "to_example" # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    project_key = "projectKey_example" # str | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environment_key = "environmentKey_example" # str | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get service connection usage
-        api_response = api_instance.get_service_connection_usage(_from=_from, to=to)
+        api_response = api_instance.get_service_connection_usage(_from=_from, to=to, project_key=project_key, environment_key=environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_service_connection_usage: %s\n" % e)
@@ -845,6 +859,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional]
  **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional]
+ **project_key** | **str**| A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
+ **environment_key** | **str**| An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | [optional]
 
 ### Return type
 

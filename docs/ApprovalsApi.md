@@ -611,7 +611,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = approvals_api.ApprovalsApi(api_client)
     create_approval_request_request = CreateApprovalRequestRequest(
-        resource_id="resource_id_example",
+        resource_id="proj/projKey:env/envKey:flag/flagKey",
         comment="optional comment",
         description="Requesting to update targeting",
         instructions=Instructions([

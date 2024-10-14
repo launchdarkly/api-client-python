@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **teams** | [**[MemberTeamSummaryRep]**](MemberTeamSummaryRep.md) | Details on the teams this member is assigned to | [optional] 
 **permission_grants** | [**[MemberPermissionGrantSummaryRep]**](MemberPermissionGrantSummaryRep.md) | A list of permission grants. Permission grants allow a member to have access to a specific action, without having to create or update a custom role. | [optional] 
 **oauth_providers** | **[str]** | A list of OAuth providers | [optional] 
+**version** | **int** | Version of the current configuration | [optional] 
+**role_attributes** | [**RoleAttributeMap**](RoleAttributeMap.md) |  | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

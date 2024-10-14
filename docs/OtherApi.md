@@ -4,11 +4,90 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_caller_identity**](OtherApi.md#get_caller_identity) | **GET** /api/v2/caller-identity | Identify the caller
 [**get_ips**](OtherApi.md#get_ips) | **GET** /api/v2/public-ip-list | Gets the public IP list
 [**get_openapi_spec**](OtherApi.md#get_openapi_spec) | **GET** /api/v2/openapi.json | Gets the OpenAPI spec in json
 [**get_root**](OtherApi.md#get_root) | **GET** /api/v2 | Root resource
 [**get_versions**](OtherApi.md#get_versions) | **GET** /api/v2/versions | Get version information
 
+
+# **get_caller_identity**
+> CallerIdentityRep get_caller_identity()
+
+Identify the caller
+
+Get basic information about the identity used (session cookie, API token, SDK keys, etc.) to call the API
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import other_api
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.caller_identity_rep import CallerIdentityRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = other_api.OtherApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
+    try:
+        # Identify the caller
+        api_response = api_instance.get_caller_identity()
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling OtherApi->get_caller_identity: %s\n" % e)
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CallerIdentityRep**](CallerIdentityRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Caller Identity |  -  |
+**401** | Invalid access token |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ips**
 > IpList get_ips()

@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 
 List metrics
 
-Get a list of all metrics for the specified project.  ### Expanding the metric list response LaunchDarkly supports expanding the \"List metrics\" response. By default, the expandable field is **not** included in the response.  To expand the response, append the `expand` query parameter and add the following supported field:  - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experimentCount` includes the `experimentCount` field for each metric in the response. 
+Get a list of all metrics for the specified project.  ### Filtering metrics  The `filter` parameter supports the following operators: `contains`.  #### Supported fields and operators  You can only filter certain fields in metrics when using the `filter` parameter. Additionally, you can only filter some fields with certain operators.  When you search for metrics, the `filter` parameter supports the following fields and operators:  |<div style=\"width:120px\">Field</div> |Description |Supported operators | |---|---|---| | `tags` | The metric tags. | `contains` |  For example, the filter `?filter=tags contains [\"tag1\", \"tag2\", \"tag3\"]` matches metrics that have all three tags.  The documented values for `filter` query parameters are prior to URL encoding. For example, the `[` in `?filter=tags contains [\"tag1\", \"tag2\", \"tag3\"]` must be encoded to `%5B`.  ### Expanding the metric list response  LaunchDarkly supports expanding the \"List metrics\" response. By default, the expandable field is **not** included in the response.  To expand the response, append the `expand` query parameter and add the following supported field:  - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experimentCount` includes the `experimentCount` field for each metric in the response. 
 
 ### Example
 
@@ -240,6 +240,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = metrics_api.MetricsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit = 1 # int | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    sort = "sort_example" # str | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`. (optional)
+    filter = "filter_example" # str | A comma-separated list of filters. This endpoint only accepts filtering by `tags`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -253,7 +257,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # List metrics
-        api_response = api_instance.get_metrics(project_key, expand=expand)
+        api_response = api_instance.get_metrics(project_key, expand=expand, limit=limit, offset=offset, sort=sort, filter=filter)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsApi->get_metrics: %s\n" % e)
@@ -266,6 +270,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
  **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **limit** | **int**| The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. | [optional]
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional]
+ **sort** | **str**| A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;createdAt&#x60; or &#x60;name&#x60;. | [optional]
+ **filter** | **str**| A comma-separated list of filters. This endpoint only accepts filtering by &#x60;tags&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | [optional]
 
 ### Return type
 

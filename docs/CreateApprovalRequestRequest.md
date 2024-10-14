@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**resource_id** | **str** | String representation of a resource | 
+**resource_id** | **str** | String representation of the resource specifier | 
 **description** | **str** | A brief description of the changes you&#39;re requesting | 
 **instructions** | [**Instructions**](Instructions.md) |  | 
 **comment** | **str** | Optional comment describing the approval request | [optional] 

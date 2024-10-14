@@ -1,19 +1,19 @@
-# launchdarkly_api.ExperimentsBetaApi
+# launchdarkly_api.ExperimentsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_experiment**](ExperimentsBetaApi.md#create_experiment) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
-[**create_iteration**](ExperimentsBetaApi.md#create_iteration) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
-[**get_experiment**](ExperimentsBetaApi.md#get_experiment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
-[**get_experiment_results**](ExperimentsBetaApi.md#get_experiment_results) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
-[**get_experiment_results_for_metric_group**](ExperimentsBetaApi.md#get_experiment_results_for_metric_group) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
-[**get_experimentation_settings**](ExperimentsBetaApi.md#get_experimentation_settings) | **GET** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
-[**get_experiments**](ExperimentsBetaApi.md#get_experiments) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
-[**get_legacy_experiment_results**](ExperimentsBetaApi.md#get_legacy_experiment_results) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
-[**patch_experiment**](ExperimentsBetaApi.md#patch_experiment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
-[**put_experimentation_settings**](ExperimentsBetaApi.md#put_experimentation_settings) | **PUT** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
+[**create_experiment**](ExperimentsApi.md#create_experiment) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
+[**create_iteration**](ExperimentsApi.md#create_iteration) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
+[**get_experiment**](ExperimentsApi.md#get_experiment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
+[**get_experiment_results**](ExperimentsApi.md#get_experiment_results) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
+[**get_experiment_results_for_metric_group**](ExperimentsApi.md#get_experiment_results_for_metric_group) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
+[**get_experimentation_settings**](ExperimentsApi.md#get_experimentation_settings) | **GET** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
+[**get_experiments**](ExperimentsApi.md#get_experiments) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
+[**get_legacy_experiment_results**](ExperimentsApi.md#get_legacy_experiment_results) | **GET** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
+[**patch_experiment**](ExperimentsApi.md#patch_experiment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
+[**put_experimentation_settings**](ExperimentsApi.md#put_experimentation_settings) | **PUT** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 
 
 # **create_experiment**
@@ -30,7 +30,7 @@ Create an experiment.  To run this experiment, you'll need to [create an iterati
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.experiment_post import ExperimentPost
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
@@ -59,7 +59,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_post = ExperimentPost(
@@ -100,7 +100,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 ),
             ),
             randomization_unit="user",
+            attributes=["country","device","os"],
         ),
+        holdout_id="f3b74309-d581-44e1-8a2b-bb2933b4fe40",
     ) # ExperimentPost | 
 
     # example passing only required values which don't have defaults set
@@ -109,7 +111,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.create_experiment(project_key, environment_key, experiment_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->create_experiment: %s\n" % e)
+        print("Exception when calling ExperimentsApi->create_experiment: %s\n" % e)
 ```
 
 
@@ -162,7 +164,7 @@ Create an experiment iteration.  Experiment iterations let you record experiment
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.iteration_rep import IterationRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -191,7 +193,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
@@ -228,6 +230,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
             ),
         ),
         randomization_unit="user",
+        attributes=["country","device","os"],
     ) # IterationInput | 
 
     # example passing only required values which don't have defaults set
@@ -236,7 +239,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.create_iteration(project_key, environment_key, experiment_key, iteration_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->create_iteration: %s\n" % e)
+        print("Exception when calling ExperimentsApi->create_iteration: %s\n" % e)
 ```
 
 
@@ -290,7 +293,7 @@ Get details about an experiment.  ### Expanding the experiment response  LaunchD
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -319,7 +322,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
@@ -331,7 +334,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment(project_key, environment_key, experiment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -340,7 +343,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment(project_key, environment_key, experiment_key, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment: %s\n" % e)
 ```
 
 
@@ -395,7 +398,7 @@ Get results from an experiment for a particular metric.  LaunchDarkly supports o
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -423,7 +426,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
@@ -437,7 +440,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment_results: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment_results: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -446,7 +449,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment_results(project_key, environment_key, experiment_key, metric_key, iteration_id=iteration_id, expand=expand)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment_results: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment_results: %s\n" % e)
 ```
 
 
@@ -502,7 +505,7 @@ Get results from an experiment for a particular metric group.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.metric_group_results_rep import MetricGroupResultsRep
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -530,7 +533,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
@@ -543,7 +546,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment_results_for_metric_group(project_key, environment_key, experiment_key, metric_group_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment_results_for_metric_group: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment_results_for_metric_group: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -552,7 +555,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiment_results_for_metric_group(project_key, environment_key, experiment_key, metric_group_key, iteration_id=iteration_id)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiment_results_for_metric_group: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiment_results_for_metric_group: %s\n" % e)
 ```
 
 
@@ -607,7 +610,7 @@ Get current experimentation settings for the given project
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
@@ -636,7 +639,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
 
     # example passing only required values which don't have defaults set
@@ -645,7 +648,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experimentation_settings(project_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experimentation_settings: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experimentation_settings: %s\n" % e)
 ```
 
 
@@ -697,7 +700,7 @@ Get details about all experiments in an environment.  ### Filtering experiments 
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
@@ -726,7 +729,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     limit = 1 # int | The maximum number of experiments to return. Defaults to 20. (optional)
@@ -741,7 +744,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiments(project_key, environment_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiments: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiments: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -750,7 +753,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_experiments(project_key, environment_key, limit=limit, offset=offset, filter=filter, expand=expand, lifecycle_state=lifecycle_state)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_experiments: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_experiments: %s\n" % e)
 ```
 
 
@@ -808,7 +811,7 @@ Get detailed experiment result data for legacy experiments.
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.experiment_results import ExperimentResults
@@ -836,7 +839,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     feature_flag_key = "featureFlagKey_example" # str | The feature flag key
     environment_key = "environmentKey_example" # str | The environment key
@@ -850,7 +853,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_legacy_experiment_results(project_key, feature_flag_key, environment_key, metric_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_legacy_experiment_results: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_legacy_experiment_results: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -859,7 +862,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_legacy_experiment_results(project_key, feature_flag_key, environment_key, metric_key, _from=_from, to=to)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->get_legacy_experiment_results: %s\n" % e)
+        print("Exception when calling ExperimentsApi->get_legacy_experiment_results: %s\n" % e)
 ```
 
 
@@ -915,7 +918,7 @@ Update an experiment. Updating an experiment uses the semantic patch format.  To
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.experiment import Experiment
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
@@ -945,7 +948,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     environment_key = "environmentKey_example" # str | The environment key
     experiment_key = "experimentKey_example" # str | The experiment key
@@ -964,7 +967,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.patch_experiment(project_key, environment_key, experiment_key, experiment_patch_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->patch_experiment: %s\n" % e)
+        print("Exception when calling ExperimentsApi->patch_experiment: %s\n" % e)
 ```
 
 
@@ -1019,7 +1022,7 @@ Update experimentation settings for the given project
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import experiments_beta_api
+from launchdarkly_api.api import experiments_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
@@ -1049,7 +1052,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = experiments_beta_api.ExperimentsBetaApi(api_client)
+    api_instance = experiments_api.ExperimentsApi(api_client)
     project_key = "projectKey_example" # str | The project key
     randomization_settings_put = RandomizationSettingsPut(
         randomization_units=[
@@ -1067,7 +1070,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.put_experimentation_settings(project_key, randomization_settings_put)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling ExperimentsBetaApi->put_experimentation_settings: %s\n" % e)
+        print("Exception when calling ExperimentsApi->put_experimentation_settings: %s\n" % e)
 ```
 
 

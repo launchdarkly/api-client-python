@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **primary_single_metric_key** | **str** | The key of the primary metric for this experiment. Either &lt;code&gt;primarySingleMetricKey&lt;/code&gt; or &lt;code&gt;primaryFunnelKey&lt;/code&gt; must be present. | [optional] 
 **primary_funnel_key** | **str** | The key of the primary funnel group for this experiment. Either &lt;code&gt;primarySingleMetricKey&lt;/code&gt; or &lt;code&gt;primaryFunnelKey&lt;/code&gt; must be present. | [optional] 
 **randomization_unit** | **str** | The unit of randomization for this iteration. Defaults to user. | [optional] 
+**attributes** | **[str]** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

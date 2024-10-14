@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 List metric groups
 
-Get a list of all metric groups for the specified project.  ### Expanding the metric groups response LaunchDarkly supports one field for expanding the \"Get metric groups\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:  - `experiments` includes all experiments from the specific project that use the metric group  For example, `expand=experiments` includes the `experiments` field in the response. 
+Get a list of all metric groups for the specified project.  ### Expanding the metric groups response LaunchDarkly supports one field for expanding the \"Get metric groups\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:  - `experiments` includes all experiments from the specific project that use the metric group  For example, `expand=experiments` includes the `experiments` field in the response.  ### Filtering metric groups  The `filter` parameter supports the `equals` operator on the following fields: `experimentStatus`, `query`.  The `experimentStatus` field supports the following values: `not_started`, `running`, `stopped`, and `started`. The `query` field is a search query that is compared against the metric group name and key.   #### Sample query  `filter=experimentStatus equals 'not_started' and query equals 'metric name'` 
 
 ### Example
 
@@ -355,7 +355,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metrics_beta_api.MetricsBetaApi(api_client)
     project_key = "projectKey_example" # str | The project key
+    filter = "filter_example" # str | Accepts filter by `experimentStatus` and `query`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
     expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit = 1 # int | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
     # example passing only required values which don't have defaults set
     try:
@@ -369,7 +372,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # List metric groups
-        api_response = api_instance.get_metric_groups(project_key, expand=expand)
+        api_response = api_instance.get_metric_groups(project_key, filter=filter, expand=expand, limit=limit, offset=offset)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling MetricsBetaApi->get_metric_groups: %s\n" % e)
@@ -381,7 +384,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key |
+ **filter** | **str**| Accepts filter by &#x60;experimentStatus&#x60; and &#x60;query&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | [optional]
  **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **limit** | **int**| The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | [optional]
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional]
 
 ### Return type
 
