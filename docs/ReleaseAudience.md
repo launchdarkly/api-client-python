@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The audience ID | 
-**environment** | [**EnvironmentSummary**](EnvironmentSummary.md) |  | 
 **name** | **str** | The release phase name | 
 **links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | [optional] 
+**environment** | [**EnvironmentSummary**](EnvironmentSummary.md) |  | [optional] 
 **configuration** | [**AudienceConfiguration**](AudienceConfiguration.md) |  | [optional] 
 **segment_keys** | **[str]** | A list of segment keys | [optional] 
 **status** | **str** |  | [optional] 

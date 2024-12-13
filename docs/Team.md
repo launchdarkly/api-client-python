@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **last_modified** | **int** |  | [optional] 
 **version** | **int** | The team version | [optional] 
 **idp_synced** | **bool** | Whether the team has been synced with an external identity provider (IdP). Team sync is available to customers on an Enterprise plan. | [optional] 
+**role_attributes** | [**RoleAttributeMap**](RoleAttributeMap.md) |  | [optional] 
 **roles** | [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
 **members** | [**TeamMembers**](TeamMembers.md) |  | [optional] 
 **projects** | [**TeamProjects**](TeamProjects.md) |  | [optional] 

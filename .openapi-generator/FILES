@@ -26,6 +26,7 @@ docs/ApprovalRequestResponse.md
 docs/ApprovalSettings.md
 docs/ApprovalsApi.md
 docs/ApprovalsBetaApi.md
+docs/ApprovalsCapabilityConfig.md
 docs/Audience.md
 docs/AudienceConfiguration.md
 docs/AudiencePost.md
@@ -34,6 +35,8 @@ docs/AuditLogApi.md
 docs/AuditLogEntryListingRep.md
 docs/AuditLogEntryListingRepCollection.md
 docs/AuditLogEntryRep.md
+docs/AuditLogEventsHookCapabilityConfigPost.md
+docs/AuditLogEventsHookCapabilityConfigRep.md
 docs/AuthorizedAppDataRep.md
 docs/BayesianBetaBinomialStatsRep.md
 docs/BayesianNormalStatsRep.md
@@ -50,6 +53,8 @@ docs/BranchRep.md
 docs/BulkEditMembersRep.md
 docs/BulkEditTeamsRep.md
 docs/CallerIdentityRep.md
+docs/CapabilityConfigPost.md
+docs/CapabilityConfigRep.md
 docs/Clause.md
 docs/Client.md
 docs/ClientCollection.md
@@ -122,6 +127,9 @@ docs/Destination.md
 docs/DestinationPost.md
 docs/Destinations.md
 docs/Distribution.md
+docs/DynamicOptions.md
+docs/DynamicOptionsParser.md
+docs/Endpoint.md
 docs/Environment.md
 docs/EnvironmentPost.md
 docs/EnvironmentSummary.md
@@ -134,6 +142,7 @@ docs/ExecutionOutput.md
 docs/ExpandableApprovalRequestResponse.md
 docs/ExpandableApprovalRequestsResponse.md
 docs/ExpandedFlagRep.md
+docs/ExpandedResourceRep.md
 docs/Experiment.md
 docs/ExperimentAllocationRep.md
 docs/ExperimentBayesianResultsRep.md
@@ -192,6 +201,7 @@ docs/FlagEventRep.md
 docs/FlagFollowersByProjEnvGetRep.md
 docs/FlagFollowersGetRep.md
 docs/FlagImportConfigurationPost.md
+docs/FlagImportConfigurationsBetaApi.md
 docs/FlagImportIntegration.md
 docs/FlagImportIntegrationCollection.md
 docs/FlagImportIntegrationCollectionLinks.md
@@ -220,7 +230,10 @@ docs/FollowFlagMember.md
 docs/FollowFlagsApi.md
 docs/FollowersPerFlag.md
 docs/ForbiddenErrorRep.md
+docs/FormVariable.md
 docs/FormVariableConfig.md
+docs/HMACSignature.md
+docs/HeaderItems.md
 docs/HoldoutDetailRep.md
 docs/HoldoutPatchInput.md
 docs/HoldoutPostRequest.md
@@ -266,6 +279,9 @@ docs/InstructionUserRequest.md
 docs/Instructions.md
 docs/Integration.md
 docs/IntegrationAuditLogSubscriptionsApi.md
+docs/IntegrationConfigurationCollectionRep.md
+docs/IntegrationConfigurationPost.md
+docs/IntegrationConfigurationsRep.md
 docs/IntegrationDeliveryConfiguration.md
 docs/IntegrationDeliveryConfigurationCollection.md
 docs/IntegrationDeliveryConfigurationCollectionLinks.md
@@ -292,7 +308,7 @@ docs/LayerPost.md
 docs/LayerRep.md
 docs/LayerReservationRep.md
 docs/LayerSnapshotRep.md
-docs/LayersBetaApi.md
+docs/LayersApi.md
 docs/LeadTimeStagesRep.md
 docs/LegacyExperimentRep.md
 docs/Link.md
@@ -339,6 +355,7 @@ docs/NotFoundErrorRep.md
 docs/OAuth2ClientsApi.md
 docs/OauthClientPost.md
 docs/Object.md
+docs/OptionsArray.md
 docs/OtherApi.md
 docs/ParameterDefault.md
 docs/ParameterRep.md
@@ -353,8 +370,8 @@ docs/PatchSegmentRequest.md
 docs/PatchUsersRequest.md
 docs/PatchWithComment.md
 docs/PermissionGrantInput.md
+docs/PersistentStoreIntegrationsBetaApi.md
 docs/Phase.md
-docs/PhaseConfiguration.md
 docs/PhaseInfo.md
 docs/PostApprovalRequestApplyRequest.md
 docs/PostApprovalRequestReviewRequest.md
@@ -478,6 +495,7 @@ docs/TriggerWorkflowCollectionRep.md
 docs/TriggerWorkflowRep.md
 docs/UnauthorizedErrorRep.md
 docs/UpdatePhaseStatusInput.md
+docs/UpdateReleasePipelineInput.md
 docs/UpsertContextKindPayload.md
 docs/UpsertFlagDefaultsPayload.md
 docs/UpsertPayloadRep.md
@@ -536,6 +554,7 @@ launchdarkly_api/api/environments_api.py
 launchdarkly_api/api/experiments_api.py
 launchdarkly_api/api/feature_flags_api.py
 launchdarkly_api/api/feature_flags_beta_api.py
+launchdarkly_api/api/flag_import_configurations_beta_api.py
 launchdarkly_api/api/flag_links_beta_api.py
 launchdarkly_api/api/flag_triggers_api.py
 launchdarkly_api/api/follow_flags_api.py
@@ -549,11 +568,12 @@ launchdarkly_api/api/insights_scores_beta_api.py
 launchdarkly_api/api/integration_audit_log_subscriptions_api.py
 launchdarkly_api/api/integration_delivery_configurations_beta_api.py
 launchdarkly_api/api/integrations_beta_api.py
-launchdarkly_api/api/layers_beta_api.py
+launchdarkly_api/api/layers_api.py
 launchdarkly_api/api/metrics_api.py
 launchdarkly_api/api/metrics_beta_api.py
 launchdarkly_api/api/o_auth2_clients_api.py
 launchdarkly_api/api/other_api.py
+launchdarkly_api/api/persistent_store_integrations_beta_api.py
 launchdarkly_api/api/projects_api.py
 launchdarkly_api/api/relay_proxy_configurations_api.py
 launchdarkly_api/api/release_pipelines_beta_api.py
@@ -591,6 +611,7 @@ launchdarkly_api/model/application_version_rep.py
 launchdarkly_api/model/application_versions_collection_rep.py
 launchdarkly_api/model/approval_request_response.py
 launchdarkly_api/model/approval_settings.py
+launchdarkly_api/model/approvals_capability_config.py
 launchdarkly_api/model/audience.py
 launchdarkly_api/model/audience_configuration.py
 launchdarkly_api/model/audience_post.py
@@ -598,6 +619,8 @@ launchdarkly_api/model/audiences.py
 launchdarkly_api/model/audit_log_entry_listing_rep.py
 launchdarkly_api/model/audit_log_entry_listing_rep_collection.py
 launchdarkly_api/model/audit_log_entry_rep.py
+launchdarkly_api/model/audit_log_events_hook_capability_config_post.py
+launchdarkly_api/model/audit_log_events_hook_capability_config_rep.py
 launchdarkly_api/model/authorized_app_data_rep.py
 launchdarkly_api/model/bayesian_beta_binomial_stats_rep.py
 launchdarkly_api/model/bayesian_normal_stats_rep.py
@@ -614,6 +637,8 @@ launchdarkly_api/model/branch_rep.py
 launchdarkly_api/model/bulk_edit_members_rep.py
 launchdarkly_api/model/bulk_edit_teams_rep.py
 launchdarkly_api/model/caller_identity_rep.py
+launchdarkly_api/model/capability_config_post.py
+launchdarkly_api/model/capability_config_rep.py
 launchdarkly_api/model/clause.py
 launchdarkly_api/model/client.py
 launchdarkly_api/model/client_collection.py
@@ -681,6 +706,9 @@ launchdarkly_api/model/destination.py
 launchdarkly_api/model/destination_post.py
 launchdarkly_api/model/destinations.py
 launchdarkly_api/model/distribution.py
+launchdarkly_api/model/dynamic_options.py
+launchdarkly_api/model/dynamic_options_parser.py
+launchdarkly_api/model/endpoint.py
 launchdarkly_api/model/environment.py
 launchdarkly_api/model/environment_post.py
 launchdarkly_api/model/environment_summary.py
@@ -692,6 +720,7 @@ launchdarkly_api/model/execution_output.py
 launchdarkly_api/model/expandable_approval_request_response.py
 launchdarkly_api/model/expandable_approval_requests_response.py
 launchdarkly_api/model/expanded_flag_rep.py
+launchdarkly_api/model/expanded_resource_rep.py
 launchdarkly_api/model/experiment.py
 launchdarkly_api/model/experiment_allocation_rep.py
 launchdarkly_api/model/experiment_bayesian_results_rep.py
@@ -772,7 +801,10 @@ launchdarkly_api/model/flags_input.py
 launchdarkly_api/model/follow_flag_member.py
 launchdarkly_api/model/followers_per_flag.py
 launchdarkly_api/model/forbidden_error_rep.py
+launchdarkly_api/model/form_variable.py
 launchdarkly_api/model/form_variable_config.py
+launchdarkly_api/model/header_items.py
+launchdarkly_api/model/hmac_signature.py
 launchdarkly_api/model/holdout_detail_rep.py
 launchdarkly_api/model/holdout_patch_input.py
 launchdarkly_api/model/holdout_post_request.py
@@ -810,6 +842,9 @@ launchdarkly_api/model/instruction.py
 launchdarkly_api/model/instruction_user_request.py
 launchdarkly_api/model/instructions.py
 launchdarkly_api/model/integration.py
+launchdarkly_api/model/integration_configuration_collection_rep.py
+launchdarkly_api/model/integration_configuration_post.py
+launchdarkly_api/model/integration_configurations_rep.py
 launchdarkly_api/model/integration_delivery_configuration.py
 launchdarkly_api/model/integration_delivery_configuration_collection.py
 launchdarkly_api/model/integration_delivery_configuration_collection_links.py
@@ -877,6 +912,7 @@ launchdarkly_api/model/new_member_form_list_post.py
 launchdarkly_api/model/not_found_error_rep.py
 launchdarkly_api/model/oauth_client_post.py
 launchdarkly_api/model/object.py
+launchdarkly_api/model/options_array.py
 launchdarkly_api/model/parameter_default.py
 launchdarkly_api/model/parameter_rep.py
 launchdarkly_api/model/parent_resource_rep.py
@@ -891,7 +927,6 @@ launchdarkly_api/model/patch_users_request.py
 launchdarkly_api/model/patch_with_comment.py
 launchdarkly_api/model/permission_grant_input.py
 launchdarkly_api/model/phase.py
-launchdarkly_api/model/phase_configuration.py
 launchdarkly_api/model/phase_info.py
 launchdarkly_api/model/post_approval_request_apply_request.py
 launchdarkly_api/model/post_approval_request_review_request.py
@@ -1005,6 +1040,7 @@ launchdarkly_api/model/trigger_workflow_collection_rep.py
 launchdarkly_api/model/trigger_workflow_rep.py
 launchdarkly_api/model/unauthorized_error_rep.py
 launchdarkly_api/model/update_phase_status_input.py
+launchdarkly_api/model/update_release_pipeline_input.py
 launchdarkly_api/model/upsert_context_kind_payload.py
 launchdarkly_api/model/upsert_flag_defaults_payload.py
 launchdarkly_api/model/upsert_payload_rep.py
@@ -1068,6 +1104,7 @@ test/test_approval_request_response.py
 test/test_approval_settings.py
 test/test_approvals_api.py
 test/test_approvals_beta_api.py
+test/test_approvals_capability_config.py
 test/test_audience.py
 test/test_audience_configuration.py
 test/test_audience_post.py
@@ -1076,6 +1113,8 @@ test/test_audit_log_api.py
 test/test_audit_log_entry_listing_rep.py
 test/test_audit_log_entry_listing_rep_collection.py
 test/test_audit_log_entry_rep.py
+test/test_audit_log_events_hook_capability_config_post.py
+test/test_audit_log_events_hook_capability_config_rep.py
 test/test_authorized_app_data_rep.py
 test/test_bayesian_beta_binomial_stats_rep.py
 test/test_bayesian_normal_stats_rep.py
@@ -1092,6 +1131,8 @@ test/test_branch_rep.py
 test/test_bulk_edit_members_rep.py
 test/test_bulk_edit_teams_rep.py
 test/test_caller_identity_rep.py
+test/test_capability_config_post.py
+test/test_capability_config_rep.py
 test/test_clause.py
 test/test_client.py
 test/test_client_collection.py
@@ -1164,6 +1205,9 @@ test/test_destination.py
 test/test_destination_post.py
 test/test_destinations.py
 test/test_distribution.py
+test/test_dynamic_options.py
+test/test_dynamic_options_parser.py
+test/test_endpoint.py
 test/test_environment.py
 test/test_environment_post.py
 test/test_environment_summary.py
@@ -1176,6 +1220,7 @@ test/test_execution_output.py
 test/test_expandable_approval_request_response.py
 test/test_expandable_approval_requests_response.py
 test/test_expanded_flag_rep.py
+test/test_expanded_resource_rep.py
 test/test_experiment.py
 test/test_experiment_allocation_rep.py
 test/test_experiment_bayesian_results_rep.py
@@ -1234,6 +1279,7 @@ test/test_flag_event_rep.py
 test/test_flag_followers_by_proj_env_get_rep.py
 test/test_flag_followers_get_rep.py
 test/test_flag_import_configuration_post.py
+test/test_flag_import_configurations_beta_api.py
 test/test_flag_import_integration.py
 test/test_flag_import_integration_collection.py
 test/test_flag_import_integration_collection_links.py
@@ -1262,7 +1308,10 @@ test/test_follow_flag_member.py
 test/test_follow_flags_api.py
 test/test_followers_per_flag.py
 test/test_forbidden_error_rep.py
+test/test_form_variable.py
 test/test_form_variable_config.py
+test/test_header_items.py
+test/test_hmac_signature.py
 test/test_holdout_detail_rep.py
 test/test_holdout_patch_input.py
 test/test_holdout_post_request.py
@@ -1308,6 +1357,9 @@ test/test_instruction_user_request.py
 test/test_instructions.py
 test/test_integration.py
 test/test_integration_audit_log_subscriptions_api.py
+test/test_integration_configuration_collection_rep.py
+test/test_integration_configuration_post.py
+test/test_integration_configurations_rep.py
 test/test_integration_delivery_configuration.py
 test/test_integration_delivery_configuration_collection.py
 test/test_integration_delivery_configuration_collection_links.py
@@ -1334,7 +1386,7 @@ test/test_layer_post.py
 test/test_layer_rep.py
 test/test_layer_reservation_rep.py
 test/test_layer_snapshot_rep.py
-test/test_layers_beta_api.py
+test/test_layers_api.py
 test/test_lead_time_stages_rep.py
 test/test_legacy_experiment_rep.py
 test/test_link.py
@@ -1381,6 +1433,7 @@ test/test_not_found_error_rep.py
 test/test_o_auth2_clients_api.py
 test/test_oauth_client_post.py
 test/test_object.py
+test/test_options_array.py
 test/test_other_api.py
 test/test_parameter_default.py
 test/test_parameter_rep.py
@@ -1395,8 +1448,8 @@ test/test_patch_segment_request.py
 test/test_patch_users_request.py
 test/test_patch_with_comment.py
 test/test_permission_grant_input.py
+test/test_persistent_store_integrations_beta_api.py
 test/test_phase.py
-test/test_phase_configuration.py
 test/test_phase_info.py
 test/test_post_approval_request_apply_request.py
 test/test_post_approval_request_review_request.py
@@ -1520,6 +1573,7 @@ test/test_trigger_workflow_collection_rep.py
 test/test_trigger_workflow_rep.py
 test/test_unauthorized_error_rep.py
 test/test_update_phase_status_input.py
+test/test_update_release_pipeline_input.py
 test/test_upsert_context_kind_payload.py
 test/test_upsert_flag_defaults_payload.py
 test/test_upsert_payload_rep.py

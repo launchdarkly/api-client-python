@@ -661,6 +661,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
                 member_ids=["12ab3c45de678910fgh12345"],
             ),
         ],
+        role_attributes=RoleAttributeMap(
+            key=RoleAttributeValues([
+                "key_example",
+            ]),
+        ),
     ) # TeamPostInput | 
     expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
 

@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **tags** | **[str]** | A list of tags for this environment | 
 **critical** | **bool** | Whether the environment is critical | 
 **approval_settings** | [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
+**resource_approval_settings** | [**{str: (ApprovalSettings,)}**](ApprovalSettings.md) | Details on the approval settings for this environment for each resource kind | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

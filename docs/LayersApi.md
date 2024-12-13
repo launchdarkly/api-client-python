@@ -1,12 +1,12 @@
-# launchdarkly_api.LayersBetaApi
+# launchdarkly_api.LayersApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_layer**](LayersBetaApi.md#create_layer) | **POST** /api/v2/projects/{projectKey}/layers | Create layer
-[**get_layers**](LayersBetaApi.md#get_layers) | **GET** /api/v2/projects/{projectKey}/layers | Get layers
-[**update_layer**](LayersBetaApi.md#update_layer) | **PATCH** /api/v2/projects/{projectKey}/layers/{layerKey} | Update layer
+[**create_layer**](LayersApi.md#create_layer) | **POST** /api/v2/projects/{projectKey}/layers | Create layer
+[**get_layers**](LayersApi.md#get_layers) | **GET** /api/v2/projects/{projectKey}/layers | Get layers
+[**update_layer**](LayersApi.md#update_layer) | **PATCH** /api/v2/projects/{projectKey}/layers/{layerKey} | Update layer
 
 
 # **create_layer**
@@ -23,7 +23,7 @@ Create a layer. Experiments running in the same layer are granted mutually-exclu
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_beta_api
+from launchdarkly_api.api import layers_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -51,7 +51,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_beta_api.LayersBetaApi(api_client)
+    api_instance = layers_api.LayersApi(api_client)
     project_key = "projectKey_example" # str | The project key
     layer_post = LayerPost(
         key="checkout-flow",
@@ -65,7 +65,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.create_layer(project_key, layer_post)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling LayersBetaApi->create_layer: %s\n" % e)
+        print("Exception when calling LayersApi->create_layer: %s\n" % e)
 ```
 
 
@@ -116,7 +116,7 @@ Get a collection of all layers for a project
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_beta_api
+from launchdarkly_api.api import layers_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -143,7 +143,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_beta_api.LayersBetaApi(api_client)
+    api_instance = layers_api.LayersApi(api_client)
     project_key = "projectKey_example" # str | The project key
     filter = "filter_example" # str | A comma-separated list of filters. This endpoint only accepts filtering by `experimentKey`. The filter returns layers which include that experiment for the selected environment(s). For example: `filter=reservations.experimentKey contains expKey`. (optional)
 
@@ -153,7 +153,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_layers(project_key)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling LayersBetaApi->get_layers: %s\n" % e)
+        print("Exception when calling LayersApi->get_layers: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
@@ -162,7 +162,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.get_layers(project_key, filter=filter)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling LayersBetaApi->get_layers: %s\n" % e)
+        print("Exception when calling LayersApi->get_layers: %s\n" % e)
 ```
 
 
@@ -213,7 +213,7 @@ Update a layer by adding, changing, or removing traffic reservations for experim
 ```python
 import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_beta_api
+from launchdarkly_api.api import layers_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
@@ -241,7 +241,7 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_beta_api.LayersBetaApi(api_client)
+    api_instance = layers_api.LayersApi(api_client)
     project_key = "projectKey_example" # str | The project key
     layer_key = "layerKey_example" # str | The layer key
     layer_patch_input = LayerPatchInput(
@@ -260,7 +260,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         api_response = api_instance.update_layer(project_key, layer_key, layer_patch_input)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
-        print("Exception when calling LayersBetaApi->update_layer: %s\n" % e)
+        print("Exception when calling LayersApi->update_layer: %s\n" % e)
 ```
 
 
