@@ -6,7 +6,7 @@
 # raise a `RecursionError`.
 # In order to avoid this, import only the API that you directly need like:
 #
-#   from launchdarkly_api.api.access_tokens_api import AccessTokensApi
+#   from launchdarkly_api.api.ai_configs_beta_api import AIConfigsBetaApi
 #
 # or import this package, but before doing it, use:
 #
@@ -14,10 +14,12 @@
 #   sys.setrecursionlimit(n)
 
 # Import APIs into API package:
+from launchdarkly_api.api.ai_configs_beta_api import AIConfigsBetaApi
 from launchdarkly_api.api.access_tokens_api import AccessTokensApi
 from launchdarkly_api.api.account_members_api import AccountMembersApi
 from launchdarkly_api.api.account_members_beta_api import AccountMembersBetaApi
 from launchdarkly_api.api.account_usage_beta_api import AccountUsageBetaApi
+from launchdarkly_api.api.announcements_api import AnnouncementsApi
 from launchdarkly_api.api.applications_beta_api import ApplicationsBetaApi
 from launchdarkly_api.api.approvals_api import ApprovalsApi
 from launchdarkly_api.api.approvals_beta_api import ApprovalsBetaApi
@@ -57,7 +59,6 @@ from launchdarkly_api.api.release_pipelines_beta_api import ReleasePipelinesBeta
 from launchdarkly_api.api.releases_beta_api import ReleasesBetaApi
 from launchdarkly_api.api.scheduled_changes_api import ScheduledChangesApi
 from launchdarkly_api.api.segments_api import SegmentsApi
-from launchdarkly_api.api.segments_beta_api import SegmentsBetaApi
 from launchdarkly_api.api.tags_api import TagsApi
 from launchdarkly_api.api.teams_api import TeamsApi
 from launchdarkly_api.api.teams_beta_api import TeamsBetaApi

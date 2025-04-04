@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **maintainer_id** | **str** | The ID of the member who maintains this metric | [optional] 
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **description** | **str** | Description of the metric | [optional] 
+**category** | **str** | The category of the metric | [optional] 
 **is_numeric** | **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **success_criteria** | **str** | For custom metrics, the success criteria | [optional] 
 **unit** | **str** | For numeric custom metrics, the unit of measure | [optional] 

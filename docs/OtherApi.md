@@ -94,7 +94,7 @@ This endpoint does not need any parameter.
 
 Gets the public IP list
 
-Get a list of IP ranges the LaunchDarkly service uses. You can use this list to allow LaunchDarkly through your firewall. We post upcoming changes to this list in advance on our [status page](https://status.launchdarkly.com/). <br /><br />In the sandbox, click 'Try it' and enter any string in the 'Authorization' field to test this endpoint.
+Get a list of IP ranges the LaunchDarkly service uses. You can use this list to allow LaunchDarkly through your firewall. We post upcoming changes to this list in advance on our [status page](https://status.launchdarkly.com/). <br /><br />In the sandbox, click 'Play' and enter any string in the 'Authorization' field to test this endpoint.
 
 ### Example
 
@@ -170,7 +170,7 @@ This endpoint does not need any parameter.
 
 Gets the OpenAPI spec in json
 
-Get the latest version of the OpenAPI specification for LaunchDarkly's API in JSON format. In the sandbox, click 'Try it' and enter any string in the 'Authorization' field to test this endpoint.
+Get the latest version of the OpenAPI specification for LaunchDarkly's API in JSON format. In the sandbox, click 'Play' and enter any string in the 'Authorization' field to test this endpoint.
 
 ### Example
 
@@ -244,7 +244,7 @@ void (empty response body)
 
 Root resource
 
-Get all of the resource categories the API supports. In the sandbox, click 'Try it' and enter any string in the 'Authorization' field to test this endpoint.
+Get all of the resource categories the API supports. In the sandbox, click 'Play' and enter any string in the 'Authorization' field to test this endpoint.
 
 ### Example
 

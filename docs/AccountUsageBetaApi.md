@@ -516,7 +516,7 @@ Name | Type | Description  | Notes
 
 Get MAU SDKs by type
 
-Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics).
+Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
 ### Example
 
@@ -607,7 +607,7 @@ Name | Type | Description  | Notes
 
 Get MAU usage
 
-Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics).
+Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
 ### Example
 
@@ -651,13 +651,15 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     sdktype = "sdktype_example" # str | An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server (optional)
     sdk = "sdk_example" # str | An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. (optional)
     anonymous = "anonymous_example" # str | If specified, filters results to either anonymous or nonanonymous users. (optional)
-    groupby = "groupby_example" # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous (optional)
+    groupby = "groupby_example" # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous, contextKind, sdkAppId (optional)
+    aggregation_type = "aggregationType_example" # str | If specified, queries for rolling 30-day, month-to-date, or daily incremental counts. Default is rolling 30-day. Valid values: rolling_30d, month_to_date, daily_incremental (optional)
+    context_kind = "contextKind_example" # str | Filters results to the specified context kinds. Can be specified multiple times, one query parameter per context kind. If not set, queries for the user context kind. (optional)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get MAU usage
-        api_response = api_instance.get_mau_usage(_from=_from, to=to, project=project, environment=environment, sdktype=sdktype, sdk=sdk, anonymous=anonymous, groupby=groupby)
+        api_response = api_instance.get_mau_usage(_from=_from, to=to, project=project, environment=environment, sdktype=sdktype, sdk=sdk, anonymous=anonymous, groupby=groupby, aggregation_type=aggregation_type, context_kind=context_kind)
         pprint(api_response)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling AccountUsageBetaApi->get_mau_usage: %s\n" % e)
@@ -675,7 +677,9 @@ Name | Type | Description  | Notes
  **sdktype** | **str**| An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server | [optional]
  **sdk** | **str**| An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. | [optional]
  **anonymous** | **str**| If specified, filters results to either anonymous or nonanonymous users. | [optional]
- **groupby** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous | [optional]
+ **groupby** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous, contextKind, sdkAppId | [optional]
+ **aggregation_type** | **str**| If specified, queries for rolling 30-day, month-to-date, or daily incremental counts. Default is rolling 30-day. Valid values: rolling_30d, month_to_date, daily_incremental | [optional]
+ **context_kind** | **str**| Filters results to the specified context kinds. Can be specified multiple times, one query parameter per context kind. If not set, queries for the user context kind. | [optional]
 
 ### Return type
 
@@ -708,7 +712,7 @@ Name | Type | Description  | Notes
 
 Get MAU usage by category
 
-Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics).
+Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
 ### Example
 

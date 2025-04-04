@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 Get user attribute names
 
-> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get context attribute names ](/tag/Contexts#operation/getContextAttributeNames) instead of this endpoint.  Get all in-use user attributes in the specified environment. The set of in-use attributes typically consists of all attributes seen within the past 30 days. 
+> ### Use contexts instead > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get context attribute names ](https://launchdarkly.com/docs/ld-docs/api/contexts/get-context-attribute-names) instead of this endpoint.  Get all in-use user attributes in the specified environment. The set of in-use attributes typically consists of all attributes seen within the past 30 days. 
 
 ### Example
 

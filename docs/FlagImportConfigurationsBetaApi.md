@@ -388,7 +388,7 @@ This endpoint does not need any parameter.
 
 Update a flag import configuration
 
-Updating a flag import configuration uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).<br/><br/>To add an element to the import configuration fields that are arrays, set the `path` to the name of the field and then append `/<array index>`. Use `/0` to add to the beginning of the array. Use `/-` to add to the end of the array.<br/><br/>You can update the `config`, `tags`, and `name` of the flag import configuration.
+Updating a flag import configuration uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes. To learn more, read [Updates](https://launchdarkly.com/docs/api#updates).<br/><br/>To add an element to the import configuration fields that are arrays, set the `path` to the name of the field and then append `/<array index>`. Use `/0` to add to the beginning of the array. Use `/-` to add to the end of the array.<br/><br/>You can update the `config`, `tags`, and `name` of the flag import configuration.
 
 ### Example
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trigger_flag_import_job**
-> Object trigger_flag_import_job(project_key, integration_key, integration_id)
+> trigger_flag_import_job(project_key, integration_key, integration_id)
 
 Trigger a single flag import run
 
@@ -503,7 +503,6 @@ import launchdarkly_api
 from launchdarkly_api.api import flag_import_configurations_beta_api
 from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
 from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.object import Object
 from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
 from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
 from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
@@ -537,8 +536,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # example passing only required values which don't have defaults set
     try:
         # Trigger a single flag import run
-        api_response = api_instance.trigger_flag_import_job(project_key, integration_key, integration_id)
-        pprint(api_response)
+        api_instance.trigger_flag_import_job(project_key, integration_key, integration_id)
     except launchdarkly_api.ApiException as e:
         print("Exception when calling FlagImportConfigurationsBetaApi->trigger_flag_import_job: %s\n" % e)
 ```
@@ -554,7 +552,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Object**](Object.md)
+void (empty response body)
 
 ### Authorization
 
@@ -570,7 +568,7 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** |  |  -  |
+**201** | Import job queued successfully |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

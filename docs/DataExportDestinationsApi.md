@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /api/v2/destinations | List destinations
 [**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
 [**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
+[**post_generate_warehouse_destination_key_pair**](DataExportDestinationsApi.md#post_generate_warehouse_destination_key_pair) | **POST** /api/v2/destinations/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
 
 
 # **delete_destination**
@@ -274,7 +275,7 @@ This endpoint does not need any parameter.
 
 Update Data Export destination
 
-Update a Data Export destination. Updating a destination uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).
+Update a Data Export destination. Updating a destination uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](https://launchdarkly.com/docs/api#updates).
 
 ### Example
 
@@ -377,7 +378,7 @@ Name | Type | Description  | Notes
 
 Create Data Export destination
 
- Create a new Data Export destination.  In the `config` request body parameter, the fields required depend on the type of Data Export destination.  <details> <summary>Click to expand <code>config</code> parameter details</summary>  #### Azure Event Hubs  To create a Data Export destination with a `kind` of `azure-event-hubs`, the `config` object requires the following fields:  * `namespace`: The Event Hub Namespace name * `name`: The Event Hub name * `policyName`: The shared access signature policy name. You can find your policy name in the settings of your Azure Event Hubs Namespace. * `policyKey`: The shared access signature key. You can find your policy key in the settings of your Azure Event Hubs Namespace.  #### Google Cloud Pub/Sub  To create a Data Export destination with a `kind` of `google-pubsub`, the `config` object requires the following fields:  * `project`: The Google PubSub project ID for the project to publish to * `topic`: The Google PubSub topic ID for the topic to publish to  #### Amazon Kinesis  To create a Data Export destination with a `kind` of `kinesis`, the `config` object requires the following fields:  * `region`: The Kinesis stream's AWS region key * `roleArn`: The Amazon Resource Name (ARN) of the AWS role that will be writing to Kinesis * `streamName`: The name of the Kinesis stream that LaunchDarkly is sending events to. This is not the ARN of the stream.  #### mParticle  To create a Data Export destination with a `kind` of `mparticle`, the `config` object requires the following fields:  * `apiKey`: The mParticle API key * `secret`: The mParticle API secret * `userIdentity`: The type of identifier you use to identify your end users in mParticle * `anonymousUserIdentity`: The type of identifier you use to identify your anonymous end users in mParticle  #### Segment  To create a Data Export destination with a `kind` of `segment`, the `config` object requires the following fields:  * `writeKey`: The Segment write key. This is used to authenticate LaunchDarkly's calls to Segment.  </details> 
+ Create a new Data Export destination.  In the `config` request body parameter, the fields required depend on the type of Data Export destination.  <details> <summary>Click to expand <code>config</code> parameter details</summary>  #### Azure Event Hubs  To create a Data Export destination with a `kind` of `azure-event-hubs`, the `config` object requires the following fields:  * `namespace`: The Event Hub Namespace name * `name`: The Event Hub name * `policyName`: The shared access signature policy name. You can find your policy name in the settings of your Azure Event Hubs Namespace. * `policyKey`: The shared access signature key. You can find your policy key in the settings of your Azure Event Hubs Namespace.  #### Google Cloud Pub/Sub  To create a Data Export destination with a `kind` of `google-pubsub`, the `config` object requires the following fields:  * `project`: The Google PubSub project ID for the project to publish to * `topic`: The Google PubSub topic ID for the topic to publish to  #### Amazon Kinesis  To create a Data Export destination with a `kind` of `kinesis`, the `config` object requires the following fields:  * `region`: The Kinesis stream's AWS region key * `roleArn`: The Amazon Resource Name (ARN) of the AWS role that will be writing to Kinesis * `streamName`: The name of the Kinesis stream that LaunchDarkly is sending events to. This is not the ARN of the stream.  #### mParticle  To create a Data Export destination with a `kind` of `mparticle`, the `config` object requires the following fields:  * `apiKey`: The mParticle API key * `secret`: The mParticle API secret * `userIdentity`: The type of identifier you use to identify your end users in mParticle * `anonymousUserIdentity`: The type of identifier you use to identify your anonymous end users in mParticle  #### Segment  To create a Data Export destination with a `kind` of `segment`, the `config` object requires the following fields:  * `writeKey`: The Segment write key. This is used to authenticate LaunchDarkly's calls to Segment.  #### Snowflake  To create a Data Export destination with a `kind` of `snowflake-v2`, the `config` object requires the following fields:  * `publicKey`: The `publicKey` is returned as part of the [Generate Snowflake destination key pair](https://launchdarkly.com/docs/api/data-export-destinations/post-generate-warehouse-destination-key-pair) response. It is the `public_key` field. * `snowflakeHostAddress`: Your Snowflake account URL.  </details> 
 
 ### Example
 
@@ -462,6 +463,90 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Destination response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_generate_warehouse_destination_key_pair**
+> GenerateWarehouseDestinationKeyPairPostRep post_generate_warehouse_destination_key_pair()
+
+Generate Snowflake destination key pair
+
+Generate key pair to allow Data Export to authenticate into a Snowflake warehouse destination
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import time
+import launchdarkly_api
+from launchdarkly_api.api import data_export_destinations_api
+from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
+from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
+from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.model.generate_warehouse_destination_key_pair_post_rep import GenerateWarehouseDestinationKeyPairPostRep
+from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from pprint import pprint
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+
+    # example, this endpoint has no required or optional parameters
+    try:
+        # Generate Snowflake destination key pair
+        api_response = api_instance.post_generate_warehouse_destination_key_pair()
+        pprint(api_response)
+    except launchdarkly_api.ApiException as e:
+        print("Exception when calling DataExportDestinationsApi->post_generate_warehouse_destination_key_pair: %s\n" % e)
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GenerateWarehouseDestinationKeyPairPostRep**](GenerateWarehouseDestinationKeyPairPostRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Generate warehouse destination key pair response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

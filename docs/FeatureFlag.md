@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **custom_properties** | [**CustomProperties**](CustomProperties.md) |  | 
 **archived** | **bool** | Boolean indicating if the feature flag is archived | 
-**environments** | [**{str: (FeatureFlagConfig,)}**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | 
 **description** | **str** | Description of the feature flag | [optional] 
 **include_in_snippet** | **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK | [optional] 
 **client_side_availability** | [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
@@ -31,6 +30,7 @@ Name | Type | Description | Notes
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 **purpose** | **str** |  | [optional] 
 **migration_settings** | [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
+**environments** | [**{str: (FeatureFlagConfig,)}**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | [optional] 
 **any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
