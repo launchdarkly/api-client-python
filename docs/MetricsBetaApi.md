@@ -23,18 +23,12 @@ Create a new metric group in the specified project
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_beta_api
-from launchdarkly_api.model.metric_group_post import MetricGroupPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.metric_group_rep import MetricGroupRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_group_post import MetricGroupPost
+from launchdarkly_api.models.metric_group_rep import MetricGroupRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -47,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -55,39 +49,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_beta_api.MetricsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_group_post = MetricGroupPost(
-        key="metric-group-key-123abc",
-        name="My metric group",
-        kind="funnel",
-        description="Description of the metric group",
-        maintainer_id="569fdeadbeef1644facecafe",
-        tags=["ops"],
-        metrics=[
-            MetricInMetricGroupInput(
-                key="metric-key-123abc",
-                name_in_group="Step 1",
-            ),
-        ],
-    ) # MetricGroupPost | 
+    api_instance = launchdarkly_api.MetricsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_group_post = launchdarkly_api.MetricGroupPost() # MetricGroupPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create metric group
         api_response = api_instance.create_metric_group(project_key, metric_group_post)
+        print("The response of MetricsBetaApi->create_metric_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsBetaApi->create_metric_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_group_post** | [**MetricGroupPost**](MetricGroupPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **metric_group_post** | [**MetricGroupPost**](MetricGroupPost.md)|  | 
 
 ### Return type
 
@@ -101,7 +84,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -129,16 +111,10 @@ Delete a metric group by key.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -151,7 +127,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -159,25 +135,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_beta_api.MetricsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_group_key = "metricGroupKey_example" # str | The metric group key
+    api_instance = launchdarkly_api.MetricsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_group_key = 'metric_group_key_example' # str | The metric group key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete metric group
         api_instance.delete_metric_group(project_key, metric_group_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsBetaApi->delete_metric_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_group_key** | **str**| The metric group key |
+ **project_key** | **str**| The project key | 
+ **metric_group_key** | **str**| The metric group key | 
 
 ### Return type
 
@@ -191,7 +168,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -208,7 +184,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_metric_group**
-> MetricGroupRep get_metric_group(project_key, metric_group_key)
+> MetricGroupRep get_metric_group(project_key, metric_group_key, expand=expand)
 
 Get metric group
 
@@ -219,17 +195,11 @@ Get information for a single metric group from the specific project.  ### Expand
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.metric_group_rep import MetricGroupRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_group_rep import MetricGroupRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -242,7 +212,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -250,37 +220,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_beta_api.MetricsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_group_key = "metricGroupKey_example" # str | The metric group key
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    api_instance = launchdarkly_api.MetricsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_group_key = 'metric_group_key_example' # str | The metric group key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get metric group
-        api_response = api_instance.get_metric_group(project_key, metric_group_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling MetricsBetaApi->get_metric_group: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get metric group
         api_response = api_instance.get_metric_group(project_key, metric_group_key, expand=expand)
+        print("The response of MetricsBetaApi->get_metric_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsBetaApi->get_metric_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_group_key** | **str**| The metric group key |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **project_key** | **str**| The project key | 
+ **metric_group_key** | **str**| The metric group key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
 
 ### Return type
 
@@ -294,7 +257,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -311,7 +273,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_metric_groups**
-> MetricGroupCollectionRep get_metric_groups(project_key)
+> MetricGroupCollectionRep get_metric_groups(project_key, filter=filter, sort=sort, expand=expand, limit=limit, offset=offset)
 
 List metric groups
 
@@ -322,17 +284,11 @@ Get a list of all metric groups for the specified project.  ### Expanding the me
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.metric_group_collection_rep import MetricGroupCollectionRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_group_collection_rep import MetricGroupCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -345,7 +301,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -353,43 +309,36 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_beta_api.MetricsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    filter = "filter_example" # str | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
-    sort = "sort_example" # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
-    limit = 1 # int | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    api_instance = launchdarkly_api.MetricsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    filter = 'filter_example' # str | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
+    sort = 'sort_example' # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit = 56 # int | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # List metric groups
-        api_response = api_instance.get_metric_groups(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling MetricsBetaApi->get_metric_groups: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List metric groups
         api_response = api_instance.get_metric_groups(project_key, filter=filter, sort=sort, expand=expand, limit=limit, offset=offset)
+        print("The response of MetricsBetaApi->get_metric_groups:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsBetaApi->get_metric_groups: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **filter** | **str**| Accepts filter by &#x60;experimentStatus&#x60;, &#x60;query&#x60;, &#x60;kind&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, and &#x60;maintainerTeamKey&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | [optional]
- **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | [optional]
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
- **limit** | **int**| The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional]
+ **project_key** | **str**| The project key | 
+ **filter** | **str**| Accepts filter by &#x60;experimentStatus&#x60;, &#x60;query&#x60;, &#x60;kind&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, and &#x60;maintainerTeamKey&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | [optional] 
+ **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | [optional] 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
+ **limit** | **int**| The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
 
 ### Return type
 
@@ -403,7 +352,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -420,7 +368,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_metric_group**
-> MetricGroupRep patch_metric_group(project_key, metric_group_key, json_patch)
+> MetricGroupRep patch_metric_group(project_key, metric_group_key, patch_operation)
 
 Patch metric group
 
@@ -431,18 +379,12 @@ Patch a metric group by key. Updating a metric group uses a [JSON patch](https:/
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.metric_group_rep import MetricGroupRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_group_rep import MetricGroupRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -455,7 +397,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -463,34 +405,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_beta_api.MetricsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_group_key = "metricGroupKey_example" # str | The metric group key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.MetricsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_group_key = 'metric_group_key_example' # str | The metric group key
+    patch_operation = [{"op":"replace","path":"/name","value":"my-updated-metric-group"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch metric group
-        api_response = api_instance.patch_metric_group(project_key, metric_group_key, json_patch)
+        api_response = api_instance.patch_metric_group(project_key, metric_group_key, patch_operation)
+        print("The response of MetricsBetaApi->patch_metric_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsBetaApi->patch_metric_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_group_key** | **str**| The metric group key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **metric_group_key** | **str**| The metric group key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -504,7 +442,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

@@ -25,14 +25,10 @@ Delete a environment by key.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -45,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -53,25 +49,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete environment
         api_instance.delete_environment(project_key, environment_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->delete_environment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -85,7 +82,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -111,15 +107,11 @@ Get environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environment import Environment
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.environment import Environment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -132,7 +124,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -140,26 +132,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get environment
         api_response = api_instance.get_environment(project_key, environment_key)
+        print("The response of EnvironmentsApi->get_environment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->get_environment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -174,7 +168,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -188,7 +181,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_environments_by_project**
-> Environments get_environments_by_project(project_key)
+> Environments get_environments_by_project(project_key, limit=limit, offset=offset, filter=filter, sort=sort)
 
 List environments
 
@@ -199,17 +192,11 @@ Return a list of environments for the specified project.  By default, this retur
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environments import Environments
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.environments import Environments
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -222,7 +209,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -230,41 +217,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    limit = 1 # int | The number of environments to return in the response. Defaults to 20. (optional)
-    offset = 1 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    filter = "filter_example" # str | A comma-separated list of filters. Each filter is of the form `field:value`. (optional)
-    sort = "sort_example" # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    limit = 56 # int | The number of environments to return in the response. Defaults to 20. (optional)
+    offset = 56 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    filter = 'filter_example' # str | A comma-separated list of filters. Each filter is of the form `field:value`. (optional)
+    sort = 'sort_example' # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # List environments
-        api_response = api_instance.get_environments_by_project(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling EnvironmentsApi->get_environments_by_project: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List environments
         api_response = api_instance.get_environments_by_project(project_key, limit=limit, offset=offset, filter=filter, sort=sort)
+        print("The response of EnvironmentsApi->get_environments_by_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->get_environments_by_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **limit** | **int**| The number of environments to return in the response. Defaults to 20. | [optional]
- **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
- **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. | [optional]
- **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | [optional]
+ **project_key** | **str**| The project key | 
+ **limit** | **int**| The number of environments to return in the response. Defaults to 20. | [optional] 
+ **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. | [optional] 
+ **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | [optional] 
 
 ### Return type
 
@@ -278,7 +258,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -295,7 +274,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_environment**
-> Environment patch_environment(project_key, environment_key, json_patch)
+> Environment patch_environment(project_key, environment_key, patch_operation)
 
 Update environment
 
@@ -306,17 +285,12 @@ Update environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environment import Environment
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.environment import Environment
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -329,7 +303,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -337,34 +311,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    patch_operation = [{"op":"replace","path":"/requireComments","value":true}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update environment
-        api_response = api_instance.patch_environment(project_key, environment_key, json_patch)
+        api_response = api_instance.patch_environment(project_key, environment_key, patch_operation)
+        print("The response of EnvironmentsApi->patch_environment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->patch_environment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -378,7 +348,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -405,18 +374,12 @@ Create environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environment import Environment
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.environment_post import EnvironmentPost
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.environment import Environment
+from launchdarkly_api.models.environment_post import EnvironmentPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -429,7 +392,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -437,41 +400,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_post = EnvironmentPost(
-        name="My Environment",
-        key="environment-key-123abc",
-        color="F5A623",
-        default_ttl=5,
-        secure_mode=True,
-        default_track_events=False,
-        confirm_changes=False,
-        require_comments=False,
-        tags=["ops"],
-        source=SourceEnv(
-            key="key_example",
-            version=1,
-        ),
-        critical=True,
-    ) # EnvironmentPost | 
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_post = {"color":"DADBEE","key":"environment-key-123abc","name":"My Environment"} # EnvironmentPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create environment
         api_response = api_instance.post_environment(project_key, environment_post)
+        print("The response of EnvironmentsApi->post_environment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->post_environment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_post** | [**EnvironmentPost**](EnvironmentPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_post** | [**EnvironmentPost**](EnvironmentPost.md)|  | 
 
 ### Return type
 
@@ -485,7 +435,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -513,17 +462,11 @@ Reset an environment's mobile key. The optional expiry for the old key is deprec
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environment import Environment
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.environment import Environment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -536,7 +479,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -544,26 +487,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Reset environment mobile SDK key
         api_response = api_instance.reset_environment_mobile_key(project_key, environment_key)
+        print("The response of EnvironmentsApi->reset_environment_mobile_key:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->reset_environment_mobile_key: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -577,7 +522,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -594,7 +538,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_environment_sdk_key**
-> Environment reset_environment_sdk_key(project_key, environment_key)
+> Environment reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
 
 Reset environment SDK key
 
@@ -605,17 +549,11 @@ Reset an environment's SDK key with an optional expiry time for the old key.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import environments_api
-from launchdarkly_api.model.environment import Environment
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.environment import Environment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -628,7 +566,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -636,37 +574,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = environments_api.EnvironmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    expiry = 1 # int | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. (optional)
+    api_instance = launchdarkly_api.EnvironmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    expiry = 56 # int | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Reset environment SDK key
-        api_response = api_instance.reset_environment_sdk_key(project_key, environment_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Reset environment SDK key
         api_response = api_instance.reset_environment_sdk_key(project_key, environment_key, expiry=expiry)
+        print("The response of EnvironmentsApi->reset_environment_sdk_key:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling EnvironmentsApi->reset_environment_sdk_key: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **expiry** | **int**| The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **expiry** | **int**| The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. | [optional] 
 
 ### Return type
 
@@ -680,7 +611,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

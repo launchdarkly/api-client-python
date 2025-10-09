@@ -21,16 +21,12 @@ Create a layer. Experiments running in the same layer are granted mutually-exclu
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.layer_post import LayerPost
-from launchdarkly_api.model.layer_rep import LayerRep
+from launchdarkly_api.models.layer_post import LayerPost
+from launchdarkly_api.models.layer_rep import LayerRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -43,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -51,30 +47,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_api.LayersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    layer_post = LayerPost(
-        key="checkout-flow",
-        name="Checkout Flow",
-        description="description_example",
-    ) # LayerPost | 
+    api_instance = launchdarkly_api.LayersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    layer_post = launchdarkly_api.LayerPost() # LayerPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create layer
         api_response = api_instance.create_layer(project_key, layer_post)
+        print("The response of LayersApi->create_layer:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling LayersApi->create_layer: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **layer_post** | [**LayerPost**](LayerPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **layer_post** | [**LayerPost**](LayerPost.md)|  | 
 
 ### Return type
 
@@ -89,7 +83,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -103,7 +96,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_layers**
-> LayerCollectionRep get_layers(project_key)
+> LayerCollectionRep get_layers(project_key, filter=filter)
 
 Get layers
 
@@ -114,15 +107,11 @@ Get a collection of all layers for a project
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.layer_collection_rep import LayerCollectionRep
+from launchdarkly_api.models.layer_collection_rep import LayerCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -135,7 +124,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -143,35 +132,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_api.LayersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    filter = "filter_example" # str | A comma-separated list of filters. This endpoint only accepts filtering by `experimentKey`. The filter returns layers which include that experiment for the selected environment(s). For example: `filter=reservations.experimentKey contains expKey`. (optional)
+    api_instance = launchdarkly_api.LayersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    filter = 'filter_example' # str | A comma-separated list of filters. This endpoint only accepts filtering by `experimentKey`. The filter returns layers which include that experiment for the selected environment(s). For example: `filter=reservations.experimentKey contains expKey`. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get layers
-        api_response = api_instance.get_layers(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling LayersApi->get_layers: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get layers
         api_response = api_instance.get_layers(project_key, filter=filter)
+        print("The response of LayersApi->get_layers:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling LayersApi->get_layers: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **filter** | **str**| A comma-separated list of filters. This endpoint only accepts filtering by &#x60;experimentKey&#x60;. The filter returns layers which include that experiment for the selected environment(s). For example: &#x60;filter&#x3D;reservations.experimentKey contains expKey&#x60;. | [optional]
+ **project_key** | **str**| The project key | 
+ **filter** | **str**| A comma-separated list of filters. This endpoint only accepts filtering by &#x60;experimentKey&#x60;. The filter returns layers which include that experiment for the selected environment(s). For example: &#x60;filter&#x3D;reservations.experimentKey contains expKey&#x60;. | [optional] 
 
 ### Return type
 
@@ -185,7 +167,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -211,16 +192,12 @@ Update a layer by adding, changing, or removing traffic reservations for experim
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import layers_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.layer_rep import LayerRep
-from launchdarkly_api.model.layer_patch_input import LayerPatchInput
+from launchdarkly_api.models.layer_patch_input import LayerPatchInput
+from launchdarkly_api.models.layer_rep import LayerRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -233,7 +210,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -241,36 +218,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = layers_api.LayersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    layer_key = "layerKey_example" # str | The layer key
-    layer_patch_input = LayerPatchInput(
-        comment="Optional comment",
-        environment_key="production",
-        instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
-        ]),
-    ) # LayerPatchInput | 
+    api_instance = launchdarkly_api.LayersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    layer_key = 'layer_key_example' # str | The layer key
+    layer_patch_input = {"comment":"Example comment describing the update","environmentKey":"production","instructions":[{"experimentKey":"checkout-button-color","kind":"updateExperimentReservation","reservationPercent":25}]} # LayerPatchInput | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update layer
         api_response = api_instance.update_layer(project_key, layer_key, layer_patch_input)
+        print("The response of LayersApi->update_layer:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling LayersApi->update_layer: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **layer_key** | **str**| The layer key |
- **layer_patch_input** | [**LayerPatchInput**](LayerPatchInput.md)|  |
+ **project_key** | **str**| The project key | 
+ **layer_key** | **str**| The layer key | 
+ **layer_patch_input** | [**LayerPatchInput**](LayerPatchInput.md)|  | 
 
 ### Return type
 
@@ -284,7 +255,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

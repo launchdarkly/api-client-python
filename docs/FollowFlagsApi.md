@@ -22,14 +22,10 @@ Remove a member as a follower to a flag in a project and environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import follow_flags_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -42,7 +38,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -50,29 +46,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = follow_flags_api.FollowFlagsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    member_id = "memberId_example" # str | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
+    api_instance = launchdarkly_api.FollowFlagsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    member_id = 'member_id_example' # str | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
 
-    # example passing only required values which don't have defaults set
     try:
         # Remove a member as a follower of a flag in a project and environment
         api_instance.delete_flag_follower(project_key, feature_flag_key, environment_key, member_id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FollowFlagsApi->delete_flag_follower: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **member_id** | **str**| The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves. |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **member_id** | **str**| The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves. | 
 
 ### Return type
 
@@ -86,7 +83,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -112,15 +108,11 @@ Get a list of members following a flag in a project and environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import follow_flags_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.flag_followers_get_rep import FlagFollowersGetRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.flag_followers_get_rep import FlagFollowersGetRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -133,7 +125,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -141,28 +133,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = follow_flags_api.FollowFlagsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.FollowFlagsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get followers of a flag in a project and environment
         api_response = api_instance.get_flag_followers(project_key, feature_flag_key, environment_key)
+        print("The response of FollowFlagsApi->get_flag_followers:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FollowFlagsApi->get_flag_followers: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -176,7 +170,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -202,15 +195,11 @@ Get followers of all flags in a given environment and project
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import follow_flags_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.flag_followers_by_proj_env_get_rep import FlagFollowersByProjEnvGetRep
+from launchdarkly_api.models.flag_followers_by_proj_env_get_rep import FlagFollowersByProjEnvGetRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -223,7 +212,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -231,26 +220,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = follow_flags_api.FollowFlagsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.FollowFlagsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get followers of all flags in a given project and environment
         api_response = api_instance.get_followers_by_proj_env(project_key, environment_key)
+        print("The response of FollowFlagsApi->get_followers_by_proj_env:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FollowFlagsApi->get_followers_by_proj_env: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -264,7 +255,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -290,14 +280,10 @@ Add a member as a follower to a flag in a project and environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import follow_flags_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -310,7 +296,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -318,29 +304,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = follow_flags_api.FollowFlagsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    member_id = "memberId_example" # str | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
+    api_instance = launchdarkly_api.FollowFlagsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    member_id = 'member_id_example' # str | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
 
-    # example passing only required values which don't have defaults set
     try:
         # Add a member as a follower of a flag in a project and environment
         api_instance.put_flag_follower(project_key, feature_flag_key, environment_key, member_id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FollowFlagsApi->put_flag_follower: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **member_id** | **str**| The memberId of the member to add as a follower of the flag. Reader roles can only add themselves. |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **member_id** | **str**| The memberId of the member to add as a follower of the flag. Reader roles can only add themselves. | 
 
 ### Return type
 
@@ -354,7 +341,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

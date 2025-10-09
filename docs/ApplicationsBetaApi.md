@@ -25,14 +25,10 @@ Delete an application.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -45,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -53,23 +49,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete application
         api_instance.delete_application(application_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->delete_application: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
+ **application_key** | **str**| The application key | 
 
 ### Return type
 
@@ -83,7 +80,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -109,14 +105,10 @@ Delete an application version.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -129,7 +121,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -137,25 +129,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
-    version_key = "versionKey_example" # str | The application version key
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
+    version_key = 'version_key_example' # str | The application version key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete application version
         api_instance.delete_application_version(application_key, version_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->delete_application_version: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
- **version_key** | **str**| The application version key |
+ **application_key** | **str**| The application key | 
+ **version_key** | **str**| The application version key | 
 
 ### Return type
 
@@ -170,7 +163,6 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -184,7 +176,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_application**
-> ApplicationRep get_application(application_key)
+> ApplicationRep get_application(application_key, expand=expand)
 
 Get application by key
 
@@ -195,16 +187,11 @@ Get application by key
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.application_rep import ApplicationRep
+from launchdarkly_api.models.application_rep import ApplicationRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -217,7 +204,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -225,35 +212,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get application by key
-        api_response = api_instance.get_application(application_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApplicationsBetaApi->get_application: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get application by key
         api_response = api_instance.get_application(application_key, expand=expand)
+        print("The response of ApplicationsBetaApi->get_application:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->get_application: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;flags&#x60;. | [optional]
+ **application_key** | **str**| The application key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;flags&#x60;. | [optional] 
 
 ### Return type
 
@@ -267,7 +247,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -283,7 +262,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_application_versions**
-> ApplicationVersionsCollectionRep get_application_versions(application_key)
+> ApplicationVersionsCollectionRep get_application_versions(application_key, filter=filter, limit=limit, offset=offset, sort=sort)
 
 Get application versions by application key
 
@@ -294,16 +273,11 @@ Get a list of versions for a specific application in an account.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.application_versions_collection_rep import ApplicationVersionsCollectionRep
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.application_versions_collection_rep import ApplicationVersionsCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -316,7 +290,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -324,41 +298,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
-    filter = "filter_example" # str | Accepts filter by `key`, `name`, `supported`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
-    limit = 1 # int | The number of versions to return. Defaults to 50. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort = "sort_example" # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
+    filter = 'filter_example' # str | Accepts filter by `key`, `name`, `supported`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
+    limit = 56 # int | The number of versions to return. Defaults to 50. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort = 'sort_example' # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get application versions by application key
-        api_response = api_instance.get_application_versions(application_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApplicationsBetaApi->get_application_versions: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get application versions by application key
         api_response = api_instance.get_application_versions(application_key, filter=filter, limit=limit, offset=offset, sort=sort)
+        print("The response of ApplicationsBetaApi->get_application_versions:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->get_application_versions: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
- **filter** | **str**| Accepts filter by &#x60;key&#x60;, &#x60;name&#x60;, &#x60;supported&#x60;, and &#x60;autoAdded&#x60;. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). | [optional]
- **limit** | **int**| The number of versions to return. Defaults to 50. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
- **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#x60;creationDate&#x60;, &#x60;name&#x60;. Examples: &#x60;sort&#x3D;name&#x60; sort by names ascending, &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional]
+ **application_key** | **str**| The application key | 
+ **filter** | **str**| Accepts filter by &#x60;key&#x60;, &#x60;name&#x60;, &#x60;supported&#x60;, and &#x60;autoAdded&#x60;. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). | [optional] 
+ **limit** | **int**| The number of versions to return. Defaults to 50. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#x60;creationDate&#x60;, &#x60;name&#x60;. Examples: &#x60;sort&#x3D;name&#x60; sort by names ascending, &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional] 
 
 ### Return type
 
@@ -372,7 +339,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -388,7 +354,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_applications**
-> ApplicationCollectionRep get_applications()
+> ApplicationCollectionRep get_applications(filter=filter, limit=limit, offset=offset, sort=sort, expand=expand)
 
 Get applications
 
@@ -399,16 +365,11 @@ Get applications
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.application_collection_rep import ApplicationCollectionRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.application_collection_rep import ApplicationCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -421,7 +382,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -429,33 +390,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    filter = "filter_example" # str | Accepts filter by `key`, `name`, `kind`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
-    limit = 1 # int | The number of applications to return. Defaults to 10. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort = "sort_example" # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    filter = 'filter_example' # str | Accepts filter by `key`, `name`, `kind`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
+    limit = 56 # int | The number of applications to return. Defaults to 10. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort = 'sort_example' # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get applications
         api_response = api_instance.get_applications(filter=filter, limit=limit, offset=offset, sort=sort, expand=expand)
+        print("The response of ApplicationsBetaApi->get_applications:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->get_applications: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **str**| Accepts filter by &#x60;key&#x60;, &#x60;name&#x60;, &#x60;kind&#x60;, and &#x60;autoAdded&#x60;. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). | [optional]
- **limit** | **int**| The number of applications to return. Defaults to 10. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
- **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#x60;creationDate&#x60;, &#x60;name&#x60;. Examples: &#x60;sort&#x3D;name&#x60; sort by names ascending, &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional]
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;flags&#x60;. | [optional]
+ **filter** | **str**| Accepts filter by &#x60;key&#x60;, &#x60;name&#x60;, &#x60;kind&#x60;, and &#x60;autoAdded&#x60;. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). | [optional] 
+ **limit** | **int**| The number of applications to return. Defaults to 10. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#x60;creationDate&#x60;, &#x60;name&#x60;. Examples: &#x60;sort&#x3D;name&#x60; sort by names ascending, &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional] 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;flags&#x60;. | [optional] 
 
 ### Return type
 
@@ -469,7 +431,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -485,7 +446,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_application**
-> ApplicationRep patch_application(application_key, json_patch)
+> ApplicationRep patch_application(application_key, patch_operation)
 
 Update application
 
@@ -496,17 +457,12 @@ Update an application. You can update the `description` and `kind` fields. Requi
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.application_rep import ApplicationRep
+from launchdarkly_api.models.application_rep import ApplicationRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -519,7 +475,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -527,32 +483,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
+    patch_operation = [{"op":"replace","path":"/description","value":"Updated description"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update application
-        api_response = api_instance.patch_application(application_key, json_patch)
+        api_response = api_instance.patch_application(application_key, patch_operation)
+        print("The response of ApplicationsBetaApi->patch_application:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->patch_application: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **application_key** | **str**| The application key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -566,7 +518,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -582,7 +533,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_application_version**
-> ApplicationVersionRep patch_application_version(application_key, version_key, json_patch)
+> ApplicationVersionRep patch_application_version(application_key, version_key, patch_operation)
 
 Update application version
 
@@ -593,17 +544,12 @@ Update an application version. You can update the `supported` field. Requires a 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import applications_beta_api
-from launchdarkly_api.model.application_version_rep import ApplicationVersionRep
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.application_version_rep import ApplicationVersionRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -616,7 +562,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -624,34 +570,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = applications_beta_api.ApplicationsBetaApi(api_client)
-    application_key = "applicationKey_example" # str | The application key
-    version_key = "versionKey_example" # str | The application version key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.ApplicationsBetaApi(api_client)
+    application_key = 'application_key_example' # str | The application key
+    version_key = 'version_key_example' # str | The application version key
+    patch_operation = [{"op":"replace","path":"/supported","value":"false"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update application version
-        api_response = api_instance.patch_application_version(application_key, version_key, json_patch)
+        api_response = api_instance.patch_application_version(application_key, version_key, patch_operation)
+        print("The response of ApplicationsBetaApi->patch_application_version:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApplicationsBetaApi->patch_application_version: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application_key** | **str**| The application key |
- **version_key** | **str**| The application version key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **application_key** | **str**| The application key | 
+ **version_key** | **str**| The application version key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -665,7 +607,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

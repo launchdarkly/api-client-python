@@ -2,13 +2,30 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**execution_date** | **int** |  | 
-**instructions** | [**Instructions**](Instructions.md) |  | 
 **comment** | **str** | Optional comment describing the scheduled changes | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**execution_date** | **int** |  | 
+**instructions** | **List[Dict[str, object]]** |  | 
 
+## Example
+
+```python
+from launchdarkly_api.models.post_flag_scheduled_changes_input import PostFlagScheduledChangesInput
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of PostFlagScheduledChangesInput from a JSON string
+post_flag_scheduled_changes_input_instance = PostFlagScheduledChangesInput.from_json(json)
+# print the JSON string representation of the object
+print(PostFlagScheduledChangesInput.to_json())
+
+# convert the object into a dict
+post_flag_scheduled_changes_input_dict = post_flag_scheduled_changes_input_instance.to_dict()
+# create an instance of PostFlagScheduledChangesInput from a dict
+post_flag_scheduled_changes_input_from_dict = PostFlagScheduledChangesInput.from_dict(post_flag_scheduled_changes_input_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

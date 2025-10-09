@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | A human-friendly name for the new environment | 
@@ -12,11 +13,27 @@ Name | Type | Description | Notes
 **default_track_events** | **bool** | Enables tracking detailed information for new flags by default | [optional] 
 **confirm_changes** | **bool** | Requires confirmation for all flag and segment changes via the UI in this environment | [optional] 
 **require_comments** | **bool** | Requires comments for all flag and segment changes via the UI in this environment | [optional] 
-**tags** | **[str]** | Tags to apply to the new environment | [optional] 
+**tags** | **List[str]** | Tags to apply to the new environment | [optional] 
 **source** | [**SourceEnv**](SourceEnv.md) |  | [optional] 
 **critical** | **bool** | Whether the environment is critical | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.environment_post import EnvironmentPost
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of EnvironmentPost from a JSON string
+environment_post_instance = EnvironmentPost.from_json(json)
+# print the JSON string representation of the object
+print(EnvironmentPost.to_json())
+
+# convert the object into a dict
+environment_post_dict = environment_post_instance.to_dict()
+# create an instance of EnvironmentPost from a dict
+environment_post_from_dict = EnvironmentPost.from_dict(environment_post_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

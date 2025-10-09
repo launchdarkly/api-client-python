@@ -14,23 +14,19 @@ Method | HTTP request | Description
 
 Create workflow template
 
-Create a template for a feature flag workflow
+> ### Workflows are in maintenance mode > > The workflows feature is in maintenance mode, and is planned for future deprecation at a date not yet specified. We will work with existing customers using workflows to migrate to a replacement solution when deprecation occurs.  Create a template for a feature flag workflow. 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import workflow_templates_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.workflow_template_output import WorkflowTemplateOutput
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.create_workflow_template_input import CreateWorkflowTemplateInput
+from launchdarkly_api.models.create_workflow_template_input import CreateWorkflowTemplateInput
+from launchdarkly_api.models.workflow_template_output import WorkflowTemplateOutput
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -43,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -51,54 +47,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflow_templates_api.WorkflowTemplatesApi(api_client)
-    create_workflow_template_input = CreateWorkflowTemplateInput(
-        key="key_example",
-        name="name_example",
-        description="description_example",
-        workflow_id="workflow_id_example",
-        stages=[
-            StageInput(
-                name="10% rollout on day 1",
-                execute_conditions_in_sequence=True,
-                conditions=[
-                    ConditionInput(
-                        schedule_kind="schedule_kind_example",
-                        execution_date=1,
-                        wait_duration=2,
-                        wait_duration_unit="wait_duration_unit_example",
-                        execute_now=False,
-                        description="Require example-team approval for final stage",
-                        notify_member_ids=["507f1f77bcf86cd799439011"],
-                        notify_team_keys=["example-team"],
-                        kind="kind_example",
-                    ),
-                ],
-                action=ActionInput(
-                    instructions=None,
-                ),
-            ),
-        ],
-        project_key="project_key_example",
-        environment_key="environment_key_example",
-        flag_key="flag_key_example",
-    ) # CreateWorkflowTemplateInput | 
+    api_instance = launchdarkly_api.WorkflowTemplatesApi(api_client)
+    create_workflow_template_input = launchdarkly_api.CreateWorkflowTemplateInput() # CreateWorkflowTemplateInput | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create workflow template
         api_response = api_instance.create_workflow_template(create_workflow_template_input)
+        print("The response of WorkflowTemplatesApi->create_workflow_template:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WorkflowTemplatesApi->create_workflow_template: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_workflow_template_input** | [**CreateWorkflowTemplateInput**](CreateWorkflowTemplateInput.md)|  |
+ **create_workflow_template_input** | [**CreateWorkflowTemplateInput**](CreateWorkflowTemplateInput.md)|  | 
 
 ### Return type
 
@@ -112,7 +80,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -138,15 +105,10 @@ Delete a workflow template
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import workflow_templates_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -159,7 +121,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -167,23 +129,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflow_templates_api.WorkflowTemplatesApi(api_client)
-    template_key = "templateKey_example" # str | The template key
+    api_instance = launchdarkly_api.WorkflowTemplatesApi(api_client)
+    template_key = 'template_key_example' # str | The template key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete workflow template
         api_instance.delete_workflow_template(template_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WorkflowTemplatesApi->delete_workflow_template: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **template_key** | **str**| The template key |
+ **template_key** | **str**| The template key | 
 
 ### Return type
 
@@ -197,7 +160,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -213,7 +175,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_workflow_templates**
-> WorkflowTemplatesListingOutputRep get_workflow_templates()
+> WorkflowTemplatesListingOutputRep get_workflow_templates(summary=summary, search=search)
 
 Get workflow templates
 
@@ -224,14 +186,11 @@ Get workflow templates belonging to an account, or can optionally return templat
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import workflow_templates_api
-from launchdarkly_api.model.workflow_templates_listing_output_rep import WorkflowTemplatesListingOutputRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.workflow_templates_listing_output_rep import WorkflowTemplatesListingOutputRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -244,7 +203,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -252,27 +211,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = workflow_templates_api.WorkflowTemplatesApi(api_client)
+    api_instance = launchdarkly_api.WorkflowTemplatesApi(api_client)
     summary = True # bool | Whether the entire template object or just a summary should be returned (optional)
-    search = "search_example" # str | The substring in either the name or description of a template (optional)
+    search = 'search_example' # str | The substring in either the name or description of a template (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get workflow templates
         api_response = api_instance.get_workflow_templates(summary=summary, search=search)
+        print("The response of WorkflowTemplatesApi->get_workflow_templates:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WorkflowTemplatesApi->get_workflow_templates: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **summary** | **bool**| Whether the entire template object or just a summary should be returned | [optional]
- **search** | **str**| The substring in either the name or description of a template | [optional]
+ **summary** | **bool**| Whether the entire template object or just a summary should be returned | [optional] 
+ **search** | **str**| The substring in either the name or description of a template | [optional] 
 
 ### Return type
 
@@ -286,7 +246,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

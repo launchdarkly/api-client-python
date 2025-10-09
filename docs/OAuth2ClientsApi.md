@@ -23,15 +23,12 @@ Create (register) a LaunchDarkly OAuth2 client. OAuth2 clients allow you to buil
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import o_auth2_clients_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.oauth_client_post import OauthClientPost
-from launchdarkly_api.model.client import Client
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.client import Client
+from launchdarkly_api.models.oauth_client_post import OauthClientPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,28 +49,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = o_auth2_clients_api.OAuth2ClientsApi(api_client)
-    oauth_client_post = OauthClientPost(
-        name="name_example",
-        redirect_uri="redirect_uri_example",
-        description="description_example",
-    ) # OauthClientPost | 
+    api_instance = launchdarkly_api.OAuth2ClientsApi(api_client)
+    oauth_client_post = launchdarkly_api.OauthClientPost() # OauthClientPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create a LaunchDarkly OAuth 2.0 client
         api_response = api_instance.create_o_auth2_client(oauth_client_post)
+        print("The response of OAuth2ClientsApi->create_o_auth2_client:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling OAuth2ClientsApi->create_o_auth2_client: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **oauth_client_post** | [**OauthClientPost**](OauthClientPost.md)|  |
+ **oauth_client_post** | [**OauthClientPost**](OauthClientPost.md)|  | 
 
 ### Return type
 
@@ -87,7 +82,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -112,14 +106,10 @@ Delete an existing OAuth 2.0 client by unique client ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import o_auth2_clients_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -132,7 +122,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -140,23 +130,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = o_auth2_clients_api.OAuth2ClientsApi(api_client)
-    client_id = "clientId_example" # str | The client ID
+    api_instance = launchdarkly_api.OAuth2ClientsApi(api_client)
+    client_id = 'client_id_example' # str | The client ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete OAuth 2.0 client
         api_instance.delete_o_auth_client(client_id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling OAuth2ClientsApi->delete_o_auth_client: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **client_id** | **str**| The client ID |
+ **client_id** | **str**| The client ID | 
 
 ### Return type
 
@@ -170,7 +161,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -196,15 +186,11 @@ Get a registered OAuth 2.0 client by unique client ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import o_auth2_clients_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.client import Client
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.client import Client
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -217,7 +203,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -225,24 +211,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = o_auth2_clients_api.OAuth2ClientsApi(api_client)
-    client_id = "clientId_example" # str | The client ID
+    api_instance = launchdarkly_api.OAuth2ClientsApi(api_client)
+    client_id = 'client_id_example' # str | The client ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get client by ID
         api_response = api_instance.get_o_auth_client_by_id(client_id)
+        print("The response of OAuth2ClientsApi->get_o_auth_client_by_id:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling OAuth2ClientsApi->get_o_auth_client_by_id: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **client_id** | **str**| The client ID |
+ **client_id** | **str**| The client ID | 
 
 ### Return type
 
@@ -256,7 +244,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -282,14 +269,11 @@ Get all OAuth 2.0 clients registered by your account.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import o_auth2_clients_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.client_collection import ClientCollection
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.client_collection import ClientCollection
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -302,7 +286,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -310,19 +294,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = o_auth2_clients_api.OAuth2ClientsApi(api_client)
+    api_instance = launchdarkly_api.OAuth2ClientsApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # Get clients
         api_response = api_instance.get_o_auth_clients()
+        print("The response of OAuth2ClientsApi->get_o_auth_clients:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling OAuth2ClientsApi->get_o_auth_clients: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -338,7 +324,6 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -351,7 +336,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_o_auth_client**
-> Client patch_o_auth_client(client_id, json_patch)
+> Client patch_o_auth_client(client_id, patch_operation)
 
 Patch client by ID
 
@@ -362,16 +347,12 @@ Patch an existing OAuth 2.0 client by client ID. Updating an OAuth2 client uses 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import o_auth2_clients_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.client import Client
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.client import Client
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -384,7 +365,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -392,32 +373,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = o_auth2_clients_api.OAuth2ClientsApi(api_client)
-    client_id = "clientId_example" # str | The client ID
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.OAuth2ClientsApi(api_client)
+    client_id = 'client_id_example' # str | The client ID
+    patch_operation = [{"op":"replace","path":"/name","value":"Example Client V2"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch client by ID
-        api_response = api_instance.patch_o_auth_client(client_id, json_patch)
+        api_response = api_instance.patch_o_auth_client(client_id, patch_operation)
+        print("The response of OAuth2ClientsApi->patch_o_auth_client:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling OAuth2ClientsApi->patch_o_auth_client: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **client_id** | **str**| The client ID |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **client_id** | **str**| The client ID | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -431,7 +408,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

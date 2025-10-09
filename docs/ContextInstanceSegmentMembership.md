@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | A human-friendly name for the segment | 
@@ -12,9 +13,25 @@ Name | Type | Description | Notes
 **is_member** | **bool** | Whether the context is a member of this segment, either by explicit inclusion or by rule matching | 
 **is_individually_targeted** | **bool** | Whether the context is explicitly included in this segment | 
 **is_rule_targeted** | **bool** | Whether the context is captured by this segment&#39;s rules. The value of this field is undefined if the context is also explicitly included (&lt;code&gt;isIndividuallyTargeted&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;). | 
-**links** | [**{str: (Link,)}**](Link.md) | The location and content type of related resources | 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 
+## Example
+
+```python
+from launchdarkly_api.models.context_instance_segment_membership import ContextInstanceSegmentMembership
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of ContextInstanceSegmentMembership from a JSON string
+context_instance_segment_membership_instance = ContextInstanceSegmentMembership.from_json(json)
+# print the JSON string representation of the object
+print(ContextInstanceSegmentMembership.to_json())
+
+# convert the object into a dict
+context_instance_segment_membership_dict = context_instance_segment_membership_instance.to_dict()
+# create an instance of ContextInstanceSegmentMembership from a dict
+context_instance_segment_membership_from_dict = ContextInstanceSegmentMembership.from_dict(context_instance_segment_membership_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

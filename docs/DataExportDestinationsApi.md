@@ -24,14 +24,10 @@ Delete a Data Export destination by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +40,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,27 +48,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The Data Export destination ID
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The Data Export destination ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete Data Export destination
         api_instance.delete_destination(project_key, environment_key, id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->delete_destination: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The Data Export destination ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The Data Export destination ID | 
 
 ### Return type
 
@@ -86,7 +83,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -112,15 +108,11 @@ Get a single Data Export destination by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.destination import Destination
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.destination import Destination
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -133,7 +125,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -141,28 +133,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The Data Export destination ID
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The Data Export destination ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get destination
         api_response = api_instance.get_destination(project_key, environment_key, id)
+        print("The response of DataExportDestinationsApi->get_destination:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->get_destination: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The Data Export destination ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The Data Export destination ID | 
 
 ### Return type
 
@@ -176,7 +170,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -202,14 +195,11 @@ Get a list of Data Export destinations configured across all projects and enviro
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.destinations import Destinations
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.destinations import Destinations
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -222,7 +212,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -230,19 +220,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # List destinations
         api_response = api_instance.get_destinations()
+        print("The response of DataExportDestinationsApi->get_destinations:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->get_destinations: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -258,7 +250,6 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -271,7 +262,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_destination**
-> Destination patch_destination(project_key, environment_key, id, json_patch)
+> Destination patch_destination(project_key, environment_key, id, patch_operation)
 
 Update Data Export destination
 
@@ -282,18 +273,12 @@ Update a Data Export destination. Updating a destination uses a [JSON patch](htt
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.destination import Destination
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.destination import Destination
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -306,7 +291,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -314,36 +299,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The Data Export destination ID
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The Data Export destination ID
+    patch_operation = [{"op":"replace","path":"/config/topic","value":"ld-pubsub-test-192302"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update Data Export destination
-        api_response = api_instance.patch_destination(project_key, environment_key, id, json_patch)
+        api_response = api_instance.patch_destination(project_key, environment_key, id, patch_operation)
+        print("The response of DataExportDestinationsApi->patch_destination:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->patch_destination: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The Data Export destination ID |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The Data Export destination ID | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -357,7 +338,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -385,17 +365,12 @@ Create Data Export destination
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.destination_post import DestinationPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.destination import Destination
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.destination import Destination
+from launchdarkly_api.models.destination_post import DestinationPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -408,7 +383,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -416,33 +391,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    destination_post = DestinationPost(
-        name="example-destination",
-        kind="google-pubsub",
-        config=None,
-        on=True,
-    ) # DestinationPost | 
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    destination_post = {"config":{"project":"test-prod","topic":"ld-pubsub-test-192301"},"kind":"google-pubsub"} # DestinationPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create Data Export destination
         api_response = api_instance.post_destination(project_key, environment_key, destination_post)
+        print("The response of DataExportDestinationsApi->post_destination:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->post_destination: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **destination_post** | [**DestinationPost**](DestinationPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **destination_post** | [**DestinationPost**](DestinationPost.md)|  | 
 
 ### Return type
 
@@ -456,7 +428,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -483,16 +454,11 @@ Generate key pair to allow Data Export to authenticate into a Snowflake warehous
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import data_export_destinations_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.generate_warehouse_destination_key_pair_post_rep import GenerateWarehouseDestinationKeyPairPostRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.generate_warehouse_destination_key_pair_post_rep import GenerateWarehouseDestinationKeyPairPostRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -505,7 +471,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -513,19 +479,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = data_export_destinations_api.DataExportDestinationsApi(api_client)
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # Generate Snowflake destination key pair
         api_response = api_instance.post_generate_warehouse_destination_key_pair()
+        print("The response of DataExportDestinationsApi->post_generate_warehouse_destination_key_pair:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling DataExportDestinationsApi->post_generate_warehouse_destination_key_pair: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -540,7 +508,6 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

@@ -31,15 +31,10 @@ Asynchronously delete a number of branches.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -52,7 +47,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -60,25 +55,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name to delete branches for.
-    request_body = ["branch-to-be-deleted","another-branch-to-be-deleted"] # [str] | 
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name to delete branches for.
+    request_body = ["branch-to-be-deleted","another-branch-to-be-deleted"] # List[str] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete branches
         api_instance.delete_branches(repo, request_body)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->delete_branches: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name to delete branches for. |
- **request_body** | **[str]**|  |
+ **repo** | **str**| The repository name to delete branches for. | 
+ **request_body** | [**List[str]**](str.md)|  | 
 
 ### Return type
 
@@ -92,7 +88,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -119,15 +114,10 @@ Delete a repository with the specified name.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -140,7 +130,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -148,23 +138,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete repository
         api_instance.delete_repository(repo)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->delete_repository: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
+ **repo** | **str**| The repository name | 
 
 ### Return type
 
@@ -178,7 +169,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -194,7 +184,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_branch**
-> BranchRep get_branch(repo, branch)
+> BranchRep get_branch(repo, branch, proj_key=proj_key, flag_key=flag_key)
 
 Get branch
 
@@ -205,16 +195,11 @@ Get a specific branch in a repository.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.branch_rep import BranchRep
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.branch_rep import BranchRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -227,7 +212,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -235,39 +220,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
-    branch = "branch_example" # str | The url-encoded branch name
-    proj_key = "projKey_example" # str | Filter results to a specific project (optional)
-    flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
+    branch = 'branch_example' # str | The url-encoded branch name
+    proj_key = 'proj_key_example' # str | Filter results to a specific project (optional)
+    flag_key = 'flag_key_example' # str | Filter results to a specific flag key (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get branch
-        api_response = api_instance.get_branch(repo, branch)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling CodeReferencesApi->get_branch: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get branch
         api_response = api_instance.get_branch(repo, branch, proj_key=proj_key, flag_key=flag_key)
+        print("The response of CodeReferencesApi->get_branch:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_branch: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
- **branch** | **str**| The url-encoded branch name |
- **proj_key** | **str**| Filter results to a specific project | [optional]
- **flag_key** | **str**| Filter results to a specific flag key | [optional]
+ **repo** | **str**| The repository name | 
+ **branch** | **str**| The url-encoded branch name | 
+ **proj_key** | **str**| Filter results to a specific project | [optional] 
+ **flag_key** | **str**| Filter results to a specific flag key | [optional] 
 
 ### Return type
 
@@ -281,7 +259,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -308,16 +285,11 @@ Get a list of branches.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.branch_collection_rep import BranchCollectionRep
+from launchdarkly_api.models.branch_collection_rep import BranchCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -330,7 +302,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -338,24 +310,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
 
-    # example passing only required values which don't have defaults set
     try:
         # List branches
         api_response = api_instance.get_branches(repo)
+        print("The response of CodeReferencesApi->get_branches:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_branches: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
+ **repo** | **str**| The repository name | 
 
 ### Return type
 
@@ -369,7 +343,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -385,7 +358,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_extinctions**
-> ExtinctionCollectionRep get_extinctions()
+> ExtinctionCollectionRep get_extinctions(repo_name=repo_name, branch_name=branch_name, proj_key=proj_key, flag_key=flag_key, var_from=var_from, to=to)
 
 List extinctions
 
@@ -396,14 +369,11 @@ Get a list of all extinctions. LaunchDarkly creates an extinction event after yo
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.extinction_collection_rep import ExtinctionCollectionRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.extinction_collection_rep import ExtinctionCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -416,7 +386,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -424,35 +394,36 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo_name = "repoName_example" # str | Filter results to a specific repository (optional)
-    branch_name = "branchName_example" # str | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
-    proj_key = "projKey_example" # str | Filter results to a specific project (optional)
-    flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
-    _from = 1 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`. (optional)
-    to = 1 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`. (optional)
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo_name = 'repo_name_example' # str | Filter results to a specific repository (optional)
+    branch_name = 'branch_name_example' # str | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
+    proj_key = 'proj_key_example' # str | Filter results to a specific project (optional)
+    flag_key = 'flag_key_example' # str | Filter results to a specific flag key (optional)
+    var_from = 56 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`. (optional)
+    to = 56 # int | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List extinctions
-        api_response = api_instance.get_extinctions(repo_name=repo_name, branch_name=branch_name, proj_key=proj_key, flag_key=flag_key, _from=_from, to=to)
+        api_response = api_instance.get_extinctions(repo_name=repo_name, branch_name=branch_name, proj_key=proj_key, flag_key=flag_key, var_from=var_from, to=to)
+        print("The response of CodeReferencesApi->get_extinctions:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_extinctions: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo_name** | **str**| Filter results to a specific repository | [optional]
- **branch_name** | **str**| Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | [optional]
- **proj_key** | **str**| Filter results to a specific project | [optional]
- **flag_key** | **str**| Filter results to a specific flag key | [optional]
- **_from** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;. | [optional]
- **to** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;. | [optional]
+ **repo_name** | **str**| Filter results to a specific repository | [optional] 
+ **branch_name** | **str**| Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | [optional] 
+ **proj_key** | **str**| Filter results to a specific project | [optional] 
+ **flag_key** | **str**| Filter results to a specific flag key | [optional] 
+ **var_from** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;. | [optional] 
+ **to** | **int**| Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;. | [optional] 
 
 ### Return type
 
@@ -467,7 +438,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -480,7 +450,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_repositories**
-> RepositoryCollectionRep get_repositories()
+> RepositoryCollectionRep get_repositories(with_branches=with_branches, with_references_for_default_branch=with_references_for_default_branch, proj_key=proj_key, flag_key=flag_key)
 
 List repositories
 
@@ -491,14 +461,11 @@ Get a list of connected repositories. Optionally, you can include branch metadat
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.repository_collection_rep import RepositoryCollectionRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.repository_collection_rep import RepositoryCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -511,7 +478,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -519,31 +486,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    with_branches = "withBranches_example" # str | If set to any value, the endpoint returns repositories with associated branch data (optional)
-    with_references_for_default_branch = "withReferencesForDefaultBranch_example" # str | If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch (optional)
-    proj_key = "projKey_example" # str | A LaunchDarkly project key. If provided, this filters code reference results to the specified project. (optional)
-    flag_key = "flagKey_example" # str | If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch (optional)
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    with_branches = 'with_branches_example' # str | If set to any value, the endpoint returns repositories with associated branch data (optional)
+    with_references_for_default_branch = 'with_references_for_default_branch_example' # str | If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch (optional)
+    proj_key = 'proj_key_example' # str | A LaunchDarkly project key. If provided, this filters code reference results to the specified project. (optional)
+    flag_key = 'flag_key_example' # str | If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List repositories
         api_response = api_instance.get_repositories(with_branches=with_branches, with_references_for_default_branch=with_references_for_default_branch, proj_key=proj_key, flag_key=flag_key)
+        print("The response of CodeReferencesApi->get_repositories:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_repositories: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **with_branches** | **str**| If set to any value, the endpoint returns repositories with associated branch data | [optional]
- **with_references_for_default_branch** | **str**| If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch | [optional]
- **proj_key** | **str**| A LaunchDarkly project key. If provided, this filters code reference results to the specified project. | [optional]
- **flag_key** | **str**| If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch | [optional]
+ **with_branches** | **str**| If set to any value, the endpoint returns repositories with associated branch data | [optional] 
+ **with_references_for_default_branch** | **str**| If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch | [optional] 
+ **proj_key** | **str**| A LaunchDarkly project key. If provided, this filters code reference results to the specified project. | [optional] 
+ **flag_key** | **str**| If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch | [optional] 
 
 ### Return type
 
@@ -557,7 +525,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -582,16 +549,11 @@ Get a single repository by name.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.repository_rep import RepositoryRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.repository_rep import RepositoryRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -604,7 +566,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -612,24 +574,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
 
-    # example passing only required values which don't have defaults set
     try:
         # Get repository
         api_response = api_instance.get_repository(repo)
+        print("The response of CodeReferencesApi->get_repository:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_repository: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
+ **repo** | **str**| The repository name | 
 
 ### Return type
 
@@ -643,7 +607,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -670,15 +633,11 @@ Get links for all projects that have code references.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.statistics_root import StatisticsRoot
+from launchdarkly_api.models.statistics_root import StatisticsRoot
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -691,7 +650,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -699,19 +658,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # Get links to code reference repositories for each project
         api_response = api_instance.get_root_statistic()
+        print("The response of CodeReferencesApi->get_root_statistic:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_root_statistic: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -727,7 +688,6 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -741,7 +701,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_statistics**
-> StatisticCollectionRep get_statistics(project_key)
+> StatisticCollectionRep get_statistics(project_key, flag_key=flag_key)
 
 Get code references statistics for flags
 
@@ -752,15 +712,11 @@ Get statistics about all the code references across repositories for all flags i
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.statistic_collection_rep import StatisticCollectionRep
+from launchdarkly_api.models.statistic_collection_rep import StatisticCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -773,7 +729,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -781,35 +737,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    flag_key = "flagKey_example" # str | Filter results to a specific flag key (optional)
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    flag_key = 'flag_key_example' # str | Filter results to a specific flag key (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get code references statistics for flags
-        api_response = api_instance.get_statistics(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling CodeReferencesApi->get_statistics: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get code references statistics for flags
         api_response = api_instance.get_statistics(project_key, flag_key=flag_key)
+        print("The response of CodeReferencesApi->get_statistics:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->get_statistics: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **flag_key** | **str**| Filter results to a specific flag key | [optional]
+ **project_key** | **str**| The project key | 
+ **flag_key** | **str**| Filter results to a specific flag key | [optional] 
 
 ### Return type
 
@@ -824,7 +773,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -838,7 +786,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_repository**
-> RepositoryRep patch_repository(repo, json_patch)
+> RepositoryRep patch_repository(repo, patch_operation)
 
 Update repository
 
@@ -849,17 +797,12 @@ Update a repository's settings. Updating repository settings uses a [JSON patch]
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.repository_rep import RepositoryRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.models.repository_rep import RepositoryRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -872,7 +815,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -880,32 +823,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
+    patch_operation = [{"op":"replace","path":"/defaultBranch","value":"main"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update repository
-        api_response = api_instance.patch_repository(repo, json_patch)
+        api_response = api_instance.patch_repository(repo, patch_operation)
+        print("The response of CodeReferencesApi->patch_repository:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->patch_repository: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **repo** | **str**| The repository name | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -919,7 +858,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -935,7 +873,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_extinction**
-> post_extinction(repo, branch, extinction_list_post)
+> post_extinction(repo, branch, extinction)
 
 Create extinction
 
@@ -946,16 +884,11 @@ Create a new extinction.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.extinction_list_post import ExtinctionListPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.extinction import Extinction
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -968,7 +901,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -976,35 +909,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
-    branch = "branch_example" # str | The URL-encoded branch name
-    extinction_list_post = ExtinctionListPost([
-        Extinction(
-            revision="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
-            message="Remove flag for launched feature",
-            time=1,
-            flag_key="enable-feature",
-            proj_key="default",
-        ),
-    ]) # ExtinctionListPost | 
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
+    branch = 'branch_example' # str | The URL-encoded branch name
+    extinction = [launchdarkly_api.Extinction()] # List[Extinction] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create extinction
-        api_instance.post_extinction(repo, branch, extinction_list_post)
-    except launchdarkly_api.ApiException as e:
+        api_instance.post_extinction(repo, branch, extinction)
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->post_extinction: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
- **branch** | **str**| The URL-encoded branch name |
- **extinction_list_post** | [**ExtinctionListPost**](ExtinctionListPost.md)|  |
+ **repo** | **str**| The repository name | 
+ **branch** | **str**| The URL-encoded branch name | 
+ **extinction** | [**List[Extinction]**](Extinction.md)|  | 
 
 ### Return type
 
@@ -1018,7 +944,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1045,17 +970,12 @@ Create a repository with the specified name.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.repository_post import RepositoryPost
-from launchdarkly_api.model.repository_rep import RepositoryRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.repository_post import RepositoryPost
+from launchdarkly_api.models.repository_rep import RepositoryRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1068,7 +988,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1076,31 +996,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repository_post = RepositoryPost(
-        name="LaunchDarkly-Docs",
-        source_link="https://github.com/launchdarkly/LaunchDarkly-Docs",
-        commit_url_template="https://github.com/launchdarkly/LaunchDarkly-Docs/commit/${sha}",
-        hunk_url_template="https://github.com/launchdarkly/LaunchDarkly-Docs/blob/${sha}/${filePath}#L${lineNumber}",
-        type="github",
-        default_branch="main",
-    ) # RepositoryPost | 
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repository_post = launchdarkly_api.RepositoryPost() # RepositoryPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create repository
         api_response = api_instance.post_repository(repository_post)
+        print("The response of CodeReferencesApi->post_repository:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->post_repository: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repository_post** | [**RepositoryPost**](RepositoryPost.md)|  |
+ **repository_post** | [**RepositoryPost**](RepositoryPost.md)|  | 
 
 ### Return type
 
@@ -1114,7 +1029,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1141,17 +1055,11 @@ Create a new branch if it doesn't exist, or update the branch if it already exis
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import code_references_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.put_branch import PutBranch
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.put_branch import PutBranch
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1164,7 +1072,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1172,48 +1080,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = code_references_api.CodeReferencesApi(api_client)
-    repo = "repo_example" # str | The repository name
-    branch = "branch_example" # str | The URL-encoded branch name
-    put_branch = PutBranch(
-        name="main",
-        head="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
-        update_sequence_id=25,
-        sync_time=1,
-        references=[
-            ReferenceRep(
-                path="/main/index.js",
-                hint="javascript",
-                hunks=[
-                    HunkRep(
-                        starting_line_number=45,
-                        lines="var enableFeature = 'enable-feature';",
-                        proj_key="default",
-                        flag_key="enable-feature",
-                        aliases=["enableFeature","EnableFeature"],
-                    ),
-                ],
-            ),
-        ],
-        commit_time=1,
-    ) # PutBranch | 
+    api_instance = launchdarkly_api.CodeReferencesApi(api_client)
+    repo = 'repo_example' # str | The repository name
+    branch = 'branch_example' # str | The URL-encoded branch name
+    put_branch = launchdarkly_api.PutBranch() # PutBranch | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Upsert branch
         api_instance.put_branch(repo, branch, put_branch)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CodeReferencesApi->put_branch: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repo** | **str**| The repository name |
- **branch** | **str**| The URL-encoded branch name |
- **put_branch** | [**PutBranch**](PutBranch.md)|  |
+ **repo** | **str**| The repository name | 
+ **branch** | **str**| The URL-encoded branch name | 
+ **put_branch** | [**PutBranch**](PutBranch.md)|  | 
 
 ### Return type
 
@@ -1227,7 +1115,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

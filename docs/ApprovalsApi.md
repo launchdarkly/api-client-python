@@ -31,14 +31,10 @@ Delete an approval request.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -51,7 +47,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -59,23 +55,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    id = "id_example" # str | The approval request ID
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    id = 'id_example' # str | The approval request ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete approval request
         api_instance.delete_approval_request(id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->delete_approval_request: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The approval request ID |
+ **id** | **str**| The approval request ID | 
 
 ### Return type
 
@@ -89,7 +86,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -115,14 +111,10 @@ Delete an approval request for a feature flag.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -135,7 +127,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -143,29 +135,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The feature flag approval request ID
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The feature flag approval request ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete approval request for a flag
         api_instance.delete_approval_request_for_flag(project_key, feature_flag_key, environment_key, id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->delete_approval_request_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The feature flag approval request ID |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The feature flag approval request ID | 
 
 ### Return type
 
@@ -179,7 +172,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -205,15 +197,11 @@ Get a single approval request for a feature flag.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -226,7 +214,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -234,30 +222,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The feature flag approval request ID
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The feature flag approval request ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get approval request for a flag
         api_response = api_instance.get_approval_for_flag(project_key, feature_flag_key, environment_key, id)
+        print("The response of ApprovalsApi->get_approval_for_flag:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->get_approval_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The feature flag approval request ID |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The feature flag approval request ID | 
 
 ### Return type
 
@@ -272,7 +262,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -286,7 +275,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_approval_request**
-> ExpandableApprovalRequestResponse get_approval_request(id)
+> ExpandableApprovalRequestResponse get_approval_request(id, expand=expand)
 
 Get approval request
 
@@ -297,16 +286,11 @@ Get an approval request by approval request ID.  ### Expanding approval response
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.expandable_approval_request_response import ExpandableApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.expandable_approval_request_response import ExpandableApprovalRequestResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -319,7 +303,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -327,35 +311,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    id = "id_example" # str | The approval request ID
-    expand = "expand_example" # str | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    id = 'id_example' # str | The approval request ID
+    expand = 'expand_example' # str | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get approval request
-        api_response = api_instance.get_approval_request(id)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ApprovalsApi->get_approval_request: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get approval request
         api_response = api_instance.get_approval_request(id, expand=expand)
+        print("The response of ApprovalsApi->get_approval_request:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->get_approval_request: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The approval request ID |
- **expand** | **str**| A comma-separated list of fields to expand in the response. Supported fields are explained above. | [optional]
+ **id** | **str**| The approval request ID | 
+ **expand** | **str**| A comma-separated list of fields to expand in the response. Supported fields are explained above. | [optional] 
 
 ### Return type
 
@@ -369,7 +346,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -385,26 +361,22 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_approval_requests**
-> ExpandableApprovalRequestsResponse get_approval_requests()
+> ExpandableApprovalRequestsResponse get_approval_requests(filter=filter, expand=expand, limit=limit, offset=offset)
 
 List approval requests
 
-Get all approval requests.  ### Filtering approvals  LaunchDarkly supports the `filter` query param for filtering, with the following fields:  - `notifyMemberIds` filters for only approvals that are assigned to a member in the specified list. For example: `filter=notifyMemberIds anyOf [\"memberId1\", \"memberId2\"]`. - `requestorId` filters for only approvals that correspond to the ID of the member who requested the approval. For example: `filter=requestorId equals 457034721476302714390214`. - `resourceId` filters for only approvals that correspond to the the specified resource identifier. For example: `filter=resourceId equals proj/my-project:env/my-environment:flag/my-flag`. - `resourceKind` filters for only approvals that correspond to the specified resource kind. For example: `filter=resourceKind equals flag`. Currently, `flag` and `segment` resource kinds are supported. - `reviewStatus` filters for only approvals which correspond to the review status in the specified list. The possible values are `approved`, `declined`, and `pending`. For example: `filter=reviewStatus anyOf [\"pending\", \"approved\"]`. - `status` filters for only approvals which correspond to the status in the specified list. The possible values are `pending`, `scheduled`, `failed`, and `completed`. For example: `filter=status anyOf [\"pending\", \"scheduled\"]`.  You can also apply multiple filters at once. For example, setting `filter=projectKey equals my-project, reviewStatus anyOf [\"pending\",\"approved\"]` matches approval requests which correspond to the `my-project` project key, and a review status of either `pending` or `approved`.  ### Expanding approval response  LaunchDarkly supports the `expand` query param to include additional fields in the response, with the following fields:  - `flag` includes the flag the approval request belongs to - `project` includes the project the approval request belongs to - `environments` includes the environments the approval request relates to  For example, `expand=project,flag` includes the `project` and `flag` fields in the response. 
+Get all approval requests.  ### Filtering approvals  LaunchDarkly supports the `filter` query param for filtering, with the following fields:  - `notifyMemberIds` filters for only approvals that are assigned to a member in the specified list. For example: `filter=notifyMemberIds anyOf [\"memberId1\", \"memberId2\"]`. - `requestorId` filters for only approvals that correspond to the ID of the member who requested the approval. For example: `filter=requestorId equals 457034721476302714390214`. - `resourceId` filters for only approvals that correspond to the the specified resource identifier. For example: `filter=resourceId equals proj/my-project:env/my-environment:flag/my-flag`. - `resourceKind` filters for only approvals that correspond to the specified resource kind. For example: `filter=resourceKind equals flag`. Currently, `flag`, `segment`, and `aiConfig` resource kinds are supported. - `reviewStatus` filters for only approvals which correspond to the review status in the specified list. The possible values are `approved`, `declined`, and `pending`. For example: `filter=reviewStatus anyOf [\"pending\", \"approved\"]`. - `status` filters for only approvals which correspond to the status in the specified list. The possible values are `pending`, `scheduled`, `failed`, and `completed`. For example: `filter=status anyOf [\"pending\", \"scheduled\"]`.  You can also apply multiple filters at once. For example, setting `filter=projectKey equals my-project, reviewStatus anyOf [\"pending\",\"approved\"]` matches approval requests which correspond to the `my-project` project key, and a review status of either `pending` or `approved`.  ### Expanding approval response  LaunchDarkly supports the `expand` query param to include additional fields in the response, with the following fields:  - `flag` includes the flag the approval request belongs to - `project` includes the project the approval request belongs to - `environments` includes the environments the approval request relates to  For example, `expand=project,flag` includes the `project` and `flag` fields in the response. 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.expandable_approval_requests_response import ExpandableApprovalRequestsResponse
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.expandable_approval_requests_response import ExpandableApprovalRequestsResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -417,7 +389,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -425,31 +397,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    filter = "filter_example" # str | A comma-separated list of filters. Each filter is of the form `field operator value`. Supported fields are explained above. (optional)
-    expand = "expand_example" # str | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
-    limit = 1 # int | The number of approvals to return. Defaults to 20. Maximum limit is 200. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    filter = 'filter_example' # str | A comma-separated list of filters. Each filter is of the form `field operator value`. Supported fields are explained above. (optional)
+    expand = 'expand_example' # str | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+    limit = 56 # int | The number of approvals to return. Defaults to 20. Maximum limit is 200. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List approval requests
         api_response = api_instance.get_approval_requests(filter=filter, expand=expand, limit=limit, offset=offset)
+        print("The response of ApprovalsApi->get_approval_requests:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->get_approval_requests: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field operator value&#x60;. Supported fields are explained above. | [optional]
- **expand** | **str**| A comma-separated list of fields to expand in the response. Supported fields are explained above. | [optional]
- **limit** | **int**| The number of approvals to return. Defaults to 20. Maximum limit is 200. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
+ **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field operator value&#x60;. Supported fields are explained above. | [optional] 
+ **expand** | **str**| A comma-separated list of fields to expand in the response. Supported fields are explained above. | [optional] 
+ **limit** | **int**| The number of approvals to return. Defaults to 20. Maximum limit is 200. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
 ### Return type
 
@@ -463,7 +436,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -489,15 +461,11 @@ Get all approval requests for a feature flag.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.flag_config_approval_requests_response import FlagConfigApprovalRequestsResponse
+from launchdarkly_api.models.flag_config_approval_requests_response import FlagConfigApprovalRequestsResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -510,7 +478,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -518,28 +486,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # List approval requests for a flag
         api_response = api_instance.get_approvals_for_flag(project_key, feature_flag_key, environment_key)
+        print("The response of ApprovalsApi->get_approvals_for_flag:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->get_approvals_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -553,7 +523,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -572,23 +541,19 @@ Name | Type | Description  | Notes
 
 Create approval request
 
-Create an approval request.  This endpoint requires a list of `instructions`, in semantic patch format, that will be applied when the approval request is approved and applied.  If you are creating an approval request for a flag, you can use the following `instructions`:  - `addVariation` - `removeVariation` - `updateVariation` - `updateDefaultVariation`  For details on using these instructions, read [Update feature flag](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag).  To create an approval for a flag specific to an environment, use [Create approval request for a flag](https://launchdarkly.com/docs/api/approvals/post-approval-request-for-flag).  If you are creating an approval request for a segment, you can use the following read [Patch segment](https://launchdarkly.com/docs/api/segments/patch-segment) for details on the available `instructions`. 
+Create an approval request.  This endpoint requires a list of `instructions`, in semantic patch format, that will be applied when the approval request is approved and applied.  ### Flags  If you are creating an approval request for a flag, you can use the following `instructions`:  - `addVariation` - `removeVariation` - `updateVariation` - `updateDefaultVariation`  For details on using these instructions, read [Update feature flag](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag).  To create an approval for a flag specific to an environment, use [Create approval request for a flag](https://launchdarkly.com/docs/api/approvals/post-approval-request-for-flag).  ### AI Configs  If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs-beta/patch-ai-config-targeting).  ### Segments  If you are creating an approval request for a segment, you can use the semantic patch instructions listed under [Patch segment](https://launchdarkly.com/docs/api/segments/patch-segment). 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.approval_request_response import ApprovalRequestResponse
-from launchdarkly_api.model.create_approval_request_request import CreateApprovalRequestRequest
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.approval_request_response import ApprovalRequestResponse
+from launchdarkly_api.models.create_approval_request_request import CreateApprovalRequestRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -601,7 +566,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -609,38 +574,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    create_approval_request_request = CreateApprovalRequestRequest(
-        resource_id="proj/projKey:env/envKey:flag/flagKey",
-        comment="optional comment",
-        description="Requesting to update targeting",
-        instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
-        ]),
-        notify_member_ids=["1234a56b7c89d012345e678f"],
-        notify_team_keys=["example-reviewer-team"],
-        integration_config=FormVariableConfig(
-            key=None,
-        ),
-    ) # CreateApprovalRequestRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    create_approval_request_request = launchdarkly_api.CreateApprovalRequestRequest() # CreateApprovalRequestRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create approval request
         api_response = api_instance.post_approval_request(create_approval_request_request)
+        print("The response of ApprovalsApi->post_approval_request:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_approval_request_request** | [**CreateApprovalRequestRequest**](CreateApprovalRequestRequest.md)|  |
+ **create_approval_request_request** | [**CreateApprovalRequestRequest**](CreateApprovalRequestRequest.md)|  | 
 
 ### Return type
 
@@ -654,7 +607,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -673,24 +625,19 @@ Name | Type | Description  | Notes
 
 Apply approval request
 
-Apply an approval request that has been approved. This endpoint works with approval requests for either flag or segment changes.
+Apply an approval request that has been approved. This endpoint works with any approval requests.
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.approval_request_response import ApprovalRequestResponse
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.approval_request_response import ApprovalRequestResponse
+from launchdarkly_api.models.post_approval_request_apply_request import PostApprovalRequestApplyRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -703,7 +650,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -711,28 +658,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    id = "id_example" # str | The approval request ID
-    post_approval_request_apply_request = PostApprovalRequestApplyRequest(
-        comment="Looks good, thanks for updating",
-    ) # PostApprovalRequestApplyRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    id = 'id_example' # str | The approval request ID
+    post_approval_request_apply_request = launchdarkly_api.PostApprovalRequestApplyRequest() # PostApprovalRequestApplyRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Apply approval request
         api_response = api_instance.post_approval_request_apply(id, post_approval_request_apply_request)
+        print("The response of ApprovalsApi->post_approval_request_apply:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request_apply: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The approval request ID |
- **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  |
+ **id** | **str**| The approval request ID | 
+ **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  | 
 
 ### Return type
 
@@ -746,7 +693,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -773,17 +719,12 @@ Apply an approval request that has been approved. This endpoint requires a featu
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.post_approval_request_apply_request import PostApprovalRequestApplyRequest
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.models.post_approval_request_apply_request import PostApprovalRequestApplyRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -796,7 +737,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -804,34 +745,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The feature flag approval request ID
-    post_approval_request_apply_request = PostApprovalRequestApplyRequest(
-        comment="Looks good, thanks for updating",
-    ) # PostApprovalRequestApplyRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The feature flag approval request ID
+    post_approval_request_apply_request = launchdarkly_api.PostApprovalRequestApplyRequest() # PostApprovalRequestApplyRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Apply approval request for a flag
         api_response = api_instance.post_approval_request_apply_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_apply_request)
+        print("The response of ApprovalsApi->post_approval_request_apply_for_flag:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request_apply_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The feature flag approval request ID |
- **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The feature flag approval request ID | 
+ **post_approval_request_apply_request** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md)|  | 
 
 ### Return type
 
@@ -845,7 +786,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -872,16 +812,12 @@ Create an approval request for a feature flag.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.create_flag_config_approval_request_request import CreateFlagConfigApprovalRequestRequest
+from launchdarkly_api.models.create_flag_config_approval_request_request import CreateFlagConfigApprovalRequestRequest
+from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -894,7 +830,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -902,45 +838,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    create_flag_config_approval_request_request = CreateFlagConfigApprovalRequestRequest(
-        comment="optional comment",
-        description="Requesting to update targeting",
-        instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
-        ]),
-        notify_member_ids=["1234a56b7c89d012345e678f"],
-        notify_team_keys=["example-reviewer-team"],
-        execution_date=1,
-        operating_on_id="6297ed79dee7dc14e1f9a80c",
-        integration_config=FormVariableConfig(
-            key=None,
-        ),
-    ) # CreateFlagConfigApprovalRequestRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    create_flag_config_approval_request_request = launchdarkly_api.CreateFlagConfigApprovalRequestRequest() # CreateFlagConfigApprovalRequestRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create approval request for a flag
         api_response = api_instance.post_approval_request_for_flag(project_key, feature_flag_key, environment_key, create_flag_config_approval_request_request)
+        print("The response of ApprovalsApi->post_approval_request_for_flag:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **create_flag_config_approval_request_request** | [**CreateFlagConfigApprovalRequestRequest**](CreateFlagConfigApprovalRequestRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **create_flag_config_approval_request_request** | [**CreateFlagConfigApprovalRequestRequest**](CreateFlagConfigApprovalRequestRequest.md)|  | 
 
 ### Return type
 
@@ -954,7 +877,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -980,18 +902,12 @@ Review an approval request by approving or denying changes.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.method_not_allowed_error_rep import MethodNotAllowedErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.post_approval_request_review_request import PostApprovalRequestReviewRequest
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.approval_request_response import ApprovalRequestResponse
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.approval_request_response import ApprovalRequestResponse
+from launchdarkly_api.models.post_approval_request_review_request import PostApprovalRequestReviewRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1004,7 +920,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1012,29 +928,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    id = "id_example" # str | The approval request ID
-    post_approval_request_review_request = PostApprovalRequestReviewRequest(
-        kind="approve",
-        comment="Looks good, thanks for updating",
-    ) # PostApprovalRequestReviewRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    id = 'id_example' # str | The approval request ID
+    post_approval_request_review_request = launchdarkly_api.PostApprovalRequestReviewRequest() # PostApprovalRequestReviewRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Review approval request
         api_response = api_instance.post_approval_request_review(id, post_approval_request_review_request)
+        print("The response of ApprovalsApi->post_approval_request_review:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request_review: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The approval request ID |
- **post_approval_request_review_request** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md)|  |
+ **id** | **str**| The approval request ID | 
+ **post_approval_request_review_request** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md)|  | 
 
 ### Return type
 
@@ -1048,7 +963,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1076,17 +990,12 @@ Review an approval request by approving or denying changes.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.post_approval_request_review_request import PostApprovalRequestReviewRequest
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.models.post_approval_request_review_request import PostApprovalRequestReviewRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1099,7 +1008,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1107,35 +1016,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The feature flag approval request ID
-    post_approval_request_review_request = PostApprovalRequestReviewRequest(
-        kind="approve",
-        comment="Looks good, thanks for updating",
-    ) # PostApprovalRequestReviewRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The feature flag approval request ID
+    post_approval_request_review_request = launchdarkly_api.PostApprovalRequestReviewRequest() # PostApprovalRequestReviewRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Review approval request for a flag
         api_response = api_instance.post_approval_request_review_for_flag(project_key, feature_flag_key, environment_key, id, post_approval_request_review_request)
+        print("The response of ApprovalsApi->post_approval_request_review_for_flag:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_approval_request_review_for_flag: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The feature flag approval request ID |
- **post_approval_request_review_request** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The feature flag approval request ID | 
+ **post_approval_request_review_request** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md)|  | 
 
 ### Return type
 
@@ -1149,7 +1057,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1176,17 +1083,12 @@ Create an approval request to copy a feature flag's configuration across environ
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import approvals_api
-from launchdarkly_api.model.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest
+from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1199,7 +1101,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1207,41 +1109,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = approvals_api.ApprovalsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key for the target environment
-    create_copy_flag_config_approval_request_request = CreateCopyFlagConfigApprovalRequestRequest(
-        comment="optional comment",
-        description="copy flag settings to another environment",
-        notify_member_ids=["1234a56b7c89d012345e678f"],
-        notify_team_keys=["example-reviewer-team"],
-        source=SourceFlag(
-            key="environment-key-123abc",
-            version=1,
-        ),
-        included_actions=["updateOn"],
-        excluded_actions=["updateOn"],
-    ) # CreateCopyFlagConfigApprovalRequestRequest | 
+    api_instance = launchdarkly_api.ApprovalsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key for the target environment
+    create_copy_flag_config_approval_request_request = launchdarkly_api.CreateCopyFlagConfigApprovalRequestRequest() # CreateCopyFlagConfigApprovalRequestRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create approval request to copy flag configurations across environments
         api_response = api_instance.post_flag_copy_config_approval_request(project_key, feature_flag_key, environment_key, create_copy_flag_config_approval_request_request)
+        print("The response of ApprovalsApi->post_flag_copy_config_approval_request:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ApprovalsApi->post_flag_copy_config_approval_request: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key for the target environment |
- **create_copy_flag_config_approval_request_request** | [**CreateCopyFlagConfigApprovalRequestRequest**](CreateCopyFlagConfigApprovalRequestRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key for the target environment | 
+ **create_copy_flag_config_approval_request_request** | [**CreateCopyFlagConfigApprovalRequestRequest**](CreateCopyFlagConfigApprovalRequestRequest.md)|  | 
 
 ### Return type
 
@@ -1255,7 +1148,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

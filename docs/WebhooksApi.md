@@ -23,14 +23,10 @@ Delete a webhook by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import webhooks_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -43,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -51,23 +47,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = webhooks_api.WebhooksApi(api_client)
-    id = "id_example" # str | The ID of the webhook to delete
+    api_instance = launchdarkly_api.WebhooksApi(api_client)
+    id = 'id_example' # str | The ID of the webhook to delete
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete webhook
         api_instance.delete_webhook(id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WebhooksApi->delete_webhook: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the webhook to delete |
+ **id** | **str**| The ID of the webhook to delete | 
 
 ### Return type
 
@@ -81,7 +78,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -107,14 +103,11 @@ Fetch a list of all webhooks.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import webhooks_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.webhooks import Webhooks
+from launchdarkly_api.models.webhooks import Webhooks
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -127,7 +120,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -135,19 +128,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = webhooks_api.WebhooksApi(api_client)
+    api_instance = launchdarkly_api.WebhooksApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # List webhooks
         api_response = api_instance.get_all_webhooks()
+        print("The response of WebhooksApi->get_all_webhooks:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WebhooksApi->get_all_webhooks: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -162,7 +157,6 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -187,15 +181,11 @@ Get a single webhook by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import webhooks_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.webhook import Webhook
+from launchdarkly_api.models.webhook import Webhook
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -208,7 +198,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -216,24 +206,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = webhooks_api.WebhooksApi(api_client)
-    id = "id_example" # str | The ID of the webhook
+    api_instance = launchdarkly_api.WebhooksApi(api_client)
+    id = 'id_example' # str | The ID of the webhook
 
-    # example passing only required values which don't have defaults set
     try:
         # Get webhook
         api_response = api_instance.get_webhook(id)
+        print("The response of WebhooksApi->get_webhook:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WebhooksApi->get_webhook: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the webhook |
+ **id** | **str**| The ID of the webhook | 
 
 ### Return type
 
@@ -248,7 +240,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -262,7 +253,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_webhook**
-> Webhook patch_webhook(id, json_patch)
+> Webhook patch_webhook(id, patch_operation)
 
 Update webhook
 
@@ -273,17 +264,12 @@ Update a webhook's settings. Updating webhook settings uses a [JSON patch](https
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import webhooks_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.webhook import Webhook
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.models.webhook import Webhook
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -296,7 +282,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -304,32 +290,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = webhooks_api.WebhooksApi(api_client)
-    id = "id_example" # str | The ID of the webhook to update
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.WebhooksApi(api_client)
+    id = 'id_example' # str | The ID of the webhook to update
+    patch_operation = [{"op":"replace","path":"/on","value":false}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update webhook
-        api_response = api_instance.patch_webhook(id, json_patch)
+        api_response = api_instance.patch_webhook(id, patch_operation)
+        print("The response of WebhooksApi->patch_webhook:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WebhooksApi->patch_webhook: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the webhook to update |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **id** | **str**| The ID of the webhook to update | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -343,7 +325,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -370,16 +351,12 @@ Create a new webhook.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import webhooks_api
-from launchdarkly_api.model.webhook_post import WebhookPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.webhook import Webhook
+from launchdarkly_api.models.webhook import Webhook
+from launchdarkly_api.models.webhook_post import WebhookPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -392,7 +369,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -400,44 +377,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = webhooks_api.WebhooksApi(api_client)
-    webhook_post = WebhookPost(
-        name="Example hook",
-        url="http://www.example.com",
-        secret="frobozz",
-        statements=StatementPostList([
-            StatementPost(
-                resources=["proj/*:env/*:flag/*;testing-tag"],
-                not_resources=[
-                    "not_resources_example",
-                ],
-                actions=["*"],
-                not_actions=[
-                    "not_actions_example",
-                ],
-                effect="allow",
-            ),
-        ]),
-        sign=True,
-        on=True,
-        tags=[],
-    ) # WebhookPost | 
+    api_instance = launchdarkly_api.WebhooksApi(api_client)
+    webhook_post = {"name":"apidocs test webhook","on":true,"sign":false,"statements":[{"actions":["*"],"effect":"allow","resources":["proj/test"]}],"tags":["example-tag"],"url":"https://example.com"} # WebhookPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Creates a webhook
         api_response = api_instance.post_webhook(webhook_post)
+        print("The response of WebhooksApi->post_webhook:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling WebhooksApi->post_webhook: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhook_post** | [**WebhookPost**](WebhookPost.md)|  |
+ **webhook_post** | [**WebhookPost**](WebhookPost.md)|  | 
 
 ### Return type
 
@@ -451,7 +410,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

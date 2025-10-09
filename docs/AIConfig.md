@@ -2,21 +2,39 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** |  | 
-**key** | **str** |  | 
-**name** | **str** |  | 
-**tags** | **[str]** |  | 
-**version** | **int** |  | 
-**variations** | [**[AIConfigVariation]**](AIConfigVariation.md) |  | 
-**created_at** | **int** |  | 
-**updated_at** | **int** |  | 
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
+**description** | **str** |  | 
+**key** | **str** |  | 
 **maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**mode** | **str** |  | [optional] [default to 'completion']
+**name** | **str** |  | 
+**tags** | **List[str]** |  | 
+**version** | **int** |  | 
+**variations** | [**List[AIConfigVariation]**](AIConfigVariation.md) |  | 
+**created_at** | **int** |  | 
+**updated_at** | **int** |  | 
 
+## Example
+
+```python
+from launchdarkly_api.models.ai_config import AIConfig
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AIConfig from a JSON string
+ai_config_instance = AIConfig.from_json(json)
+# print the JSON string representation of the object
+print(AIConfig.to_json())
+
+# convert the object into a dict
+ai_config_dict = ai_config_instance.to_dict()
+# create an instance of AIConfig from a dict
+ai_config_from_dict = AIConfig.from_dict(ai_config_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

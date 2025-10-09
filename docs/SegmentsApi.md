@@ -36,14 +36,10 @@ Starts a new export process for a big segment. This is an export for a synced se
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -56,7 +52,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -64,27 +60,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Create big segment export
         api_instance.create_big_segment_export(project_key, environment_key, segment_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->create_big_segment_export: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
 
 ### Return type
 
@@ -99,7 +96,6 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -113,7 +109,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_big_segment_import**
-> create_big_segment_import(project_key, environment_key, segment_key)
+> create_big_segment_import(project_key, environment_key, segment_key, file=file, mode=mode, wait_on_approvals=wait_on_approvals)
 
 Create big segment import
 
@@ -124,15 +120,10 @@ Start a new import process for a big segment. This is an import for a list-based
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -145,7 +136,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -153,41 +144,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    file = open('/path/to/file', 'rb') # file_type | CSV file containing keys (optional)
-    mode = "mode_example" # str | Import mode. Use either `merge` or `replace` (optional)
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    file = None # bytearray | CSV file containing keys (optional)
+    mode = 'mode_example' # str | Import mode. Use either `merge` or `replace` (optional)
     wait_on_approvals = True # bool | Whether to wait for approvals before processing the import (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create big segment import
-        api_instance.create_big_segment_import(project_key, environment_key, segment_key)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling SegmentsApi->create_big_segment_import: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Create big segment import
         api_instance.create_big_segment_import(project_key, environment_key, segment_key, file=file, mode=mode, wait_on_approvals=wait_on_approvals)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->create_big_segment_import: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **file** | **file_type**| CSV file containing keys | [optional]
- **mode** | **str**| Import mode. Use either &#x60;merge&#x60; or &#x60;replace&#x60; | [optional]
- **wait_on_approvals** | **bool**| Whether to wait for approvals before processing the import | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **file** | **bytearray**| CSV file containing keys | [optional] 
+ **mode** | **str**| Import mode. Use either &#x60;merge&#x60; or &#x60;replace&#x60; | [optional] 
+ **wait_on_approvals** | **bool**| Whether to wait for approvals before processing the import | [optional] 
 
 ### Return type
 
@@ -201,7 +185,6 @@ void (empty response body)
 
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -228,15 +211,10 @@ Delete a segment.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -249,7 +227,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -257,27 +235,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete segment
         api_instance.delete_segment(project_key, environment_key, segment_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->delete_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
 
 ### Return type
 
@@ -291,7 +270,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -318,14 +296,11 @@ Returns information about a big segment export process. This is an export for a 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.export import Export
+from launchdarkly_api.models.export import Export
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -338,7 +313,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -346,30 +321,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    export_id = "exportID_example" # str | The export ID
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    export_id = 'export_id_example' # str | The export ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get big segment export
         api_response = api_instance.get_big_segment_export(project_key, environment_key, segment_key, export_id)
+        print("The response of SegmentsApi->get_big_segment_export:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_big_segment_export: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **export_id** | **str**| The export ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **export_id** | **str**| The export ID | 
 
 ### Return type
 
@@ -383,7 +360,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -408,14 +384,11 @@ Returns information about a big segment import process. This is the import of a 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.model_import import ModelImport
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
+from launchdarkly_api.models.model_import import ModelImport
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -428,7 +401,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -436,30 +409,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    import_id = "importID_example" # str | The import ID
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    import_id = 'import_id_example' # str | The import ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get big segment import
         api_response = api_instance.get_big_segment_import(project_key, environment_key, segment_key, import_id)
+        print("The response of SegmentsApi->get_big_segment_import:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_big_segment_import: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **import_id** | **str**| The import ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **import_id** | **str**| The import ID | 
 
 ### Return type
 
@@ -474,7 +449,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -487,7 +461,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_context_instance_segments_membership_by_env**
-> ContextInstanceSegmentMemberships get_context_instance_segments_membership_by_env(project_key, environment_key, context_instance)
+> ContextInstanceSegmentMemberships get_context_instance_segments_membership_by_env(project_key, environment_key, request_body)
 
 List segment memberships for context instance
 
@@ -498,15 +472,11 @@ For a given context instance with attributes, get membership details for all seg
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.context_instance import ContextInstance
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.context_instance_segment_memberships import ContextInstanceSegmentMemberships
+from launchdarkly_api.models.context_instance_segment_memberships import ContextInstanceSegmentMemberships
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -519,7 +489,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -527,30 +497,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    context_instance = ContextInstance(
-        key=None,
-    ) # ContextInstance | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    request_body = {"address":{"city":"Springfield","street":"123 Main Street"},"jobFunction":"doctor","key":"context-key-123abc","kind":"user","name":"Sandy"} # Dict[str, object] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # List segment memberships for context instance
-        api_response = api_instance.get_context_instance_segments_membership_by_env(project_key, environment_key, context_instance)
+        api_response = api_instance.get_context_instance_segments_membership_by_env(project_key, environment_key, request_body)
+        print("The response of SegmentsApi->get_context_instance_segments_membership_by_env:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_context_instance_segments_membership_by_env: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **context_instance** | [**ContextInstance**](ContextInstance.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **request_body** | [**Dict[str, object]**](object.md)|  | 
 
 ### Return type
 
@@ -564,7 +534,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -589,14 +558,11 @@ Get a list of a segment's context targets that are scheduled for removal.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.expiring_target_get_response import ExpiringTargetGetResponse
+from launchdarkly_api.models.expiring_target_get_response import ExpiringTargetGetResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -609,7 +575,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -617,28 +583,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get expiring targets for segment
         api_response = api_instance.get_expiring_targets_for_segment(project_key, environment_key, segment_key)
+        print("The response of SegmentsApi->get_expiring_targets_for_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_expiring_targets_for_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
 
 ### Return type
 
@@ -652,7 +620,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -670,21 +637,18 @@ Name | Type | Description  | Notes
 
 Get expiring user targets for segment
 
-> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](https://launchdarkly.com/docs/ld-docs/api/segments/get-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Get a list of a segment's user targets that are scheduled for removal. 
+> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](https://launchdarkly.com/docs/api/segments/get-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Get a list of a segment's user targets that are scheduled for removal. 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.expiring_user_target_get_response import ExpiringUserTargetGetResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -697,7 +661,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -705,28 +669,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get expiring user targets for segment
         api_response = api_instance.get_expiring_user_targets_for_segment(project_key, environment_key, segment_key)
+        print("The response of SegmentsApi->get_expiring_user_targets_for_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_expiring_user_targets_for_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
 
 ### Return type
 
@@ -740,7 +706,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -765,14 +730,11 @@ Get a single segment by key.<br/><br/>Segments can be rule-based, list-based, or
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.user_segment import UserSegment
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.user_segment import UserSegment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -785,7 +747,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -793,28 +755,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get segment
         api_response = api_instance.get_segment(project_key, environment_key, segment_key)
+        print("The response of SegmentsApi->get_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
 
 ### Return type
 
@@ -828,7 +792,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -853,15 +816,11 @@ Get the membership status (included/excluded) for a given context in this big se
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.big_segment_target import BigSegmentTarget
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.big_segment_target import BigSegmentTarget
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -874,7 +833,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -882,30 +841,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    context_key = "contextKey_example" # str | The context key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    context_key = 'context_key_example' # str | The context key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get big segment membership for context
         api_response = api_instance.get_segment_membership_for_context(project_key, environment_key, segment_key, context_key)
+        print("The response of SegmentsApi->get_segment_membership_for_context:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_segment_membership_for_context: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **context_key** | **str**| The context key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **context_key** | **str**| The context key | 
 
 ### Return type
 
@@ -919,7 +880,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -938,22 +898,18 @@ Name | Type | Description  | Notes
 
 Get big segment membership for user
 
-> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](https://launchdarkly.com/docs/ld-docs/api/segments/get-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Get the membership status (included/excluded) for a given user in this big segment. This operation does not support standard segments. 
+> ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get expiring targets for segment](https://launchdarkly.com/docs/api/segments/get-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Get the membership status (included/excluded) for a given user in this big segment. This operation does not support standard segments. 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.big_segment_target import BigSegmentTarget
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.big_segment_target import BigSegmentTarget
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -966,7 +922,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -974,30 +930,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    user_key = "userKey_example" # str | The user key
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    user_key = 'user_key_example' # str | The user key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get big segment membership for user
         api_response = api_instance.get_segment_membership_for_user(project_key, environment_key, segment_key, user_key)
+        print("The response of SegmentsApi->get_segment_membership_for_user:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_segment_membership_for_user: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **user_key** | **str**| The user key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **user_key** | **str**| The user key | 
 
 ### Return type
 
@@ -1012,7 +970,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -1026,7 +983,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_segments**
-> UserSegments get_segments(project_key, environment_key)
+> UserSegments get_segments(project_key, environment_key, limit=limit, offset=offset, sort=sort, filter=filter)
 
 List segments
 
@@ -1037,13 +994,11 @@ Get a list of all segments in the given project.  Segments can be rule-based, li
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.user_segments import UserSegments
+from launchdarkly_api.models.user_segments import UserSegments
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1056,7 +1011,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1064,43 +1019,36 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    limit = 1 # int | The number of segments to return. Defaults to 20. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort = "sort_example" # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
-    filter = "filter_example" # str | Accepts filter by `excludedKeys`, `external`, `includedKeys`, `query`, `tags`, `unbounded`. To learn more about the filter syntax, read the  'Filtering segments' section above. (optional)
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    limit = 56 # int | The number of segments to return. Defaults to 20. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort = 'sort_example' # str | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+    filter = 'filter_example' # str | Accepts filter by `excludedKeys`, `external`, `includedKeys`, `query`, `tags`, `unbounded`, `view`. To learn more about the filter syntax, read the  'Filtering segments' section above. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # List segments
-        api_response = api_instance.get_segments(project_key, environment_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling SegmentsApi->get_segments: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List segments
         api_response = api_instance.get_segments(project_key, environment_key, limit=limit, offset=offset, sort=sort, filter=filter)
+        print("The response of SegmentsApi->get_segments:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->get_segments: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **limit** | **int**| The number of segments to return. Defaults to 20. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
- **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#39;creationDate&#39;, &#39;name&#39;, &#39;lastModified&#39;. Example: &#x60;sort&#x3D;name&#x60; sort by names ascending or &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional]
- **filter** | **str**| Accepts filter by &#x60;excludedKeys&#x60;, &#x60;external&#x60;, &#x60;includedKeys&#x60;, &#x60;query&#x60;, &#x60;tags&#x60;, &#x60;unbounded&#x60;. To learn more about the filter syntax, read the  &#39;Filtering segments&#39; section above. | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **limit** | **int**| The number of segments to return. Defaults to 20. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **sort** | **str**| Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#39;creationDate&#39;, &#39;name&#39;, &#39;lastModified&#39;. Example: &#x60;sort&#x3D;name&#x60; sort by names ascending or &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | [optional] 
+ **filter** | **str**| Accepts filter by &#x60;excludedKeys&#x60;, &#x60;external&#x60;, &#x60;includedKeys&#x60;, &#x60;query&#x60;, &#x60;tags&#x60;, &#x60;unbounded&#x60;, &#x60;view&#x60;. To learn more about the filter syntax, read the  &#39;Filtering segments&#39; section above. | [optional] 
 
 ### Return type
 
@@ -1114,7 +1062,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1138,18 +1085,12 @@ Update expiring targets for segment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.expiring_target_patch_response import ExpiringTargetPatchResponse
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.patch_segment_expiring_target_input_rep import PatchSegmentExpiringTargetInputRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.expiring_target_patch_response import ExpiringTargetPatchResponse
+from launchdarkly_api.models.patch_segment_expiring_target_input_rep import PatchSegmentExpiringTargetInputRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1162,7 +1103,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1170,42 +1111,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    patch_segment_expiring_target_input_rep = PatchSegmentExpiringTargetInputRep(
-        comment="optional comment",
-        instructions=[
-            PatchSegmentExpiringTargetInstruction(
-                kind="addExpiringTarget",
-                context_key="context_key_example",
-                context_kind="user",
-                target_type="included",
-                value=1653469200000,
-                version=1,
-            ),
-        ],
-    ) # PatchSegmentExpiringTargetInputRep | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    patch_segment_expiring_target_input_rep = launchdarkly_api.PatchSegmentExpiringTargetInputRep() # PatchSegmentExpiringTargetInputRep | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update expiring targets for segment
         api_response = api_instance.patch_expiring_targets_for_segment(project_key, environment_key, segment_key, patch_segment_expiring_target_input_rep)
+        print("The response of SegmentsApi->patch_expiring_targets_for_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->patch_expiring_targets_for_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **patch_segment_expiring_target_input_rep** | [**PatchSegmentExpiringTargetInputRep**](PatchSegmentExpiringTargetInputRep.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **patch_segment_expiring_target_input_rep** | [**PatchSegmentExpiringTargetInputRep**](PatchSegmentExpiringTargetInputRep.md)|  | 
 
 ### Return type
 
@@ -1219,7 +1150,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1240,25 +1170,19 @@ Name | Type | Description  | Notes
 
 Update expiring user targets for segment
 
- > ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Update expiring targets for segment](https://launchdarkly.com/docs/ld-docs/api/segments/patch-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Update expiring user targets for a segment. Updating a user target expiration uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).  If the request is well-formed but any of its instructions failed to process, this operation returns status code `200`. In this case, the response `errors` array will be non-empty.  ### Instructions  Semantic patch requests support the following `kind` instructions for updating expiring user targets.  <details> <summary>Click to expand instructions for <strong>updating expiring user targets</strong></summary>  #### addExpireUserTargetDate  Schedules a date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The date when the user should expire from the segment targeting, in Unix milliseconds.  #### updateExpireUserTargetDate  Updates the date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The new date when the user should expire from the segment targeting, in Unix milliseconds. - `version`: The segment version.  #### removeExpireUserTargetDate  Removes the scheduled expiration for the user in the segment.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key.  </details> 
+ > ### Contexts are now available > > After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Update expiring targets for segment](https://launchdarkly.com/docs/api/segments/patch-expiring-targets-for-segment) instead of this endpoint. To learn more, read [Contexts](https://launchdarkly.com/docs/home/observability/contexts).  Update expiring user targets for a segment. Updating a user target expiration uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).  If the request is well-formed but any of its instructions failed to process, this operation returns status code `200`. In this case, the response `errors` array will be non-empty.  ### Instructions  Semantic patch requests support the following `kind` instructions for updating expiring user targets.  <details> <summary>Click to expand instructions for <strong>updating expiring user targets</strong></summary>  #### addExpireUserTargetDate  Schedules a date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The date when the user should expire from the segment targeting, in Unix milliseconds.  #### updateExpireUserTargetDate  Updates the date and time when LaunchDarkly will remove a user from segment targeting.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key. - `value`: The new date when the user should expire from the segment targeting, in Unix milliseconds. - `version`: The segment version.  #### removeExpireUserTargetDate  Removes the scheduled expiration for the user in the segment.  ##### Parameters  - `targetType`: A segment's target type, must be either `included` or `excluded`. - `userKey`: The user key.  </details> 
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.patch_segment_request import PatchSegmentRequest
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.models.patch_segment_request import PatchSegmentRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1271,7 +1195,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1279,41 +1203,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    patch_segment_request = PatchSegmentRequest(
-        comment="optional comment",
-        instructions=[
-            PatchSegmentInstruction(
-                kind="addExpireUserTargetDate",
-                user_key="user_key_example",
-                target_type="included",
-                value=1653469200000,
-                version=1,
-            ),
-        ],
-    ) # PatchSegmentRequest | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    patch_segment_request = launchdarkly_api.PatchSegmentRequest() # PatchSegmentRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update expiring user targets for segment
         api_response = api_instance.patch_expiring_user_targets_for_segment(project_key, environment_key, segment_key, patch_segment_request)
+        print("The response of SegmentsApi->patch_expiring_user_targets_for_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->patch_expiring_user_targets_for_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **patch_segment_request** | [**PatchSegmentRequest**](PatchSegmentRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **patch_segment_request** | [**PatchSegmentRequest**](PatchSegmentRequest.md)|  | 
 
 ### Return type
 
@@ -1327,7 +1242,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1355,18 +1269,12 @@ Update a segment. The request body must be a valid semantic patch, JSON patch, o
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.user_segment import UserSegment
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.patch_with_comment import PatchWithComment
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.patch_with_comment import PatchWithComment
+from launchdarkly_api.models.user_segment import UserSegment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1379,7 +1287,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1387,39 +1295,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    patch_with_comment = PatchWithComment(
-        patch=JSONPatch([
-            PatchOperation(
-                op="replace",
-                path="/exampleField",
-                value=None,
-            ),
-        ]),
-        comment="comment_example",
-    ) # PatchWithComment | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    patch_with_comment = {"patch":[{"op":"replace","path":"/description","value":"New description for this segment"},{"op":"add","path":"/tags/0","value":"example"}]} # PatchWithComment | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch segment
         api_response = api_instance.patch_segment(project_key, environment_key, segment_key, patch_with_comment)
+        print("The response of SegmentsApi->patch_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->patch_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  | 
 
 ### Return type
 
@@ -1433,7 +1334,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1461,17 +1361,12 @@ Create a new segment.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.user_segment import UserSegment
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.segment_body import SegmentBody
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.segment_body import SegmentBody
+from launchdarkly_api.models.user_segment import UserSegment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1484,7 +1379,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1492,35 +1387,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_body = SegmentBody(
-        name="Example segment",
-        key="segment-key-123abc",
-        description="Bundle our sample customers together",
-        tags=["testing"],
-        unbounded=False,
-        unbounded_context_kind="device",
-    ) # SegmentBody | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_body = launchdarkly_api.SegmentBody() # SegmentBody | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create segment
         api_response = api_instance.post_segment(project_key, environment_key, segment_body)
+        print("The response of SegmentsApi->post_segment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->post_segment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_body** | [**SegmentBody**](SegmentBody.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_body** | [**SegmentBody**](SegmentBody.md)|  | 
 
 ### Return type
 
@@ -1534,7 +1424,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1561,15 +1450,11 @@ Update context targets included or excluded in a big segment. Big segments inclu
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.segment_user_state import SegmentUserState
+from launchdarkly_api.models.segment_user_state import SegmentUserState
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1582,7 +1467,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1590,46 +1475,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    segment_user_state = SegmentUserState(
-        included=SegmentUserList(
-            add=[
-                "add_example",
-            ],
-            remove=[
-                "remove_example",
-            ],
-        ),
-        excluded=SegmentUserList(
-            add=[
-                "add_example",
-            ],
-            remove=[
-                "remove_example",
-            ],
-        ),
-    ) # SegmentUserState | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    segment_user_state = launchdarkly_api.SegmentUserState() # SegmentUserState | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update context targets on a big segment
         api_instance.update_big_segment_context_targets(project_key, environment_key, segment_key, segment_user_state)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->update_big_segment_context_targets: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **segment_user_state** | [**SegmentUserState**](SegmentUserState.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **segment_user_state** | [**SegmentUserState**](SegmentUserState.md)|  | 
 
 ### Return type
 
@@ -1643,7 +1512,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -1669,15 +1537,11 @@ Update user context targets included or excluded in a big segment. Big segments 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import segments_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.segment_user_state import SegmentUserState
+from launchdarkly_api.models.segment_user_state import SegmentUserState
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -1690,7 +1554,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -1698,46 +1562,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = segments_api.SegmentsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    segment_key = "segmentKey_example" # str | The segment key
-    segment_user_state = SegmentUserState(
-        included=SegmentUserList(
-            add=[
-                "add_example",
-            ],
-            remove=[
-                "remove_example",
-            ],
-        ),
-        excluded=SegmentUserList(
-            add=[
-                "add_example",
-            ],
-            remove=[
-                "remove_example",
-            ],
-        ),
-    ) # SegmentUserState | 
+    api_instance = launchdarkly_api.SegmentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    segment_key = 'segment_key_example' # str | The segment key
+    segment_user_state = launchdarkly_api.SegmentUserState() # SegmentUserState | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update user context targets on a big segment
         api_instance.update_big_segment_targets(project_key, environment_key, segment_key, segment_user_state)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling SegmentsApi->update_big_segment_targets: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **segment_key** | **str**| The segment key |
- **segment_user_state** | [**SegmentUserState**](SegmentUserState.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **segment_key** | **str**| The segment key | 
+ **segment_user_state** | [**SegmentUserState**](SegmentUserState.md)|  | 
 
 ### Return type
 
@@ -1751,7 +1599,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

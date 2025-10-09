@@ -23,17 +23,12 @@ Create an audit log subscription.<br /><br />For each subscription, you must spe
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_audit_log_subscriptions_api
-from launchdarkly_api.model.subscription_post import SubscriptionPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.integration import Integration
+from launchdarkly_api.models.integration import Integration
+from launchdarkly_api.models.subscription_post import SubscriptionPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -46,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -54,48 +49,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
-    subscription_post = SubscriptionPost(
-        name="Example audit log subscription.",
-        statements=StatementPostList([
-            StatementPost(
-                resources=["proj/*:env/*:flag/*;testing-tag"],
-                not_resources=[
-                    "not_resources_example",
-                ],
-                actions=["*"],
-                not_actions=[
-                    "not_actions_example",
-                ],
-                effect="allow",
-            ),
-        ]),
-        on=False,
-        tags=["testing-tag"],
-        config={
-            "key": None,
-        },
-        url="url_example",
-        api_key="api_key_example",
-    ) # SubscriptionPost | 
+    api_instance = launchdarkly_api.IntegrationAuditLogSubscriptionsApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
+    subscription_post = {"config":{"optional":"an optional property","required":"the required property","url":"https://example.com"},"name":"Example audit log subscription.","on":false,"statements":[{"actions":["*"],"effect":"allow","resources":["proj/*:env/*:flag/*;testing-tag"]}],"tags":["testing-tag"]} # SubscriptionPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create audit log subscription
         api_response = api_instance.create_subscription(integration_key, subscription_post)
+        print("The response of IntegrationAuditLogSubscriptionsApi->create_subscription:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationAuditLogSubscriptionsApi->create_subscription: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
- **subscription_post** | [**SubscriptionPost**](SubscriptionPost.md)|  |
+ **integration_key** | **str**| The integration key | 
+ **subscription_post** | [**SubscriptionPost**](SubscriptionPost.md)|  | 
 
 ### Return type
 
@@ -109,7 +84,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -136,14 +110,10 @@ Delete an audit log subscription.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_audit_log_subscriptions_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -156,7 +126,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -164,25 +134,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
-    id = "id_example" # str | The subscription ID
+    api_instance = launchdarkly_api.IntegrationAuditLogSubscriptionsApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
+    id = 'id_example' # str | The subscription ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete audit log subscription
         api_instance.delete_subscription(integration_key, id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationAuditLogSubscriptionsApi->delete_subscription: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
- **id** | **str**| The subscription ID |
+ **integration_key** | **str**| The integration key | 
+ **id** | **str**| The subscription ID | 
 
 ### Return type
 
@@ -196,7 +167,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -222,15 +192,11 @@ Get an audit log subscription by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_audit_log_subscriptions_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.integration import Integration
+from launchdarkly_api.models.integration import Integration
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -243,7 +209,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -251,26 +217,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
-    id = "id_example" # str | The subscription ID
+    api_instance = launchdarkly_api.IntegrationAuditLogSubscriptionsApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
+    id = 'id_example' # str | The subscription ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get audit log subscription by ID
         api_response = api_instance.get_subscription_by_id(integration_key, id)
+        print("The response of IntegrationAuditLogSubscriptionsApi->get_subscription_by_id:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationAuditLogSubscriptionsApi->get_subscription_by_id: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
- **id** | **str**| The subscription ID |
+ **integration_key** | **str**| The integration key | 
+ **id** | **str**| The subscription ID | 
 
 ### Return type
 
@@ -284,7 +252,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -310,15 +277,11 @@ Get all audit log subscriptions associated with a given integration.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_audit_log_subscriptions_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integrations import Integrations
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.integrations import Integrations
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -331,7 +294,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -339,24 +302,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
+    api_instance = launchdarkly_api.IntegrationAuditLogSubscriptionsApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get audit log subscriptions by integration
         api_response = api_instance.get_subscriptions(integration_key)
+        print("The response of IntegrationAuditLogSubscriptionsApi->get_subscriptions:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationAuditLogSubscriptionsApi->get_subscriptions: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
+ **integration_key** | **str**| The integration key | 
 
 ### Return type
 
@@ -371,7 +336,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -385,7 +349,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_subscription**
-> Integration update_subscription(integration_key, id, json_patch)
+> Integration update_subscription(integration_key, id, patch_operation)
 
 Update audit log subscription
 
@@ -396,17 +360,12 @@ Update an audit log subscription configuration. Updating an audit log subscripti
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integration_audit_log_subscriptions_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.integration import Integration
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.integration import Integration
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -419,7 +378,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -427,34 +386,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integration_audit_log_subscriptions_api.IntegrationAuditLogSubscriptionsApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
-    id = "id_example" # str | The ID of the audit log subscription
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.IntegrationAuditLogSubscriptionsApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
+    id = 'id_example' # str | The ID of the audit log subscription
+    patch_operation = [{"op":"replace","path":"/on","value":false}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update audit log subscription
-        api_response = api_instance.update_subscription(integration_key, id, json_patch)
+        api_response = api_instance.update_subscription(integration_key, id, patch_operation)
+        print("The response of IntegrationAuditLogSubscriptionsApi->update_subscription:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationAuditLogSubscriptionsApi->update_subscription: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
- **id** | **str**| The ID of the audit log subscription |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **integration_key** | **str**| The integration key | 
+ **id** | **str**| The ID of the audit log subscription | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -468,7 +423,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

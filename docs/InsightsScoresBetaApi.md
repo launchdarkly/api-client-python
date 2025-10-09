@@ -24,18 +24,12 @@ Create insight group
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.insight_group import InsightGroup
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.post_insight_group_params import PostInsightGroupParams
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.insight_group import InsightGroup
+from launchdarkly_api.models.post_insight_group_params import PostInsightGroupParams
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -48,7 +42,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -56,30 +50,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    post_insight_group_params = PostInsightGroupParams(
-        name="Production - All Apps",
-        key="default-production-all-apps",
-        project_key="default",
-        environment_key="production",
-        application_keys=["billing-service","inventory-service"],
-    ) # PostInsightGroupParams | 
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    post_insight_group_params = launchdarkly_api.PostInsightGroupParams() # PostInsightGroupParams | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create insight group
         api_response = api_instance.create_insight_group(post_insight_group_params)
+        print("The response of InsightsScoresBetaApi->create_insight_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->create_insight_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **post_insight_group_params** | [**PostInsightGroupParams**](PostInsightGroupParams.md)|  |
+ **post_insight_group_params** | [**PostInsightGroupParams**](PostInsightGroupParams.md)|  | 
 
 ### Return type
 
@@ -93,7 +83,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -121,15 +110,10 @@ Delete insight group
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -142,7 +126,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -150,23 +134,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    insight_group_key = "insightGroupKey_example" # str | The insight group key
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    insight_group_key = 'insight_group_key_example' # str | The insight group key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete insight group
         api_instance.delete_insight_group(insight_group_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->delete_insight_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insight_group_key** | **str**| The insight group key |
+ **insight_group_key** | **str**| The insight group key | 
 
 ### Return type
 
@@ -180,7 +165,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -196,7 +180,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_insight_group**
-> InsightGroup get_insight_group(insight_group_key)
+> InsightGroup get_insight_group(insight_group_key, expand=expand)
 
 Get insight group
 
@@ -207,16 +191,11 @@ Get insight group  ### Expanding the insight group response  LaunchDarkly suppor
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.insight_group import InsightGroup
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.insight_group import InsightGroup
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -229,7 +208,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -237,35 +216,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    insight_group_key = "insightGroupKey_example" # str | The insight group key
-    expand = "expand_example" # str | Options: `scores`, `environment` (optional)
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    insight_group_key = 'insight_group_key_example' # str | The insight group key
+    expand = 'expand_example' # str | Options: `scores`, `environment` (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get insight group
-        api_response = api_instance.get_insight_group(insight_group_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling InsightsScoresBetaApi->get_insight_group: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get insight group
         api_response = api_instance.get_insight_group(insight_group_key, expand=expand)
+        print("The response of InsightsScoresBetaApi->get_insight_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->get_insight_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insight_group_key** | **str**| The insight group key |
- **expand** | **str**| Options: &#x60;scores&#x60;, &#x60;environment&#x60; | [optional]
+ **insight_group_key** | **str**| The insight group key | 
+ **expand** | **str**| Options: &#x60;scores&#x60;, &#x60;environment&#x60; | [optional] 
 
 ### Return type
 
@@ -279,7 +251,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -295,7 +266,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_insight_groups**
-> InsightGroupCollection get_insight_groups()
+> InsightGroupCollection get_insight_groups(limit=limit, offset=offset, sort=sort, query=query, expand=expand)
 
 List insight groups
 
@@ -306,15 +277,11 @@ List groups for which you are collecting insights  ### Expanding the insight gro
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.insight_group_collection import InsightGroupCollection
+from launchdarkly_api.models.insight_group_collection import InsightGroupCollection
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -327,7 +294,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -335,33 +302,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    limit = 1 # int | The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort = "sort_example" # str | Sort flag list by field. Prefix field with <code>-</code> to sort in descending order. Allowed fields: name (optional)
-    query = "query_example" # str | Filter list of insights groups by name. (optional)
-    expand = "expand_example" # str | Options: `scores`, `environment`, `metadata` (optional)
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    limit = 56 # int | The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort = 'sort_example' # str | Sort flag list by field. Prefix field with <code>-</code> to sort in descending order. Allowed fields: name (optional)
+    query = 'query_example' # str | Filter list of insights groups by name. (optional)
+    expand = 'expand_example' # str | Options: `scores`, `environment`, `metadata` (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List insight groups
         api_response = api_instance.get_insight_groups(limit=limit, offset=offset, sort=sort, query=query, expand=expand)
+        print("The response of InsightsScoresBetaApi->get_insight_groups:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->get_insight_groups: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**| The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
- **sort** | **str**| Sort flag list by field. Prefix field with &lt;code&gt;-&lt;/code&gt; to sort in descending order. Allowed fields: name | [optional]
- **query** | **str**| Filter list of insights groups by name. | [optional]
- **expand** | **str**| Options: &#x60;scores&#x60;, &#x60;environment&#x60;, &#x60;metadata&#x60; | [optional]
+ **limit** | **int**| The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **sort** | **str**| Sort flag list by field. Prefix field with &lt;code&gt;-&lt;/code&gt; to sort in descending order. Allowed fields: name | [optional] 
+ **query** | **str**| Filter list of insights groups by name. | [optional] 
+ **expand** | **str**| Options: &#x60;scores&#x60;, &#x60;environment&#x60;, &#x60;metadata&#x60; | [optional] 
 
 ### Return type
 
@@ -376,7 +344,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -390,7 +357,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_insights_scores**
-> InsightScores get_insights_scores(project_key, environment_key)
+> InsightScores get_insights_scores(project_key, environment_key, application_key=application_key)
 
 Get insight scores
 
@@ -401,15 +368,11 @@ Return insights scores, based on the given parameters. This data is also used in
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.insight_scores import InsightScores
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.insight_scores import InsightScores
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -422,7 +385,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -430,37 +393,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    application_key = "applicationKey_example" # str | Comma separated list of application keys (optional)
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    application_key = 'application_key_example' # str | Comma separated list of application keys (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get insight scores
-        api_response = api_instance.get_insights_scores(project_key, environment_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling InsightsScoresBetaApi->get_insights_scores: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get insight scores
         api_response = api_instance.get_insights_scores(project_key, environment_key, application_key=application_key)
+        print("The response of InsightsScoresBetaApi->get_insights_scores:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->get_insights_scores: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **application_key** | **str**| Comma separated list of application keys | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **application_key** | **str**| Comma separated list of application keys | [optional] 
 
 ### Return type
 
@@ -475,7 +431,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -489,7 +444,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_insight_group**
-> InsightGroup patch_insight_group(insight_group_key, json_patch)
+> InsightGroup patch_insight_group(insight_group_key, patch_operation)
 
 Patch insight group
 
@@ -500,18 +455,12 @@ Update an insight group. Updating an insight group uses a [JSON patch](https://d
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_scores_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
-from launchdarkly_api.model.insight_group import InsightGroup
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.insight_group import InsightGroup
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -524,7 +473,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -532,32 +481,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_scores_beta_api.InsightsScoresBetaApi(api_client)
-    insight_group_key = "insightGroupKey_example" # str | The insight group key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.InsightsScoresBetaApi(api_client)
+    insight_group_key = 'insight_group_key_example' # str | The insight group key
+    patch_operation = [{"op":"replace","path":"/name","value":"Prod group"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch insight group
-        api_response = api_instance.patch_insight_group(insight_group_key, json_patch)
+        api_response = api_instance.patch_insight_group(insight_group_key, patch_operation)
+        print("The response of InsightsScoresBetaApi->patch_insight_group:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsScoresBetaApi->patch_insight_group: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insight_group_key** | **str**| The insight group key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **insight_group_key** | **str**| The insight group key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -571,7 +516,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

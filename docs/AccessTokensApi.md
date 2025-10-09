@@ -24,14 +24,10 @@ Delete an access token by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +40,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,23 +48,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
-    id = "id_example" # str | The ID of the access token to update
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
+    id = 'id_example' # str | The ID of the access token to update
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete access token
         api_instance.delete_token(id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->delete_token: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the access token to update |
+ **id** | **str**| The ID of the access token to update | 
 
 ### Return type
 
@@ -82,7 +79,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -108,15 +104,11 @@ Get a single access token by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.token import Token
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.token import Token
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -129,7 +121,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -137,24 +129,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
-    id = "id_example" # str | The ID of the access token
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
+    id = 'id_example' # str | The ID of the access token
 
-    # example passing only required values which don't have defaults set
     try:
         # Get access token
         api_response = api_instance.get_token(id)
+        print("The response of AccessTokensApi->get_token:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->get_token: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the access token |
+ **id** | **str**| The ID of the access token | 
 
 ### Return type
 
@@ -168,7 +162,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -183,7 +176,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_tokens**
-> Tokens get_tokens()
+> Tokens get_tokens(show_all=show_all, limit=limit, offset=offset)
 
 List access tokens
 
@@ -194,14 +187,11 @@ Fetch a list of all access tokens.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.tokens import Tokens
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.tokens import Tokens
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -214,7 +204,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -222,29 +212,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
     show_all = True # bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
-    limit = 1 # int | The number of access tokens to return in the response. Defaults to 25. (optional)
-    offset = 1 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    limit = 56 # int | The number of access tokens to return in the response. Defaults to 25. (optional)
+    offset = 56 # int | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List access tokens
         api_response = api_instance.get_tokens(show_all=show_all, limit=limit, offset=offset)
+        print("The response of AccessTokensApi->get_tokens:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->get_tokens: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **show_all** | **bool**| If set to true, and the authentication access token has the &#39;Admin&#39; role, personal access tokens for all members will be retrieved. | [optional]
- **limit** | **int**| The number of access tokens to return in the response. Defaults to 25. | [optional]
- **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
+ **show_all** | **bool**| If set to true, and the authentication access token has the &#39;Admin&#39; role, personal access tokens for all members will be retrieved. | [optional] 
+ **limit** | **int**| The number of access tokens to return in the response. Defaults to 25. | [optional] 
+ **offset** | **int**| Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
 ### Return type
 
@@ -259,7 +250,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -272,7 +262,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_token**
-> Token patch_token(id, json_patch)
+> Token patch_token(id, patch_operation)
 
 Patch access token
 
@@ -283,19 +273,12 @@ Update an access token's settings. Updating an access token uses a [JSON patch](
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.token import Token
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.models.token import Token
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -308,7 +291,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -316,32 +299,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
-    id = "id_example" # str | The ID of the access token to update
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
+    id = 'id_example' # str | The ID of the access token to update
+    patch_operation = [{"op":"replace","path":"/role","value":"writer"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch access token
-        api_response = api_instance.patch_token(id, json_patch)
+        api_response = api_instance.patch_token(id, patch_operation)
+        print("The response of AccessTokensApi->patch_token:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->patch_token: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the access token to update |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **id** | **str**| The ID of the access token to update | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -355,7 +334,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -384,16 +362,12 @@ Create a new access token.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.token import Token
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.access_token_post import AccessTokenPost
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.access_token_post import AccessTokenPost
+from launchdarkly_api.models.token import Token
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -406,7 +380,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -414,46 +388,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
-    access_token_post = AccessTokenPost(
-        name="name_example",
-        description="description_example",
-        role="reader",
-        custom_role_ids=[
-            "custom_role_ids_example",
-        ],
-        inline_role=[
-            StatementPost(
-                resources=["proj/*:env/*:flag/*;testing-tag"],
-                not_resources=[
-                    "not_resources_example",
-                ],
-                actions=["*"],
-                not_actions=[
-                    "not_actions_example",
-                ],
-                effect="allow",
-            ),
-        ],
-        service_token=True,
-        default_api_version=1,
-    ) # AccessTokenPost | 
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
+    access_token_post = {"role":"reader"} # AccessTokenPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create access token
         api_response = api_instance.post_token(access_token_post)
+        print("The response of AccessTokensApi->post_token:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->post_token: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **access_token_post** | [**AccessTokenPost**](AccessTokenPost.md)|  |
+ **access_token_post** | [**AccessTokenPost**](AccessTokenPost.md)|  | 
 
 ### Return type
 
@@ -468,7 +422,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -482,7 +435,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_token**
-> Token reset_token(id)
+> Token reset_token(id, expiry=expiry)
 
 Reset access token
 
@@ -493,15 +446,11 @@ Reset an access token's secret key with an optional expiry time for the old key.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import access_tokens_api
-from launchdarkly_api.model.token import Token
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.token import Token
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -514,7 +463,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -522,35 +471,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = access_tokens_api.AccessTokensApi(api_client)
-    id = "id_example" # str | The ID of the access token to update
-    expiry = 1 # int | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
+    api_instance = launchdarkly_api.AccessTokensApi(api_client)
+    id = 'id_example' # str | The ID of the access token to update
+    expiry = 56 # int | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Reset access token
-        api_response = api_instance.reset_token(id)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling AccessTokensApi->reset_token: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Reset access token
         api_response = api_instance.reset_token(id, expiry=expiry)
+        print("The response of AccessTokensApi->reset_token:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling AccessTokensApi->reset_token: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The ID of the access token to update |
- **expiry** | **int**| An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. | [optional]
+ **id** | **str**| The ID of the access token to update | 
+ **expiry** | **int**| An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. | [optional] 
 
 ### Return type
 
@@ -564,7 +506,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

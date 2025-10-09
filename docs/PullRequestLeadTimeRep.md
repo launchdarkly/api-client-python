@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **coding_duration_ms** | **int** | The coding duration in milliseconds | 
@@ -12,8 +13,24 @@ Name | Type | Description | Notes
 **avg_deploy_duration_ms** | **int** | The average deploy duration in milliseconds | [optional] 
 **max_total_lead_time_ms** | **int** | The max total lead time in milliseconds | [optional] 
 **avg_total_lead_time_ms** | **int** | The average total lead time in milliseconds | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.pull_request_lead_time_rep import PullRequestLeadTimeRep
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of PullRequestLeadTimeRep from a JSON string
+pull_request_lead_time_rep_instance = PullRequestLeadTimeRep.from_json(json)
+# print the JSON string representation of the object
+print(PullRequestLeadTimeRep.to_json())
+
+# convert the object into a dict
+pull_request_lead_time_rep_dict = pull_request_lead_time_rep_instance.to_dict()
+# create an instance of PullRequestLeadTimeRep from a dict
+pull_request_lead_time_rep_from_dict = PullRequestLeadTimeRep.from_dict(pull_request_lead_time_rep_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

@@ -23,18 +23,12 @@ Create big segment store integration
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import persistent_store_integrations_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integration_delivery_configuration_post import IntegrationDeliveryConfigurationPost
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.big_segment_store_integration import BigSegmentStoreIntegration
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.big_segment_store_integration import BigSegmentStoreIntegration
+from launchdarkly_api.models.integration_delivery_configuration_post import IntegrationDeliveryConfigurationPost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -47,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -55,37 +49,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = persistent_store_integrations_beta_api.PersistentStoreIntegrationsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    integration_key = "integrationKey_example" # str | The integration key, either `redis` or `dynamodb`
-    integration_delivery_configuration_post = IntegrationDeliveryConfigurationPost(
-        on=False,
-        config=FormVariableConfig(
-            key=None,
-        ),
-        tags=["example-tag"],
-        name="Sample integration",
-    ) # IntegrationDeliveryConfigurationPost | 
+    api_instance = launchdarkly_api.PersistentStoreIntegrationsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    integration_key = 'integration_key_example' # str | The integration key, either `redis` or `dynamodb`
+    integration_delivery_configuration_post = {"config":{"optional":"example value for optional formVariables property for sample-integration","required":"example value for required formVariables property for sample-integration"},"name":"Example persistent store integration","on":false,"tags":["example-tag"]} # IntegrationDeliveryConfigurationPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create big segment store integration
         api_response = api_instance.create_big_segment_store_integration(project_key, environment_key, integration_key, integration_delivery_configuration_post)
+        print("The response of PersistentStoreIntegrationsBetaApi->create_big_segment_store_integration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling PersistentStoreIntegrationsBetaApi->create_big_segment_store_integration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; |
- **integration_delivery_configuration_post** | [**IntegrationDeliveryConfigurationPost**](IntegrationDeliveryConfigurationPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; | 
+ **integration_delivery_configuration_post** | [**IntegrationDeliveryConfigurationPost**](IntegrationDeliveryConfigurationPost.md)|  | 
 
 ### Return type
 
@@ -99,7 +88,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -127,15 +115,10 @@ Delete a persistent store integration. Each integration uses either Redis or Dyn
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import persistent_store_integrations_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -148,7 +131,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -156,29 +139,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = persistent_store_integrations_beta_api.PersistentStoreIntegrationsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    integration_key = "integrationKey_example" # str | The integration key, either `redis` or `dynamodb`
-    integration_id = "integrationId_example" # str | The integration ID
+    api_instance = launchdarkly_api.PersistentStoreIntegrationsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    integration_key = 'integration_key_example' # str | The integration key, either `redis` or `dynamodb`
+    integration_id = 'integration_id_example' # str | The integration ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete big segment store integration
         api_instance.delete_big_segment_store_integration(project_key, environment_key, integration_key, integration_id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling PersistentStoreIntegrationsBetaApi->delete_big_segment_store_integration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; |
- **integration_id** | **str**| The integration ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; | 
+ **integration_id** | **str**| The integration ID | 
 
 ### Return type
 
@@ -192,7 +176,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -219,15 +202,11 @@ Get a big segment store integration by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import persistent_store_integrations_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.big_segment_store_integration import BigSegmentStoreIntegration
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.big_segment_store_integration import BigSegmentStoreIntegration
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -240,7 +219,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -248,30 +227,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = persistent_store_integrations_beta_api.PersistentStoreIntegrationsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    integration_key = "integrationKey_example" # str | The integration key, either `redis` or `dynamodb`
-    integration_id = "integrationId_example" # str | The integration ID
+    api_instance = launchdarkly_api.PersistentStoreIntegrationsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    integration_key = 'integration_key_example' # str | The integration key, either `redis` or `dynamodb`
+    integration_id = 'integration_id_example' # str | The integration ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get big segment store integration by ID
         api_response = api_instance.get_big_segment_store_integration(project_key, environment_key, integration_key, integration_id)
+        print("The response of PersistentStoreIntegrationsBetaApi->get_big_segment_store_integration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling PersistentStoreIntegrationsBetaApi->get_big_segment_store_integration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; |
- **integration_id** | **str**| The integration ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; | 
+ **integration_id** | **str**| The integration ID | 
 
 ### Return type
 
@@ -285,7 +266,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -311,15 +291,11 @@ List all big segment store integrations.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import persistent_store_integrations_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.big_segment_store_integration_collection import BigSegmentStoreIntegrationCollection
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.big_segment_store_integration_collection import BigSegmentStoreIntegrationCollection
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -332,7 +308,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -340,19 +316,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = persistent_store_integrations_beta_api.PersistentStoreIntegrationsBetaApi(api_client)
+    api_instance = launchdarkly_api.PersistentStoreIntegrationsBetaApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # List all big segment store integrations
         api_response = api_instance.get_big_segment_store_integrations()
+        print("The response of PersistentStoreIntegrationsBetaApi->get_big_segment_store_integrations:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling PersistentStoreIntegrationsBetaApi->get_big_segment_store_integrations: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -368,7 +346,6 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -382,7 +359,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_big_segment_store_integration**
-> BigSegmentStoreIntegration patch_big_segment_store_integration(project_key, environment_key, integration_key, integration_id, json_patch)
+> BigSegmentStoreIntegration patch_big_segment_store_integration(project_key, environment_key, integration_key, integration_id, patch_operation)
 
 Update big segment store integration
 
@@ -393,18 +370,12 @@ Update a big segment store integration. Updating a big segment store requires a 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import persistent_store_integrations_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.big_segment_store_integration import BigSegmentStoreIntegration
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.big_segment_store_integration import BigSegmentStoreIntegration
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -417,7 +388,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -425,38 +396,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = persistent_store_integrations_beta_api.PersistentStoreIntegrationsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    integration_key = "integrationKey_example" # str | The integration key, either `redis` or `dynamodb`
-    integration_id = "integrationId_example" # str | The integration ID
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.PersistentStoreIntegrationsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    integration_key = 'integration_key_example' # str | The integration key, either `redis` or `dynamodb`
+    integration_id = 'integration_id_example' # str | The integration ID
+    patch_operation = [launchdarkly_api.PatchOperation()] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update big segment store integration
-        api_response = api_instance.patch_big_segment_store_integration(project_key, environment_key, integration_key, integration_id, json_patch)
+        api_response = api_instance.patch_big_segment_store_integration(project_key, environment_key, integration_key, integration_id, patch_operation)
+        print("The response of PersistentStoreIntegrationsBetaApi->patch_big_segment_store_integration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling PersistentStoreIntegrationsBetaApi->patch_big_segment_store_integration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; |
- **integration_id** | **str**| The integration ID |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **integration_key** | **str**| The integration key, either &#x60;redis&#x60; or &#x60;dynamodb&#x60; | 
+ **integration_id** | **str**| The integration ID | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -470,7 +437,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

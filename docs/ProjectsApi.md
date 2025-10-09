@@ -26,15 +26,10 @@ Delete a project by key. Use this endpoint with caution. Deleting a project will
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -47,7 +42,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -55,23 +50,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete project
         api_instance.delete_project(project_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->delete_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
+ **project_key** | **str**| The project key | 
 
 ### Return type
 
@@ -85,7 +81,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -112,14 +107,11 @@ Get the flag defaults for a specific project.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.flag_defaults_rep import FlagDefaultsRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.flag_defaults_rep import FlagDefaultsRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -132,7 +124,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -140,24 +132,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get flag defaults for project
         api_response = api_instance.get_flag_defaults_by_project(project_key)
+        print("The response of ProjectsApi->get_flag_defaults_by_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->get_flag_defaults_by_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
+ **project_key** | **str**| The project key | 
 
 ### Return type
 
@@ -172,7 +166,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -185,7 +178,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_project**
-> Project get_project(project_key)
+> Project get_project(project_key, expand=expand)
 
 Get project
 
@@ -196,16 +189,11 @@ Get a single project by key.  ### Expanding the project response  LaunchDarkly s
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.project import Project
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.project import Project
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -218,7 +206,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -226,35 +214,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key.
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key.
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get project
-        api_response = api_instance.get_project(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling ProjectsApi->get_project: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get project
         api_response = api_instance.get_project(project_key, expand=expand)
+        print("The response of ProjectsApi->get_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->get_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key. |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **project_key** | **str**| The project key. | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
 
 ### Return type
 
@@ -268,7 +249,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -284,7 +264,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_projects**
-> Projects get_projects()
+> Projects get_projects(limit=limit, offset=offset, filter=filter, sort=sort, expand=expand)
 
 List projects
 
@@ -295,15 +275,11 @@ Return a list of projects.  By default, this returns the first 20 projects. Page
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.projects import Projects
+from launchdarkly_api.models.projects import Projects
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -316,7 +292,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -324,33 +300,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    limit = 1 # int | The number of projects to return in the response. Defaults to 20. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
-    filter = "filter_example" # str | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
-    sort = "sort_example" # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    limit = 56 # int | The number of projects to return in the response. Defaults to 20. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    filter = 'filter_example' # str | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
+    sort = 'sort_example' # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List projects
         api_response = api_instance.get_projects(limit=limit, offset=offset, filter=filter, sort=sort, expand=expand)
+        print("The response of ProjectsApi->get_projects:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->get_projects: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**| The number of projects to return in the response. Defaults to 20. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional]
- **filter** | **str**| A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;. | [optional]
- **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | [optional]
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
+ **limit** | **int**| The number of projects to return in the response. Defaults to 20. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;. | [optional] 
+ **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | [optional] 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
 
 ### Return type
 
@@ -365,7 +342,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -379,7 +355,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_flag_defaults_by_project**
-> UpsertPayloadRep patch_flag_defaults_by_project(project_key, json_patch)
+> UpsertPayloadRep patch_flag_defaults_by_project(project_key, patch_operation)
 
 Update flag default for project
 
@@ -390,18 +366,12 @@ Update a flag default. Updating a flag default uses a [JSON patch](https://datat
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.upsert_payload_rep import UpsertPayloadRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.models.upsert_payload_rep import UpsertPayloadRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -414,7 +384,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -422,32 +392,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    patch_operation = [launchdarkly_api.PatchOperation()] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update flag default for project
-        api_response = api_instance.patch_flag_defaults_by_project(project_key, json_patch)
+        api_response = api_instance.patch_flag_defaults_by_project(project_key, patch_operation)
+        print("The response of ProjectsApi->patch_flag_defaults_by_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->patch_flag_defaults_by_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -461,7 +427,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -478,7 +443,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_project**
-> ProjectRep patch_project(project_key, json_patch)
+> ProjectRep patch_project(project_key, patch_operation)
 
 Update project
 
@@ -489,18 +454,12 @@ Update a project. Updating a project uses a [JSON patch](https://datatracker.iet
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.project_rep import ProjectRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.models.project_rep import ProjectRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -513,7 +472,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -521,32 +480,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    patch_operation = [{"op":"add","path":"/tags/0","value":"another-tag"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update project
-        api_response = api_instance.patch_project(project_key, json_patch)
+        api_response = api_instance.patch_project(project_key, patch_operation)
+        print("The response of ProjectsApi->patch_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->patch_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -560,7 +515,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -588,17 +542,12 @@ Create a new project with the given key and name. Project keys must be unique wi
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.project_post import ProjectPost
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.project_rep import ProjectRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.project_post import ProjectPost
+from launchdarkly_api.models.project_rep import ProjectRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -611,7 +560,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -619,55 +568,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_post = ProjectPost(
-        name="My Project",
-        key="project-key-123abc",
-        include_in_snippet_by_default=True,
-        default_client_side_availability=DefaultClientSideAvailabilityPost(
-            using_environment_id=True,
-            using_mobile_key=True,
-        ),
-        tags=["ops"],
-        environments=[
-            EnvironmentPost(
-                name="My Environment",
-                key="environment-key-123abc",
-                color="F5A623",
-                default_ttl=5,
-                secure_mode=True,
-                default_track_events=False,
-                confirm_changes=False,
-                require_comments=False,
-                tags=["ops"],
-                source=SourceEnv(
-                    key="key_example",
-                    version=1,
-                ),
-                critical=True,
-            ),
-        ],
-        naming_convention=NamingConvention(
-            case="kebabCase",
-            prefix="enable-",
-        ),
-    ) # ProjectPost | 
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_post = {"key":"project-key-123abc","name":"My Project"} # ProjectPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create project
         api_response = api_instance.post_project(project_post)
+        print("The response of ProjectsApi->post_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->post_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_post** | [**ProjectPost**](ProjectPost.md)|  |
+ **project_post** | [**ProjectPost**](ProjectPost.md)|  | 
 
 ### Return type
 
@@ -681,7 +601,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -708,18 +627,12 @@ Create or update flag defaults for a project.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import projects_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.upsert_payload_rep import UpsertPayloadRep
-from launchdarkly_api.model.upsert_flag_defaults_payload import UpsertFlagDefaultsPayload
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.upsert_flag_defaults_payload import UpsertFlagDefaultsPayload
+from launchdarkly_api.models.upsert_payload_rep import UpsertPayloadRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -732,7 +645,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -740,41 +653,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = projects_api.ProjectsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    upsert_flag_defaults_payload = UpsertFlagDefaultsPayload(
-        tags=["tag-1","tag-2"],
-        temporary=True,
-        boolean_defaults=BooleanFlagDefaults(
-            true_display_name="True",
-            false_display_name="False",
-            true_description="serve true",
-            false_description="serve false",
-            on_variation=0,
-            off_variation=1,
-        ),
-        default_client_side_availability=DefaultClientSideAvailability(
-            using_mobile_key=True,
-            using_environment_id=True,
-        ),
-    ) # UpsertFlagDefaultsPayload | 
+    api_instance = launchdarkly_api.ProjectsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    upsert_flag_defaults_payload = launchdarkly_api.UpsertFlagDefaultsPayload() # UpsertFlagDefaultsPayload | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create or update flag defaults for project
         api_response = api_instance.put_flag_defaults_by_project(project_key, upsert_flag_defaults_payload)
+        print("The response of ProjectsApi->put_flag_defaults_by_project:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling ProjectsApi->put_flag_defaults_by_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **upsert_flag_defaults_payload** | [**UpsertFlagDefaultsPayload**](UpsertFlagDefaultsPayload.md)|  |
+ **project_key** | **str**| The project key | 
+ **upsert_flag_defaults_payload** | [**UpsertFlagDefaultsPayload**](UpsertFlagDefaultsPayload.md)|  | 
 
 ### Return type
 
@@ -788,7 +688,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

@@ -24,14 +24,10 @@ Delete a Relay Proxy config.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +40,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,23 +48,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
-    id = "id_example" # str | The relay auto config id
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
+    id = 'id_example' # str | The relay auto config id
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete Relay Proxy config by ID
         api_instance.delete_relay_auto_config(id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->delete_relay_auto_config: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The relay auto config id |
+ **id** | **str**| The relay auto config id | 
 
 ### Return type
 
@@ -82,7 +79,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -108,15 +104,11 @@ Get a single Relay Proxy auto config by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.relay_auto_config_rep import RelayAutoConfigRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -129,7 +121,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -137,24 +129,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
-    id = "id_example" # str | The relay auto config id
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
+    id = 'id_example' # str | The relay auto config id
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Relay Proxy config
         api_response = api_instance.get_relay_proxy_config(id)
+        print("The response of RelayProxyConfigurationsApi->get_relay_proxy_config:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->get_relay_proxy_config: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The relay auto config id |
+ **id** | **str**| The relay auto config id | 
 
 ### Return type
 
@@ -168,7 +162,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -194,14 +187,11 @@ Get a list of Relay Proxy configurations in the account.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.relay_auto_config_collection_rep import RelayAutoConfigCollectionRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.relay_auto_config_collection_rep import RelayAutoConfigCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -214,7 +204,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -222,19 +212,21 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
 
-    # example, this endpoint has no required or optional parameters
     try:
         # List Relay Proxy configs
         api_response = api_instance.get_relay_proxy_configs()
+        print("The response of RelayProxyConfigurationsApi->get_relay_proxy_configs:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->get_relay_proxy_configs: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -249,7 +241,6 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -274,18 +265,12 @@ Update a Relay Proxy configuration. Updating a configuration uses a [JSON patch]
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.patch_failed_error_rep import PatchFailedErrorRep
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.patch_with_comment import PatchWithComment
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.patch_with_comment import PatchWithComment
+from launchdarkly_api.models.relay_auto_config_rep import RelayAutoConfigRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -298,7 +283,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -306,35 +291,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
-    id = "id_example" # str | The relay auto config id
-    patch_with_comment = PatchWithComment(
-        patch=JSONPatch([
-            PatchOperation(
-                op="replace",
-                path="/exampleField",
-                value=None,
-            ),
-        ]),
-        comment="comment_example",
-    ) # PatchWithComment | 
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
+    id = 'id_example' # str | The relay auto config id
+    patch_with_comment = {"patch":[{"op":"replace","path":"/policy/0","value":{"actions":["*"],"effect":"allow","resources":["proj/*:env/qa"]}}]} # PatchWithComment | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update a Relay Proxy config
         api_response = api_instance.patch_relay_auto_config(id, patch_with_comment)
+        print("The response of RelayProxyConfigurationsApi->patch_relay_auto_config:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->patch_relay_auto_config: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The relay auto config id |
- **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
+ **id** | **str**| The relay auto config id | 
+ **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  | 
 
 ### Return type
 
@@ -348,7 +326,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -376,15 +353,12 @@ Create a Relay Proxy config.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.relay_auto_config_post import RelayAutoConfigPost
-from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.relay_auto_config_post import RelayAutoConfigPost
+from launchdarkly_api.models.relay_auto_config_rep import RelayAutoConfigRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -397,7 +371,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -405,39 +379,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
-    relay_auto_config_post = RelayAutoConfigPost(
-        name="name_example",
-        policy=[
-            Statement(
-                resources=["proj/*:env/*;qa_*:/flag/*"],
-                not_resources=[
-                    "not_resources_example",
-                ],
-                actions=["*"],
-                not_actions=[
-                    "not_actions_example",
-                ],
-                effect="allow",
-            ),
-        ],
-    ) # RelayAutoConfigPost | 
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
+    relay_auto_config_post = {"name":"Sample Relay Proxy config for all proj and env","policy":[{"actions":["*"],"effect":"allow","resources":["proj/*:env/*"]}]} # RelayAutoConfigPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create a new Relay Proxy config
         api_response = api_instance.post_relay_auto_config(relay_auto_config_post)
+        print("The response of RelayProxyConfigurationsApi->post_relay_auto_config:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->post_relay_auto_config: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **relay_auto_config_post** | [**RelayAutoConfigPost**](RelayAutoConfigPost.md)|  |
+ **relay_auto_config_post** | [**RelayAutoConfigPost**](RelayAutoConfigPost.md)|  | 
 
 ### Return type
 
@@ -452,7 +413,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -465,7 +425,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **reset_relay_auto_config**
-> RelayAutoConfigRep reset_relay_auto_config(id)
+> RelayAutoConfigRep reset_relay_auto_config(id, expiry=expiry)
 
 Reset Relay Proxy configuration key
 
@@ -476,15 +436,11 @@ Reset a Relay Proxy configuration's secret key with an optional expiry time for 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import relay_proxy_configurations_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.relay_auto_config_rep import RelayAutoConfigRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.relay_auto_config_rep import RelayAutoConfigRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -497,7 +453,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -505,35 +461,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = relay_proxy_configurations_api.RelayProxyConfigurationsApi(api_client)
-    id = "id_example" # str | The Relay Proxy configuration ID
-    expiry = 1 # int | An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. (optional)
+    api_instance = launchdarkly_api.RelayProxyConfigurationsApi(api_client)
+    id = 'id_example' # str | The Relay Proxy configuration ID
+    expiry = 56 # int | An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Reset Relay Proxy configuration key
-        api_response = api_instance.reset_relay_auto_config(id)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling RelayProxyConfigurationsApi->reset_relay_auto_config: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Reset Relay Proxy configuration key
         api_response = api_instance.reset_relay_auto_config(id, expiry=expiry)
+        print("The response of RelayProxyConfigurationsApi->reset_relay_auto_config:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling RelayProxyConfigurationsApi->reset_relay_auto_config: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **str**| The Relay Proxy configuration ID |
- **expiry** | **int**| An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. | [optional]
+ **id** | **str**| The Relay Proxy configuration ID | 
+ **expiry** | **int**| An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. | [optional] 
 
 ### Return type
 
@@ -547,7 +496,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

@@ -2,12 +2,29 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content** | **str** |  | 
 **role** | **str** |  | 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.message import Message
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of Message from a JSON string
+message_instance = Message.from_json(json)
+# print the JSON string representation of the object
+print(Message.to_json())
+
+# convert the object into a dict
+message_dict = message_instance.to_dict()
+# create an instance of Message from a dict
+message_from_dict = Message.from_dict(message_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

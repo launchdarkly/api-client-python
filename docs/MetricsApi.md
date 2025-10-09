@@ -23,14 +23,10 @@ Delete a metric by key.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -43,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -51,25 +47,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_api.MetricsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_key = "metricKey_example" # str | The metric key
+    api_instance = launchdarkly_api.MetricsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_key = 'metric_key_example' # str | The metric key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete metric
         api_instance.delete_metric(project_key, metric_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsApi->delete_metric: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_key** | **str**| The metric key |
+ **project_key** | **str**| The project key | 
+ **metric_key** | **str**| The metric key | 
 
 ### Return type
 
@@ -84,7 +81,6 @@ void (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -98,7 +94,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_metric**
-> MetricRep get_metric(project_key, metric_key)
+> MetricRep get_metric(project_key, metric_key, expand=expand, version_id=version_id)
 
 Get metric
 
@@ -109,15 +105,11 @@ Get information for a single metric from the specific project.  ### Expanding th
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.metric_rep import MetricRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_rep import MetricRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -130,7 +122,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -138,39 +130,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_api.MetricsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_key = "metricKey_example" # str | The metric key
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
-    version_id = "versionId_example" # str | The specific version ID of the metric (optional)
+    api_instance = launchdarkly_api.MetricsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_key = 'metric_key_example' # str | The metric key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`. (optional)
+    version_id = 'version_id_example' # str | The specific version ID of the metric (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get metric
-        api_response = api_instance.get_metric(project_key, metric_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling MetricsApi->get_metric: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get metric
         api_response = api_instance.get_metric(project_key, metric_key, expand=expand, version_id=version_id)
+        print("The response of MetricsApi->get_metric:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsApi->get_metric: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_key** | **str**| The metric key |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
- **version_id** | **str**| The specific version ID of the metric | [optional]
+ **project_key** | **str**| The project key | 
+ **metric_key** | **str**| The metric key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are &#x60;experiments&#x60;, &#x60;experimentCount&#x60;, &#x60;metricGroups&#x60;, &#x60;metricGroupCount&#x60;, &#x60;eventSources&#x60;, &#x60;guardedRollouts&#x60;, &#x60;guardedRolloutCount&#x60;, and &#x60;lastUsedInEntity&#x60;. | [optional] 
+ **version_id** | **str**| The specific version ID of the metric | [optional] 
 
 ### Return type
 
@@ -184,7 +169,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -199,7 +183,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_metrics**
-> MetricCollectionRep get_metrics(project_key)
+> MetricCollectionRep get_metrics(project_key, expand=expand, limit=limit, offset=offset, sort=sort, filter=filter)
 
 List metrics
 
@@ -210,13 +194,11 @@ Get a list of all metrics for the specified project.  ### Filtering metrics  The
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.metric_collection_rep import MetricCollectionRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.metric_collection_rep import MetricCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -229,7 +211,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -237,43 +219,36 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_api.MetricsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
-    limit = 1 # int | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
-    sort = "sort_example" # str | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`. (optional)
-    filter = "filter_example" # str | A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
+    api_instance = launchdarkly_api.MetricsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit = 56 # int | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    sort = 'sort_example' # str | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`. (optional)
+    filter = 'filter_example' # str | A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # List metrics
-        api_response = api_instance.get_metrics(project_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling MetricsApi->get_metrics: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List metrics
         api_response = api_instance.get_metrics(project_key, expand=expand, limit=limit, offset=offset, sort=sort, filter=filter)
+        print("The response of MetricsApi->get_metrics:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsApi->get_metrics: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional]
- **limit** | **int**| The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional]
- **sort** | **str**| A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;createdAt&#x60; or &#x60;name&#x60;. | [optional]
- **filter** | **str**| A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#39;eventKind&#39;, &#39;isNumeric&#39;, &#39;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, and &#x60;maintainerTeamKey&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | [optional]
+ **project_key** | **str**| The project key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
+ **limit** | **int**| The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
+ **sort** | **str**| A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;createdAt&#x60; or &#x60;name&#x60;. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#39;eventKind&#39;, &#39;isNumeric&#39;, &#39;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, &#x60;maintainerTeamKey&#x60; and &#x60;view&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | [optional] 
 
 ### Return type
 
@@ -288,7 +263,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -300,7 +274,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_metric**
-> MetricRep patch_metric(project_key, metric_key, json_patch)
+> MetricRep patch_metric(project_key, metric_key, patch_operation)
 
 Update metric
 
@@ -311,17 +285,12 @@ Patch a metric by key. Updating a metric uses a [JSON patch](https://datatracker
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.metric_rep import MetricRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.metric_rep import MetricRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -334,7 +303,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -342,34 +311,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_api.MetricsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_key = "metricKey_example" # str | The metric key
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.MetricsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_key = 'metric_key_example' # str | The metric key
+    patch_operation = [{"op":"replace","path":"/name","value":"my-updated-metric"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update metric
-        api_response = api_instance.patch_metric(project_key, metric_key, json_patch)
+        api_response = api_instance.patch_metric(project_key, metric_key, patch_operation)
+        print("The response of MetricsApi->patch_metric:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsApi->patch_metric: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_key** | **str**| The metric key |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **project_key** | **str**| The project key | 
+ **metric_key** | **str**| The metric key | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -383,7 +348,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -410,18 +374,12 @@ Create a new metric in the specified project. The expected `POST` body differs d
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import metrics_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.metric_rep import MetricRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.metric_post import MetricPost
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.metric_post import MetricPost
+from launchdarkly_api.models.metric_rep import MetricRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -434,7 +392,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -442,54 +400,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metrics_api.MetricsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    metric_post = MetricPost(
-        key="metric-key-123abc",
-        name="Example metric",
-        description="optional description",
-        kind="custom",
-        selector=".dropdown-toggle",
-        urls=[
-            UrlPost(
-                kind="exact",
-                url="url_example",
-                substring="substring_example",
-                pattern="pattern_example",
-            ),
-        ],
-        is_numeric=False,
-        unit="orders",
-        event_key="Order placed",
-        success_criteria="HigherThanBaseline",
-        tags=["example-tag"],
-        randomization_units=["user"],
-        maintainer_id="569fdeadbeef1644facecafe",
-        unit_aggregation_type="average",
-        analysis_type="mean",
-        percentile_value=95,
-        event_default=MetricEventDefaultRep(
-            disabled=True,
-            value=0,
-        ),
-    ) # MetricPost | 
+    api_instance = launchdarkly_api.MetricsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    metric_post = {"eventKey":"Order placed","isNumeric":false,"key":"metric-key-123abc","kind":"custom"} # MetricPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create metric
         api_response = api_instance.post_metric(project_key, metric_post)
+        print("The response of MetricsApi->post_metric:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling MetricsApi->post_metric: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **metric_post** | [**MetricPost**](MetricPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **metric_post** | [**MetricPost**](MetricPost.md)|  | 
 
 ### Return type
 
@@ -503,7 +435,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

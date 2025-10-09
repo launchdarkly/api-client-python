@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **get_all_holdouts**
-> HoldoutsCollectionRep get_all_holdouts(project_key, environment_key)
+> HoldoutsCollectionRep get_all_holdouts(project_key, environment_key, limit=limit, offset=offset)
 
 Get all holdouts
 
@@ -21,15 +21,11 @@ Get all holdouts
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import holdouts_beta_api
-from launchdarkly_api.model.holdouts_collection_rep import HoldoutsCollectionRep
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.holdouts_collection_rep import HoldoutsCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -42,7 +38,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -50,39 +46,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = holdouts_beta_api.HoldoutsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    limit = 1 # int | The number of holdouts to return in the response. Defaults to 20 (optional)
-    offset = 1 # int | Where to start in the list. Use this with pagination. For example, an `offset` of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    api_instance = launchdarkly_api.HoldoutsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    limit = 56 # int | The number of holdouts to return in the response. Defaults to 20 (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an `offset` of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get all holdouts
-        api_response = api_instance.get_all_holdouts(project_key, environment_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling HoldoutsBetaApi->get_all_holdouts: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get all holdouts
         api_response = api_instance.get_all_holdouts(project_key, environment_key, limit=limit, offset=offset)
+        print("The response of HoldoutsBetaApi->get_all_holdouts:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling HoldoutsBetaApi->get_all_holdouts: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **limit** | **int**| The number of holdouts to return in the response. Defaults to 20 | [optional]
- **offset** | **int**| Where to start in the list. Use this with pagination. For example, an &#x60;offset&#x60; of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **limit** | **int**| The number of holdouts to return in the response. Defaults to 20 | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an &#x60;offset&#x60; of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
 ### Return type
 
@@ -97,7 +86,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -111,7 +99,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_holdout**
-> HoldoutDetailRep get_holdout(project_key, environment_key, holdout_key)
+> HoldoutDetailRep get_holdout(project_key, environment_key, holdout_key, expand=expand)
 
 Get holdout
 
@@ -122,16 +110,11 @@ Get details about a holdout.  ### Expanding the holdout response  LaunchDarkly s
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import holdouts_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.holdout_detail_rep import HoldoutDetailRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.holdout_detail_rep import HoldoutDetailRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -144,7 +127,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -152,39 +135,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = holdouts_beta_api.HoldoutsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    holdout_key = "holdoutKey_example" # str | The holdout experiment key
-    expand = "expand_example" # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have `rel-` as a prefix. (optional)
+    api_instance = launchdarkly_api.HoldoutsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    holdout_key = 'holdout_key_example' # str | The holdout experiment key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have `rel-` as a prefix. (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get holdout
-        api_response = api_instance.get_holdout(project_key, environment_key, holdout_key)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling HoldoutsBetaApi->get_holdout: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get holdout
         api_response = api_instance.get_holdout(project_key, environment_key, holdout_key, expand=expand)
+        print("The response of HoldoutsBetaApi->get_holdout:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling HoldoutsBetaApi->get_holdout: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **holdout_key** | **str**| The holdout experiment key |
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have &#x60;rel-&#x60; as a prefix. | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **holdout_key** | **str**| The holdout experiment key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have &#x60;rel-&#x60; as a prefix. | [optional] 
 
 ### Return type
 
@@ -198,7 +174,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -223,16 +198,11 @@ Get Holdout by Id
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import holdouts_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.holdout_rep import HoldoutRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.holdout_rep import HoldoutRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -245,7 +215,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -253,28 +223,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = holdouts_beta_api.HoldoutsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    holdout_id = "holdoutId_example" # str | The holdout experiment ID
+    api_instance = launchdarkly_api.HoldoutsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    holdout_id = 'holdout_id_example' # str | The holdout experiment ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get Holdout by Id
         api_response = api_instance.get_holdout_by_id(project_key, environment_key, holdout_id)
+        print("The response of HoldoutsBetaApi->get_holdout_by_id:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling HoldoutsBetaApi->get_holdout_by_id: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **holdout_id** | **str**| The holdout experiment ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **holdout_id** | **str**| The holdout experiment ID | 
 
 ### Return type
 
@@ -288,7 +260,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -315,17 +286,12 @@ Updates an existing holdout, and returns the updated holdout. Updating holdouts 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import holdouts_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.holdout_rep import HoldoutRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.holdout_patch_input import HoldoutPatchInput
+from launchdarkly_api.models.holdout_patch_input import HoldoutPatchInput
+from launchdarkly_api.models.holdout_rep import HoldoutRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -338,7 +304,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -346,37 +312,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = holdouts_beta_api.HoldoutsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    holdout_key = "holdoutKey_example" # str | The holdout key
-    holdout_patch_input = HoldoutPatchInput(
-        comment="Optional comment",
-        instructions=Instructions([
-            Instruction(
-                key=None,
-            ),
-        ]),
-    ) # HoldoutPatchInput | 
+    api_instance = launchdarkly_api.HoldoutsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    holdout_key = 'holdout_key_example' # str | The holdout key
+    holdout_patch_input = {"comment":"Optional comment describing the update","instructions":[{"kind":"updateName","value":"Updated holdout name"}]} # HoldoutPatchInput | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Patch holdout
         api_response = api_instance.patch_holdout(project_key, environment_key, holdout_key, holdout_patch_input)
+        print("The response of HoldoutsBetaApi->patch_holdout:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling HoldoutsBetaApi->patch_holdout: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **holdout_key** | **str**| The holdout key |
- **holdout_patch_input** | [**HoldoutPatchInput**](HoldoutPatchInput.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **holdout_key** | **str**| The holdout key | 
+ **holdout_patch_input** | [**HoldoutPatchInput**](HoldoutPatchInput.md)|  | 
 
 ### Return type
 
@@ -390,7 +351,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -417,13 +377,12 @@ Create a new holdout in the specified project.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import holdouts_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.holdout_post_request import HoldoutPostRequest
-from launchdarkly_api.model.holdout_rep import HoldoutRep
+from launchdarkly_api.models.holdout_post_request import HoldoutPostRequest
+from launchdarkly_api.models.holdout_rep import HoldoutRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -436,7 +395,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -444,45 +403,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = holdouts_beta_api.HoldoutsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    holdout_post_request = HoldoutPostRequest(
-        name="holdout-one-name",
-        key="holdout-key",
-        description="My holdout-one description",
-        randomizationunit="user",
-        attributes=["country","device","os"],
-        holdoutamount="10",
-        primarymetrickey="metric-key-123abc",
-        metrics=[
-            MetricInput(
-                key="metric-key-123abc",
-                is_group=True,
-                primary=True,
-            ),
-        ],
-        prerequisiteflagkey="flag-key-123abc",
-        maintainer_id="maintainer_id_example",
-    ) # HoldoutPostRequest | 
+    api_instance = launchdarkly_api.HoldoutsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    holdout_post_request = launchdarkly_api.HoldoutPostRequest() # HoldoutPostRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create holdout
         api_response = api_instance.post_holdout(project_key, environment_key, holdout_post_request)
+        print("The response of HoldoutsBetaApi->post_holdout:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling HoldoutsBetaApi->post_holdout: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **holdout_post_request** | [**HoldoutPostRequest**](HoldoutPostRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **holdout_post_request** | [**HoldoutPostRequest**](HoldoutPostRequest.md)|  | 
 
 ### Return type
 
@@ -496,7 +440,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

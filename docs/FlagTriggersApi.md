@@ -23,17 +23,12 @@ Create a new flag trigger.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import flag_triggers_api
-from launchdarkly_api.model.trigger_post import TriggerPost
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.trigger_workflow_rep import TriggerWorkflowRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.trigger_post import TriggerPost
+from launchdarkly_api.models.trigger_workflow_rep import TriggerWorkflowRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -46,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -54,38 +49,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    trigger_post = TriggerPost(
-        comment="example comment",
-        instructions=[
-            Instruction(
-                key=None,
-            ),
-        ],
-        integration_key="generic-trigger",
-    ) # TriggerPost | 
+    api_instance = launchdarkly_api.FlagTriggersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    trigger_post = launchdarkly_api.TriggerPost() # TriggerPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create flag trigger
         api_response = api_instance.create_trigger_workflow(project_key, environment_key, feature_flag_key, trigger_post)
+        print("The response of FlagTriggersApi->create_trigger_workflow:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FlagTriggersApi->create_trigger_workflow: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **feature_flag_key** | **str**| The feature flag key |
- **trigger_post** | [**TriggerPost**](TriggerPost.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **trigger_post** | [**TriggerPost**](TriggerPost.md)|  | 
 
 ### Return type
 
@@ -99,7 +88,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -126,15 +114,10 @@ Delete a flag trigger by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import flag_triggers_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -147,7 +130,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -155,29 +138,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    id = "id_example" # str | The flag trigger ID
+    api_instance = launchdarkly_api.FlagTriggersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    id = 'id_example' # str | The flag trigger ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete flag trigger
         api_instance.delete_trigger_workflow(project_key, environment_key, feature_flag_key, id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FlagTriggersApi->delete_trigger_workflow: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **feature_flag_key** | **str**| The feature flag key |
- **id** | **str**| The flag trigger ID |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **id** | **str**| The flag trigger ID | 
 
 ### Return type
 
@@ -191,7 +175,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -218,15 +201,11 @@ Get a flag trigger by ID.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import flag_triggers_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.trigger_workflow_rep import TriggerWorkflowRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.trigger_workflow_rep import TriggerWorkflowRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -239,7 +218,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -247,30 +226,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    environment_key = "environmentKey_example" # str | The environment key
-    id = "id_example" # str | The flag trigger ID
+    api_instance = launchdarkly_api.FlagTriggersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    environment_key = 'environment_key_example' # str | The environment key
+    id = 'id_example' # str | The flag trigger ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get flag trigger by ID
         api_response = api_instance.get_trigger_workflow_by_id(project_key, feature_flag_key, environment_key, id)
+        print("The response of FlagTriggersApi->get_trigger_workflow_by_id:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FlagTriggersApi->get_trigger_workflow_by_id: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
- **environment_key** | **str**| The environment key |
- **id** | **str**| The flag trigger ID |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **environment_key** | **str**| The environment key | 
+ **id** | **str**| The flag trigger ID | 
 
 ### Return type
 
@@ -284,7 +265,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -310,14 +290,11 @@ Get a list of all flag triggers.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import flag_triggers_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.trigger_workflow_collection_rep import TriggerWorkflowCollectionRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.trigger_workflow_collection_rep import TriggerWorkflowCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -330,7 +307,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -338,28 +315,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    api_instance = launchdarkly_api.FlagTriggersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
 
-    # example passing only required values which don't have defaults set
     try:
         # List flag triggers
         api_response = api_instance.get_trigger_workflows(project_key, environment_key, feature_flag_key)
+        print("The response of FlagTriggersApi->get_trigger_workflows:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FlagTriggersApi->get_trigger_workflows: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **feature_flag_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **feature_flag_key** | **str**| The feature flag key | 
 
 ### Return type
 
@@ -373,7 +352,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -398,18 +376,12 @@ Update a flag trigger. Updating a flag trigger uses the semantic patch format.  
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import flag_triggers_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.trigger_workflow_rep import TriggerWorkflowRep
-from launchdarkly_api.model.flag_trigger_input import FlagTriggerInput
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.flag_trigger_input import FlagTriggerInput
+from launchdarkly_api.models.trigger_workflow_rep import TriggerWorkflowRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -422,7 +394,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -430,39 +402,34 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = flag_triggers_api.FlagTriggersApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    id = "id_example" # str | The flag trigger ID
-    flag_trigger_input = FlagTriggerInput(
-        comment="optional comment",
-        instructions=[
-            Instruction(
-                key=None,
-            ),
-        ],
-    ) # FlagTriggerInput | 
+    api_instance = launchdarkly_api.FlagTriggersApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    id = 'id_example' # str | The flag trigger ID
+    flag_trigger_input = launchdarkly_api.FlagTriggerInput() # FlagTriggerInput | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update flag trigger
         api_response = api_instance.patch_trigger_workflow(project_key, environment_key, feature_flag_key, id, flag_trigger_input)
+        print("The response of FlagTriggersApi->patch_trigger_workflow:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FlagTriggersApi->patch_trigger_workflow: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **feature_flag_key** | **str**| The feature flag key |
- **id** | **str**| The flag trigger ID |
- **flag_trigger_input** | [**FlagTriggerInput**](FlagTriggerInput.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **id** | **str**| The flag trigger ID | 
+ **flag_trigger_input** | [**FlagTriggerInput**](FlagTriggerInput.md)|  | 
 
 ### Return type
 
@@ -476,7 +443,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

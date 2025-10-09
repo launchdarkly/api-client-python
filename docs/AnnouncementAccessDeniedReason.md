@@ -2,16 +2,33 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**resources** | **List[str]** | Resource specifier strings | [optional] 
+**not_resources** | **List[str]** | Targeted resources are the resources NOT in this list. The &lt;code&gt;resources&lt;/code&gt; and &lt;code&gt;notActions&lt;/code&gt; fields must be empty to use this field. | [optional] 
+**actions** | **List[str]** | Actions to perform on a resource | [optional] 
+**not_actions** | **List[str]** | Targeted actions are the actions NOT in this list. The &lt;code&gt;actions&lt;/code&gt; and &lt;code&gt;notResources&lt;/code&gt; fields must be empty to use this field. | [optional] 
 **effect** | **str** | Whether this statement should allow or deny actions on the resources. | 
-**resources** | **[str]** | Resource specifier strings | [optional] 
-**not_resources** | **[str]** | Targeted resources are the resources NOT in this list. The &lt;code&gt;resources&lt;/code&gt; and &lt;code&gt;notActions&lt;/code&gt; fields must be empty to use this field. | [optional] 
-**actions** | **[str]** | Actions to perform on a resource | [optional] 
-**not_actions** | **[str]** | Targeted actions are the actions NOT in this list. The &lt;code&gt;actions&lt;/code&gt; and &lt;code&gt;notResources&lt;/code&gt; fields must be empty to use this field. | [optional] 
 **role_name** | **str** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.announcement_access_denied_reason import AnnouncementAccessDeniedReason
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AnnouncementAccessDeniedReason from a JSON string
+announcement_access_denied_reason_instance = AnnouncementAccessDeniedReason.from_json(json)
+# print the JSON string representation of the object
+print(AnnouncementAccessDeniedReason.to_json())
+
+# convert the object into a dict
+announcement_access_denied_reason_dict = announcement_access_denied_reason_instance.to_dict()
+# create an instance of AnnouncementAccessDeniedReason from a dict
+announcement_access_denied_reason_from_dict = AnnouncementAccessDeniedReason.from_dict(announcement_access_denied_reason_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

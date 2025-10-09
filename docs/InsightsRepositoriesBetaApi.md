@@ -21,17 +21,12 @@ Associate repositories with projects
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_repositories_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.insights_repository_project_mappings import InsightsRepositoryProjectMappings
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.insights_repository_project_collection import InsightsRepositoryProjectCollection
+from launchdarkly_api.models.insights_repository_project_collection import InsightsRepositoryProjectCollection
+from launchdarkly_api.models.insights_repository_project_mappings import InsightsRepositoryProjectMappings
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,31 +47,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_repositories_beta_api.InsightsRepositoriesBetaApi(api_client)
-    insights_repository_project_mappings = InsightsRepositoryProjectMappings(
-        mappings=[
-            InsightsRepositoryProject(
-                repository_key="launchdarkly/LaunchDarkly-Docs",
-                project_key="default",
-            ),
-        ],
-    ) # InsightsRepositoryProjectMappings | 
+    api_instance = launchdarkly_api.InsightsRepositoriesBetaApi(api_client)
+    insights_repository_project_mappings = launchdarkly_api.InsightsRepositoryProjectMappings() # InsightsRepositoryProjectMappings | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Associate repositories with projects
         api_response = api_instance.associate_repositories_and_projects(insights_repository_project_mappings)
+        print("The response of InsightsRepositoriesBetaApi->associate_repositories_and_projects:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsRepositoriesBetaApi->associate_repositories_and_projects: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **insights_repository_project_mappings** | [**InsightsRepositoryProjectMappings**](InsightsRepositoryProjectMappings.md)|  |
+ **insights_repository_project_mappings** | [**InsightsRepositoryProjectMappings**](InsightsRepositoryProjectMappings.md)|  | 
 
 ### Return type
 
@@ -90,7 +80,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -117,15 +106,10 @@ Remove repository project association
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_repositories_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -138,7 +122,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -146,25 +130,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_repositories_beta_api.InsightsRepositoriesBetaApi(api_client)
-    repository_key = "repositoryKey_example" # str | The repository key
-    project_key = "projectKey_example" # str | The project key
+    api_instance = launchdarkly_api.InsightsRepositoriesBetaApi(api_client)
+    repository_key = 'repository_key_example' # str | The repository key
+    project_key = 'project_key_example' # str | The project key
 
-    # example passing only required values which don't have defaults set
     try:
         # Remove repository project association
         api_instance.delete_repository_project(repository_key, project_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsRepositoriesBetaApi->delete_repository_project: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **repository_key** | **str**| The repository key |
- **project_key** | **str**| The project key |
+ **repository_key** | **str**| The repository key | 
+ **project_key** | **str**| The project key | 
 
 ### Return type
 
@@ -178,7 +163,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -194,7 +178,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_insights_repositories**
-> InsightsRepositoryCollection get_insights_repositories()
+> InsightsRepositoryCollection get_insights_repositories(expand=expand)
 
 List repositories
 
@@ -205,16 +189,11 @@ Get a list of repositories  ### Expanding the repository collection response  La
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_repositories_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.insights_repository_collection import InsightsRepositoryCollection
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.insights_repository_collection import InsightsRepositoryCollection
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -227,7 +206,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -235,25 +214,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_repositories_beta_api.InsightsRepositoriesBetaApi(api_client)
-    expand = "expand_example" # str | Expand properties in response. Options: `projects` (optional)
+    api_instance = launchdarkly_api.InsightsRepositoriesBetaApi(api_client)
+    expand = 'expand_example' # str | Expand properties in response. Options: `projects` (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List repositories
         api_response = api_instance.get_insights_repositories(expand=expand)
+        print("The response of InsightsRepositoriesBetaApi->get_insights_repositories:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsRepositoriesBetaApi->get_insights_repositories: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **expand** | **str**| Expand properties in response. Options: &#x60;projects&#x60; | [optional]
+ **expand** | **str**| Expand properties in response. Options: &#x60;projects&#x60; | [optional] 
 
 ### Return type
 
@@ -267,7 +247,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

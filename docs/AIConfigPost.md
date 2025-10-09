@@ -2,16 +2,34 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**description** | **str** |  | [optional] [default to '']
 **key** | **str** |  | 
-**name** | **str** |  | 
-**description** | **str** |  | [optional]  if omitted the server will use the default value of ""
 **maintainer_id** | **str** |  | [optional] 
 **maintainer_team_key** | **str** |  | [optional] 
-**tags** | **[str]** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
+**mode** | **str** |  | [optional] [default to 'completion']
+**name** | **str** |  | 
+**tags** | **List[str]** |  | [optional] 
 
+## Example
+
+```python
+from launchdarkly_api.models.ai_config_post import AIConfigPost
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of AIConfigPost from a JSON string
+ai_config_post_instance = AIConfigPost.from_json(json)
+# print the JSON string representation of the object
+print(AIConfigPost.to_json())
+
+# convert the object into a dict
+ai_config_post_dict = ai_config_post_instance.to_dict()
+# create an instance of AIConfigPost from a dict
+ai_config_post_from_dict = AIConfigPost.from_dict(ai_config_post_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

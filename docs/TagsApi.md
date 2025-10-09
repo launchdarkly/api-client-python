@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_tags**
-> TagsCollection get_tags()
+> TagsCollection get_tags(kind=kind, pre=pre, archived=archived, limit=limit, offset=offset, as_of=as_of)
 
 List tags
 
@@ -19,12 +19,11 @@ Get a list of tags.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import tags_api
-from launchdarkly_api.model.tags_collection import TagsCollection
-from launchdarkly_api.model.error import Error
+from launchdarkly_api.models.tags_collection import TagsCollection
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -37,7 +36,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -45,37 +44,36 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = tags_api.TagsApi(api_client)
-    kind = [
-        "kind_example",
-    ] # [str] | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`. Returns all types by default. (optional)
-    pre = "pre_example" # str | Return tags with the specified prefix (optional)
+    api_instance = launchdarkly_api.TagsApi(api_client)
+    kind = ['kind_example'] # List[str] | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default. (optional)
+    pre = 'pre_example' # str | Return tags with the specified prefix (optional)
     archived = True # bool | Whether or not to return archived flags (optional)
-    limit = 1 # int | The number of tags to return. Maximum is 1000. (optional)
-    offset = 1 # int | The index of the first tag to return. Default is 0. (optional)
-    as_of = "asOf_example" # str | The time to retrieve tags as of. Default is the current time. (optional)
+    limit = 56 # int | The number of tags to return. Maximum is 1000. (optional)
+    offset = 56 # int | The index of the first tag to return. Default is 0. (optional)
+    as_of = 'as_of_example' # str | The time to retrieve tags as of. Default is the current time. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List tags
         api_response = api_instance.get_tags(kind=kind, pre=pre, archived=archived, limit=limit, offset=offset, as_of=as_of)
+        print("The response of TagsApi->get_tags:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling TagsApi->get_tags: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **kind** | **[str]**| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;. Returns all types by default. | [optional]
- **pre** | **str**| Return tags with the specified prefix | [optional]
- **archived** | **bool**| Whether or not to return archived flags | [optional]
- **limit** | **int**| The number of tags to return. Maximum is 1000. | [optional]
- **offset** | **int**| The index of the first tag to return. Default is 0. | [optional]
- **as_of** | **str**| The time to retrieve tags as of. Default is the current time. | [optional]
+ **kind** | [**List[str]**](str.md)| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default. | [optional] 
+ **pre** | **str**| Return tags with the specified prefix | [optional] 
+ **archived** | **bool**| Whether or not to return archived flags | [optional] 
+ **limit** | **int**| The number of tags to return. Maximum is 1000. | [optional] 
+ **offset** | **int**| The index of the first tag to return. Default is 0. | [optional] 
+ **as_of** | **str**| The time to retrieve tags as of. Default is the current time. | [optional] 
 
 ### Return type
 
@@ -89,7 +87,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

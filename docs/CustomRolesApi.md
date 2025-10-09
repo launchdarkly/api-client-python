@@ -23,13 +23,10 @@ Delete a custom role by key
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import custom_roles_api
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -42,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -50,23 +47,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = custom_roles_api.CustomRolesApi(api_client)
-    custom_role_key = "customRoleKey_example" # str | The custom role key
+    api_instance = launchdarkly_api.CustomRolesApi(api_client)
+    custom_role_key = 'custom_role_key_example' # str | The custom role key
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete custom role
         api_instance.delete_custom_role(custom_role_key)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CustomRolesApi->delete_custom_role: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **custom_role_key** | **str**| The custom role key |
+ **custom_role_key** | **str**| The custom role key | 
 
 ### Return type
 
@@ -80,7 +78,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -105,15 +102,11 @@ Get a single custom role by key or ID
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import custom_roles_api
-from launchdarkly_api.model.custom_role import CustomRole
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.custom_role import CustomRole
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -126,7 +119,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -134,24 +127,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = custom_roles_api.CustomRolesApi(api_client)
-    custom_role_key = "customRoleKey_example" # str | The custom role key or ID
+    api_instance = launchdarkly_api.CustomRolesApi(api_client)
+    custom_role_key = 'custom_role_key_example' # str | The custom role key or ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get custom role
         api_response = api_instance.get_custom_role(custom_role_key)
+        print("The response of CustomRolesApi->get_custom_role:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CustomRolesApi->get_custom_role: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **custom_role_key** | **str**| The custom role key or ID |
+ **custom_role_key** | **str**| The custom role key or ID | 
 
 ### Return type
 
@@ -166,7 +161,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 
 | Status code | Description | Response headers |
@@ -180,25 +174,22 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_custom_roles**
-> CustomRoles get_custom_roles()
+> CustomRoles get_custom_roles(limit=limit, offset=offset)
 
 List custom roles
 
-Get a complete list of custom roles. Custom roles let you create flexible policies providing fine-grained access control to everything in LaunchDarkly, from feature flags to goals, environments, and teams. With custom roles, it's possible to enforce access policies that meet your exact workflow needs. Custom roles are available to customers on our enterprise plans. If you're interested in learning more about our enterprise plans, contact sales@launchdarkly.com.
+Get a complete list of custom roles. This includes project and organization roles that you create, or that are provided as presets by LaunchDarkly. It does not include base roles.
 
 ### Example
 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import custom_roles_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.custom_roles import CustomRoles
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.custom_roles import CustomRoles
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -211,7 +202,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -219,27 +210,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = custom_roles_api.CustomRolesApi(api_client)
-    limit = 1 # int | The maximum number of custom roles to return. Defaults to 20. (optional)
-    offset = 1 # int | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    api_instance = launchdarkly_api.CustomRolesApi(api_client)
+    limit = 56 # int | The maximum number of custom roles to return. Defaults to 20. (optional)
+    offset = 56 # int | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # List custom roles
         api_response = api_instance.get_custom_roles(limit=limit, offset=offset)
+        print("The response of CustomRolesApi->get_custom_roles:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CustomRolesApi->get_custom_roles: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**| The maximum number of custom roles to return. Defaults to 20. | [optional]
- **offset** | **int**| Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional]
+ **limit** | **int**| The maximum number of custom roles to return. Defaults to 20. | [optional] 
+ **offset** | **int**| Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
 ### Return type
 
@@ -253,7 +245,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -278,17 +269,12 @@ Update a single custom role. Updating a custom role uses a [JSON patch](https://
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import custom_roles_api
-from launchdarkly_api.model.custom_role import CustomRole
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.patch_with_comment import PatchWithComment
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.custom_role import CustomRole
+from launchdarkly_api.models.patch_with_comment import PatchWithComment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -301,7 +287,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -309,35 +295,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = custom_roles_api.CustomRolesApi(api_client)
-    custom_role_key = "customRoleKey_example" # str | The custom role key
-    patch_with_comment = PatchWithComment(
-        patch=JSONPatch([
-            PatchOperation(
-                op="replace",
-                path="/exampleField",
-                value=None,
-            ),
-        ]),
-        comment="comment_example",
-    ) # PatchWithComment | 
+    api_instance = launchdarkly_api.CustomRolesApi(api_client)
+    custom_role_key = 'custom_role_key_example' # str | The custom role key
+    patch_with_comment = {"patch":[{"op":"add","path":"/policy/0","value":{"actions":["updateOn"],"effect":"allow","resources":["proj/*:env/qa:flag/*"]}}]} # PatchWithComment | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update custom role
         api_response = api_instance.patch_custom_role(custom_role_key, patch_with_comment)
+        print("The response of CustomRolesApi->patch_custom_role:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CustomRolesApi->patch_custom_role: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **custom_role_key** | **str**| The custom role key |
- **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  |
+ **custom_role_key** | **str**| The custom role key | 
+ **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  | 
 
 ### Return type
 
@@ -351,7 +330,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -378,17 +356,12 @@ Create a new custom role
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import custom_roles_api
-from launchdarkly_api.model.custom_role import CustomRole
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.custom_role_post import CustomRolePost
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.custom_role import CustomRole
+from launchdarkly_api.models.custom_role_post import CustomRolePost
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -401,7 +374,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -409,43 +382,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = custom_roles_api.CustomRolesApi(api_client)
-    custom_role_post = CustomRolePost(
-        name="Ops team",
-        key="role-key-123abc",
-        description="An example role for members of the ops team",
-        policy=StatementPostList([
-            StatementPost(
-                resources=["proj/*:env/*:flag/*;testing-tag"],
-                not_resources=[
-                    "not_resources_example",
-                ],
-                actions=["*"],
-                not_actions=[
-                    "not_actions_example",
-                ],
-                effect="allow",
-            ),
-        ]),
-        base_permissions="base_permissions_example",
-        resource_category="resource_category_example",
-    ) # CustomRolePost | 
+    api_instance = launchdarkly_api.CustomRolesApi(api_client)
+    custom_role_post = {"basePermissions":"reader","description":"An example role for members of the ops team","key":"role-key-123abc","name":"Ops team","policy":[{"actions":["updateOn"],"effect":"allow","resources":["proj/*:env/production:flag/*"]}]} # CustomRolePost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create custom role
         api_response = api_instance.post_custom_role(custom_role_post)
+        print("The response of CustomRolesApi->post_custom_role:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling CustomRolesApi->post_custom_role: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **custom_role_post** | [**CustomRolePost**](CustomRolePost.md)|  |
+ **custom_role_post** | [**CustomRolePost**](CustomRolePost.md)|  | 
 
 ### Return type
 
@@ -459,7 +415,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

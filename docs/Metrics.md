@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **input_tokens** | **int** |  | [optional] 
@@ -17,8 +18,24 @@ Name | Type | Description | Notes
 **satisfaction_rating** | **float** | A value between 0 and 1 representing satisfaction rating | [optional] 
 **input_cost** | **float** | Cost of input tokens in USD | [optional] 
 **output_cost** | **float** | Cost of output tokens in USD | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.metrics import Metrics
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of Metrics from a JSON string
+metrics_instance = Metrics.from_json(json)
+# print the JSON string representation of the object
+print(Metrics.to_json())
+
+# convert the object into a dict
+metrics_dict = metrics_instance.to_dict()
+# create an instance of Metrics from a dict
+metrics_from_dict = Metrics.from_dict(metrics_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

@@ -23,15 +23,11 @@ Get a list of flags for which the given user is scheduled for removal.
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import user_settings_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.expiring_user_target_get_response import ExpiringUserTargetGetResponse
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.expiring_user_target_get_response import ExpiringUserTargetGetResponse
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +40,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,28 +48,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = user_settings_api.UserSettingsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    user_key = "userKey_example" # str | The user key
-    environment_key = "environmentKey_example" # str | The environment key
+    api_instance = launchdarkly_api.UserSettingsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    user_key = 'user_key_example' # str | The user key
+    environment_key = 'environment_key_example' # str | The environment key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get expiring dates on flags for user
         api_response = api_instance.get_expiring_flags_for_user(project_key, user_key, environment_key)
+        print("The response of UserSettingsApi->get_expiring_flags_for_user:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling UserSettingsApi->get_expiring_flags_for_user: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **user_key** | **str**| The user key |
- **environment_key** | **str**| The environment key |
+ **project_key** | **str**| The project key | 
+ **user_key** | **str**| The user key | 
+ **environment_key** | **str**| The environment key | 
 
 ### Return type
 
@@ -87,7 +85,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -113,16 +110,11 @@ Get a single flag setting for a user by flag key. <br /><br />The `_value` is th
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import user_settings_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.user_flag_setting import UserFlagSetting
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.user_flag_setting import UserFlagSetting
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -135,7 +127,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -143,30 +135,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = user_settings_api.UserSettingsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    user_key = "userKey_example" # str | The user key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    api_instance = launchdarkly_api.UserSettingsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    user_key = 'user_key_example' # str | The user key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get flag setting for user
         api_response = api_instance.get_user_flag_setting(project_key, environment_key, user_key, feature_flag_key)
+        print("The response of UserSettingsApi->get_user_flag_setting:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling UserSettingsApi->get_user_flag_setting: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **user_key** | **str**| The user key |
- **feature_flag_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **user_key** | **str**| The user key | 
+ **feature_flag_key** | **str**| The feature flag key | 
 
 ### Return type
 
@@ -180,7 +174,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -207,16 +200,11 @@ Get the current flag settings for a given user. <br /><br />The `_value` is the 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import user_settings_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.user_flag_settings import UserFlagSettings
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.user_flag_settings import UserFlagSettings
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -229,7 +217,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -237,28 +225,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = user_settings_api.UserSettingsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    user_key = "userKey_example" # str | The user key
+    api_instance = launchdarkly_api.UserSettingsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    user_key = 'user_key_example' # str | The user key
 
-    # example passing only required values which don't have defaults set
     try:
         # List flag settings for user
         api_response = api_instance.get_user_flag_settings(project_key, environment_key, user_key)
+        print("The response of UserSettingsApi->get_user_flag_settings:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling UserSettingsApi->get_user_flag_settings: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **user_key** | **str**| The user key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **user_key** | **str**| The user key | 
 
 ### Return type
 
@@ -272,7 +262,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -299,17 +288,12 @@ Schedule the specified user for removal from individual targeting on one or more
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import user_settings_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.patch_users_request import PatchUsersRequest
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.expiring_user_target_patch_response import ExpiringUserTargetPatchResponse
+from launchdarkly_api.models.patch_users_request import PatchUsersRequest
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -322,7 +306,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -330,41 +314,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = user_settings_api.UserSettingsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    user_key = "userKey_example" # str | The user key
-    environment_key = "environmentKey_example" # str | The environment key
-    patch_users_request = PatchUsersRequest(
-        comment="optional comment",
-        instructions=[
-            InstructionUserRequest(
-                kind="addExpireUserTargetDate",
-                flag_key="sample-flag-key",
-                variation_id="ce12d345-a1b2-4fb5-a123-ab123d4d5f5d",
-                value=1653469200000,
-                version=1,
-            ),
-        ],
-    ) # PatchUsersRequest | 
+    api_instance = launchdarkly_api.UserSettingsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    user_key = 'user_key_example' # str | The user key
+    environment_key = 'environment_key_example' # str | The environment key
+    patch_users_request = launchdarkly_api.PatchUsersRequest() # PatchUsersRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update expiring user target for flags
         api_response = api_instance.patch_expiring_flags_for_user(project_key, user_key, environment_key, patch_users_request)
+        print("The response of UserSettingsApi->patch_expiring_flags_for_user:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling UserSettingsApi->patch_expiring_flags_for_user: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **user_key** | **str**| The user key |
- **environment_key** | **str**| The environment key |
- **patch_users_request** | [**PatchUsersRequest**](PatchUsersRequest.md)|  |
+ **project_key** | **str**| The project key | 
+ **user_key** | **str**| The user key | 
+ **environment_key** | **str**| The environment key | 
+ **patch_users_request** | [**PatchUsersRequest**](PatchUsersRequest.md)|  | 
 
 ### Return type
 
@@ -378,7 +353,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -405,16 +379,11 @@ Enable or disable a feature flag for a user based on their key.  Omitting the `s
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import user_settings_api
-from launchdarkly_api.model.value_put import ValuePut
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.value_put import ValuePut
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -427,7 +396,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -435,34 +404,32 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = user_settings_api.UserSettingsApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    user_key = "userKey_example" # str | The user key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
-    value_put = ValuePut(
-        setting=None,
-        comment="make sure this context experiences a specific variation",
-    ) # ValuePut | 
+    api_instance = launchdarkly_api.UserSettingsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    user_key = 'user_key_example' # str | The user key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
+    value_put = launchdarkly_api.ValuePut() # ValuePut | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update flag settings for user
         api_instance.put_flag_setting(project_key, environment_key, user_key, feature_flag_key, value_put)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling UserSettingsApi->put_flag_setting: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **user_key** | **str**| The user key |
- **feature_flag_key** | **str**| The feature flag key |
- **value_put** | [**ValuePut**](ValuePut.md)|  |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **user_key** | **str**| The user key | 
+ **feature_flag_key** | **str**| The feature flag key | 
+ **value_put** | [**ValuePut**](ValuePut.md)|  | 
 
 ### Return type
 
@@ -476,7 +443,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

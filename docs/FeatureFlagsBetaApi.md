@@ -20,15 +20,11 @@ List dependent feature flags
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import feature_flags_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.multi_environment_dependent_flags import MultiEnvironmentDependentFlags
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.multi_environment_dependent_flags import MultiEnvironmentDependentFlags
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -41,7 +37,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -49,26 +45,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = feature_flags_beta_api.FeatureFlagsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    api_instance = launchdarkly_api.FeatureFlagsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
 
-    # example passing only required values which don't have defaults set
     try:
         # List dependent feature flags
         api_response = api_instance.get_dependent_flags(project_key, feature_flag_key)
+        print("The response of FeatureFlagsBetaApi->get_dependent_flags:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FeatureFlagsBetaApi->get_dependent_flags: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **feature_flag_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key | 
+ **feature_flag_key** | **str**| The feature flag key | 
 
 ### Return type
 
@@ -82,7 +80,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -108,15 +105,11 @@ List dependent feature flags by environment
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import feature_flags_beta_api
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.dependent_flags_by_environment import DependentFlagsByEnvironment
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.dependent_flags_by_environment import DependentFlagsByEnvironment
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -129,7 +122,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -137,28 +130,30 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = feature_flags_beta_api.FeatureFlagsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    feature_flag_key = "featureFlagKey_example" # str | The feature flag key
+    api_instance = launchdarkly_api.FeatureFlagsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    feature_flag_key = 'feature_flag_key_example' # str | The feature flag key
 
-    # example passing only required values which don't have defaults set
     try:
         # List dependent feature flags by environment
         api_response = api_instance.get_dependent_flags_by_env(project_key, environment_key, feature_flag_key)
+        print("The response of FeatureFlagsBetaApi->get_dependent_flags_by_env:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling FeatureFlagsBetaApi->get_dependent_flags_by_env: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **feature_flag_key** | **str**| The feature flag key |
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **feature_flag_key** | **str**| The feature flag key | 
 
 ### Return type
 
@@ -172,7 +167,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

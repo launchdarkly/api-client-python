@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **get_pull_requests**
-> PullRequestCollectionRep get_pull_requests(project_key)
+> PullRequestCollectionRep get_pull_requests(project_key, environment_key=environment_key, application_key=application_key, status=status, query=query, limit=limit, expand=expand, sort=sort, var_from=var_from, to=to, after=after, before=before)
 
 List pull requests
 
@@ -19,16 +19,11 @@ Get a list of pull requests  ### Expanding the pull request collection response 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_pull_requests_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.pull_request_collection_rep import PullRequestCollectionRep
+from launchdarkly_api.models.pull_request_collection_rep import PullRequestCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -41,7 +36,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -49,55 +44,48 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_pull_requests_beta_api.InsightsPullRequestsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | Required if you are using the <code>sort</code> parameter's <code>leadTime</code> option to sort pull requests. (optional)
-    application_key = "applicationKey_example" # str | Filter the results to pull requests deployed to a comma separated list of applications (optional)
-    status = "status_example" # str | Filter results to pull requests with the given status. Options: `open`, `merged`, `closed`, `deployed`. (optional)
-    query = "query_example" # str | Filter list of pull requests by title or author (optional)
-    limit = 1 # int | The number of pull requests to return. Default is 20. Maximum allowed is 100. (optional)
-    expand = "expand_example" # str | Expand properties in response. Options: `deployments`, `flagReferences`, `leadTime`. (optional)
-    sort = "sort_example" # str | Sort results. Requires the `environmentKey` to be set. Options: `leadTime` (asc) and `-leadTime` (desc). When query option is excluded, default sort is by created or merged date. (optional)
-    _from = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | Unix timestamp in milliseconds. Default value is now. (optional)
-    after = "after_example" # str | Identifier used for pagination (optional)
-    before = "before_example" # str | Identifier used for pagination (optional)
+    api_instance = launchdarkly_api.InsightsPullRequestsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | Required if you are using the <code>sort</code> parameter's <code>leadTime</code> option to sort pull requests. (optional)
+    application_key = 'application_key_example' # str | Filter the results to pull requests deployed to a comma separated list of applications (optional)
+    status = 'status_example' # str | Filter results to pull requests with the given status. Options: `open`, `merged`, `closed`, `deployed`. (optional)
+    query = 'query_example' # str | Filter list of pull requests by title or author (optional)
+    limit = 56 # int | The number of pull requests to return. Default is 20. Maximum allowed is 100. (optional)
+    expand = 'expand_example' # str | Expand properties in response. Options: `deployments`, `flagReferences`, `leadTime`. (optional)
+    sort = 'sort_example' # str | Sort results. Requires the `environmentKey` to be set. Options: `leadTime` (asc) and `-leadTime` (desc). When query option is excluded, default sort is by created or merged date. (optional)
+    var_from = '2013-10-20T19:20:30+01:00' # datetime | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+    to = '2013-10-20T19:20:30+01:00' # datetime | Unix timestamp in milliseconds. Default value is now. (optional)
+    after = 'after_example' # str | Identifier used for pagination (optional)
+    before = 'before_example' # str | Identifier used for pagination (optional)
 
-    # example passing only required values which don't have defaults set
     try:
         # List pull requests
-        api_response = api_instance.get_pull_requests(project_key)
+        api_response = api_instance.get_pull_requests(project_key, environment_key=environment_key, application_key=application_key, status=status, query=query, limit=limit, expand=expand, sort=sort, var_from=var_from, to=to, after=after, before=before)
+        print("The response of InsightsPullRequestsBetaApi->get_pull_requests:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling InsightsPullRequestsBetaApi->get_pull_requests: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
-    try:
-        # List pull requests
-        api_response = api_instance.get_pull_requests(project_key, environment_key=environment_key, application_key=application_key, status=status, query=query, limit=limit, expand=expand, sort=sort, _from=_from, to=to, after=after, before=before)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsPullRequestsBetaApi->get_pull_requests: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| Required if you are using the &lt;code&gt;sort&lt;/code&gt; parameter&#39;s &lt;code&gt;leadTime&lt;/code&gt; option to sort pull requests. | [optional]
- **application_key** | **str**| Filter the results to pull requests deployed to a comma separated list of applications | [optional]
- **status** | **str**| Filter results to pull requests with the given status. Options: &#x60;open&#x60;, &#x60;merged&#x60;, &#x60;closed&#x60;, &#x60;deployed&#x60;. | [optional]
- **query** | **str**| Filter list of pull requests by title or author | [optional]
- **limit** | **int**| The number of pull requests to return. Default is 20. Maximum allowed is 100. | [optional]
- **expand** | **str**| Expand properties in response. Options: &#x60;deployments&#x60;, &#x60;flagReferences&#x60;, &#x60;leadTime&#x60;. | [optional]
- **sort** | **str**| Sort results. Requires the &#x60;environmentKey&#x60; to be set. Options: &#x60;leadTime&#x60; (asc) and &#x60;-leadTime&#x60; (desc). When query option is excluded, default sort is by created or merged date. | [optional]
- **_from** | **datetime**| Unix timestamp in milliseconds. Default value is 7 days ago. | [optional]
- **to** | **datetime**| Unix timestamp in milliseconds. Default value is now. | [optional]
- **after** | **str**| Identifier used for pagination | [optional]
- **before** | **str**| Identifier used for pagination | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| Required if you are using the &lt;code&gt;sort&lt;/code&gt; parameter&#39;s &lt;code&gt;leadTime&lt;/code&gt; option to sort pull requests. | [optional] 
+ **application_key** | **str**| Filter the results to pull requests deployed to a comma separated list of applications | [optional] 
+ **status** | **str**| Filter results to pull requests with the given status. Options: &#x60;open&#x60;, &#x60;merged&#x60;, &#x60;closed&#x60;, &#x60;deployed&#x60;. | [optional] 
+ **query** | **str**| Filter list of pull requests by title or author | [optional] 
+ **limit** | **int**| The number of pull requests to return. Default is 20. Maximum allowed is 100. | [optional] 
+ **expand** | **str**| Expand properties in response. Options: &#x60;deployments&#x60;, &#x60;flagReferences&#x60;, &#x60;leadTime&#x60;. | [optional] 
+ **sort** | **str**| Sort results. Requires the &#x60;environmentKey&#x60; to be set. Options: &#x60;leadTime&#x60; (asc) and &#x60;-leadTime&#x60; (desc). When query option is excluded, default sort is by created or merged date. | [optional] 
+ **var_from** | **datetime**| Unix timestamp in milliseconds. Default value is 7 days ago. | [optional] 
+ **to** | **datetime**| Unix timestamp in milliseconds. Default value is now. | [optional] 
+ **after** | **str**| Identifier used for pagination | [optional] 
+ **before** | **str**| Identifier used for pagination | [optional] 
 
 ### Return type
 
@@ -111,7 +99,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 

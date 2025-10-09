@@ -22,16 +22,11 @@ Create deployment event
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_deployments_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.post_deployment_event_input import PostDeploymentEventInput
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.post_deployment_event_input import PostDeploymentEventInput
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -44,7 +39,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -52,39 +47,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_deployments_beta_api.InsightsDeploymentsBetaApi(api_client)
-    post_deployment_event_input = PostDeploymentEventInput(
-        project_key="default",
-        environment_key="production",
-        application_key="billing-service",
-        application_name="Billing Service",
-        application_kind="server",
-        version="a90a8a2",
-        version_name="v1.0.0",
-        event_type="started",
-        event_time=1,
-        event_metadata={
-            "key": None,
-        },
-        deployment_metadata={
-            "key": None,
-        },
-    ) # PostDeploymentEventInput | 
+    api_instance = launchdarkly_api.InsightsDeploymentsBetaApi(api_client)
+    post_deployment_event_input = launchdarkly_api.PostDeploymentEventInput() # PostDeploymentEventInput | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create deployment event
         api_instance.create_deployment_event(post_deployment_event_input)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsDeploymentsBetaApi->create_deployment_event: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **post_deployment_event_input** | [**PostDeploymentEventInput**](PostDeploymentEventInput.md)|  |
+ **post_deployment_event_input** | [**PostDeploymentEventInput**](PostDeploymentEventInput.md)|  | 
 
 ### Return type
 
@@ -98,7 +78,6 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -114,7 +93,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_deployment**
-> DeploymentRep get_deployment(deployment_id)
+> DeploymentRep get_deployment(deployment_id, expand=expand)
 
 Get deployment
 
@@ -125,16 +104,11 @@ Get a deployment by ID.  The deployment ID is returned as part of the [List depl
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_deployments_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.deployment_rep import DeploymentRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.deployment_rep import DeploymentRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -147,7 +121,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -155,35 +129,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_deployments_beta_api.InsightsDeploymentsBetaApi(api_client)
-    deployment_id = "deploymentID_example" # str | The deployment ID
-    expand = "expand_example" # str | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
+    api_instance = launchdarkly_api.InsightsDeploymentsBetaApi(api_client)
+    deployment_id = 'deployment_id_example' # str | The deployment ID
+    expand = 'expand_example' # str | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Get deployment
-        api_response = api_instance.get_deployment(deployment_id)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling InsightsDeploymentsBetaApi->get_deployment: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get deployment
         api_response = api_instance.get_deployment(deployment_id, expand=expand)
+        print("The response of InsightsDeploymentsBetaApi->get_deployment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsDeploymentsBetaApi->get_deployment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deployment_id** | **str**| The deployment ID |
- **expand** | **str**| Expand properties in response. Options: &#x60;pullRequests&#x60;, &#x60;flagReferences&#x60; | [optional]
+ **deployment_id** | **str**| The deployment ID | 
+ **expand** | **str**| Expand properties in response. Options: &#x60;pullRequests&#x60;, &#x60;flagReferences&#x60; | [optional] 
 
 ### Return type
 
@@ -197,7 +164,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -213,7 +179,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_deployments**
-> DeploymentCollectionRep get_deployments(project_key, environment_key)
+> DeploymentCollectionRep get_deployments(project_key, environment_key, application_key=application_key, limit=limit, expand=expand, var_from=var_from, to=to, after=after, before=before, kind=kind, status=status)
 
 List deployments
 
@@ -224,16 +190,11 @@ Get a list of deployments  ### Expanding the deployment collection response  Lau
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_deployments_beta_api
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.deployment_collection_rep import DeploymentCollectionRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.deployment_collection_rep import DeploymentCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -246,7 +207,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -254,53 +215,46 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_deployments_beta_api.InsightsDeploymentsBetaApi(api_client)
-    project_key = "projectKey_example" # str | The project key
-    environment_key = "environmentKey_example" # str | The environment key
-    application_key = "applicationKey_example" # str | Comma separated list of application keys (optional)
-    limit = 1 # int | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
-    expand = "expand_example" # str | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
-    _from = 1 # int | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to = 1 # int | Unix timestamp in milliseconds. Default value is now. (optional)
-    after = "after_example" # str | Identifier used for pagination (optional)
-    before = "before_example" # str | Identifier used for pagination (optional)
-    kind = "kind_example" # str | The deployment kind (optional)
-    status = "status_example" # str | The deployment status (optional)
+    api_instance = launchdarkly_api.InsightsDeploymentsBetaApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    environment_key = 'environment_key_example' # str | The environment key
+    application_key = 'application_key_example' # str | Comma separated list of application keys (optional)
+    limit = 56 # int | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
+    expand = 'expand_example' # str | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
+    var_from = 56 # int | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+    to = 56 # int | Unix timestamp in milliseconds. Default value is now. (optional)
+    after = 'after_example' # str | Identifier used for pagination (optional)
+    before = 'before_example' # str | Identifier used for pagination (optional)
+    kind = 'kind_example' # str | The deployment kind (optional)
+    status = 'status_example' # str | The deployment status (optional)
 
-    # example passing only required values which don't have defaults set
     try:
         # List deployments
-        api_response = api_instance.get_deployments(project_key, environment_key)
+        api_response = api_instance.get_deployments(project_key, environment_key, application_key=application_key, limit=limit, expand=expand, var_from=var_from, to=to, after=after, before=before, kind=kind, status=status)
+        print("The response of InsightsDeploymentsBetaApi->get_deployments:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
-        print("Exception when calling InsightsDeploymentsBetaApi->get_deployments: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
-    try:
-        # List deployments
-        api_response = api_instance.get_deployments(project_key, environment_key, application_key=application_key, limit=limit, expand=expand, _from=_from, to=to, after=after, before=before, kind=kind, status=status)
-        pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsDeploymentsBetaApi->get_deployments: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key |
- **environment_key** | **str**| The environment key |
- **application_key** | **str**| Comma separated list of application keys | [optional]
- **limit** | **int**| The number of deployments to return. Default is 20. Maximum allowed is 100. | [optional]
- **expand** | **str**| Expand properties in response. Options: &#x60;pullRequests&#x60;, &#x60;flagReferences&#x60; | [optional]
- **_from** | **int**| Unix timestamp in milliseconds. Default value is 7 days ago. | [optional]
- **to** | **int**| Unix timestamp in milliseconds. Default value is now. | [optional]
- **after** | **str**| Identifier used for pagination | [optional]
- **before** | **str**| Identifier used for pagination | [optional]
- **kind** | **str**| The deployment kind | [optional]
- **status** | **str**| The deployment status | [optional]
+ **project_key** | **str**| The project key | 
+ **environment_key** | **str**| The environment key | 
+ **application_key** | **str**| Comma separated list of application keys | [optional] 
+ **limit** | **int**| The number of deployments to return. Default is 20. Maximum allowed is 100. | [optional] 
+ **expand** | **str**| Expand properties in response. Options: &#x60;pullRequests&#x60;, &#x60;flagReferences&#x60; | [optional] 
+ **var_from** | **int**| Unix timestamp in milliseconds. Default value is 7 days ago. | [optional] 
+ **to** | **int**| Unix timestamp in milliseconds. Default value is now. | [optional] 
+ **after** | **str**| Identifier used for pagination | [optional] 
+ **before** | **str**| Identifier used for pagination | [optional] 
+ **kind** | **str**| The deployment kind | [optional] 
+ **status** | **str**| The deployment status | [optional] 
 
 ### Return type
 
@@ -314,7 +268,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -330,7 +283,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_deployment**
-> DeploymentRep update_deployment(deployment_id, json_patch)
+> DeploymentRep update_deployment(deployment_id, patch_operation)
 
 Update deployment
 
@@ -341,17 +294,12 @@ Update a deployment by ID. Updating a deployment uses a [JSON patch](https://dat
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import insights_deployments_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.validation_failed_error_rep import ValidationFailedErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.deployment_rep import DeploymentRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.deployment_rep import DeploymentRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -364,7 +312,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -372,32 +320,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = insights_deployments_beta_api.InsightsDeploymentsBetaApi(api_client)
-    deployment_id = "deploymentID_example" # str | The deployment ID
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.InsightsDeploymentsBetaApi(api_client)
+    deployment_id = 'deployment_id_example' # str | The deployment ID
+    patch_operation = [{"op":"replace","path":"/status","value":"finished"}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update deployment
-        api_response = api_instance.update_deployment(deployment_id, json_patch)
+        api_response = api_instance.update_deployment(deployment_id, patch_operation)
+        print("The response of InsightsDeploymentsBetaApi->update_deployment:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling InsightsDeploymentsBetaApi->update_deployment: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deployment_id** | **str**| The deployment ID |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **deployment_id** | **str**| The deployment ID | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -411,7 +355,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

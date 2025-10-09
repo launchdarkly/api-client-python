@@ -23,18 +23,12 @@ Create a new integration configuration. (Excludes [persistent store](https://lau
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integrations_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integration_configurations_rep import IntegrationConfigurationsRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.integration_configuration_post import IntegrationConfigurationPost
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.integration_configuration_post import IntegrationConfigurationPost
+from launchdarkly_api.models.integration_configurations_rep import IntegrationConfigurationsRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -47,7 +41,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -55,89 +49,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integrations_beta_api.IntegrationsBetaApi(api_client)
-    integration_key = "integrationKey_example" # str | The integration key
-    integration_configuration_post = IntegrationConfigurationPost(
-        name="Example integration configuration",
-        enabled=True,
-        tags=["ops"],
-        config_values={
-            "key": None,
-        },
-        capability_config=CapabilityConfigPost(
-            approvals=ApprovalsCapabilityConfig(
-                additional_form_variables=[
-                    FormVariable(
-                        key="key_example",
-                        name="name_example",
-                        type="type_example",
-                        description="description_example",
-                        placeholder="placeholder_example",
-                        is_optional=True,
-                        default_value=None,
-                        allowed_values=[
-                            "allowed_values_example",
-                        ],
-                        dynamic_options=DynamicOptions(
-                            endpoint=Endpoint(
-                                headers=[
-                                    HeaderItems(
-                                        name="name_example",
-                                        value="value_example",
-                                    ),
-                                ],
-                                hmac_signature=HMACSignature(
-                                    header_name="header_name_example",
-                                    hmac_secret_form_variable_key="hmac_secret_form_variable_key_example",
-                                ),
-                                method="method_example",
-                                url="url_example",
-                            ),
-                            parser=DynamicOptionsParser(
-                                options_items=OptionsArray(
-                                    label="label_example",
-                                    value="value_example",
-                                ),
-                                options_path="options_path_example",
-                            ),
-                        ),
-                    ),
-                ],
-            ),
-            audit_log_events_hook=AuditLogEventsHookCapabilityConfigPost(
-                statements=StatementPostList([
-                    StatementPost(
-                        resources=["proj/*:env/*:flag/*;testing-tag"],
-                        not_resources=[
-                            "not_resources_example",
-                        ],
-                        actions=["*"],
-                        not_actions=[
-                            "not_actions_example",
-                        ],
-                        effect="allow",
-                    ),
-                ]),
-            ),
-        ),
-    ) # IntegrationConfigurationPost | 
+    api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
+    integration_key = 'integration_key_example' # str | The integration key
+    integration_configuration_post = launchdarkly_api.IntegrationConfigurationPost() # IntegrationConfigurationPost | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Create integration configuration
         api_response = api_instance.create_integration_configuration(integration_key, integration_configuration_post)
+        print("The response of IntegrationsBetaApi->create_integration_configuration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationsBetaApi->create_integration_configuration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| The integration key |
- **integration_configuration_post** | [**IntegrationConfigurationPost**](IntegrationConfigurationPost.md)|  |
+ **integration_key** | **str**| The integration key | 
+ **integration_configuration_post** | [**IntegrationConfigurationPost**](IntegrationConfigurationPost.md)|  | 
 
 ### Return type
 
@@ -151,7 +84,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -179,15 +111,10 @@ Delete an integration configuration by ID. (Excludes [persistent store](https://
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integrations_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -200,7 +127,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -208,23 +135,24 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integrations_beta_api.IntegrationsBetaApi(api_client)
-    integration_configuration_id = "integrationConfigurationId_example" # str | The ID of the integration configuration to be deleted
+    api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
+    integration_configuration_id = 'integration_configuration_id_example' # str | The ID of the integration configuration to be deleted
 
-    # example passing only required values which don't have defaults set
     try:
         # Delete integration configuration
         api_instance.delete_integration_configuration(integration_configuration_id)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationsBetaApi->delete_integration_configuration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_configuration_id** | **str**| The ID of the integration configuration to be deleted |
+ **integration_configuration_id** | **str**| The ID of the integration configuration to be deleted | 
 
 ### Return type
 
@@ -238,7 +166,6 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -265,16 +192,11 @@ Get all integration configurations with the specified integration key. (Excludes
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integrations_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integration_configuration_collection_rep import IntegrationConfigurationCollectionRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.integration_configuration_collection_rep import IntegrationConfigurationCollectionRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -287,7 +209,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -295,24 +217,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integrations_beta_api.IntegrationsBetaApi(api_client)
-    integration_key = "integrationKey_example" # str | Integration key
+    api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
+    integration_key = 'integration_key_example' # str | Integration key
 
-    # example passing only required values which don't have defaults set
     try:
         # Get all configurations for the integration
         api_response = api_instance.get_all_integration_configurations(integration_key)
+        print("The response of IntegrationsBetaApi->get_all_integration_configurations:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationsBetaApi->get_all_integration_configurations: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| Integration key |
+ **integration_key** | **str**| Integration key | 
 
 ### Return type
 
@@ -326,7 +250,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -353,16 +276,11 @@ Get integration configuration with the specified ID. (Excludes [persistent store
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integrations_beta_api
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integration_configurations_rep import IntegrationConfigurationsRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.unauthorized_error_rep import UnauthorizedErrorRep
+from launchdarkly_api.models.integration_configurations_rep import IntegrationConfigurationsRep
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -375,7 +293,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -383,24 +301,26 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integrations_beta_api.IntegrationsBetaApi(api_client)
-    integration_configuration_id = "integrationConfigurationId_example" # str | Integration configuration ID
+    api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
+    integration_configuration_id = 'integration_configuration_id_example' # str | Integration configuration ID
 
-    # example passing only required values which don't have defaults set
     try:
         # Get an integration configuration
         api_response = api_instance.get_integration_configuration(integration_configuration_id)
+        print("The response of IntegrationsBetaApi->get_integration_configuration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationsBetaApi->get_integration_configuration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_configuration_id** | **str**| Integration configuration ID |
+ **integration_configuration_id** | **str**| Integration configuration ID | 
 
 ### Return type
 
@@ -414,7 +334,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 
@@ -430,7 +349,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_integration_configuration**
-> IntegrationConfigurationsRep update_integration_configuration(integration_configuration_id, json_patch)
+> IntegrationConfigurationsRep update_integration_configuration(integration_configuration_id, patch_operation)
 
 Update integration configuration
 
@@ -441,17 +360,12 @@ Update an integration configuration. Updating an integration configuration uses 
 * Api Key Authentication (ApiKey):
 
 ```python
-import time
 import launchdarkly_api
-from launchdarkly_api.api import integrations_beta_api
-from launchdarkly_api.model.json_patch import JSONPatch
-from launchdarkly_api.model.invalid_request_error_rep import InvalidRequestErrorRep
-from launchdarkly_api.model.forbidden_error_rep import ForbiddenErrorRep
-from launchdarkly_api.model.integration_configurations_rep import IntegrationConfigurationsRep
-from launchdarkly_api.model.not_found_error_rep import NotFoundErrorRep
-from launchdarkly_api.model.rate_limited_error_rep import RateLimitedErrorRep
-from launchdarkly_api.model.status_conflict_error_rep import StatusConflictErrorRep
+from launchdarkly_api.models.integration_configurations_rep import IntegrationConfigurationsRep
+from launchdarkly_api.models.patch_operation import PatchOperation
+from launchdarkly_api.rest import ApiException
 from pprint import pprint
+
 # Defining the host is optional and defaults to https://app.launchdarkly.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = launchdarkly_api.Configuration(
@@ -464,7 +378,7 @@ configuration = launchdarkly_api.Configuration(
 # satisfies your auth use case.
 
 # Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['ApiKey'] = 'Bearer'
@@ -472,32 +386,28 @@ configuration.api_key['ApiKey'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = integrations_beta_api.IntegrationsBetaApi(api_client)
-    integration_configuration_id = "integrationConfigurationId_example" # str | The ID of the integration configuration
-    json_patch = JSONPatch([
-        PatchOperation(
-            op="replace",
-            path="/exampleField",
-            value=None,
-        ),
-    ]) # JSONPatch | 
+    api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
+    integration_configuration_id = 'integration_configuration_id_example' # str | The ID of the integration configuration
+    patch_operation = [{"op":"replace","path":"/on","value":false}] # List[PatchOperation] | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Update integration configuration
-        api_response = api_instance.update_integration_configuration(integration_configuration_id, json_patch)
+        api_response = api_instance.update_integration_configuration(integration_configuration_id, patch_operation)
+        print("The response of IntegrationsBetaApi->update_integration_configuration:\n")
         pprint(api_response)
-    except launchdarkly_api.ApiException as e:
+    except Exception as e:
         print("Exception when calling IntegrationsBetaApi->update_integration_configuration: %s\n" % e)
 ```
 
 
+
 ### Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_configuration_id** | **str**| The ID of the integration configuration |
- **json_patch** | [**JSONPatch**](JSONPatch.md)|  |
+ **integration_configuration_id** | **str**| The ID of the integration configuration | 
+ **patch_operation** | [**List[PatchOperation]**](PatchOperation.md)|  | 
 
 ### Return type
 
@@ -511,7 +421,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 

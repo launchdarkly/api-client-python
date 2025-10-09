@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **rules** | **int** |  | 
@@ -12,8 +13,24 @@ Name | Type | Description | Notes
 **is_off** | **bool** |  | [optional] 
 **rollout** | **int** |  | [optional] 
 **bucket_by** | **str** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.variation_summary import VariationSummary
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of VariationSummary from a JSON string
+variation_summary_instance = VariationSummary.from_json(json)
+# print the JSON string representation of the object
+print(VariationSummary.to_json())
+
+# convert the object into a dict
+variation_summary_dict = variation_summary_instance.to_dict()
+# create an instance of VariationSummary from a dict
+variation_summary_from_dict = VariationSummary.from_dict(variation_summary_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

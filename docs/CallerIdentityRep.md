@@ -2,6 +2,7 @@
 
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **account_id** | **str** |  | [optional] 
@@ -16,8 +17,24 @@ Name | Type | Description | Notes
 **token_id** | **str** |  | [optional] 
 **member_id** | **str** |  | [optional] 
 **service_token** | **bool** |  | [optional] 
-**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
+## Example
+
+```python
+from launchdarkly_api.models.caller_identity_rep import CallerIdentityRep
+
+# TODO update the JSON string below
+json = "{}"
+# create an instance of CallerIdentityRep from a JSON string
+caller_identity_rep_instance = CallerIdentityRep.from_json(json)
+# print the JSON string representation of the object
+print(CallerIdentityRep.to_json())
+
+# convert the object into a dict
+caller_identity_rep_dict = caller_identity_rep_instance.to_dict()
+# create an instance of CallerIdentityRep from a dict
+caller_identity_rep_from_dict = CallerIdentityRep.from_dict(caller_identity_rep_dict)
+```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 
