@@ -98,9 +98,9 @@ class MetricGroupRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:
@@ -111,16 +111,16 @@ class MetricGroupRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in metrics (list)
         _items = []
         if self.metrics:
-            for _item in self.metrics:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_metrics in self.metrics:
+                if _item_metrics:
+                    _items.append(_item_metrics.to_dict())
             _dict['metrics'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in experiments (list)
         _items = []
         if self.experiments:
-            for _item in self.experiments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_experiments in self.experiments:
+                if _item_experiments:
+                    _items.append(_item_experiments.to_dict())
             _dict['experiments'] = _items
         return _dict
 

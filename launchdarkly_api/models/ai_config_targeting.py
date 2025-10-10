@@ -87,9 +87,9 @@ class AIConfigTargeting(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in environments (dict)
         _field_dict = {}
         if self.environments:
-            for _key in self.environments:
-                if self.environments[_key]:
-                    _field_dict[_key] = self.environments[_key].to_dict()
+            for _key_environments in self.environments:
+                if self.environments[_key_environments]:
+                    _field_dict[_key_environments] = self.environments[_key_environments].to_dict()
             _dict['environments'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of experiments
         if self.experiments:
@@ -97,9 +97,9 @@ class AIConfigTargeting(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in variations (list)
         _items = []
         if self.variations:
-            for _item in self.variations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_variations in self.variations:
+                if _item_variations:
+                    _items.append(_item_variations.to_dict())
             _dict['variations'] = _items
         return _dict
 

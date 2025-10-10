@@ -79,9 +79,9 @@ class WebhookPost(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in statements (list)
         _items = []
         if self.statements:
-            for _item in self.statements:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_statements in self.statements:
+                if _item_statements:
+                    _items.append(_item_statements.to_dict())
             _dict['statements'] = _items
         return _dict
 

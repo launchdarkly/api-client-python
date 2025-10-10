@@ -87,9 +87,9 @@ class CustomRole(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:
@@ -97,9 +97,9 @@ class CustomRole(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in policy (list)
         _items = []
         if self.policy:
-            for _item in self.policy:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_policy in self.policy:
+                if _item_policy:
+                    _items.append(_item_policy.to_dict())
             _dict['policy'] = _items
         # override the default output from pydantic by calling `to_dict()` of assigned_to
         if self.assigned_to:
@@ -107,9 +107,9 @@ class CustomRole(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in preset_statements (list)
         _items = []
         if self.preset_statements:
-            for _item in self.preset_statements:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_preset_statements in self.preset_statements:
+                if _item_preset_statements:
+                    _items.append(_item_preset_statements.to_dict())
             _dict['_presetStatements'] = _items
         return _dict
 

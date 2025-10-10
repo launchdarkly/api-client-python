@@ -73,9 +73,9 @@ class JudgeConfiguration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in judges (list)
         _items = []
         if self.judges:
-            for _item in self.judges:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_judges in self.judges:
+                if _item_judges:
+                    _items.append(_item_judges.to_dict())
             _dict['judges'] = _items
         return _dict
 

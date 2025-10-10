@@ -98,7 +98,20 @@ void (empty response body)
 
 Get metric
 
-Get information for a single metric from the specific project.  ### Expanding the metric response LaunchDarkly supports four fields for expanding the \"Get metric\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `experiments` includes all experiments from the specific project that use the metric - `experimentCount` includes the number of experiments from the specific project that use the metric - `metricGroups` includes all metric groups from the specific project that use the metric - `metricGroupCount` includes the number of metric groups from the specific project that use the metric  For example, `expand=experiments` includes the `experiments` field in the response. 
+Get information for a single metric from the specific project.
+
+### Expanding the metric response
+LaunchDarkly supports four fields for expanding the "Get metric" response. By default, these fields are **not** included in the response.
+
+To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
+
+- `experiments` includes all experiments from the specific project that use the metric
+- `experimentCount` includes the number of experiments from the specific project that use the metric
+- `metricGroups` includes all metric groups from the specific project that use the metric
+- `metricGroupCount` includes the number of metric groups from the specific project that use the metric
+
+For example, `expand=experiments` includes the `experiments` field in the response.
+
 
 ### Example
 
@@ -187,7 +200,43 @@ Name | Type | Description  | Notes
 
 List metrics
 
-Get a list of all metrics for the specified project.  ### Filtering metrics  The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.  #### Supported fields and operators  You can only filter certain fields in metrics when using the `filter` parameter. Additionally, you can only filter some fields with certain operators.  When you search for metrics, the `filter` parameter supports the following fields and operators:  |<div style=\"width:120px\">Field</div> |Description |Supported operators | |---|---|---| | `eventKind` | The metric event kind. One of `custom`, `pageview`, `click`. | `equals` | | `hasConnections` | Whether the metric has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` | | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` | | `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` | | `maintainerTeamKey` | The metric maintainer team key. | `equals` | | `query` | A \"fuzzy\" search across metric key and name. Supply a string or list of strings to the operator. | `equals` | | `tags` | The metric tags. | `contains` | | `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |  For example, the filter `?filter=tags contains [\"tag1\", \"tag2\", \"tag3\"]` matches metrics that have all three tags.  The documented values for `filter` query parameters are prior to URL encoding. For example, the `[` in `?filter=tags contains [\"tag1\", \"tag2\", \"tag3\"]` must be encoded to `%5B`.  ### Expanding the metric list response  LaunchDarkly supports expanding the \"List metrics\" response. By default, the expandable field is **not** included in the response.  To expand the response, append the `expand` query parameter and add the following supported field:  - `experimentCount` includes the number of experiments from the specific project that use the metric  For example, `expand=experimentCount` includes the `experimentCount` field for each metric in the response. 
+Get a list of all metrics for the specified project.
+
+### Filtering metrics
+
+The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.
+
+#### Supported fields and operators
+
+You can only filter certain fields in metrics when using the `filter` parameter. Additionally, you can only filter some fields with certain operators.
+
+When you search for metrics, the `filter` parameter supports the following fields and operators:
+
+|<div style="width:120px">Field</div> |Description |Supported operators |
+|---|---|---|
+| `eventKind` | The metric event kind. One of `custom`, `pageview`, `click`. | `equals` |
+| `hasConnections` | Whether the metric has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
+| `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
+| `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
+| `maintainerTeamKey` | The metric maintainer team key. | `equals` |
+| `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
+| `tags` | The metric tags. | `contains` |
+| `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |
+
+For example, the filter `?filter=tags contains ["tag1", "tag2", "tag3"]` matches metrics that have all three tags.
+
+The documented values for `filter` query parameters are prior to URL encoding. For example, the `[` in `?filter=tags contains ["tag1", "tag2", "tag3"]` must be encoded to `%5B`.
+
+### Expanding the metric list response
+
+LaunchDarkly supports expanding the "List metrics" response. By default, the expandable field is **not** included in the response.
+
+To expand the response, append the `expand` query parameter and add the following supported field:
+
+- `experimentCount` includes the number of experiments from the specific project that use the metric
+
+For example, `expand=experimentCount` includes the `experimentCount` field for each metric in the response.
+
 
 ### Example
 

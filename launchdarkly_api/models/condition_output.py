@@ -89,9 +89,9 @@ class ConditionOutput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in all_reviews (list)
         _items = []
         if self.all_reviews:
-            for _item in self.all_reviews:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_all_reviews in self.all_reviews:
+                if _item_all_reviews:
+                    _items.append(_item_all_reviews.to_dict())
             _dict['allReviews'] = _items
         return _dict
 

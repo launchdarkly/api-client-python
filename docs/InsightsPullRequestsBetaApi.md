@@ -12,7 +12,20 @@ Method | HTTP request | Description
 
 List pull requests
 
-Get a list of pull requests  ### Expanding the pull request collection response  LaunchDarkly supports expanding the pull request collection response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `deployments` includes details on all of the deployments associated with each pull request * `flagReferences` includes details on all of the references to flags in each pull request * `leadTime` includes details about the lead time of the pull request for each stage  For example, use `?expand=deployments` to include the `deployments` field in the response. By default, this field is **not** included in the response. 
+Get a list of pull requests
+
+### Expanding the pull request collection response
+
+LaunchDarkly supports expanding the pull request collection response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `deployments` includes details on all of the deployments associated with each pull request
+* `flagReferences` includes details on all of the references to flags in each pull request
+* `leadTime` includes details about the lead time of the pull request for each stage
+
+For example, use `?expand=deployments` to include the `deployments` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

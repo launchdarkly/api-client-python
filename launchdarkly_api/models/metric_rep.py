@@ -161,9 +161,9 @@ class MetricRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of site
         if self.site:
@@ -189,16 +189,16 @@ class MetricRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in experiments (list)
         _items = []
         if self.experiments:
-            for _item in self.experiments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_experiments in self.experiments:
+                if _item_experiments:
+                    _items.append(_item_experiments.to_dict())
             _dict['experiments'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in metric_groups (list)
         _items = []
         if self.metric_groups:
-            for _item in self.metric_groups:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_metric_groups in self.metric_groups:
+                if _item_metric_groups:
+                    _items.append(_item_metric_groups.to_dict())
             _dict['metricGroups'] = _items
         # override the default output from pydantic by calling `to_dict()` of last_used_in_experiment
         if self.last_used_in_experiment:
@@ -209,9 +209,9 @@ class MetricRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in attached_features (list)
         _items = []
         if self.attached_features:
-            for _item in self.attached_features:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_attached_features in self.attached_features:
+                if _item_attached_features:
+                    _items.append(_item_attached_features.to_dict())
             _dict['_attachedFeatures'] = _items
         return _dict
 

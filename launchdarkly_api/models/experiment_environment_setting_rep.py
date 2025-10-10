@@ -75,9 +75,9 @@ class ExperimentEnvironmentSettingRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in enabled_periods (list)
         _items = []
         if self.enabled_periods:
-            for _item in self.enabled_periods:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_enabled_periods in self.enabled_periods:
+                if _item_enabled_periods:
+                    _items.append(_item_enabled_periods.to_dict())
             _dict['enabledPeriods'] = _items
         return _dict
 

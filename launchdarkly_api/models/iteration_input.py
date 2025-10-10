@@ -83,23 +83,23 @@ class IterationInput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in metrics (list)
         _items = []
         if self.metrics:
-            for _item in self.metrics:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_metrics in self.metrics:
+                if _item_metrics:
+                    _items.append(_item_metrics.to_dict())
             _dict['metrics'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in treatments (list)
         _items = []
         if self.treatments:
-            for _item in self.treatments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_treatments in self.treatments:
+                if _item_treatments:
+                    _items.append(_item_treatments.to_dict())
             _dict['treatments'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in flags (dict)
         _field_dict = {}
         if self.flags:
-            for _key in self.flags:
-                if self.flags[_key]:
-                    _field_dict[_key] = self.flags[_key].to_dict()
+            for _key_flags in self.flags:
+                if self.flags[_key_flags]:
+                    _field_dict[_key_flags] = self.flags[_key_flags].to_dict()
             _dict['flags'] = _field_dict
         return _dict
 

@@ -91,9 +91,9 @@ class HoldoutDetailRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in related_experiments (list)
         _items = []
         if self.related_experiments:
-            for _item in self.related_experiments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_related_experiments in self.related_experiments:
+                if _item_related_experiments:
+                    _items.append(_item_related_experiments.to_dict())
             _dict['relatedExperiments'] = _items
         return _dict
 

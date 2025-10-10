@@ -89,23 +89,23 @@ class CustomWorkflowOutput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in conflicts (list)
         _items = []
         if self.conflicts:
-            for _item in self.conflicts:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_conflicts in self.conflicts:
+                if _item_conflicts:
+                    _items.append(_item_conflicts.to_dict())
             _dict['_conflicts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in stages (list)
         _items = []
         if self.stages:
-            for _item in self.stages:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_stages in self.stages:
+                if _item_stages:
+                    _items.append(_item_stages.to_dict())
             _dict['stages'] = _items
         # override the default output from pydantic by calling `to_dict()` of execution
         if self.execution:

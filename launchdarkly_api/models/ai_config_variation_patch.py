@@ -86,16 +86,16 @@ class AIConfigVariationPatch(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in messages (list)
         _items = []
         if self.messages:
-            for _item in self.messages:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_messages in self.messages:
+                if _item_messages:
+                    _items.append(_item_messages.to_dict())
             _dict['messages'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in tools (list)
         _items = []
         if self.tools:
-            for _item in self.tools:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_tools in self.tools:
+                if _item_tools:
+                    _items.append(_item_tools.to_dict())
             _dict['tools'] = _items
         # override the default output from pydantic by calling `to_dict()` of judge_configuration
         if self.judge_configuration:

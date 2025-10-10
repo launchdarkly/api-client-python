@@ -87,9 +87,9 @@ class ReleasePhase(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in audiences (list)
         _items = []
         if self.audiences:
-            for _item in self.audiences:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_audiences in self.audiences:
+                if _item_audiences:
+                    _items.append(_item_audiences.to_dict())
             _dict['_audiences'] = _items
         return _dict
 

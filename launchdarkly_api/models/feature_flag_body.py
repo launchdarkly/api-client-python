@@ -106,16 +106,16 @@ class FeatureFlagBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in variations (list)
         _items = []
         if self.variations:
-            for _item in self.variations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_variations in self.variations:
+                if _item_variations:
+                    _items.append(_item_variations.to_dict())
             _dict['variations'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in custom_properties (dict)
         _field_dict = {}
         if self.custom_properties:
-            for _key in self.custom_properties:
-                if self.custom_properties[_key]:
-                    _field_dict[_key] = self.custom_properties[_key].to_dict()
+            for _key_custom_properties in self.custom_properties:
+                if self.custom_properties[_key_custom_properties]:
+                    _field_dict[_key_custom_properties] = self.custom_properties[_key_custom_properties].to_dict()
             _dict['customProperties'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of defaults
         if self.defaults:
@@ -126,9 +126,9 @@ class FeatureFlagBody(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in initial_prerequisites (list)
         _items = []
         if self.initial_prerequisites:
-            for _item in self.initial_prerequisites:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_initial_prerequisites in self.initial_prerequisites:
+                if _item_initial_prerequisites:
+                    _items.append(_item_initial_prerequisites.to_dict())
             _dict['initialPrerequisites'] = _items
         return _dict
 

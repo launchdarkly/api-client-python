@@ -75,16 +75,16 @@ class UserFlagSettings(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in items (dict)
         _field_dict = {}
         if self.items:
-            for _key in self.items:
-                if self.items[_key]:
-                    _field_dict[_key] = self.items[_key].to_dict()
+            for _key_items in self.items:
+                if self.items[_key_items]:
+                    _field_dict[_key_items] = self.items[_key_items].to_dict()
             _dict['items'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         return _dict
 

@@ -101,23 +101,23 @@ class FeatureFlagConfig(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in targets (list)
         _items = []
         if self.targets:
-            for _item in self.targets:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_targets in self.targets:
+                if _item_targets:
+                    _items.append(_item_targets.to_dict())
             _dict['targets'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in context_targets (list)
         _items = []
         if self.context_targets:
-            for _item in self.context_targets:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_context_targets in self.context_targets:
+                if _item_context_targets:
+                    _items.append(_item_context_targets.to_dict())
             _dict['contextTargets'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
         _items = []
         if self.rules:
-            for _item in self.rules:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_rules in self.rules:
+                if _item_rules:
+                    _items.append(_item_rules.to_dict())
             _dict['rules'] = _items
         # override the default output from pydantic by calling `to_dict()` of fallthrough
         if self.fallthrough:
@@ -125,9 +125,9 @@ class FeatureFlagConfig(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in prerequisites (list)
         _items = []
         if self.prerequisites:
-            for _item in self.prerequisites:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_prerequisites in self.prerequisites:
+                if _item_prerequisites:
+                    _items.append(_item_prerequisites.to_dict())
             _dict['prerequisites'] = _items
         # override the default output from pydantic by calling `to_dict()` of site
         if self.site:

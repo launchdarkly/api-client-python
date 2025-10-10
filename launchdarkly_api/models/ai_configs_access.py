@@ -75,16 +75,16 @@ class AiConfigsAccess(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in denied (list)
         _items = []
         if self.denied:
-            for _item in self.denied:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_denied in self.denied:
+                if _item_denied:
+                    _items.append(_item_denied.to_dict())
             _dict['denied'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in allowed (list)
         _items = []
         if self.allowed:
-            for _item in self.allowed:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_allowed in self.allowed:
+                if _item_allowed:
+                    _items.append(_item_allowed.to_dict())
             _dict['allowed'] = _items
         return _dict
 

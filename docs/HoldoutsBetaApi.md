@@ -103,7 +103,26 @@ Name | Type | Description  | Notes
 
 Get holdout
 
-Get details about a holdout.  ### Expanding the holdout response  LaunchDarkly supports the following fields for expanding the \"Get holdout\" response. By default, these fields are **not** included in the response.  To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:  - `draftIteration` includes the iteration which has not been started yet, if any, for this holdout. - `previousIterations` includes all iterations prior to the current iteration, for this holdout. By default only the current iteration is included in the response. - `rel-draftIteration` includes the iteration which has not been started yet, if any, for the experiments related to this holdout. - `rel-metrics` includes metrics for experiments related to this holdout. - `rel-previousIterations` includes all iterations prior to the current iteration, for the experiments related to this holdout. - `rel-secondaryMetrics` includes secondary metrics for experiments related to this holdout. - `rel-treatments` includes all treatment and parameter details for experiments related to this holdout. - `secondaryMetrics` includes secondary metrics for this holdout. By default only the primary metric is included in the response. - `treatments` includes all treatment and parameter details for this holdout. By default treatment data is not included in the response.  For example, `expand=draftIteration,rel-draftIteration` includes the `draftIteration` and `rel-draftIteration` fields in the response. If fields that you request with the `expand` query parameter are empty, they are not included in the response. 
+Get details about a holdout.
+
+### Expanding the holdout response
+
+LaunchDarkly supports the following fields for expanding the "Get holdout" response. By default, these fields are **not** included in the response.
+
+To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
+
+- `draftIteration` includes the iteration which has not been started yet, if any, for this holdout.
+- `previousIterations` includes all iterations prior to the current iteration, for this holdout. By default only the current iteration is included in the response.
+- `rel-draftIteration` includes the iteration which has not been started yet, if any, for the experiments related to this holdout.
+- `rel-metrics` includes metrics for experiments related to this holdout.
+- `rel-previousIterations` includes all iterations prior to the current iteration, for the experiments related to this holdout.
+- `rel-secondaryMetrics` includes secondary metrics for experiments related to this holdout.
+- `rel-treatments` includes all treatment and parameter details for experiments related to this holdout.
+- `secondaryMetrics` includes secondary metrics for this holdout. By default only the primary metric is included in the response.
+- `treatments` includes all treatment and parameter details for this holdout. By default treatment data is not included in the response.
+
+For example, `expand=draftIteration,rel-draftIteration` includes the `draftIteration` and `rel-draftIteration` fields in the response. If fields that you request with the `expand` query parameter are empty, they are not included in the response.
+
 
 ### Example
 
@@ -279,7 +298,98 @@ Name | Type | Description  | Notes
 
 Patch holdout
 
-Updates an existing holdout, and returns the updated holdout. Updating holdouts uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating holdouts.  <details> <summary>Click to expand instructions for <strong>updating holdouts</strong></summary>  #### endHoldout  Ends a holdout.  ##### Parameters  None.  Here's an example:  ```json {   \"comment\": \"Optional comment describing why the holdout is ending\",   \"instructions\": [{     \"kind\": \"endHoldout\"   }] } ```  #### removeExperiment  Removes an experiment from a holdout.  ##### Parameters  - `value`: The key of the experiment to remove  Here's an example:  ```json {   \"comment\": \"Optional comment describing the change\",   \"instructions\": [{     \"kind\": \"removeExperiment\",     \"value\": \"experiment-key\"   }] } ```  #### updateDescription  Updates the description of the holdout.  ##### Parameters  - `value`: The new description.  Here's an example:  ```json {   \"comment\": \"Optional comment describing the update\",   \"instructions\": [{     \"kind\": \"updateDescription\",     \"value\": \"Updated holdout description\"   }] } ```  #### updateName  Updates the name of the holdout.  ##### Parameters  - `value`: The new name.  Here's an example:  ```json {   \"comment\": \"Optional comment describing the update\",   \"instructions\": [{     \"kind\": \"updateName\",     \"value\": \"Updated holdout name\"   }] } ```  </details> 
+Updates an existing holdout, and returns the updated holdout. Updating holdouts uses the semantic patch format.
+
+To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).
+
+### Instructions
+
+Semantic patch requests support the following `kind` instructions for updating holdouts.
+
+<details>
+<summary>Click to expand instructions for <strong>updating holdouts</strong></summary>
+
+#### endHoldout
+
+Ends a holdout.
+
+##### Parameters
+
+None.
+
+Here's an example:
+
+```json
+{
+  "comment": "Optional comment describing why the holdout is ending",
+  "instructions": [{
+    "kind": "endHoldout"
+  }]
+}
+```
+
+#### removeExperiment
+
+Removes an experiment from a holdout.
+
+##### Parameters
+
+- `value`: The key of the experiment to remove
+
+Here's an example:
+
+```json
+{
+  "comment": "Optional comment describing the change",
+  "instructions": [{
+    "kind": "removeExperiment",
+    "value": "experiment-key"
+  }]
+}
+```
+
+#### updateDescription
+
+Updates the description of the holdout.
+
+##### Parameters
+
+- `value`: The new description.
+
+Here's an example:
+
+```json
+{
+  "comment": "Optional comment describing the update",
+  "instructions": [{
+    "kind": "updateDescription",
+    "value": "Updated holdout description"
+  }]
+}
+```
+
+#### updateName
+
+Updates the name of the holdout.
+
+##### Parameters
+
+- `value`: The new name.
+
+Here's an example:
+
+```json
+{
+  "comment": "Optional comment describing the update",
+  "instructions": [{
+    "kind": "updateName",
+    "value": "Updated holdout name"
+  }]
+}
+```
+
+</details>
+
 
 ### Example
 

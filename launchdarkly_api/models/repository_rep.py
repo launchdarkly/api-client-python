@@ -91,9 +91,9 @@ class RepositoryRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in branches (list)
         _items = []
         if self.branches:
-            for _item in self.branches:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_branches in self.branches:
+                if _item_branches:
+                    _items.append(_item_branches.to_dict())
             _dict['branches'] = _items
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:

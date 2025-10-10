@@ -281,7 +281,51 @@ Name | Type | Description  | Notes
 
 Update expiring user target for flags
 
-Schedule the specified user for removal from individual targeting on one or more flags. The user must already be individually targeted for each flag.  You can add, update, or remove a scheduled removal date. You can only schedule a user for removal on a single variation per flag.  Updating an expiring target uses the semantic patch format. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating expiring user targets.  <details> <summary>Click to expand instructions for <strong>updating expiring user targets</strong></summary>  #### addExpireUserTargetDate  Adds a date and time that LaunchDarkly will remove the user from the flag's individual targeting.  ##### Parameters  * `flagKey`: The flag key * `variationId`: ID of a variation on the flag * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag.  #### updateExpireUserTargetDate  Updates the date and time that LaunchDarkly will remove the user from the flag's individual targeting.  ##### Parameters  * `flagKey`: The flag key * `variationId`: ID of a variation on the flag * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag. * `version`: The version of the expiring user target to update. If included, update will fail if version doesn't match current version of the expiring user target.  #### removeExpireUserTargetDate  Removes the scheduled removal of the user from the flag's individual targeting. The user will remain part of the flag's individual targeting until explicitly removed, or until another removal is scheduled.  ##### Parameters  * `flagKey`: The flag key * `variationId`: ID of a variation on the flag  </details> 
+Schedule the specified user for removal from individual targeting on one or more flags. The user must already be individually targeted for each flag.
+
+You can add, update, or remove a scheduled removal date. You can only schedule a user for removal on a single variation per flag.
+
+Updating an expiring target uses the semantic patch format. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).
+
+### Instructions
+
+Semantic patch requests support the following `kind` instructions for updating expiring user targets.
+
+<details>
+<summary>Click to expand instructions for <strong>updating expiring user targets</strong></summary>
+
+#### addExpireUserTargetDate
+
+Adds a date and time that LaunchDarkly will remove the user from the flag's individual targeting.
+
+##### Parameters
+
+* `flagKey`: The flag key
+* `variationId`: ID of a variation on the flag
+* `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag.
+
+#### updateExpireUserTargetDate
+
+Updates the date and time that LaunchDarkly will remove the user from the flag's individual targeting.
+
+##### Parameters
+
+* `flagKey`: The flag key
+* `variationId`: ID of a variation on the flag
+* `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag.
+* `version`: The version of the expiring user target to update. If included, update will fail if version doesn't match current version of the expiring user target.
+
+#### removeExpireUserTargetDate
+
+Removes the scheduled removal of the user from the flag's individual targeting. The user will remain part of the flag's individual targeting until explicitly removed, or until another removal is scheduled.
+
+##### Parameters
+
+* `flagKey`: The flag key
+* `variationId`: ID of a variation on the flag
+
+</details>
+
 
 ### Example
 
@@ -372,7 +416,12 @@ Name | Type | Description  | Notes
 
 Update flag settings for user
 
-Enable or disable a feature flag for a user based on their key.  Omitting the `setting` attribute from the request body, or including a `setting` of `null`, erases the current setting for a user.  If you previously patched the flag, and the patch included the user's data, LaunchDarkly continues to use that data. If LaunchDarkly has never encountered the user's key before, it calculates the flag values based on the user key alone. 
+Enable or disable a feature flag for a user based on their key.
+
+Omitting the `setting` attribute from the request body, or including a `setting` of `null`, erases the current setting for a user.
+
+If you previously patched the flag, and the patch included the user's data, LaunchDarkly continues to use that data. If LaunchDarkly has never encountered the user's key before, it calculates the flag values based on the user key alone.
+
 
 ### Example
 

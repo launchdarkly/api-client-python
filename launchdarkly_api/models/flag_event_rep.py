@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from launchdarkly_api.models.flag_event_experiment_collection import FlagEventExperimentCollection
 from launchdarkly_api.models.flag_event_impact_rep import FlagEventImpactRep
 from launchdarkly_api.models.flag_event_member_rep import FlagEventMemberRep
@@ -30,7 +31,7 @@ class FlagEventRep(BaseModel):
     """
     FlagEventRep
     """ # noqa: E501
-    id: StrictStr = Field(description="The flag event ID")
+    id: UUID = Field(description="The flag event ID")
     project_id: StrictStr = Field(description="The project ID", alias="projectId")
     project_key: StrictStr = Field(description="The project key", alias="projectKey")
     environment_id: Optional[StrictStr] = Field(default=None, description="The environment ID", alias="environmentId")

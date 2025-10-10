@@ -75,17 +75,17 @@ class ExtinctionCollectionRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in items (dict of array)
         _field_dict_of_array = {}
         if self.items:
-            for _key in self.items:
-                if self.items[_key] is not None:
-                    _field_dict_of_array[_key] = [
-                        _item.to_dict() for _item in self.items[_key]
+            for _key_items in self.items:
+                if self.items[_key_items] is not None:
+                    _field_dict_of_array[_key_items] = [
+                        _item.to_dict() for _item in self.items[_key_items]
                     ]
             _dict['items'] = _field_dict_of_array
         return _dict

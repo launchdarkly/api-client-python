@@ -74,9 +74,9 @@ class ViewLinkRequestSegmentIdentifiers(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in segment_identifiers (list)
         _items = []
         if self.segment_identifiers:
-            for _item in self.segment_identifiers:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_segment_identifiers in self.segment_identifiers:
+                if _item_segment_identifiers:
+                    _items.append(_item_segment_identifiers.to_dict())
             _dict['segmentIdentifiers'] = _items
         return _dict
 

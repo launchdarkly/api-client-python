@@ -89,9 +89,9 @@ class Environment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of approval_settings
         if self.approval_settings:
@@ -99,9 +99,9 @@ class Environment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in resource_approval_settings (dict)
         _field_dict = {}
         if self.resource_approval_settings:
-            for _key in self.resource_approval_settings:
-                if self.resource_approval_settings[_key]:
-                    _field_dict[_key] = self.resource_approval_settings[_key].to_dict()
+            for _key_resource_approval_settings in self.resource_approval_settings:
+                if self.resource_approval_settings[_key_resource_approval_settings]:
+                    _field_dict[_key_resource_approval_settings] = self.resource_approval_settings[_key_resource_approval_settings].to_dict()
             _dict['resourceApprovalSettings'] = _field_dict
         return _dict
 

@@ -78,9 +78,9 @@ class PutBranch(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in references (list)
         _items = []
         if self.references:
-            for _item in self.references:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_references in self.references:
+                if _item_references:
+                    _items.append(_item_references.to_dict())
             _dict['references'] = _items
         return _dict
 

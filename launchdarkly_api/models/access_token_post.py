@@ -89,9 +89,9 @@ class AccessTokenPost(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in inline_role (list)
         _items = []
         if self.inline_role:
-            for _item in self.inline_role:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_inline_role in self.inline_role:
+                if _item_inline_role:
+                    _items.append(_item_inline_role.to_dict())
             _dict['inlineRole'] = _items
         return _dict
 

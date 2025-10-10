@@ -90,16 +90,16 @@ class TriggerWorkflowRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in recent_trigger_bodies (list)
         _items = []
         if self.recent_trigger_bodies:
-            for _item in self.recent_trigger_bodies:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_recent_trigger_bodies in self.recent_trigger_bodies:
+                if _item_recent_trigger_bodies:
+                    _items.append(_item_recent_trigger_bodies.to_dict())
             _dict['_recentTriggerBodies'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         return _dict
 

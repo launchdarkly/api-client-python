@@ -74,9 +74,9 @@ class PatchWithComment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in patch (list)
         _items = []
         if self.patch:
-            for _item in self.patch:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_patch in self.patch:
+                if _item_patch:
+                    _items.append(_item_patch.to_dict())
             _dict['patch'] = _items
         return _dict
 

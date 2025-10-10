@@ -74,9 +74,9 @@ class AIConfigTargetingEnvironmentRule(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in clauses (list)
         _items = []
         if self.clauses:
-            for _item in self.clauses:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_clauses in self.clauses:
+                if _item_clauses:
+                    _items.append(_item_clauses.to_dict())
             _dict['clauses'] = _items
         return _dict
 

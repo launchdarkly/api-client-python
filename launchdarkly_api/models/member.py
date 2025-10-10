@@ -97,9 +97,9 @@ class Member(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of last_seen_metadata
         if self.last_seen_metadata:
@@ -110,16 +110,16 @@ class Member(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in teams (list)
         _items = []
         if self.teams:
-            for _item in self.teams:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_teams in self.teams:
+                if _item_teams:
+                    _items.append(_item_teams.to_dict())
             _dict['teams'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in permission_grants (list)
         _items = []
         if self.permission_grants:
-            for _item in self.permission_grants:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_permission_grants in self.permission_grants:
+                if _item_permission_grants:
+                    _items.append(_item_permission_grants.to_dict())
             _dict['permissionGrants'] = _items
         return _dict
 

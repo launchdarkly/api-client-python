@@ -184,7 +184,19 @@ void (empty response body)
 
 Get insight group
 
-Get insight group  ### Expanding the insight group response  LaunchDarkly supports expanding the insight group response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `scores` includes details on all of the scores used in the engineering insights metrics views for this group * `environment` includes details on each environment associated with this group  For example, use `?expand=scores` to include the `scores` field in the response. By default, this field is **not** included in the response. 
+Get insight group
+
+### Expanding the insight group response
+
+LaunchDarkly supports expanding the insight group response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `scores` includes details on all of the scores used in the engineering insights metrics views for this group
+* `environment` includes details on each environment associated with this group
+
+For example, use `?expand=scores` to include the `scores` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 
@@ -270,7 +282,20 @@ Name | Type | Description  | Notes
 
 List insight groups
 
-List groups for which you are collecting insights  ### Expanding the insight groups collection response  LaunchDarkly supports expanding the insight groups collection response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `scores` includes details on all of the scores used in the engineering insights metrics views for each group * `environment` includes details on each environment associated with each group * `metadata` includes counts of the number of insight groups with particular indicators, such as \"excellent,\" \"good,\" \"fair,\" and so on.  For example, use `?expand=scores` to include the `scores` field in the response. By default, this field is **not** included in the response. 
+List groups for which you are collecting insights
+
+### Expanding the insight groups collection response
+
+LaunchDarkly supports expanding the insight groups collection response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `scores` includes details on all of the scores used in the engineering insights metrics views for each group
+* `environment` includes details on each environment associated with each group
+* `metadata` includes counts of the number of insight groups with particular indicators, such as "excellent," "good," "fair," and so on.
+
+For example, use `?expand=scores` to include the `scores` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

@@ -80,9 +80,9 @@ class AiConfigsLegacyExperimentRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in environment_settings (dict)
         _field_dict = {}
         if self.environment_settings:
-            for _key in self.environment_settings:
-                if self.environment_settings[_key]:
-                    _field_dict[_key] = self.environment_settings[_key].to_dict()
+            for _key_environment_settings in self.environment_settings:
+                if self.environment_settings[_key_environment_settings]:
+                    _field_dict[_key_environment_settings] = self.environment_settings[_key_environment_settings].to_dict()
             _dict['_environmentSettings'] = _field_dict
         return _dict
 

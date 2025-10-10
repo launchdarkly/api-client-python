@@ -121,9 +121,9 @@ class MetricPost(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in urls (list)
         _items = []
         if self.urls:
-            for _item in self.urls:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_urls in self.urls:
+                if _item_urls:
+                    _items.append(_item_urls.to_dict())
             _dict['urls'] = _items
         # override the default output from pydantic by calling `to_dict()` of event_default
         if self.event_default:

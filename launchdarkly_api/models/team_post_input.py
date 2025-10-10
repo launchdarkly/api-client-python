@@ -79,9 +79,9 @@ class TeamPostInput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in permission_grants (list)
         _items = []
         if self.permission_grants:
-            for _item in self.permission_grants:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_permission_grants in self.permission_grants:
+                if _item_permission_grants:
+                    _items.append(_item_permission_grants.to_dict())
             _dict['permissionGrants'] = _items
         return _dict
 

@@ -73,9 +73,9 @@ class EvaluationsSummary(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in variations (list)
         _items = []
         if self.variations:
-            for _item in self.variations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_variations in self.variations:
+                if _item_variations:
+                    _items.append(_item_variations.to_dict())
             _dict['variations'] = _items
         return _dict
 

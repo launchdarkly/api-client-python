@@ -80,9 +80,9 @@ class LinkResourceSuccessResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in failed_resources (list)
         _items = []
         if self.failed_resources:
-            for _item in self.failed_resources:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_failed_resources in self.failed_resources:
+                if _item_failed_resources:
+                    _items.append(_item_failed_resources.to_dict())
             _dict['failedResources'] = _items
         return _dict
 

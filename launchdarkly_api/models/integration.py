@@ -87,16 +87,16 @@ class Integration(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in statements (list)
         _items = []
         if self.statements:
-            for _item in self.statements:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_statements in self.statements:
+                if _item_statements:
+                    _items.append(_item_statements.to_dict())
             _dict['statements'] = _items
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:

@@ -97,7 +97,21 @@ void (empty response body)
 
 Get deployment
 
-Get a deployment by ID.  The deployment ID is returned as part of the [List deployments](https://launchdarkly.com/docs/api/insights-deployments-beta/get-deployments) response. It is the `id` field of each element in the `items` array.  ### Expanding the deployment response  LaunchDarkly supports expanding the deployment response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `pullRequests` includes details on all of the pull requests associated with each deployment * `flagReferences` includes details on all of the references to flags in each deployment  For example, use `?expand=pullRequests` to include the `pullRequests` field in the response. By default, this field is **not** included in the response. 
+Get a deployment by ID.
+
+The deployment ID is returned as part of the [List deployments](https://launchdarkly.com/docs/api/insights-deployments-beta/get-deployments) response. It is the `id` field of each element in the `items` array.
+
+### Expanding the deployment response
+
+LaunchDarkly supports expanding the deployment response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `pullRequests` includes details on all of the pull requests associated with each deployment
+* `flagReferences` includes details on all of the references to flags in each deployment
+
+For example, use `?expand=pullRequests` to include the `pullRequests` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 
@@ -183,7 +197,19 @@ Name | Type | Description  | Notes
 
 List deployments
 
-Get a list of deployments  ### Expanding the deployment collection response  LaunchDarkly supports expanding the deployment collection response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `pullRequests` includes details on all of the pull requests associated with each deployment * `flagReferences` includes details on all of the references to flags in each deployment  For example, use `?expand=pullRequests` to include the `pullRequests` field in the response. By default, this field is **not** included in the response. 
+Get a list of deployments
+
+### Expanding the deployment collection response
+
+LaunchDarkly supports expanding the deployment collection response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `pullRequests` includes details on all of the pull requests associated with each deployment
+* `flagReferences` includes details on all of the references to flags in each deployment
+
+For example, use `?expand=pullRequests` to include the `pullRequests` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

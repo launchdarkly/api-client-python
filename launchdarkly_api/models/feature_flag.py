@@ -118,16 +118,16 @@ class FeatureFlag(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in variations (list)
         _items = []
         if self.variations:
-            for _item in self.variations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_variations in self.variations:
+                if _item_variations:
+                    _items.append(_item_variations.to_dict())
             _dict['variations'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of maintainer
         if self.maintainer:
@@ -141,9 +141,9 @@ class FeatureFlag(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in custom_properties (dict)
         _field_dict = {}
         if self.custom_properties:
-            for _key in self.custom_properties:
-                if self.custom_properties[_key]:
-                    _field_dict[_key] = self.custom_properties[_key].to_dict()
+            for _key_custom_properties in self.custom_properties:
+                if self.custom_properties[_key_custom_properties]:
+                    _field_dict[_key_custom_properties] = self.custom_properties[_key_custom_properties].to_dict()
             _dict['customProperties'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of defaults
         if self.defaults:
@@ -154,9 +154,9 @@ class FeatureFlag(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in environments (dict)
         _field_dict = {}
         if self.environments:
-            for _key in self.environments:
-                if self.environments[_key]:
-                    _field_dict[_key] = self.environments[_key].to_dict()
+            for _key_environments in self.environments:
+                if self.environments[_key_environments]:
+                    _field_dict[_key_environments] = self.environments[_key_environments].to_dict()
             _dict['environments'] = _field_dict
         return _dict
 

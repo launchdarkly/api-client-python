@@ -74,9 +74,9 @@ class FlagSummary(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in variations (dict)
         _field_dict = {}
         if self.variations:
-            for _key in self.variations:
-                if self.variations[_key]:
-                    _field_dict[_key] = self.variations[_key].to_dict()
+            for _key_variations in self.variations:
+                if self.variations[_key_variations]:
+                    _field_dict[_key_variations] = self.variations[_key_variations].to_dict()
             _dict['variations'] = _field_dict
         return _dict
 

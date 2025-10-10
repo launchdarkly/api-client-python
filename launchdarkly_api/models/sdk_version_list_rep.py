@@ -74,9 +74,9 @@ class SdkVersionListRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in sdk_versions (list)
         _items = []
         if self.sdk_versions:
-            for _item in self.sdk_versions:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_sdk_versions in self.sdk_versions:
+                if _item_sdk_versions:
+                    _items.append(_item_sdk_versions.to_dict())
             _dict['sdkVersions'] = _items
         return _dict
 

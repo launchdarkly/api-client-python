@@ -16,7 +16,32 @@ Method | HTTP request | Description
 
 Create big segment store integration
 
- Create a persistent store integration.  If you are using server-side SDKs, segments synced from external tools and larger list-based segments require a persistent store within your infrastructure. LaunchDarkly keeps the persistent store up to date and consults it during flag evaluation.  You can use either Redis or DynamoDB as your persistent store. When you create a persistent store integration, the fields in the `config` object in the request vary depending on which persistent store you use.  If you are using Redis to create your persistent store integration, you will need to know:  * Your Redis host * Your Redis port * Your Redis username * Your Redis password * Whether or not LaunchDarkly should connect using TLS  If you are using DynamoDB to create your persistent store integration, you will need to know:  * Your DynamoDB table name. The table must have the following schema:   * Partition key: `namespace` (string)   * Sort key: `key` (string) * Your DynamoDB Amazon Web Services (AWS) region. * Your AWS role Amazon Resource Name (ARN). This is the role that LaunchDarkly will assume to manage your DynamoDB table. * The External ID you specified when creating your Amazon Resource Name (ARN).  To learn more, read [Segment configuration](https://launchdarkly.com/docs/home/flags/segment-config). 
+
+Create a persistent store integration.
+
+If you are using server-side SDKs, segments synced from external tools and larger list-based segments require a persistent store within your infrastructure. LaunchDarkly keeps the persistent store up to date and consults it during flag evaluation.
+
+You can use either Redis or DynamoDB as your persistent store. When you create a persistent store integration, the fields in the `config` object in the request vary depending on which persistent store you use.
+
+If you are using Redis to create your persistent store integration, you will need to know:
+
+* Your Redis host
+* Your Redis port
+* Your Redis username
+* Your Redis password
+* Whether or not LaunchDarkly should connect using TLS
+
+If you are using DynamoDB to create your persistent store integration, you will need to know:
+
+* Your DynamoDB table name. The table must have the following schema:
+  * Partition key: `namespace` (string)
+  * Sort key: `key` (string)
+* Your DynamoDB Amazon Web Services (AWS) region.
+* Your AWS role Amazon Resource Name (ARN). This is the role that LaunchDarkly will assume to manage your DynamoDB table.
+* The External ID you specified when creating your Amazon Resource Name (ARN).
+
+To learn more, read [Segment configuration](https://launchdarkly.com/docs/home/flags/segment-config).
+
 
 ### Example
 

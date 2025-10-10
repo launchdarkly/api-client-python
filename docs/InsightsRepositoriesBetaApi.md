@@ -182,7 +182,18 @@ void (empty response body)
 
 List repositories
 
-Get a list of repositories  ### Expanding the repository collection response  LaunchDarkly supports expanding the repository collection response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `projects` includes details on all of the LaunchDarkly projects associated with each repository  For example, use `?expand=projects` to include the `projects` field in the response. By default, this field is **not** included in the response. 
+Get a list of repositories
+
+### Expanding the repository collection response
+
+LaunchDarkly supports expanding the repository collection response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `projects` includes details on all of the LaunchDarkly projects associated with each repository
+
+For example, use `?expand=projects` to include the `projects` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

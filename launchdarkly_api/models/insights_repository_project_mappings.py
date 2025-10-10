@@ -73,9 +73,9 @@ class InsightsRepositoryProjectMappings(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in mappings (list)
         _items = []
         if self.mappings:
-            for _item in self.mappings:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_mappings in self.mappings:
+                if _item_mappings:
+                    _items.append(_item_mappings.to_dict())
             _dict['mappings'] = _items
         return _dict
 

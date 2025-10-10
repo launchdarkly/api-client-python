@@ -73,9 +73,9 @@ class RandomizationSettingsPut(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in randomization_units (list)
         _items = []
         if self.randomization_units:
-            for _item in self.randomization_units:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_randomization_units in self.randomization_units:
+                if _item_randomization_units:
+                    _items.append(_item_randomization_units.to_dict())
             _dict['randomizationUnits'] = _items
         return _dict
 

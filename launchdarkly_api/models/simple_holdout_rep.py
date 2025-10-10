@@ -79,9 +79,9 @@ class SimpleHoldoutRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in experiments (list)
         _items = []
         if self.experiments:
-            for _item in self.experiments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_experiments in self.experiments:
+                if _item_experiments:
+                    _items.append(_item_experiments.to_dict())
             _dict['experiments'] = _items
         return _dict
 

@@ -75,9 +75,9 @@ class InsightsChartSeriesMetadata(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in bounds (list)
         _items = []
         if self.bounds:
-            for _item in self.bounds:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_bounds in self.bounds:
+                if _item_bounds:
+                    _items.append(_item_bounds.to_dict())
             _dict['bounds'] = _items
         return _dict
 

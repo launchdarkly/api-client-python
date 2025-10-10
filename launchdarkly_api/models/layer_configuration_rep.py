@@ -73,9 +73,9 @@ class LayerConfigurationRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in reservations (list)
         _items = []
         if self.reservations:
-            for _item in self.reservations:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_reservations in self.reservations:
+                if _item_reservations:
+                    _items.append(_item_reservations.to_dict())
             _dict['reservations'] = _items
         return _dict
 

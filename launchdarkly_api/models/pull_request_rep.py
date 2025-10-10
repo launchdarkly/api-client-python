@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from launchdarkly_api.models.flag_reference_collection_rep import FlagReferenceCollectionRep
 from launchdarkly_api.models.pull_request_lead_time_rep import PullRequestLeadTimeRep
 from typing import Optional, Set
@@ -29,7 +30,7 @@ class PullRequestRep(BaseModel):
     """
     PullRequestRep
     """ # noqa: E501
-    id: StrictStr = Field(description="The pull request internal ID")
+    id: UUID = Field(description="The pull request internal ID")
     external_id: StrictStr = Field(description="The pull request number", alias="externalId")
     title: StrictStr = Field(description="The pull request title")
     status: StrictStr = Field(description="The pull request status")

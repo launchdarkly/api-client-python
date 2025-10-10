@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from launchdarkly_api.models.project_summary_collection import ProjectSummaryCollection
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,7 +29,7 @@ class InsightsRepository(BaseModel):
     """
     InsightsRepository
     """ # noqa: E501
-    id: StrictStr = Field(description="The repository ID", alias="_id")
+    id: UUID = Field(description="The repository ID", alias="_id")
     version: StrictInt = Field(description="The repository version")
     key: StrictStr = Field(description="The repository key")
     type: StrictStr = Field(description="The repository type")

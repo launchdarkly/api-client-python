@@ -180,7 +180,19 @@ void (empty response body)
 
 Get application by key
 
- Retrieve an application by the application key.  ### Expanding the application response  LaunchDarkly supports expanding the \"Get application\" response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `flags` includes details on the flags that have been evaluated by the application  For example, use `?expand=flags` to include the `flags` field in the response. By default, this field is **not** included in the response. 
+
+Retrieve an application by the application key.
+
+### Expanding the application response
+
+LaunchDarkly supports expanding the "Get application" response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `flags` includes details on the flags that have been evaluated by the application
+
+For example, use `?expand=flags` to include the `flags` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 
@@ -358,7 +370,19 @@ Name | Type | Description  | Notes
 
 Get applications
 
- Get a list of applications.  ### Expanding the applications response  LaunchDarkly supports expanding the \"Get applications\" response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `flags` includes details on the flags that have been evaluated by the application  For example, use `?expand=flags` to include the `flags` field in the response. By default, this field is **not** included in the response. 
+
+Get a list of applications.
+
+### Expanding the applications response
+
+LaunchDarkly supports expanding the "Get applications" response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `flags` includes details on the flags that have been evaluated by the application
+
+For example, use `?expand=flags` to include the `flags` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

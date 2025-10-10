@@ -100,30 +100,30 @@ class UserSegment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in included_contexts (list)
         _items = []
         if self.included_contexts:
-            for _item in self.included_contexts:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_included_contexts in self.included_contexts:
+                if _item_included_contexts:
+                    _items.append(_item_included_contexts.to_dict())
             _dict['includedContexts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in excluded_contexts (list)
         _items = []
         if self.excluded_contexts:
-            for _item in self.excluded_contexts:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_excluded_contexts in self.excluded_contexts:
+                if _item_excluded_contexts:
+                    _items.append(_item_excluded_contexts.to_dict())
             _dict['excludedContexts'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in rules (list)
         _items = []
         if self.rules:
-            for _item in self.rules:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_rules in self.rules:
+                if _item_rules:
+                    _items.append(_item_rules.to_dict())
             _dict['rules'] = _items
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:
@@ -131,9 +131,9 @@ class UserSegment(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in flags (list)
         _items = []
         if self.flags:
-            for _item in self.flags:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_flags in self.flags:
+                if _item_flags:
+                    _items.append(_item_flags.to_dict())
             _dict['_flags'] = _items
         # override the default output from pydantic by calling `to_dict()` of unbounded_metadata
         if self.unbounded_metadata:

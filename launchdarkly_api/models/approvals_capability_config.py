@@ -73,9 +73,9 @@ class ApprovalsCapabilityConfig(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in additional_form_variables (list)
         _items = []
         if self.additional_form_variables:
-            for _item in self.additional_form_variables:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_additional_form_variables in self.additional_form_variables:
+                if _item_additional_form_variables:
+                    _items.append(_item_additional_form_variables.to_dict())
             _dict['additionalFormVariables'] = _items
         return _dict
 

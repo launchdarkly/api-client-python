@@ -78,9 +78,9 @@ class InsightsChart(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in series (list)
         _items = []
         if self.series:
-            for _item in self.series:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_series in self.series:
+                if _item_series:
+                    _items.append(_item_series.to_dict())
             _dict['series'] = _items
         return _dict
 

@@ -17,7 +17,12 @@ Method | HTTP request | Description
 
 Delete release pipeline
 
-Deletes a release pipeline.  You cannot delete the default release pipeline.  If you want to delete a release pipeline that is currently the default, create a second release pipeline and set it as the default. Then delete the first release pipeline. To change the default release pipeline, use the [Update project](https://launchdarkly.com/docs/api/projects/patch-project) API to set the `defaultReleasePipelineKey`. 
+Deletes a release pipeline.
+
+You cannot delete the default release pipeline.
+
+If you want to delete a release pipeline that is currently the default, create a second release pipeline and set it as the default. Then delete the first release pipeline. To change the default release pipeline, use the [Update project](https://launchdarkly.com/docs/api/projects/patch-project) API to set the `defaultReleasePipelineKey`.
+
 
 ### Example
 
@@ -97,7 +102,16 @@ void (empty response body)
 
 Get all release pipelines
 
-Get all release pipelines for a project.  ### Filtering release pipelines  LaunchDarkly supports the following fields for filters:  - `query` is a string that matches against the release pipeline `key`, `name`, and `description`. It is not case sensitive. For example: `?filter=query:examplePipeline`.  - `env` is a string that matches an environment key. For example: `?filter=env:production`. 
+Get all release pipelines for a project.
+
+### Filtering release pipelines
+
+LaunchDarkly supports the following fields for filters:
+
+- `query` is a string that matches against the release pipeline `key`, `name`, and `description`. It is not case sensitive. For example: `?filter=query:examplePipeline`.
+
+- `env` is a string that matches an environment key. For example: `?filter=env:production`.
+
 
 ### Example
 
@@ -353,7 +367,12 @@ Name | Type | Description  | Notes
 
 Create a release pipeline
 
-Creates a new release pipeline.  The first release pipeline you create is automatically set as the default release pipeline for your project. To change the default release pipeline, use the [Update project](https://launchdarkly.com/docs/api/projects/patch-project) API to set the `defaultReleasePipelineKey`.  You can create up to 20 release pipelines per project. 
+Creates a new release pipeline.
+
+The first release pipeline you create is automatically set as the default release pipeline for your project. To change the default release pipeline, use the [Update project](https://launchdarkly.com/docs/api/projects/patch-project) API to set the `defaultReleasePipelineKey`.
+
+You can create up to 20 release pipelines per project.
+
 
 ### Example
 

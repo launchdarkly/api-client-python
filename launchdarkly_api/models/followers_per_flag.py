@@ -74,9 +74,9 @@ class FollowersPerFlag(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in followers (list)
         _items = []
         if self.followers:
-            for _item in self.followers:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_followers in self.followers:
+                if _item_followers:
+                    _items.append(_item_followers.to_dict())
             _dict['followers'] = _items
         return _dict
 

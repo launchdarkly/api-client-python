@@ -104,16 +104,16 @@ class AuditLogEntryRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in accesses (list)
         _items = []
         if self.accesses:
-            for _item in self.accesses:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_accesses in self.accesses:
+                if _item_accesses:
+                    _items.append(_item_accesses.to_dict())
             _dict['accesses'] = _items
         # override the default output from pydantic by calling `to_dict()` of subject
         if self.subject:
@@ -136,9 +136,9 @@ class AuditLogEntryRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in subentries (list)
         _items = []
         if self.subentries:
-            for _item in self.subentries:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_subentries in self.subentries:
+                if _item_subentries:
+                    _items.append(_item_subentries.to_dict())
             _dict['subentries'] = _items
         # set to None if delta (nullable) is None
         # and model_fields_set contains the field

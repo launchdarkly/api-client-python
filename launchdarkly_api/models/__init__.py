@@ -13,7 +13,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from launchdarkly_api.models.ai_config import AIConfig
 from launchdarkly_api.models.ai_config_maintainer import AIConfigMaintainer
@@ -594,3 +593,4 @@ from launchdarkly_api.models.workflow_template_metadata import WorkflowTemplateM
 from launchdarkly_api.models.workflow_template_output import WorkflowTemplateOutput
 from launchdarkly_api.models.workflow_template_parameter import WorkflowTemplateParameter
 from launchdarkly_api.models.workflow_templates_listing_output_rep import WorkflowTemplatesListingOutputRep
+

@@ -14,7 +14,8 @@ Method | HTTP request | Description
 
 Create layer
 
-Create a layer. Experiments running in the same layer are granted mutually-exclusive traffic. 
+Create a layer. Experiments running in the same layer are granted mutually-exclusive traffic.
+
 
 ### Example
 
@@ -185,7 +186,100 @@ Name | Type | Description  | Notes
 
 Update layer
 
-Update a layer by adding, changing, or removing traffic reservations for experiments, or by changing layer name or description. Updating a layer uses the semantic patch format.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).  ### Instructions  Semantic patch requests support the following `kind` instructions for updating layers.  <details> <summary>Click to expand instructions for <strong>updating layers</strong></summary>  #### updateName  Updates the layer name.  ##### Parameters  - `name`: The new layer name.  Here's an example:  ```json {   \"instructions\": [{       \"kind\": \"updateName\",       \"name\": \"New name\"   }] } ```  #### updateDescription  Updates the layer description.  ##### Parameters  - `description`: The new description.  Here's an example:  ```json {   \"instructions\": [{       \"kind\": \"updateDescription\",       \"description\": \"New description\"   }] } ```  #### updateExperimentReservation  Adds or updates a traffic reservation for an experiment in a layer.  ##### Parameters  - `experimentKey`: The key of the experiment whose reservation you are adding to or updating in the layer. - `reservationPercent`: The amount of traffic in the layer to reserve. Must be an integer. Zero is allowed until iteration start.  Here's an example:  ```json {   \"environmentKey\": \"production\",   \"instructions\": [{       \"kind\": \"updateExperimentReservation\",       \"experimentKey\": \"exp-key\",       \"reservationPercent\": 10   }] } ```  #### removeExperiment  Removes a traffic reservation for an experiment from a layer.  ##### Parameters  - `experimentKey`: The key of the experiment whose reservation you want to remove from the layer.  Here's an example:  ```json {   \"environmentKey\": \"production\",   \"instructions\": [{       \"kind\": \"removeExperiment\",       \"experimentKey\": \"exp-key\"   }] } ```  </details> 
+Update a layer by adding, changing, or removing traffic reservations for experiments, or by changing layer name or description.
+Updating a layer uses the semantic patch format.
+
+To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).
+
+### Instructions
+
+Semantic patch requests support the following `kind` instructions for updating layers.
+
+<details>
+<summary>Click to expand instructions for <strong>updating layers</strong></summary>
+
+#### updateName
+
+Updates the layer name.
+
+##### Parameters
+
+- `name`: The new layer name.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+      "kind": "updateName",
+      "name": "New name"
+  }]
+}
+```
+
+#### updateDescription
+
+Updates the layer description.
+
+##### Parameters
+
+- `description`: The new description.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+      "kind": "updateDescription",
+      "description": "New description"
+  }]
+}
+```
+
+#### updateExperimentReservation
+
+Adds or updates a traffic reservation for an experiment in a layer.
+
+##### Parameters
+
+- `experimentKey`: The key of the experiment whose reservation you are adding to or updating in the layer.
+- `reservationPercent`: The amount of traffic in the layer to reserve. Must be an integer. Zero is allowed until iteration start.
+
+Here's an example:
+
+```json
+{
+  "environmentKey": "production",
+  "instructions": [{
+      "kind": "updateExperimentReservation",
+      "experimentKey": "exp-key",
+      "reservationPercent": 10
+  }]
+}
+```
+
+#### removeExperiment
+
+Removes a traffic reservation for an experiment from a layer.
+
+##### Parameters
+
+- `experimentKey`: The key of the experiment whose reservation you want to remove from the layer.
+
+Here's an example:
+
+```json
+{
+  "environmentKey": "production",
+  "instructions": [{
+      "kind": "removeExperiment",
+      "experimentKey": "exp-key"
+  }]
+}
+```
+
+</details>
+
 
 ### Example
 

@@ -14,7 +14,10 @@ Method | HTTP request | Description
 
 List audit log entries
 
-Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.  LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax). 
+Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
+
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax).
+
 
 ### Example
 
@@ -105,7 +108,12 @@ Name | Type | Description  | Notes
 
 Get audit log entry
 
-Fetch a detailed audit log entry representation. The detailed representation includes several fields that are not present in the summary representation, including:  - `previousVersion`: a JSON representation of the previous version of the entity. - `currentVersion`: a JSON representation of the current version of the entity. - `delta`: the JSON patch body that was used in the request to update the entity. This is only included if the update was made through a [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch). It is null when the update was made using [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch). Because most [flag updates](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag) are made using semantic patch, this field is rarely returned. 
+Fetch a detailed audit log entry representation. The detailed representation includes several fields that are not present in the summary representation, including:
+
+- `previousVersion`: a JSON representation of the previous version of the entity.
+- `currentVersion`: a JSON representation of the current version of the entity.
+- `delta`: the JSON patch body that was used in the request to update the entity. This is only included if the update was made through a [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch). It is null when the update was made using [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch). Because most [flag updates](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag) are made using semantic patch, this field is rarely returned.
+
 
 ### Example
 
@@ -188,7 +196,10 @@ Name | Type | Description  | Notes
 
 Search audit log entries
 
-Search your audit log entries. The query parameters let you restrict the results that return by date ranges, or a full-text search query. The request body lets you restrict the results that return by resource specifiers.  LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax). 
+Search your audit log entries. The query parameters let you restrict the results that return by date ranges, or a full-text search query. The request body lets you restrict the results that return by resource specifiers.
+
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax).
+
 
 ### Example
 

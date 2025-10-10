@@ -75,9 +75,9 @@ class ReferenceRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in hunks (list)
         _items = []
         if self.hunks:
-            for _item in self.hunks:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_hunks in self.hunks:
+                if _item_hunks:
+                    _items.append(_item_hunks.to_dict())
             _dict['hunks'] = _items
         return _dict
 

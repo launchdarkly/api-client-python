@@ -12,7 +12,18 @@ Method | HTTP request | Description
 
 List flag events
 
-Get a list of flag events  ### Expanding the flag event collection response  LaunchDarkly supports expanding the flag event collection response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `experiments` includes details on all of the experiments run on each flag  For example, use `?expand=experiments` to include the `experiments` field in the response. By default, this field is **not** included in the response. 
+Get a list of flag events
+
+### Expanding the flag event collection response
+
+LaunchDarkly supports expanding the flag event collection response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `experiments` includes details on all of the experiments run on each flag
+
+For example, use `?expand=experiments` to include the `experiments` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

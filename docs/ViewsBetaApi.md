@@ -230,7 +230,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     resource_type = 'flags' # str | 
     limit = 56 # int | The number of views to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort = 'linkedAt' # str | Field to sort by. Default field is `linkedAt`, default order is ascending. (optional) (default to 'linkedAt')
+    sort = linkedAt # str | Field to sort by. Default field is `linkedAt`, default order is ascending. (optional) (default to linkedAt)
 
     try:
         # Get linked resources
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
  **resource_type** | **str**|  | 
  **limit** | **int**| The number of views to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
- **sort** | **str**| Field to sort by. Default field is &#x60;linkedAt&#x60;, default order is ascending. | [optional] [default to &#39;linkedAt&#39;]
+ **sort** | **str**| Field to sort by. Default field is &#x60;linkedAt&#x60;, default order is ascending. | [optional] [default to linkedAt]
 
 ### Return type
 
@@ -573,7 +573,12 @@ Name | Type | Description  | Notes
 
 Link resource
 
-Link one or multiple resources to a view: - Link flags using flag keys - Link AI configs using AI config keys - Link metrics using metric keys - Link segments using segment IDs 
+Link one or multiple resources to a view:
+- Link flags using flag keys
+- Link AI configs using AI config keys
+- Link metrics using metric keys
+- Link segments using segment IDs
+
 
 ### Example
 
@@ -665,7 +670,12 @@ Name | Type | Description  | Notes
 
 Unlink resource
 
-Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs - Unlink AI configs using AI config keys - Unlink metrics using metric keys 
+Unlink one or multiple resources from a view:
+- Unlink flags using flag keys
+- Unlink segments using segment IDs
+- Unlink AI configs using AI config keys
+- Unlink metrics using metric keys
+
 
 ### Example
 
@@ -757,7 +767,18 @@ Name | Type | Description  | Notes
 
 Update view
 
-Edit an existing view.  The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.  Here's an example:   ```     {       \"description\": \"Example updated description\",       \"tags\": [\"new-tag\"]     }   ``` 
+Edit an existing view.
+
+The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+Here's an example:
+  ```
+    {
+      "description": "Example updated description",
+      "tags": ["new-tag"]
+    }
+  ```
+
 
 ### Example
 

@@ -84,9 +84,9 @@ class ReleasePipeline(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in phases (list)
         _items = []
         if self.phases:
-            for _item in self.phases:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_phases in self.phases:
+                if _item_phases:
+                    _items.append(_item_phases.to_dict())
             _dict['phases'] = _items
         # override the default output from pydantic by calling `to_dict()` of access
         if self.access:

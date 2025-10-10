@@ -16,7 +16,18 @@ Method | HTTP request | Description
 
 Get deployment frequency chart data
 
-Get deployment frequency chart data. Engineering insights displays deployment frequency data in the [deployment frequency metric view](https://launchdarkly.com/docs/home/observability/deployments).  ### Expanding the chart response  LaunchDarkly supports expanding the chart response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `metrics` includes details on the metrics related to deployment frequency  For example, use `?expand=metrics` to include the `metrics` field in the response. By default, this field is **not** included in the response. 
+Get deployment frequency chart data. Engineering insights displays deployment frequency data in the [deployment frequency metric view](https://launchdarkly.com/docs/home/observability/deployments).
+
+### Expanding the chart response
+
+LaunchDarkly supports expanding the chart response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `metrics` includes details on the metrics related to deployment frequency
+
+For example, use `?expand=metrics` to include the `metrics` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 
@@ -408,7 +419,18 @@ Name | Type | Description  | Notes
 
 Get stale flags chart data
 
-Get stale flags chart data. Engineering insights displays stale flags data in the [flag health metric view](https://launchdarkly.com/docs/home/observability/flag-health).  ### Expanding the chart response  LaunchDarkly supports expanding the chart response to include additional fields.  To expand the response, append the `expand` query parameter and include the following:  * `metrics` includes details on the metrics related to stale flags  For example, use `?expand=metrics` to include the `metrics` field in the response. By default, this field is **not** included in the response. 
+Get stale flags chart data. Engineering insights displays stale flags data in the [flag health metric view](https://launchdarkly.com/docs/home/observability/flag-health).
+
+### Expanding the chart response
+
+LaunchDarkly supports expanding the chart response to include additional fields.
+
+To expand the response, append the `expand` query parameter and include the following:
+
+* `metrics` includes details on the metrics related to stale flags
+
+For example, use `?expand=metrics` to include the `metrics` field in the response. By default, this field is **not** included in the response.
+
 
 ### Example
 

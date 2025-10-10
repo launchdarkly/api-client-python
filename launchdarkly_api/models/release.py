@@ -81,16 +81,16 @@ class Release(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each value in links (dict)
         _field_dict = {}
         if self.links:
-            for _key in self.links:
-                if self.links[_key]:
-                    _field_dict[_key] = self.links[_key].to_dict()
+            for _key_links in self.links:
+                if self.links[_key_links]:
+                    _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each item in phases (list)
         _items = []
         if self.phases:
-            for _item in self.phases:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_phases in self.phases:
+                if _item_phases:
+                    _items.append(_item_phases.to_dict())
             _dict['phases'] = _items
         return _dict
 

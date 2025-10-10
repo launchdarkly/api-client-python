@@ -122,16 +122,16 @@ class ExpandableApprovalRequestResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in all_reviews (list)
         _items = []
         if self.all_reviews:
-            for _item in self.all_reviews:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_all_reviews in self.all_reviews:
+                if _item_all_reviews:
+                    _items.append(_item_all_reviews.to_dict())
             _dict['allReviews'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in conflicts (list)
         _items = []
         if self.conflicts:
-            for _item in self.conflicts:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_conflicts in self.conflicts:
+                if _item_conflicts:
+                    _items.append(_item_conflicts.to_dict())
             _dict['conflicts'] = _items
         # override the default output from pydantic by calling `to_dict()` of integration_metadata
         if self.integration_metadata:
@@ -151,9 +151,9 @@ class ExpandableApprovalRequestResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in environments (list)
         _items = []
         if self.environments:
-            for _item in self.environments:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_environments in self.environments:
+                if _item_environments:
+                    _items.append(_item_environments.to_dict())
             _dict['environments'] = _items
         # override the default output from pydantic by calling `to_dict()` of flag
         if self.flag:

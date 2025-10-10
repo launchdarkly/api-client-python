@@ -79,9 +79,9 @@ class StageOutput(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in conditions (list)
         _items = []
         if self.conditions:
-            for _item in self.conditions:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_conditions in self.conditions:
+                if _item_conditions:
+                    _items.append(_item_conditions.to_dict())
             _dict['conditions'] = _items
         # override the default output from pydantic by calling `to_dict()` of action
         if self.action:

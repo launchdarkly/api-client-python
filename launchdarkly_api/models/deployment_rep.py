@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from launchdarkly_api.models.flag_reference_collection_rep import FlagReferenceCollectionRep
 from launchdarkly_api.models.lead_time_stages_rep import LeadTimeStagesRep
 from typing import Optional, Set
@@ -29,7 +30,7 @@ class DeploymentRep(BaseModel):
     """
     DeploymentRep
     """ # noqa: E501
-    id: StrictStr = Field(description="The deployment ID")
+    id: UUID = Field(description="The deployment ID")
     application_key: StrictStr = Field(description="The application key", alias="applicationKey")
     application_version: StrictStr = Field(description="The application version", alias="applicationVersion")
     started_at: StrictInt = Field(alias="startedAt")

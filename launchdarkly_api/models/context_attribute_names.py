@@ -74,9 +74,9 @@ class ContextAttributeNames(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in names (list)
         _items = []
         if self.names:
-            for _item in self.names:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_names in self.names:
+                if _item_names:
+                    _items.append(_item_names.to_dict())
             _dict['names'] = _items
         return _dict
 

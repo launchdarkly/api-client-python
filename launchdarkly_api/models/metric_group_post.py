@@ -86,9 +86,9 @@ class MetricGroupPost(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in metrics (list)
         _items = []
         if self.metrics:
-            for _item in self.metrics:
-                if _item:
-                    _items.append(_item.to_dict())
+            for _item_metrics in self.metrics:
+                if _item_metrics:
+                    _items.append(_item_metrics.to_dict())
             _dict['metrics'] = _items
         return _dict
 
