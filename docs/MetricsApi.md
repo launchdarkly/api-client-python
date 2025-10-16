@@ -146,7 +146,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = launchdarkly_api.MetricsApi(api_client)
     project_key = 'project_key_example' # str | The project key
     metric_key = 'metric_key_example' # str | The metric key
-    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`. (optional)
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`. (optional)
     version_id = 'version_id_example' # str | The specific version ID of the metric (optional)
 
     try:
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key | 
  **metric_key** | **str**| The metric key | 
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are &#x60;experiments&#x60;, &#x60;experimentCount&#x60;, &#x60;metricGroups&#x60;, &#x60;metricGroupCount&#x60;, &#x60;eventSources&#x60;, &#x60;guardedRollouts&#x60;, &#x60;guardedRolloutCount&#x60;, and &#x60;lastUsedInEntity&#x60;. | [optional] 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are &#x60;experiments&#x60;, &#x60;experimentCount&#x60;, &#x60;metricGroups&#x60;, &#x60;metricGroupCount&#x60;, &#x60;eventSources&#x60;, &#x60;guardedRollouts&#x60;, &#x60;guardedRolloutCount&#x60;, &#x60;lastUsedInExperiment&#x60;, and &#x60;lastUsedInGuardedRollout&#x60;. | [optional] 
  **version_id** | **str**| The specific version ID of the metric | [optional] 
 
 ### Return type

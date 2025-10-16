@@ -336,7 +336,7 @@ class MetricsApi:
         self,
         project_key: Annotated[StrictStr, Field(description="The project key")],
         metric_key: Annotated[StrictStr, Field(description="The metric key")],
-        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.")] = None,
+        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.")] = None,
         version_id: Annotated[Optional[StrictStr], Field(description="The specific version ID of the metric")] = None,
         _request_timeout: Union[
             None,
@@ -359,7 +359,7 @@ class MetricsApi:
         :type project_key: str
         :param metric_key: The metric key (required)
         :type metric_key: str
-        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.
+        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.
         :type expand: str
         :param version_id: The specific version ID of the metric
         :type version_id: str
@@ -419,7 +419,7 @@ class MetricsApi:
         self,
         project_key: Annotated[StrictStr, Field(description="The project key")],
         metric_key: Annotated[StrictStr, Field(description="The metric key")],
-        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.")] = None,
+        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.")] = None,
         version_id: Annotated[Optional[StrictStr], Field(description="The specific version ID of the metric")] = None,
         _request_timeout: Union[
             None,
@@ -442,7 +442,7 @@ class MetricsApi:
         :type project_key: str
         :param metric_key: The metric key (required)
         :type metric_key: str
-        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.
+        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.
         :type expand: str
         :param version_id: The specific version ID of the metric
         :type version_id: str
@@ -502,7 +502,7 @@ class MetricsApi:
         self,
         project_key: Annotated[StrictStr, Field(description="The project key")],
         metric_key: Annotated[StrictStr, Field(description="The metric key")],
-        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.")] = None,
+        expand: Annotated[Optional[StrictStr], Field(description="A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.")] = None,
         version_id: Annotated[Optional[StrictStr], Field(description="The specific version ID of the metric")] = None,
         _request_timeout: Union[
             None,
@@ -525,7 +525,7 @@ class MetricsApi:
         :type project_key: str
         :param metric_key: The metric key (required)
         :type metric_key: str
-        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, and `lastUsedInEntity`.
+        :param expand: A comma-separated list of properties that can reveal additional information in the response. Supported fields are `experiments`, `experimentCount`, `metricGroups`, `metricGroupCount`, `eventSources`, `guardedRollouts`, `guardedRolloutCount`, `lastUsedInExperiment`, and `lastUsedInGuardedRollout`.
         :type expand: str
         :param version_id: The specific version ID of the metric
         :type version_id: str

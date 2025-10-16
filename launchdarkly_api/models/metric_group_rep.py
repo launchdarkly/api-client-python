@@ -47,7 +47,11 @@ class MetricGroupRep(BaseModel):
     version: StrictInt = Field(description="The version of this metric group", alias="_version")
     experiments: Optional[List[DependentExperimentRep]] = None
     experiment_count: Optional[StrictInt] = Field(default=None, description="The number of experiments using this metric group", alias="experimentCount")
-    __properties: ClassVar[List[str]] = ["_id", "key", "name", "kind", "description", "_links", "_access", "tags", "_creationDate", "_lastModified", "maintainer", "metrics", "_version", "experiments", "experimentCount"]
+    active_experiment_count: Optional[StrictInt] = Field(default=None, description="The number of active experiments using this metric group", alias="activeExperimentCount")
+    active_guarded_rollout_count: Optional[StrictInt] = Field(default=None, description="The number of active guarded rollouts using this metric group", alias="activeGuardedRolloutCount")
+    total_connections_count: Optional[StrictInt] = Field(default=None, description="The total number of connections using this metric group", alias="totalConnectionsCount")
+    total_active_connections_count: Optional[StrictInt] = Field(default=None, description="The total number of active connections using this metric group", alias="totalActiveConnectionsCount")
+    __properties: ClassVar[List[str]] = ["_id", "key", "name", "kind", "description", "_links", "_access", "tags", "_creationDate", "_lastModified", "maintainer", "metrics", "_version", "experiments", "experimentCount", "activeExperimentCount", "activeGuardedRolloutCount", "totalConnectionsCount", "totalActiveConnectionsCount"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -153,7 +157,11 @@ class MetricGroupRep(BaseModel):
             "metrics": [MetricInGroupRep.from_dict(_item) for _item in obj["metrics"]] if obj.get("metrics") is not None else None,
             "_version": obj.get("_version"),
             "experiments": [DependentExperimentRep.from_dict(_item) for _item in obj["experiments"]] if obj.get("experiments") is not None else None,
-            "experimentCount": obj.get("experimentCount")
+            "experimentCount": obj.get("experimentCount"),
+            "activeExperimentCount": obj.get("activeExperimentCount"),
+            "activeGuardedRolloutCount": obj.get("activeGuardedRolloutCount"),
+            "totalConnectionsCount": obj.get("totalConnectionsCount"),
+            "totalActiveConnectionsCount": obj.get("totalActiveConnectionsCount")
         })
         return _obj
 

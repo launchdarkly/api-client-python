@@ -111,7 +111,11 @@ class TestMetricGroupRep(unittest.TestCase):
                         archived_date = 56, 
                         _links = {"parent":{"href":"/api/v2/projects/my-project/environments/my-environment","type":"application/json"},"self":{"href":"/api/v2/projects/my-project/environments/my-environment/experiments/example-experiment","type":"application/json"}}, )
                     ],
-                experiment_count = 0
+                experiment_count = 0,
+                active_experiment_count = 0,
+                active_guarded_rollout_count = 0,
+                total_connections_count = 0,
+                total_active_connections_count = 0
             )
         else:
             return MetricGroupRep(
