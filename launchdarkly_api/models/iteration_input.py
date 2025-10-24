@@ -38,8 +38,9 @@ class IterationInput(BaseModel):
     treatments: List[TreatmentInput]
     flags: Dict[str, FlagInput]
     randomization_unit: Optional[StrictStr] = Field(default=None, description="The unit of randomization for this iteration. Defaults to user.", alias="randomizationUnit")
+    covariance_id: Optional[StrictStr] = Field(default=None, description="The ID of the covariance CSV", alias="covarianceId")
     attributes: Optional[List[StrictStr]] = Field(default=None, description="The attributes that this iteration's results can be sliced by")
-    __properties: ClassVar[List[str]] = ["hypothesis", "canReshuffleTraffic", "metrics", "primarySingleMetricKey", "primaryFunnelKey", "treatments", "flags", "randomizationUnit", "attributes"]
+    __properties: ClassVar[List[str]] = ["hypothesis", "canReshuffleTraffic", "metrics", "primarySingleMetricKey", "primaryFunnelKey", "treatments", "flags", "randomizationUnit", "covarianceId", "attributes"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -126,6 +127,7 @@ class IterationInput(BaseModel):
             if obj.get("flags") is not None
             else None,
             "randomizationUnit": obj.get("randomizationUnit"),
+            "covarianceId": obj.get("covarianceId"),
             "attributes": obj.get("attributes")
         })
         return _obj

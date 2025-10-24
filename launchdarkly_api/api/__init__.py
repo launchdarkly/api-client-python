@@ -4,7 +4,6 @@
 from launchdarkly_api.api.ai_configs_beta_api import AIConfigsBetaApi
 from launchdarkly_api.api.access_tokens_api import AccessTokensApi
 from launchdarkly_api.api.account_members_api import AccountMembersApi
-from launchdarkly_api.api.account_members_beta_api import AccountMembersBetaApi
 from launchdarkly_api.api.account_usage_beta_api import AccountUsageBetaApi
 from launchdarkly_api.api.announcements_api import AnnouncementsApi
 from launchdarkly_api.api.applications_beta_api import ApplicationsBetaApi

@@ -15,14 +15,13 @@
 """  # noqa: E501
 
 
-__version__ = "18.0.1"
+__version__ = "18.0.2"
 
 # Define package exports
 __all__ = [
     "AIConfigsBetaApi",
     "AccessTokensApi",
     "AccountMembersApi",
-    "AccountMembersBetaApi",
     "AccountUsageBetaApi",
     "AnnouncementsApi",
     "ApplicationsBetaApi",
@@ -215,6 +214,7 @@ __all__ = [
     "Contexts",
     "CopiedFromEnv",
     "CoreLink",
+    "CovarianceInfoRep",
     "CreateAnnouncementBody",
     "CreateApprovalRequestRequest",
     "CreateCopyFlagConfigApprovalRequestRequest",
@@ -669,7 +669,6 @@ __all__ = [
 from launchdarkly_api.api.ai_configs_beta_api import AIConfigsBetaApi as AIConfigsBetaApi
 from launchdarkly_api.api.access_tokens_api import AccessTokensApi as AccessTokensApi
 from launchdarkly_api.api.account_members_api import AccountMembersApi as AccountMembersApi
-from launchdarkly_api.api.account_members_beta_api import AccountMembersBetaApi as AccountMembersBetaApi
 from launchdarkly_api.api.account_usage_beta_api import AccountUsageBetaApi as AccountUsageBetaApi
 from launchdarkly_api.api.announcements_api import AnnouncementsApi as AnnouncementsApi
 from launchdarkly_api.api.applications_beta_api import ApplicationsBetaApi as ApplicationsBetaApi
@@ -866,6 +865,7 @@ from launchdarkly_api.models.context_search import ContextSearch as ContextSearc
 from launchdarkly_api.models.contexts import Contexts as Contexts
 from launchdarkly_api.models.copied_from_env import CopiedFromEnv as CopiedFromEnv
 from launchdarkly_api.models.core_link import CoreLink as CoreLink
+from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep as CovarianceInfoRep
 from launchdarkly_api.models.create_announcement_body import CreateAnnouncementBody as CreateAnnouncementBody
 from launchdarkly_api.models.create_approval_request_request import CreateApprovalRequestRequest as CreateApprovalRequestRequest
 from launchdarkly_api.models.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest as CreateCopyFlagConfigApprovalRequestRequest

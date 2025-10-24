@@ -34,7 +34,7 @@ class AIConfigVariationPost(BaseModel):
     description: Optional[StrictStr] = Field(default=None, description="Returns the description for the agent. This is only returned for agent variations.")
     instructions: Optional[StrictStr] = Field(default=None, description="Returns the instructions for the agent. This is only returned for agent variations.")
     key: StrictStr
-    messages: List[Message]
+    messages: Optional[List[Message]] = None
     model: Optional[Dict[str, Any]] = None
     name: StrictStr
     model_config_key: Optional[StrictStr] = Field(default=None, alias="modelConfigKey")

@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep
 from launchdarkly_api.models.dependent_metric_group_rep_with_metrics import DependentMetricGroupRepWithMetrics
 from launchdarkly_api.models.dependent_metric_or_metric_group_rep import DependentMetricOrMetricGroupRep
 from launchdarkly_api.models.flag_rep import FlagRep
@@ -54,7 +55,8 @@ class IterationRep(BaseModel):
     secondary_metrics: Optional[List[MetricV2Rep]] = Field(default=None, description="Deprecated, use <code>metrics</code> instead. Details on the secondary metrics for this experiment.", alias="secondaryMetrics")
     metrics: Optional[List[DependentMetricOrMetricGroupRep]] = Field(default=None, description="Details on the metrics for this experiment")
     layer_snapshot: Optional[LayerSnapshotRep] = Field(default=None, alias="layerSnapshot")
-    __properties: ClassVar[List[str]] = ["_id", "hypothesis", "status", "createdAt", "startedAt", "endedAt", "winningTreatmentId", "winningReason", "canReshuffleTraffic", "flags", "reallocationFrequencyMillis", "version", "primaryMetric", "primarySingleMetric", "primaryFunnel", "randomizationUnit", "attributes", "treatments", "secondaryMetrics", "metrics", "layerSnapshot"]
+    covariance_info: Optional[CovarianceInfoRep] = Field(default=None, alias="covarianceInfo")
+    __properties: ClassVar[List[str]] = ["_id", "hypothesis", "status", "createdAt", "startedAt", "endedAt", "winningTreatmentId", "winningReason", "canReshuffleTraffic", "flags", "reallocationFrequencyMillis", "version", "primaryMetric", "primarySingleMetric", "primaryFunnel", "randomizationUnit", "attributes", "treatments", "secondaryMetrics", "metrics", "layerSnapshot", "covarianceInfo"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -135,6 +137,9 @@ class IterationRep(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of layer_snapshot
         if self.layer_snapshot:
             _dict['layerSnapshot'] = self.layer_snapshot.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of covariance_info
+        if self.covariance_info:
+            _dict['covarianceInfo'] = self.covariance_info.to_dict()
         return _dict
 
     @classmethod
@@ -172,7 +177,8 @@ class IterationRep(BaseModel):
             "treatments": [TreatmentRep.from_dict(_item) for _item in obj["treatments"]] if obj.get("treatments") is not None else None,
             "secondaryMetrics": [MetricV2Rep.from_dict(_item) for _item in obj["secondaryMetrics"]] if obj.get("secondaryMetrics") is not None else None,
             "metrics": [DependentMetricOrMetricGroupRep.from_dict(_item) for _item in obj["metrics"]] if obj.get("metrics") is not None else None,
-            "layerSnapshot": LayerSnapshotRep.from_dict(obj["layerSnapshot"]) if obj.get("layerSnapshot") is not None else None
+            "layerSnapshot": LayerSnapshotRep.from_dict(obj["layerSnapshot"]) if obj.get("layerSnapshot") is not None else None,
+            "covarianceInfo": CovarianceInfoRep.from_dict(obj["covarianceInfo"]) if obj.get("covarianceInfo") is not None else None
         })
         return _obj
 

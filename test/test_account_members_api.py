@@ -55,6 +55,13 @@ class TestAccountMembersApi(unittest.TestCase):
         """
         pass
 
+    def test_patch_members(self) -> None:
+        """Test case for patch_members
+
+        Modify account members
+        """
+        pass
+
     def test_post_member_teams(self) -> None:
         """Test case for post_member_teams
 

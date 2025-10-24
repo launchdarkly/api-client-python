@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **description** | **str** | Returns the description for the agent. This is only returned for agent variations. | [optional] 
 **instructions** | **str** | Returns the instructions for the agent. This is only returned for agent variations. | [optional] 
 **key** | **str** |  | 
-**messages** | [**List[Message]**](Message.md) |  | 
+**messages** | [**List[Message]**](Message.md) |  | [optional] 
 **model** | **object** |  | [optional] 
 **name** | **str** |  | 
 **model_config_key** | **str** |  | [optional] 

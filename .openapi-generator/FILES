@@ -41,7 +41,6 @@ docs/AccessDeniedReason.md
 docs/AccessTokenPost.md
 docs/AccessTokensApi.md
 docs/AccountMembersApi.md
-docs/AccountMembersBetaApi.md
 docs/AccountUsageBetaApi.md
 docs/ActionInput.md
 docs/ActionOutput.md
@@ -148,6 +147,7 @@ docs/Contexts.md
 docs/ContextsApi.md
 docs/CopiedFromEnv.md
 docs/CoreLink.md
+docs/CovarianceInfoRep.md
 docs/CreateAnnouncementBody.md
 docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
@@ -644,7 +644,6 @@ launchdarkly_api/__init__.py
 launchdarkly_api/api/__init__.py
 launchdarkly_api/api/access_tokens_api.py
 launchdarkly_api/api/account_members_api.py
-launchdarkly_api/api/account_members_beta_api.py
 launchdarkly_api/api/account_usage_beta_api.py
 launchdarkly_api/api/ai_configs_beta_api.py
 launchdarkly_api/api/announcements_api.py
@@ -834,6 +833,7 @@ launchdarkly_api/models/context_search.py
 launchdarkly_api/models/contexts.py
 launchdarkly_api/models/copied_from_env.py
 launchdarkly_api/models/core_link.py
+launchdarkly_api/models/covariance_info_rep.py
 launchdarkly_api/models/create_announcement_body.py
 launchdarkly_api/models/create_approval_request_request.py
 launchdarkly_api/models/create_copy_flag_config_approval_request_request.py
@@ -1298,7 +1298,6 @@ test/test_access_denied_reason.py
 test/test_access_token_post.py
 test/test_access_tokens_api.py
 test/test_account_members_api.py
-test/test_account_members_beta_api.py
 test/test_account_usage_beta_api.py
 test/test_action_input.py
 test/test_action_output.py
@@ -1434,6 +1433,7 @@ test/test_contexts.py
 test/test_contexts_api.py
 test/test_copied_from_env.py
 test/test_core_link.py
+test/test_covariance_info_rep.py
 test/test_create_announcement_body.py
 test/test_create_approval_request_request.py
 test/test_create_copy_flag_config_approval_request_request.py

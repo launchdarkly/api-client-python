@@ -145,6 +145,7 @@ from launchdarkly_api.models.context_search import ContextSearch
 from launchdarkly_api.models.contexts import Contexts
 from launchdarkly_api.models.copied_from_env import CopiedFromEnv
 from launchdarkly_api.models.core_link import CoreLink
+from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep
 from launchdarkly_api.models.create_announcement_body import CreateAnnouncementBody
 from launchdarkly_api.models.create_approval_request_request import CreateApprovalRequestRequest
 from launchdarkly_api.models.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest

@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **secondary_metrics** | [**List[MetricV2Rep]**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
 **metrics** | [**List[DependentMetricOrMetricGroupRep]**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
 **layer_snapshot** | [**LayerSnapshotRep**](LayerSnapshotRep.md) |  | [optional] 
+**covariance_info** | [**CovarianceInfoRep**](CovarianceInfoRep.md) |  | [optional] 
 
 ## Example
 

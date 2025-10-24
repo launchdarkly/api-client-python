@@ -147,7 +147,11 @@ class TestExperiment(unittest.TestCase):
                         key = 'checkout-flow', 
                         name = 'Checkout Flow', 
                         reservation_percent = 10, 
-                        other_reservation_percent = 70, ), ),
+                        other_reservation_percent = 70, ), 
+                    covariance_info = launchdarkly_api.models.covariance_info_rep.CovarianceInfoRep(
+                        id = '74a49a2b-4834-4246-917e-5d85231d8c2a', 
+                        file_name = 'covariance.csv', 
+                        created_at = 56, ), ),
                 draft_iteration = launchdarkly_api.models.iteration_rep.IterationRep(
                     _id = '12ab3c45de678910fgh12345', 
                     hypothesis = 'The new button placement will increase conversion', 
@@ -249,7 +253,11 @@ class TestExperiment(unittest.TestCase):
                         key = 'checkout-flow', 
                         name = 'Checkout Flow', 
                         reservation_percent = 10, 
-                        other_reservation_percent = 70, ), ),
+                        other_reservation_percent = 70, ), 
+                    covariance_info = launchdarkly_api.models.covariance_info_rep.CovarianceInfoRep(
+                        id = '74a49a2b-4834-4246-917e-5d85231d8c2a', 
+                        file_name = 'covariance.csv', 
+                        created_at = 56, ), ),
                 previous_iterations = [
                     launchdarkly_api.models.iteration_rep.IterationRep(
                         _id = '12ab3c45de678910fgh12345', 
@@ -352,7 +360,11 @@ class TestExperiment(unittest.TestCase):
                             key = 'checkout-flow', 
                             name = 'Checkout Flow', 
                             reservation_percent = 10, 
-                            other_reservation_percent = 70, ), )
+                            other_reservation_percent = 70, ), 
+                        covariance_info = launchdarkly_api.models.covariance_info_rep.CovarianceInfoRep(
+                            id = '74a49a2b-4834-4246-917e-5d85231d8c2a', 
+                            file_name = 'covariance.csv', 
+                            created_at = 56, ), )
                     ]
             )
         else:

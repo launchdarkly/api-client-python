@@ -661,7 +661,7 @@ class MetricsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of metrics to return in the response. Defaults to 20. Maximum limit is 50.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -689,7 +689,7 @@ class MetricsApi:
         :type offset: int
         :param sort: A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.
         :type sort: str
-        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
+        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
         :type filter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -750,7 +750,7 @@ class MetricsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of metrics to return in the response. Defaults to 20. Maximum limit is 50.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -778,7 +778,7 @@ class MetricsApi:
         :type offset: int
         :param sort: A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.
         :type sort: str
-        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
+        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
         :type filter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -839,7 +839,7 @@ class MetricsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of metrics to return in the response. Defaults to 20. Maximum limit is 50.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -867,7 +867,7 @@ class MetricsApi:
         :type offset: int
         :param sort: A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`.
         :type sort: str
-        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey` and `view`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
+        :param filter: A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering metrics' section above.
         :type filter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

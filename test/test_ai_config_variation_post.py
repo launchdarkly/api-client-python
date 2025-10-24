@@ -57,9 +57,6 @@ class TestAIConfigVariationPost(unittest.TestCase):
         else:
             return AIConfigVariationPost(
                 key = '',
-                messages = [
-                    {"role":"role","content":"content"}
-                    ],
                 name = '',
         )
         """

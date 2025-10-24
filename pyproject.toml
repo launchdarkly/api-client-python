@@ -1,6 +1,6 @@
 [project]
 name = "launchdarkly_api"
-version = "18.0.1"
+version = "18.0.2"
 description = "LaunchDarkly REST API"
 authors = [
   {name = "LaunchDarkly Technical Support Team",email = "support@launchdarkly.com"},
