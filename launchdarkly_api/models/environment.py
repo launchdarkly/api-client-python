@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.access import Access
 from launchdarkly_api.models.approval_settings import ApprovalSettings
 from launchdarkly_api.models.link import Link
 from typing import Optional, Set
@@ -38,6 +39,7 @@ class Environment(BaseModel):
     color: StrictStr = Field(description="The color used to indicate this environment in the UI")
     default_ttl: StrictInt = Field(description="The default time (in minutes) that the PHP SDK can cache feature flag rules locally", alias="defaultTtl")
     secure_mode: StrictBool = Field(description="Ensures that one end user of the client-side SDK cannot inspect the variations for another end user", alias="secureMode")
+    access: Optional[Access] = Field(default=None, alias="_access")
     default_track_events: StrictBool = Field(description="Enables tracking detailed information for new flags by default", alias="defaultTrackEvents")
     require_comments: StrictBool = Field(description="Whether members who modify flags and segments through the LaunchDarkly user interface are required to add a comment", alias="requireComments")
     confirm_changes: StrictBool = Field(description="Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes", alias="confirmChanges")
@@ -45,7 +47,7 @@ class Environment(BaseModel):
     approval_settings: Optional[ApprovalSettings] = Field(default=None, alias="approvalSettings")
     resource_approval_settings: Optional[Dict[str, ApprovalSettings]] = Field(default=None, description="Details on the approval settings for this environment for each resource kind", alias="resourceApprovalSettings")
     critical: StrictBool = Field(description="Whether the environment is critical")
-    __properties: ClassVar[List[str]] = ["_links", "_id", "key", "name", "apiKey", "mobileKey", "color", "defaultTtl", "secureMode", "defaultTrackEvents", "requireComments", "confirmChanges", "tags", "approvalSettings", "resourceApprovalSettings", "critical"]
+    __properties: ClassVar[List[str]] = ["_links", "_id", "key", "name", "apiKey", "mobileKey", "color", "defaultTtl", "secureMode", "_access", "defaultTrackEvents", "requireComments", "confirmChanges", "tags", "approvalSettings", "resourceApprovalSettings", "critical"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,6 +95,9 @@ class Environment(BaseModel):
                 if self.links[_key_links]:
                     _field_dict[_key_links] = self.links[_key_links].to_dict()
             _dict['_links'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of access
+        if self.access:
+            _dict['_access'] = self.access.to_dict()
         # override the default output from pydantic by calling `to_dict()` of approval_settings
         if self.approval_settings:
             _dict['approvalSettings'] = self.approval_settings.to_dict()
@@ -129,6 +134,7 @@ class Environment(BaseModel):
             "color": obj.get("color"),
             "defaultTtl": obj.get("defaultTtl"),
             "secureMode": obj.get("secureMode"),
+            "_access": Access.from_dict(obj["_access"]) if obj.get("_access") is not None else None,
             "defaultTrackEvents": obj.get("defaultTrackEvents"),
             "requireComments": obj.get("requireComments"),
             "confirmChanges": obj.get("confirmChanges"),

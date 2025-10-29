@@ -45,6 +45,31 @@ class TestEnvironment(unittest.TestCase):
                 color = 'F5A623',
                 default_ttl = 5,
                 secure_mode = True,
+                access = launchdarkly_api.models.access.Access(
+                    denied = [
+                        launchdarkly_api.models.access_denied.AccessDenied(
+                            action = '', 
+                            reason = launchdarkly_api.models.access_denied_reason.AccessDeniedReason(
+                                resources = ["proj/*:env/*;qa_*:/flag/*"], 
+                                not_resources = [
+                                    ''
+                                    ], 
+                                actions = ["*"], 
+                                not_actions = [
+                                    ''
+                                    ], 
+                                effect = 'allow', 
+                                role_name = '', ), )
+                        ], 
+                    allowed = [
+                        launchdarkly_api.models.access_allowed_rep.AccessAllowedRep(
+                            action = '', 
+                            reason = launchdarkly_api.models.access_allowed_reason.AccessAllowedReason(
+                                resources = ["proj/*:env/*;qa_*:/flag/*"], 
+                                actions = ["*"], 
+                                effect = 'allow', 
+                                role_name = '', ), )
+                        ], ),
                 default_track_events = False,
                 require_comments = True,
                 confirm_changes = True,

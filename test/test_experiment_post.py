@@ -71,7 +71,10 @@ class TestExperimentPost(unittest.TestCase):
                     randomization_unit = 'user', 
                     covariance_id = '', 
                     attributes = ["country","device","os"], ),
-                holdout_id = 'f3b74309-d581-44e1-8a2b-bb2933b4fe40'
+                holdout_id = 'f3b74309-d581-44e1-8a2b-bb2933b4fe40',
+                tags = [
+                    ''
+                    ]
             )
         else:
             return ExperimentPost(

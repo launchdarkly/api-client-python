@@ -46,6 +46,7 @@ class TestExperimentCollectionRep(unittest.TestCase):
                         _creation_date = 56, 
                         environment_key = '', 
                         archived_date = 56, 
+                        tags = ["experiment","feature"], 
                         _links = {"parent":{"href":"/api/v2/projects/my-project/environments/my-environment","type":"application/json"},"self":{"href":"/api/v2/projects/my-project/environments/my-environment/experiments/my-experiment","type":"application/json"}}, 
                         holdout_id = 'f3b74309-d581-44e1-8a2b-bb2933b4fe40', 
                         current_iteration = launchdarkly_api.models.iteration_rep.IterationRep(
@@ -188,6 +189,7 @@ class TestExperimentCollectionRep(unittest.TestCase):
                         _creation_date = 56, 
                         environment_key = '', 
                         archived_date = 56, 
+                        tags = ["experiment","feature"], 
                         _links = {"parent":{"href":"/api/v2/projects/my-project/environments/my-environment","type":"application/json"},"self":{"href":"/api/v2/projects/my-project/environments/my-environment/experiments/my-experiment","type":"application/json"}}, 
                         holdout_id = 'f3b74309-d581-44e1-8a2b-bb2933b4fe40', 
                         current_iteration = launchdarkly_api.models.iteration_rep.IterationRep(

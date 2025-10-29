@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **key** | **str** | The experiment key | 
 **iteration** | [**IterationInput**](IterationInput.md) |  | 
 **holdout_id** | **str** | The ID of the holdout | [optional] 
+**tags** | **List[str]** | Tags for the experiment | [optional] 
 
 ## Example
 

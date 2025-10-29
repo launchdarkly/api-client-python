@@ -37,12 +37,13 @@ class Experiment(BaseModel):
     creation_date: StrictInt = Field(alias="_creationDate")
     environment_key: StrictStr = Field(alias="environmentKey")
     archived_date: Optional[StrictInt] = Field(default=None, alias="archivedDate")
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Tags for the experiment")
     links: Dict[str, Link] = Field(description="The location and content type of related resources", alias="_links")
     holdout_id: Optional[StrictStr] = Field(default=None, description="The holdout ID", alias="holdoutId")
     current_iteration: Optional[IterationRep] = Field(default=None, alias="currentIteration")
     draft_iteration: Optional[IterationRep] = Field(default=None, alias="draftIteration")
     previous_iterations: Optional[List[IterationRep]] = Field(default=None, description="Details on the previous iterations for this experiment.", alias="previousIterations")
-    __properties: ClassVar[List[str]] = ["_id", "key", "name", "description", "_maintainerId", "_creationDate", "environmentKey", "archivedDate", "_links", "holdoutId", "currentIteration", "draftIteration", "previousIterations"]
+    __properties: ClassVar[List[str]] = ["_id", "key", "name", "description", "_maintainerId", "_creationDate", "environmentKey", "archivedDate", "tags", "_links", "holdoutId", "currentIteration", "draftIteration", "previousIterations"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -123,6 +124,7 @@ class Experiment(BaseModel):
             "_creationDate": obj.get("_creationDate"),
             "environmentKey": obj.get("environmentKey"),
             "archivedDate": obj.get("archivedDate"),
+            "tags": obj.get("tags"),
             "_links": dict(
                 (_k, Link.from_dict(_v))
                 for _k, _v in obj["_links"].items()

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **creation_date** | **int** |  | 
 **environment_key** | **str** |  | 
 **archived_date** | **int** |  | [optional] 
+**tags** | **List[str]** | Tags for the experiment | [optional] 
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 **holdout_id** | **str** | The holdout ID | [optional] 
 **current_iteration** | [**IterationRep**](IterationRep.md) |  | [optional] 

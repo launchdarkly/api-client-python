@@ -34,7 +34,8 @@ class ExperimentPost(BaseModel):
     key: StrictStr = Field(description="The experiment key")
     iteration: IterationInput
     holdout_id: Optional[StrictStr] = Field(default=None, description="The ID of the holdout", alias="holdoutId")
-    __properties: ClassVar[List[str]] = ["name", "description", "maintainerId", "key", "iteration", "holdoutId"]
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Tags for the experiment")
+    __properties: ClassVar[List[str]] = ["name", "description", "maintainerId", "key", "iteration", "holdoutId", "tags"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -95,7 +96,8 @@ class ExperimentPost(BaseModel):
             "maintainerId": obj.get("maintainerId"),
             "key": obj.get("key"),
             "iteration": IterationInput.from_dict(obj["iteration"]) if obj.get("iteration") is not None else None,
-            "holdoutId": obj.get("holdoutId")
+            "holdoutId": obj.get("holdoutId"),
+            "tags": obj.get("tags")
         })
         return _obj
 

@@ -291,13 +291,10 @@ List metric groups
 Get a list of all metric groups for the specified project.
 
 ### Expanding the metric groups response
-LaunchDarkly supports one field for expanding the "Get metric groups" response. By default, these fields are **not** included in the response.
 
-To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:
+This endpoint does not support response expansion.
 
-- `experiments` includes all experiments from the specific project that use the metric group
-
-For example, `expand=experiments` includes the `experiments` field in the response.
+Although the API accepts an `expand` query parameter for compatibility reasons, it does not currently modify the response. The parameter is reserved for future use.
 
 ### Filtering metric groups
 
@@ -367,7 +364,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = 'project_key_example' # str | The project key
     filter = 'filter_example' # str | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
     sort = 'sort_example' # str | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    expand = 'expand_example' # str | This parameter is reserved for future use and is not currently supported on this endpoint. (optional)
     limit = 56 # int | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
@@ -390,7 +387,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key | 
  **filter** | **str**| Accepts filter by &#x60;experimentStatus&#x60;, &#x60;query&#x60;, &#x60;kind&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, and &#x60;maintainerTeamKey&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | [optional] 
  **sort** | **str**| A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | [optional] 
- **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
+ **expand** | **str**| This parameter is reserved for future use and is not currently supported on this endpoint. | [optional] 
  **limit** | **int**| The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
 

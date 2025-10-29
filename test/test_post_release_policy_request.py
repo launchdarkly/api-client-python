@@ -38,8 +38,8 @@ class TestPostReleasePolicyRequest(unittest.TestCase):
             return PostReleasePolicyRequest(
                 scope = {"environmentKeys":["production","staging"]},
                 release_method = 'guarded-release',
-                guarded_release_config = {"minSampleSize":100,"rollbackOnRegression":true},
-                progressive_release_config = None,
+                guarded_release_config = {"rolloutContextKindKey":"user","minSampleSize":100,"rollbackOnRegression":true},
+                progressive_release_config = {"rolloutContextKindKey":"user"},
                 name = 'Production Release',
                 key = 'production-release'
             )
