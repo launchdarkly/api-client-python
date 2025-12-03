@@ -45,8 +45,8 @@ class Destination(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['google-pubsub', 'kinesis', 'mparticle', 'segment', 'azure-event-hubs', 'snowflake-v2', 'databricks', 'bigquery']):
-            raise ValueError("must be one of enum values ('google-pubsub', 'kinesis', 'mparticle', 'segment', 'azure-event-hubs', 'snowflake-v2', 'databricks', 'bigquery')")
+        if value not in set(['google-pubsub', 'kinesis', 'mparticle', 'segment', 'azure-event-hubs', 'snowflake-v2', 'databricks', 'bigquery', 'redshift']):
+            raise ValueError("must be one of enum values ('google-pubsub', 'kinesis', 'mparticle', 'segment', 'azure-event-hubs', 'snowflake-v2', 'databricks', 'bigquery', 'redshift')")
         return value
 
     model_config = ConfigDict(

@@ -65,7 +65,7 @@ class MetricListingRep(BaseModel):
     analysis_type: Optional[StrictStr] = Field(default=None, description="The method for analyzing metric events", alias="analysisType")
     percentile_value: Optional[StrictInt] = Field(default=None, description="The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.", alias="percentileValue")
     event_default: Optional[MetricEventDefaultRep] = Field(default=None, alias="eventDefault")
-    data_source: Optional[MetricDataSourceRefRep] = Field(default=None, alias="dataSource")
+    data_source: MetricDataSourceRefRep = Field(alias="dataSource")
     archived: Optional[StrictBool] = Field(default=None, description="Whether the metric version is archived")
     archived_at: Optional[StrictInt] = Field(default=None, alias="archivedAt")
     selector: Optional[StrictStr] = Field(default=None, description="For click metrics, the CSS selectors")

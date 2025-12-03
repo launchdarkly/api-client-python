@@ -15,10 +15,10 @@
 
 import unittest
 
-from launchdarkly_api.models.put_release_policy_request import PutReleasePolicyRequest
+from launchdarkly_api.models.trust_policy_statement import TrustPolicyStatement
 
-class TestPutReleasePolicyRequest(unittest.TestCase):
-    """PutReleasePolicyRequest unit test stubs"""
+class TestTrustPolicyStatement(unittest.TestCase):
+    """TrustPolicyStatement unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,31 +26,30 @@ class TestPutReleasePolicyRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> PutReleasePolicyRequest:
-        """Test PutReleasePolicyRequest
+    def make_instance(self, include_optional) -> TrustPolicyStatement:
+        """Test TrustPolicyStatement
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `PutReleasePolicyRequest`
+        # uncomment below to create an instance of `TrustPolicyStatement`
         """
-        model = PutReleasePolicyRequest()
+        model = TrustPolicyStatement()
         if include_optional:
-            return PutReleasePolicyRequest(
-                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
-                release_method = 'guarded-release',
-                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
-                name = 'Production Release'
+            return TrustPolicyStatement(
+                effect = '',
+                action = [
+                    ''
+                    ],
+                principal = None,
+                condition = None
             )
         else:
-            return PutReleasePolicyRequest(
-                release_method = 'guarded-release',
-                name = 'Production Release',
+            return TrustPolicyStatement(
         )
         """
 
-    def testPutReleasePolicyRequest(self):
-        """Test PutReleasePolicyRequest"""
+    def testTrustPolicyStatement(self):
+        """Test TrustPolicyStatement"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

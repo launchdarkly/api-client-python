@@ -36,10 +36,10 @@ class TestPostReleasePolicyRequest(unittest.TestCase):
         model = PostReleasePolicyRequest()
         if include_optional:
             return PostReleasePolicyRequest(
-                scope = {"environmentKeys":["production","staging"]},
+                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
                 release_method = 'guarded-release',
-                guarded_release_config = {"rolloutContextKindKey":"user","minSampleSize":100,"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user"},
+                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
+                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
                 name = 'Production Release',
                 key = 'production-release'
             )

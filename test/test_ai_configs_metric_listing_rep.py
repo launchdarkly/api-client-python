@@ -88,6 +88,7 @@ class TestAiConfigsMetricListingRep(unittest.TestCase):
                 links = {"parent":{"href":"/api/v2/metrics/my-project","type":"application/json"},"self":{"href":"/api/v2/metrics/my-project/my-metric","type":"application/json"}},
                 tags = [],
                 creation_date = 56,
+                data_source = {"_name":"_name","_integrationKey":"_integrationKey","key":"key","environmentKey":"environmentKey"},
         )
         """
 

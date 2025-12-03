@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_destinations**](DataExportDestinationsApi.md#get_destinations) | **GET** /api/v2/destinations | List destinations
 [**patch_destination**](DataExportDestinationsApi.md#patch_destination) | **PATCH** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
 [**post_destination**](DataExportDestinationsApi.md#post_destination) | **POST** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
+[**post_generate_trust_policy**](DataExportDestinationsApi.md#post_generate_trust_policy) | **POST** /api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-trust-policy | Generate trust policy
 [**post_generate_warehouse_destination_key_pair**](DataExportDestinationsApi.md#post_generate_warehouse_destination_key_pair) | **POST** /api/v2/destinations/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
 
 
@@ -489,6 +490,92 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Destination response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**409** | Status conflict |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_generate_trust_policy**
+> GenerateTrustPolicyPostRep post_generate_trust_policy(proj_key, env_key)
+
+Generate trust policy
+
+Trust policy to allow Data Export to assume the role and perform operations on AWS resources
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.generate_trust_policy_post_rep import GenerateTrustPolicyPostRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
+    proj_key = 'proj_key_example' # str | The project key
+    env_key = 'env_key_example' # str | The environment key
+
+    try:
+        # Generate trust policy
+        api_response = api_instance.post_generate_trust_policy(proj_key, env_key)
+        print("The response of DataExportDestinationsApi->post_generate_trust_policy:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DataExportDestinationsApi->post_generate_trust_policy: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **proj_key** | **str**| The project key | 
+ **env_key** | **str**| The environment key | 
+
+### Return type
+
+[**GenerateTrustPolicyPostRep**](GenerateTrustPolicyPostRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Generate trust policy response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

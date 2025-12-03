@@ -15,10 +15,10 @@
 
 import unittest
 
-from launchdarkly_api.models.put_release_policy_request import PutReleasePolicyRequest
+from launchdarkly_api.models.generate_trust_policy_post_rep import GenerateTrustPolicyPostRep
 
-class TestPutReleasePolicyRequest(unittest.TestCase):
-    """PutReleasePolicyRequest unit test stubs"""
+class TestGenerateTrustPolicyPostRep(unittest.TestCase):
+    """GenerateTrustPolicyPostRep unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,31 +26,35 @@ class TestPutReleasePolicyRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> PutReleasePolicyRequest:
-        """Test PutReleasePolicyRequest
+    def make_instance(self, include_optional) -> GenerateTrustPolicyPostRep:
+        """Test GenerateTrustPolicyPostRep
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `PutReleasePolicyRequest`
+        # uncomment below to create an instance of `GenerateTrustPolicyPostRep`
         """
-        model = PutReleasePolicyRequest()
+        model = GenerateTrustPolicyPostRep()
         if include_optional:
-            return PutReleasePolicyRequest(
-                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
-                release_method = 'guarded-release',
-                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
-                name = 'Production Release'
+            return GenerateTrustPolicyPostRep(
+                aws_trust_policy = launchdarkly_api.models.trust_policy_details.TrustPolicyDetails(
+                    version = '', 
+                    statement = [
+                        launchdarkly_api.models.trust_policy_statement.TrustPolicyStatement(
+                            effect = '', 
+                            action = [
+                                ''
+                                ], 
+                            principal = null, 
+                            condition = null, )
+                        ], )
             )
         else:
-            return PutReleasePolicyRequest(
-                release_method = 'guarded-release',
-                name = 'Production Release',
+            return GenerateTrustPolicyPostRep(
         )
         """
 
-    def testPutReleasePolicyRequest(self):
-        """Test PutReleasePolicyRequest"""
+    def testGenerateTrustPolicyPostRep(self):
+        """Test GenerateTrustPolicyPostRep"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

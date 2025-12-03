@@ -27,7 +27,7 @@ class AiConfigsMetricDataSourceRefRep(BaseModel):
     """
     AiConfigsMetricDataSourceRefRep
     """ # noqa: E501
-    key: Optional[StrictStr] = None
+    key: StrictStr
     environment_key: Optional[StrictStr] = Field(default=None, alias="environmentKey")
     name: Optional[StrictStr] = Field(default=None, alias="_name")
     integration_key: Optional[StrictStr] = Field(default=None, alias="_integrationKey")

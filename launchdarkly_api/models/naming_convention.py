@@ -37,8 +37,8 @@ class NamingConvention(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['camelCase', 'upperCamelCase', 'snakeCase', 'kebabCase']):
-            raise ValueError("must be one of enum values ('camelCase', 'upperCamelCase', 'snakeCase', 'kebabCase')")
+        if value not in set(['camelCase', 'upperCamelCase', 'snakeCase', 'kebabCase', 'constantCase']):
+            raise ValueError("must be one of enum values ('camelCase', 'upperCamelCase', 'snakeCase', 'kebabCase', 'constantCase')")
         return value
 
     model_config = ConfigDict(

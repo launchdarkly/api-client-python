@@ -35,7 +35,7 @@ class RelayAutoConfigRep(BaseModel):
     access: Optional[Access] = Field(default=None, alias="_access")
     name: StrictStr = Field(description="A human-friendly name for the Relay Proxy configuration")
     policy: List[Statement] = Field(description="A description of what environments and projects the Relay Proxy should include or exclude")
-    full_key: StrictStr = Field(description="The Relay Proxy configuration key", alias="fullKey")
+    full_key: Optional[StrictStr] = Field(default=None, description="The Relay Proxy configuration key", alias="fullKey")
     display_key: StrictStr = Field(description="The last few characters of the Relay Proxy configuration key, displayed in the LaunchDarkly UI", alias="displayKey")
     creation_date: StrictInt = Field(alias="creationDate")
     last_modified: StrictInt = Field(alias="lastModified")

@@ -43,6 +43,7 @@ class TestMetricDataSourceRefRep(unittest.TestCase):
             )
         else:
             return MetricDataSourceRefRep(
+                key = '',
         )
         """
 

@@ -13,46 +13,92 @@
 """  # noqa: E501
 
 
-import unittest
+from __future__ import annotations
+import pprint
+import re  # noqa: F401
+import json
 
-from launchdarkly_api.models.put_release_policy_request import PutReleasePolicyRequest
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing import Optional, Set
+from typing_extensions import Self
 
-class TestPutReleasePolicyRequest(unittest.TestCase):
-    """PutReleasePolicyRequest unit test stubs"""
+class TrustPolicyStatement(BaseModel):
+    """
+    TrustPolicyStatement
+    """ # noqa: E501
+    effect: Optional[StrictStr] = Field(default=None, description="The effect of trust policy statement", alias="Effect")
+    action: Optional[List[StrictStr]] = Field(default=None, description="The action of trust policy statement", alias="Action")
+    principal: Optional[Any] = Field(default=None, description="The principal of trust policy statement", alias="Principal")
+    condition: Optional[Any] = Field(default=None, description="The condition of trust policy statement", alias="Condition")
+    __properties: ClassVar[List[str]] = ["Effect", "Action", "Principal", "Condition"]
 
-    def setUp(self):
-        pass
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
-    def tearDown(self):
-        pass
 
-    def make_instance(self, include_optional) -> PutReleasePolicyRequest:
-        """Test PutReleasePolicyRequest
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `PutReleasePolicyRequest`
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of TrustPolicyStatement from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
         """
-        model = PutReleasePolicyRequest()
-        if include_optional:
-            return PutReleasePolicyRequest(
-                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
-                release_method = 'guarded-release',
-                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
-                name = 'Production Release'
-            )
-        else:
-            return PutReleasePolicyRequest(
-                release_method = 'guarded-release',
-                name = 'Production Release',
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
         )
-        """
+        # set to None if principal (nullable) is None
+        # and model_fields_set contains the field
+        if self.principal is None and "principal" in self.model_fields_set:
+            _dict['Principal'] = None
 
-    def testPutReleasePolicyRequest(self):
-        """Test PutReleasePolicyRequest"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+        # set to None if condition (nullable) is None
+        # and model_fields_set contains the field
+        if self.condition is None and "condition" in self.model_fields_set:
+            _dict['Condition'] = None
 
-if __name__ == '__main__':
-    unittest.main()
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of TrustPolicyStatement from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "Effect": obj.get("Effect"),
+            "Action": obj.get("Action"),
+            "Principal": obj.get("Principal"),
+            "Condition": obj.get("Condition")
+        })
+        return _obj
+
+

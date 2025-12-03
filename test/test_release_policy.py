@@ -38,11 +38,11 @@ class TestReleasePolicy(unittest.TestCase):
             return ReleasePolicy(
                 access = {"allowed":[{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"},{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"}],"denied":[{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"},{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"}]},
                 id = '550e8400-e29b-41d4-a716-446655440000',
-                scope = {"environmentKeys":["production","staging"]},
+                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
                 rank = 1,
                 release_method = 'guarded-release',
-                guarded_release_config = {"rolloutContextKindKey":"user","minSampleSize":100,"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user"},
+                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
+                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
                 name = 'Production Release',
                 key = 'production-release'
             )

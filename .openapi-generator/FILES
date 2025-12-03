@@ -299,6 +299,7 @@ docs/FollowFlagsApi.md
 docs/FollowersPerFlag.md
 docs/ForbiddenErrorRep.md
 docs/FormVariable.md
+docs/GenerateTrustPolicyPostRep.md
 docs/GenerateWarehouseDestinationKeyPairPostRep.md
 docs/GetAnnouncementsPublic200Response.md
 docs/GuardedReleaseConfig.md
@@ -574,6 +575,8 @@ docs/TreatmentRep.md
 docs/TriggerPost.md
 docs/TriggerWorkflowCollectionRep.md
 docs/TriggerWorkflowRep.md
+docs/TrustPolicyDetails.md
+docs/TrustPolicyStatement.md
 docs/UnauthorizedErrorRep.md
 docs/UnlinkResourceSuccessResponse.md
 docs/UpdatePhaseStatusInput.md
@@ -975,6 +978,7 @@ launchdarkly_api/models/follow_flag_member.py
 launchdarkly_api/models/followers_per_flag.py
 launchdarkly_api/models/forbidden_error_rep.py
 launchdarkly_api/models/form_variable.py
+launchdarkly_api/models/generate_trust_policy_post_rep.py
 launchdarkly_api/models/generate_warehouse_destination_key_pair_post_rep.py
 launchdarkly_api/models/get_announcements_public200_response.py
 launchdarkly_api/models/guarded_release_config.py
@@ -1224,6 +1228,8 @@ launchdarkly_api/models/treatment_rep.py
 launchdarkly_api/models/trigger_post.py
 launchdarkly_api/models/trigger_workflow_collection_rep.py
 launchdarkly_api/models/trigger_workflow_rep.py
+launchdarkly_api/models/trust_policy_details.py
+launchdarkly_api/models/trust_policy_statement.py
 launchdarkly_api/models/unauthorized_error_rep.py
 launchdarkly_api/models/unlink_resource_success_response.py
 launchdarkly_api/models/update_phase_status_input.py
@@ -1585,6 +1591,7 @@ test/test_follow_flags_api.py
 test/test_followers_per_flag.py
 test/test_forbidden_error_rep.py
 test/test_form_variable.py
+test/test_generate_trust_policy_post_rep.py
 test/test_generate_warehouse_destination_key_pair_post_rep.py
 test/test_get_announcements_public200_response.py
 test/test_guarded_release_config.py
@@ -1860,6 +1867,8 @@ test/test_treatment_rep.py
 test/test_trigger_post.py
 test/test_trigger_workflow_collection_rep.py
 test/test_trigger_workflow_rep.py
+test/test_trust_policy_details.py
+test/test_trust_policy_statement.py
 test/test_unauthorized_error_rep.py
 test/test_unlink_resource_success_response.py
 test/test_update_phase_status_input.py

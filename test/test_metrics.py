@@ -48,7 +48,10 @@ class TestMetrics(unittest.TestCase):
                 time_to_first_token_ms = 56,
                 satisfaction_rating = 0,
                 input_cost = 1.337,
-                output_cost = 1.337
+                output_cost = 1.337,
+                judge_accuracy = 0,
+                judge_relevance = 0,
+                judge_toxicity = 0
             )
         else:
             return Metrics(

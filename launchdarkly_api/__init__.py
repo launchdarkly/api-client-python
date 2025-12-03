@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "18.1.0"
+__version__ = "19.0.0"
 
 # Define package exports
 __all__ = [
@@ -356,6 +356,7 @@ __all__ = [
     "FollowersPerFlag",
     "ForbiddenErrorRep",
     "FormVariable",
+    "GenerateTrustPolicyPostRep",
     "GenerateWarehouseDestinationKeyPairPostRep",
     "GetAnnouncementsPublic200Response",
     "GuardedReleaseConfig",
@@ -605,6 +606,8 @@ __all__ = [
     "TriggerPost",
     "TriggerWorkflowCollectionRep",
     "TriggerWorkflowRep",
+    "TrustPolicyDetails",
+    "TrustPolicyStatement",
     "UnauthorizedErrorRep",
     "UnlinkResourceSuccessResponse",
     "UpdatePhaseStatusInput",
@@ -1007,6 +1010,7 @@ from launchdarkly_api.models.follow_flag_member import FollowFlagMember as Follo
 from launchdarkly_api.models.followers_per_flag import FollowersPerFlag as FollowersPerFlag
 from launchdarkly_api.models.forbidden_error_rep import ForbiddenErrorRep as ForbiddenErrorRep
 from launchdarkly_api.models.form_variable import FormVariable as FormVariable
+from launchdarkly_api.models.generate_trust_policy_post_rep import GenerateTrustPolicyPostRep as GenerateTrustPolicyPostRep
 from launchdarkly_api.models.generate_warehouse_destination_key_pair_post_rep import GenerateWarehouseDestinationKeyPairPostRep as GenerateWarehouseDestinationKeyPairPostRep
 from launchdarkly_api.models.get_announcements_public200_response import GetAnnouncementsPublic200Response as GetAnnouncementsPublic200Response
 from launchdarkly_api.models.guarded_release_config import GuardedReleaseConfig as GuardedReleaseConfig
@@ -1256,6 +1260,8 @@ from launchdarkly_api.models.treatment_rep import TreatmentRep as TreatmentRep
 from launchdarkly_api.models.trigger_post import TriggerPost as TriggerPost
 from launchdarkly_api.models.trigger_workflow_collection_rep import TriggerWorkflowCollectionRep as TriggerWorkflowCollectionRep
 from launchdarkly_api.models.trigger_workflow_rep import TriggerWorkflowRep as TriggerWorkflowRep
+from launchdarkly_api.models.trust_policy_details import TrustPolicyDetails as TrustPolicyDetails
+from launchdarkly_api.models.trust_policy_statement import TrustPolicyStatement as TrustPolicyStatement
 from launchdarkly_api.models.unauthorized_error_rep import UnauthorizedErrorRep as UnauthorizedErrorRep
 from launchdarkly_api.models.unlink_resource_success_response import UnlinkResourceSuccessResponse as UnlinkResourceSuccessResponse
 from launchdarkly_api.models.update_phase_status_input import UpdatePhaseStatusInput as UpdatePhaseStatusInput

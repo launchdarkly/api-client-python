@@ -41,7 +41,10 @@ class Metrics(BaseModel):
     satisfaction_rating: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, description="A value between 0 and 1 representing satisfaction rating", alias="satisfactionRating")
     input_cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Cost of input tokens in USD", alias="inputCost")
     output_cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Cost of output tokens in USD", alias="outputCost")
-    __properties: ClassVar[List[str]] = ["inputTokens", "outputTokens", "totalTokens", "generationCount", "generationSuccessCount", "generationErrorCount", "thumbsUp", "thumbsDown", "durationMs", "timeToFirstTokenMs", "satisfactionRating", "inputCost", "outputCost"]
+    judge_accuracy: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, description="Average accuracy judge score (0.0-1.0)", alias="judgeAccuracy")
+    judge_relevance: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, description="Average relevance judge score (0.0-1.0)", alias="judgeRelevance")
+    judge_toxicity: Optional[Union[Annotated[float, Field(le=1, strict=True, ge=0)], Annotated[int, Field(le=1, strict=True, ge=0)]]] = Field(default=None, description="Average toxicity judge score (0.0-1.0)", alias="judgeToxicity")
+    __properties: ClassVar[List[str]] = ["inputTokens", "outputTokens", "totalTokens", "generationCount", "generationSuccessCount", "generationErrorCount", "thumbsUp", "thumbsDown", "durationMs", "timeToFirstTokenMs", "satisfactionRating", "inputCost", "outputCost", "judgeAccuracy", "judgeRelevance", "judgeToxicity"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,7 +109,10 @@ class Metrics(BaseModel):
             "timeToFirstTokenMs": obj.get("timeToFirstTokenMs"),
             "satisfactionRating": obj.get("satisfactionRating"),
             "inputCost": obj.get("inputCost"),
-            "outputCost": obj.get("outputCost")
+            "outputCost": obj.get("outputCost"),
+            "judgeAccuracy": obj.get("judgeAccuracy"),
+            "judgeRelevance": obj.get("judgeRelevance"),
+            "judgeToxicity": obj.get("judgeToxicity")
         })
         return _obj
 

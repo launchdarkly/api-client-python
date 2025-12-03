@@ -103,7 +103,6 @@ class TestRelayAutoConfigRep(unittest.TestCase):
                             ], 
                         effect = 'allow', )
                     ],
-                full_key = '',
                 display_key = '7f30',
                 creation_date = 56,
                 last_modified = 56,

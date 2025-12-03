@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **variations** | [**List[AIConfigVariation]**](AIConfigVariation.md) |  | 
 **created_at** | **int** |  | 
 **updated_at** | **int** |  | 
+**evaluation_metric_keys** | **List[str]** | List of evaluation metric keys for this AI config | [optional] 
 
 ## Example
 

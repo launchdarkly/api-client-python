@@ -43,7 +43,8 @@ class AIConfig(BaseModel):
     variations: List[AIConfigVariation]
     created_at: StrictInt = Field(alias="createdAt")
     updated_at: StrictInt = Field(alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["_access", "_links", "description", "key", "_maintainer", "mode", "name", "tags", "version", "variations", "createdAt", "updatedAt"]
+    evaluation_metric_keys: Optional[List[StrictStr]] = Field(default=None, description="List of evaluation metric keys for this AI config", alias="evaluationMetricKeys")
+    __properties: ClassVar[List[str]] = ["_access", "_links", "description", "key", "_maintainer", "mode", "name", "tags", "version", "variations", "createdAt", "updatedAt", "evaluationMetricKeys"]
 
     @field_validator('mode')
     def mode_validate_enum(cls, value):
@@ -133,7 +134,8 @@ class AIConfig(BaseModel):
             "version": obj.get("version"),
             "variations": [AIConfigVariation.from_dict(_item) for _item in obj["variations"]] if obj.get("variations") is not None else None,
             "createdAt": obj.get("createdAt"),
-            "updatedAt": obj.get("updatedAt")
+            "updatedAt": obj.get("updatedAt"),
+            "evaluationMetricKeys": obj.get("evaluationMetricKeys")
         })
         return _obj
 

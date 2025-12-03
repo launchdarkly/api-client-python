@@ -13,46 +13,86 @@
 """  # noqa: E501
 
 
-import unittest
+from __future__ import annotations
+import pprint
+import re  # noqa: F401
+import json
 
-from launchdarkly_api.models.put_release_policy_request import PutReleasePolicyRequest
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.trust_policy_statement import TrustPolicyStatement
+from typing import Optional, Set
+from typing_extensions import Self
 
-class TestPutReleasePolicyRequest(unittest.TestCase):
-    """PutReleasePolicyRequest unit test stubs"""
+class TrustPolicyDetails(BaseModel):
+    """
+    TrustPolicyDetails
+    """ # noqa: E501
+    version: Optional[StrictStr] = Field(default=None, description="The version of the trust policy", alias="Version")
+    statement: Optional[List[TrustPolicyStatement]] = Field(default=None, description="The statements of the trust policy", alias="Statement")
+    __properties: ClassVar[List[str]] = ["Version", "Statement"]
 
-    def setUp(self):
-        pass
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
-    def tearDown(self):
-        pass
 
-    def make_instance(self, include_optional) -> PutReleasePolicyRequest:
-        """Test PutReleasePolicyRequest
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `PutReleasePolicyRequest`
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of TrustPolicyDetails from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
         """
-        model = PutReleasePolicyRequest()
-        if include_optional:
-            return PutReleasePolicyRequest(
-                scope = {"environmentKeys":["production","staging"],"flagTagKeys":["frontend","backend"],"viewKeys":["feature-a","team-a"]},
-                release_method = 'guarded-release',
-                guarded_release_config = {"metricKeys":["http-errors","latency"],"rolloutContextKindKey":"user","metricRegressionThreshold":0.05,"metricGroupKeys":["frontend-metrics","backend-metrics"],"minSampleSize":100,"stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}],"rollbackOnRegression":true},
-                progressive_release_config = {"rolloutContextKindKey":"user","stages":[{"allocation":25000,"durationMillis":60000},{"allocation":25000,"durationMillis":60000}]},
-                name = 'Production Release'
-            )
-        else:
-            return PutReleasePolicyRequest(
-                release_method = 'guarded-release',
-                name = 'Production Release',
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
         )
-        """
+        # override the default output from pydantic by calling `to_dict()` of each item in statement (list)
+        _items = []
+        if self.statement:
+            for _item_statement in self.statement:
+                if _item_statement:
+                    _items.append(_item_statement.to_dict())
+            _dict['Statement'] = _items
+        return _dict
 
-    def testPutReleasePolicyRequest(self):
-        """Test PutReleasePolicyRequest"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of TrustPolicyDetails from a dict"""
+        if obj is None:
+            return None
 
-if __name__ == '__main__':
-    unittest.main()
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "Version": obj.get("Version"),
+            "Statement": [TrustPolicyStatement.from_dict(_item) for _item in obj["Statement"]] if obj.get("Statement") is not None else None
+        })
+        return _obj
+
+

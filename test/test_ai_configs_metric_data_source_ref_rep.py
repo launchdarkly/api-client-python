@@ -43,6 +43,7 @@ class TestAiConfigsMetricDataSourceRefRep(unittest.TestCase):
             )
         else:
             return AiConfigsMetricDataSourceRefRep(
+                key = '',
         )
         """
 

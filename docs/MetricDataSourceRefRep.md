@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | [optional] 
+**key** | **str** |  | 
 **environment_key** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **integration_key** | **str** |  | [optional] 

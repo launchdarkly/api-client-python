@@ -113,9 +113,7 @@ class TestMetricGroupRep(unittest.TestCase):
                     ],
                 experiment_count = 0,
                 active_experiment_count = 0,
-                active_guarded_rollout_count = 0,
-                total_connections_count = 0,
-                total_active_connections_count = 0
+                active_guarded_rollout_count = 0
             )
         else:
             return MetricGroupRep(

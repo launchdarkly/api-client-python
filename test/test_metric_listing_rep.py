@@ -132,6 +132,11 @@ class TestMetricListingRep(unittest.TestCase):
                 links = {"parent":{"href":"/api/v2/metrics/my-project","type":"application/json"},"self":{"href":"/api/v2/metrics/my-project/my-metric","type":"application/json"}},
                 tags = [],
                 creation_date = 56,
+                data_source = launchdarkly_api.models.metric_data_source_ref_rep.MetricDataSourceRefRep(
+                    key = '', 
+                    environment_key = '', 
+                    _name = '', 
+                    _integration_key = '', ),
         )
         """
 

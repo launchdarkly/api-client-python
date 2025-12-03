@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **analysis_type** | **str** | The method for analyzing metric events | [optional] 
 **percentile_value** | **int** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **event_default** | [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
-**data_source** | [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
+**data_source** | [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | 
 **archived** | **bool** | Whether the metric version is archived | [optional] 
 **archived_at** | **int** |  | [optional] 
 **selector** | **str** | For click metrics, the CSS selectors | [optional] 

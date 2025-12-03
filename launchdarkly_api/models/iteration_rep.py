@@ -18,7 +18,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep
 from launchdarkly_api.models.dependent_metric_group_rep_with_metrics import DependentMetricGroupRepWithMetrics
@@ -57,6 +57,13 @@ class IterationRep(BaseModel):
     layer_snapshot: Optional[LayerSnapshotRep] = Field(default=None, alias="layerSnapshot")
     covariance_info: Optional[CovarianceInfoRep] = Field(default=None, alias="covarianceInfo")
     __properties: ClassVar[List[str]] = ["_id", "hypothesis", "status", "createdAt", "startedAt", "endedAt", "winningTreatmentId", "winningReason", "canReshuffleTraffic", "flags", "reallocationFrequencyMillis", "version", "primaryMetric", "primarySingleMetric", "primaryFunnel", "randomizationUnit", "attributes", "treatments", "secondaryMetrics", "metrics", "layerSnapshot", "covarianceInfo"]
+
+    @field_validator('status')
+    def status_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['not_started', 'running', 'stopped']):
+            raise ValueError("must be one of enum values ('not_started', 'running', 'stopped')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

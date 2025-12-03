@@ -49,9 +49,7 @@ class MetricGroupRep(BaseModel):
     experiment_count: Optional[StrictInt] = Field(default=None, description="The number of experiments using this metric group", alias="experimentCount")
     active_experiment_count: Optional[StrictInt] = Field(default=None, description="The number of active experiments using this metric group", alias="activeExperimentCount")
     active_guarded_rollout_count: Optional[StrictInt] = Field(default=None, description="The number of active guarded rollouts using this metric group", alias="activeGuardedRolloutCount")
-    total_connections_count: Optional[StrictInt] = Field(default=None, description="The total number of connections using this metric group", alias="totalConnectionsCount")
-    total_active_connections_count: Optional[StrictInt] = Field(default=None, description="The total number of active connections using this metric group", alias="totalActiveConnectionsCount")
-    __properties: ClassVar[List[str]] = ["_id", "key", "name", "kind", "description", "_links", "_access", "tags", "_creationDate", "_lastModified", "maintainer", "metrics", "_version", "experiments", "experimentCount", "activeExperimentCount", "activeGuardedRolloutCount", "totalConnectionsCount", "totalActiveConnectionsCount"]
+    __properties: ClassVar[List[str]] = ["_id", "key", "name", "kind", "description", "_links", "_access", "tags", "_creationDate", "_lastModified", "maintainer", "metrics", "_version", "experiments", "experimentCount", "activeExperimentCount", "activeGuardedRolloutCount"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -159,9 +157,7 @@ class MetricGroupRep(BaseModel):
             "experiments": [DependentExperimentRep.from_dict(_item) for _item in obj["experiments"]] if obj.get("experiments") is not None else None,
             "experimentCount": obj.get("experimentCount"),
             "activeExperimentCount": obj.get("activeExperimentCount"),
-            "activeGuardedRolloutCount": obj.get("activeGuardedRolloutCount"),
-            "totalConnectionsCount": obj.get("totalConnectionsCount"),
-            "totalActiveConnectionsCount": obj.get("totalActiveConnectionsCount")
+            "activeGuardedRolloutCount": obj.get("activeGuardedRolloutCount")
         })
         return _obj
 

@@ -62,6 +62,13 @@ class TestDataExportDestinationsApi(unittest.TestCase):
         """
         pass
 
+    def test_post_generate_trust_policy(self) -> None:
+        """Test case for post_generate_trust_policy
+
+        Generate trust policy
+        """
+        pass
+
     def test_post_generate_warehouse_destination_key_pair(self) -> None:
         """Test case for post_generate_warehouse_destination_key_pair
 

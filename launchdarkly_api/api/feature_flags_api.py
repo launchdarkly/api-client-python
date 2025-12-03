@@ -2494,7 +2494,7 @@ class FeatureFlagsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of feature flags to return. Defaults to 20.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned")] = None,
-        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.")] = None,
+        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields.")] = None,
         compare: Annotated[Optional[StrictBool], Field(description="Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments.")] = None,
@@ -2528,7 +2528,7 @@ class FeatureFlagsApi:
         :type offset: int
         :param archived: Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
         :type archived: bool
-        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.
+        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.
         :type summary: bool
         :param filter: A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.
         :type filter: str
@@ -2606,7 +2606,7 @@ class FeatureFlagsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of feature flags to return. Defaults to 20.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned")] = None,
-        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.")] = None,
+        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields.")] = None,
         compare: Annotated[Optional[StrictBool], Field(description="Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments.")] = None,
@@ -2640,7 +2640,7 @@ class FeatureFlagsApi:
         :type offset: int
         :param archived: Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
         :type archived: bool
-        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.
+        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.
         :type summary: bool
         :param filter: A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.
         :type filter: str
@@ -2718,7 +2718,7 @@ class FeatureFlagsApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of feature flags to return. Defaults to 20.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned")] = None,
-        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.")] = None,
+        summary: Annotated[Optional[StrictBool], Field(description="By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields.")] = None,
         compare: Annotated[Optional[StrictBool], Field(description="Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments.")] = None,
@@ -2752,7 +2752,7 @@ class FeatureFlagsApi:
         :type offset: int
         :param archived: Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
         :type archived: bool
-        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned.
+        :param summary: By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` and include the `env` query parameter to include these fields for each flag returned.
         :type summary: bool
         :param filter: A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields.
         :type filter: str

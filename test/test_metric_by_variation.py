@@ -37,7 +37,7 @@ class TestMetricByVariation(unittest.TestCase):
         if include_optional:
             return MetricByVariation(
                 variation_key = '',
-                metrics = {"inputCost":7.386281948385884,"outputCost":1.2315135367772556,"generationSuccessCount":5,"inputTokens":0,"generationErrorCount":2,"thumbsDown":9,"totalTokens":1,"generationCount":5,"timeToFirstTokenMs":2,"outputTokens":6,"thumbsUp":7,"durationMs":3,"satisfactionRating":0.4145608}
+                metrics = {"judgeRelevance":0.14894159,"inputCost":7.386281948385884,"outputCost":1.2315135367772556,"generationSuccessCount":5,"inputTokens":0,"generationErrorCount":2,"thumbsDown":9,"judgeToxicity":0.6846853,"totalTokens":1,"judgeAccuracy":0.10246457,"generationCount":5,"timeToFirstTokenMs":2,"outputTokens":6,"thumbsUp":7,"durationMs":3,"satisfactionRating":0.4145608}
             )
         else:
             return MetricByVariation(
