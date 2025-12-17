@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**get_ai_configs**](AIConfigsBetaApi.md#get_ai_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
 [**get_ai_tool**](AIConfigsBetaApi.md#get_ai_tool) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
 [**get_model_config**](AIConfigsBetaApi.md#get_model_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
+[**list_agent_graphs**](AIConfigsBetaApi.md#list_agent_graphs) | **GET** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
 [**list_ai_tool_versions**](AIConfigsBetaApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**list_ai_tools**](AIConfigsBetaApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 [**list_model_configs**](AIConfigsBetaApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
@@ -24,6 +25,7 @@ Method | HTTP request | Description
 [**patch_ai_config_targeting**](AIConfigsBetaApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 [**patch_ai_config_variation**](AIConfigsBetaApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
 [**patch_ai_tool**](AIConfigsBetaApi.md#patch_ai_tool) | **PATCH** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+[**post_agent_graph**](AIConfigsBetaApi.md#post_agent_graph) | **POST** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 [**post_ai_config**](AIConfigsBetaApi.md#post_ai_config) | **POST** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 [**post_ai_config_variation**](AIConfigsBetaApi.md#post_ai_config_variation) | **POST** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
 [**post_ai_tool**](AIConfigsBetaApi.md#post_ai_tool) | **POST** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
@@ -1165,6 +1167,94 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_agent_graphs**
+> AgentGraphs list_agent_graphs(ld_api_version, project_key, limit=limit, offset=offset)
+
+List agent graphs
+
+Get a list of all agent graphs in the given project. Returns metadata only, without edge data.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_graphs import AgentGraphs
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    project_key = 'project_key_example' # str | 
+    limit = 56 # int | The number of AI Configs to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List agent graphs
+        api_response = api_instance.list_agent_graphs(ld_api_version, project_key, limit=limit, offset=offset)
+        print("The response of AIConfigsBetaApi->list_agent_graphs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIConfigsBetaApi->list_agent_graphs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ld_api_version** | **str**| Version of the endpoint. | 
+ **project_key** | **str**|  | 
+ **limit** | **int**| The number of AI Configs to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**AgentGraphs**](AgentGraphs.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
 **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2382,6 +2472,94 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_agent_graph**
+> AgentGraph post_agent_graph(ld_api_version, project_key, agent_graph_post)
+
+Create new agent graph
+
+Create a new agent graph within the given project.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_graph import AgentGraph
+from launchdarkly_api.models.agent_graph_post import AgentGraphPost
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    project_key = 'project_key_example' # str | 
+    agent_graph_post = launchdarkly_api.AgentGraphPost() # AgentGraphPost | Agent graph object to create
+
+    try:
+        # Create new agent graph
+        api_response = api_instance.post_agent_graph(ld_api_version, project_key, agent_graph_post)
+        print("The response of AIConfigsBetaApi->post_agent_graph:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIConfigsBetaApi->post_agent_graph: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ld_api_version** | **str**| Version of the endpoint. | 
+ **project_key** | **str**|  | 
+ **agent_graph_post** | [**AgentGraphPost**](AgentGraphPost.md)| Agent graph object to create | 
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Agent graph created |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**413** | Payload too large |  -  |
 **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

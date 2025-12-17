@@ -3229,6 +3229,420 @@ class AccountUsageBetaApi:
 
 
     @validate_call
+    def get_mau_clientside_usage(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SeriesListRep:
+        """Get MAU clientside usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only. The counts reflect data reported from client-side SDKs.<br/><br/>For past months, the primary context kind is fixed and reflects the last known primary kind for that month. For the current month, it may vary as new primary context kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_clientside_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_mau_clientside_usage_with_http_info(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SeriesListRep]:
+        """Get MAU clientside usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only. The counts reflect data reported from client-side SDKs.<br/><br/>For past months, the primary context kind is fixed and reflects the last known primary kind for that month. For the current month, it may vary as new primary context kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_clientside_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_mau_clientside_usage_without_preload_content(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get MAU clientside usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only. The counts reflect data reported from client-side SDKs.<br/><br/>For past months, the primary context kind is fixed and reflects the last known primary kind for that month. For the current month, it may vary as new primary context kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_clientside_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_mau_clientside_usage_serialize(
+        self,
+        var_from,
+        to,
+        project_key,
+        environment_key,
+        sdk_name,
+        anonymous,
+        group_by,
+        aggregation_type,
+        granularity,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if var_from is not None:
+            
+            _query_params.append(('from', var_from))
+            
+        if to is not None:
+            
+            _query_params.append(('to', to))
+            
+        if project_key is not None:
+            
+            _query_params.append(('projectKey', project_key))
+            
+        if environment_key is not None:
+            
+            _query_params.append(('environmentKey', environment_key))
+            
+        if sdk_name is not None:
+            
+            _query_params.append(('sdkName', sdk_name))
+            
+        if anonymous is not None:
+            
+            _query_params.append(('anonymous', anonymous))
+            
+        if group_by is not None:
+            
+            _query_params.append(('groupBy', group_by))
+            
+        if aggregation_type is not None:
+            
+            _query_params.append(('aggregationType', aggregation_type))
+            
+        if granularity is not None:
+            
+            _query_params.append(('granularity', granularity))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'ApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v2/usage/clientside-mau',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_mau_sdks_by_type(
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The data returned starts from this timestamp. Defaults to seven days ago. The timestamp is in Unix milliseconds, for example, 1656694800000.")] = None,
@@ -3538,6 +3952,437 @@ class AccountUsageBetaApi:
 
 
     @validate_call
+    def get_mau_total_usage(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SeriesListRep:
+        """Get MAU total usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For past months, this reflects the context kind that was most recently marked as primary for that month. For the current month, the context kind may vary as new primary kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :type sdk_type: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_total_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            sdk_type=sdk_type,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_mau_total_usage_with_http_info(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SeriesListRep]:
+        """Get MAU total usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For past months, this reflects the context kind that was most recently marked as primary for that month. For the current month, the context kind may vary as new primary kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :type sdk_type: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_total_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            sdk_type=sdk_type,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_mau_total_usage_without_preload_content(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
+        sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        anonymous: Annotated[Optional[StrictStr], Field(description="An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get MAU total usage
+
+        Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For past months, this reflects the context kind that was most recently marked as primary for that month. For the current month, the context kind may vary as new primary kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
+        :type environment_key: str
+        :param sdk_name: An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+        :type sdk_name: str
+        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :type sdk_type: str
+        :param anonymous: An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`.
+        :type anonymous: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`.
+        :type group_by: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_mau_total_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            environment_key=environment_key,
+            sdk_name=sdk_name,
+            sdk_type=sdk_type,
+            anonymous=anonymous,
+            group_by=group_by,
+            aggregation_type=aggregation_type,
+            granularity=granularity,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '429': "RateLimitedErrorRep",
+            '503': "StatusServiceUnavailable",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_mau_total_usage_serialize(
+        self,
+        var_from,
+        to,
+        project_key,
+        environment_key,
+        sdk_name,
+        sdk_type,
+        anonymous,
+        group_by,
+        aggregation_type,
+        granularity,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if var_from is not None:
+            
+            _query_params.append(('from', var_from))
+            
+        if to is not None:
+            
+            _query_params.append(('to', to))
+            
+        if project_key is not None:
+            
+            _query_params.append(('projectKey', project_key))
+            
+        if environment_key is not None:
+            
+            _query_params.append(('environmentKey', environment_key))
+            
+        if sdk_name is not None:
+            
+            _query_params.append(('sdkName', sdk_name))
+            
+        if sdk_type is not None:
+            
+            _query_params.append(('sdkType', sdk_type))
+            
+        if anonymous is not None:
+            
+            _query_params.append(('anonymous', anonymous))
+            
+        if group_by is not None:
+            
+            _query_params.append(('groupBy', group_by))
+            
+        if aggregation_type is not None:
+            
+            _query_params.append(('aggregationType', aggregation_type))
+            
+        if granularity is not None:
+            
+            _query_params.append(('granularity', granularity))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'ApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v2/usage/total-mau',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_mau_usage(
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp. Defaults to 30 days ago.")] = None,
@@ -3563,7 +4408,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SeriesListRep:
-        """Get MAU usage
+        """(Deprecated) Get MAU usage
 
         Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -3608,6 +4453,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_serialize(
             var_from=var_from,
@@ -3670,7 +4516,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SeriesListRep]:
-        """Get MAU usage
+        """(Deprecated) Get MAU usage
 
         Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -3715,6 +4561,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_serialize(
             var_from=var_from,
@@ -3777,7 +4624,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get MAU usage
+        """(Deprecated) Get MAU usage
 
         Get a time-series array of the number of monthly active users (MAU) seen by LaunchDarkly from your account. The granularity is always daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -3822,6 +4669,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_serialize(
             var_from=var_from,
@@ -3983,7 +4831,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> SeriesListRep:
-        """Get MAU usage by category
+        """(Deprecated) Get MAU usage by category
 
         Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -4012,6 +4860,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau/bycategory is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_by_category_serialize(
             var_from=var_from,
@@ -4059,7 +4908,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[SeriesListRep]:
-        """Get MAU usage by category
+        """(Deprecated) Get MAU usage by category
 
         Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -4088,6 +4937,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau/bycategory is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_by_category_serialize(
             var_from=var_from,
@@ -4135,7 +4985,7 @@ class AccountUsageBetaApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get MAU usage by category
+        """(Deprecated) Get MAU usage by category
 
         Get time-series arrays of the number of monthly active users (MAU) seen by LaunchDarkly from your account, broken down by the category of users. The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
 
@@ -4164,6 +5014,7 @@ class AccountUsageBetaApi:
         :type _host_index: int, optional
         :return: Returns the result object.
         """ # noqa: E501
+        warnings.warn("GET /api/v2/usage/mau/bycategory is deprecated.", DeprecationWarning)
 
         _param = self._get_mau_usage_by_category_serialize(
             var_from=var_from,

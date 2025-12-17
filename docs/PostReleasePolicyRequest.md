@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **scope** | [**ReleasePolicyScope**](ReleasePolicyScope.md) |  | [optional] 
 **release_method** | [**ReleaseMethod**](ReleaseMethod.md) |  | 
 **guarded_release_config** | [**GuardedReleaseConfig**](GuardedReleaseConfig.md) |  | [optional] 
-**progressive_release_config** | **object** | Configuration for progressive releases | [optional] 
+**progressive_release_config** | [**ProgressiveReleaseConfig**](ProgressiveReleaseConfig.md) |  | [optional] 
 **name** | **str** | The name of the release policy | 
 **key** | **str** | The human-readable key of the release policy | 
 

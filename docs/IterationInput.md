@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **treatments** | [**List[TreatmentInput]**](TreatmentInput.md) |  | 
 **flags** | [**Dict[str, FlagInput]**](FlagInput.md) |  | 
 **randomization_unit** | **str** | The unit of randomization for this iteration. Defaults to user. | [optional] 
-**covariance_id** | **str** | The ID of the covariance CSV | [optional] 
 **attributes** | **List[str]** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 
 ## Example

@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | The flag rule ID | [optional] 
+**disabled** | **bool** | Whether the rule is disabled | [optional] 
 **variation** | **int** | The index of the variation, from the array of variations for this flag | [optional] 
 **rollout** | [**Rollout**](Rollout.md) |  | [optional] 
 **clauses** | [**List[Clause]**](Clause.md) | An array of clauses used for individual targeting based on attributes | 

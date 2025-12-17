@@ -36,12 +36,17 @@ class TestGuardedReleaseConfig(unittest.TestCase):
         model = GuardedReleaseConfig()
         if include_optional:
             return GuardedReleaseConfig(
+                rollout_context_kind_key = 'user',
                 min_sample_size = 100,
-                rollback_on_regression = True
+                rollback_on_regression = True,
+                metric_keys = ["http-errors","latency"],
+                metric_group_keys = ["frontend-metrics","backend-metrics"],
+                stages = [
+                    {"allocation":25000,"durationMillis":60000}
+                    ]
             )
         else:
             return GuardedReleaseConfig(
-                rollback_on_regression = True,
         )
         """
 

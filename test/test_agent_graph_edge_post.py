@@ -13,102 +13,44 @@
 """  # noqa: E501
 
 
-from __future__ import annotations
-import pprint
-import re  # noqa: F401
-import json
+import unittest
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from launchdarkly_api.models.clause import Clause
-from launchdarkly_api.models.rollout import Rollout
-from typing import Optional, Set
-from typing_extensions import Self
+from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost
 
-class Rule(BaseModel):
-    """
-    Rule
-    """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The flag rule ID", alias="_id")
-    disabled: Optional[StrictBool] = Field(default=None, description="Whether the rule is disabled")
-    variation: Optional[StrictInt] = Field(default=None, description="The index of the variation, from the array of variations for this flag")
-    rollout: Optional[Rollout] = None
-    clauses: List[Clause] = Field(description="An array of clauses used for individual targeting based on attributes")
-    track_events: StrictBool = Field(description="Whether LaunchDarkly tracks events for this rule", alias="trackEvents")
-    description: Optional[StrictStr] = Field(default=None, description="The rule description")
-    ref: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["_id", "disabled", "variation", "rollout", "clauses", "trackEvents", "description", "ref"]
+class TestAgentGraphEdgePost(unittest.TestCase):
+    """AgentGraphEdgePost unit test stubs"""
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        validate_assignment=True,
-        protected_namespaces=(),
-    )
+    def setUp(self):
+        pass
 
+    def tearDown(self):
+        pass
 
-    def to_str(self) -> str:
-        """Returns the string representation of the model using alias"""
-        return pprint.pformat(self.model_dump(by_alias=True))
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Rule from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
-
-    def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
+    def make_instance(self, include_optional) -> AgentGraphEdgePost:
+        """Test AgentGraphEdgePost
+            include_optional is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # uncomment below to create an instance of `AgentGraphEdgePost`
         """
-        excluded_fields: Set[str] = set([
-        ])
-
-        _dict = self.model_dump(
-            by_alias=True,
-            exclude=excluded_fields,
-            exclude_none=True,
+        model = AgentGraphEdgePost()
+        if include_optional:
+            return AgentGraphEdgePost(
+                source_config = '',
+                target_config = '',
+                handoff = None
+            )
+        else:
+            return AgentGraphEdgePost(
+                source_config = '',
+                target_config = '',
         )
-        # override the default output from pydantic by calling `to_dict()` of rollout
-        if self.rollout:
-            _dict['rollout'] = self.rollout.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in clauses (list)
-        _items = []
-        if self.clauses:
-            for _item_clauses in self.clauses:
-                if _item_clauses:
-                    _items.append(_item_clauses.to_dict())
-            _dict['clauses'] = _items
-        return _dict
+        """
 
-    @classmethod
-    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Rule from a dict"""
-        if obj is None:
-            return None
+    def testAgentGraphEdgePost(self):
+        """Test AgentGraphEdgePost"""
+        # inst_req_only = self.make_instance(include_optional=False)
+        # inst_req_and_optional = self.make_instance(include_optional=True)
 
-        if not isinstance(obj, dict):
-            return cls.model_validate(obj)
-
-        _obj = cls.model_validate({
-            "_id": obj.get("_id"),
-            "disabled": obj.get("disabled"),
-            "variation": obj.get("variation"),
-            "rollout": Rollout.from_dict(obj["rollout"]) if obj.get("rollout") is not None else None,
-            "clauses": [Clause.from_dict(_item) for _item in obj["clauses"]] if obj.get("clauses") is not None else None,
-            "trackEvents": obj.get("trackEvents"),
-            "description": obj.get("description"),
-            "ref": obj.get("ref")
-        })
-        return _obj
-
-
+if __name__ == '__main__':
+    unittest.main()

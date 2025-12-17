@@ -1238,7 +1238,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_feature_flag**
-> FeatureFlag patch_feature_flag(project_key, feature_flag_key, patch_with_comment, ignore_conflicts=ignore_conflicts)
+> FeatureFlag patch_feature_flag(project_key, feature_flag_key, patch_with_comment, ignore_conflicts=ignore_conflicts, dry_run=dry_run)
 
 Update feature flag
 
@@ -2469,10 +2469,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     feature_flag_key = 'feature_flag_key_example' # str | The feature flag key. The key identifies the flag in your code.
     patch_with_comment = {"patch":[{"op":"replace","path":"/description","value":"New description for this flag"}]} # PatchWithComment | 
     ignore_conflicts = True # bool | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. (optional)
+    dry_run = True # bool | If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied. (optional)
 
     try:
         # Update feature flag
-        api_response = api_instance.patch_feature_flag(project_key, feature_flag_key, patch_with_comment, ignore_conflicts=ignore_conflicts)
+        api_response = api_instance.patch_feature_flag(project_key, feature_flag_key, patch_with_comment, ignore_conflicts=ignore_conflicts, dry_run=dry_run)
         print("The response of FeatureFlagsApi->patch_feature_flag:\n")
         pprint(api_response)
     except Exception as e:
@@ -2490,6 +2491,7 @@ Name | Type | Description  | Notes
  **feature_flag_key** | **str**| The feature flag key. The key identifies the flag in your code. | 
  **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  | 
  **ignore_conflicts** | **bool**| If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. | [optional] 
+ **dry_run** | **bool**| If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied. | [optional] 
 
 ### Return type
 

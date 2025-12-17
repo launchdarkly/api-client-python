@@ -36,7 +36,8 @@ class TestReleasePolicyScope(unittest.TestCase):
         model = ReleasePolicyScope()
         if include_optional:
             return ReleasePolicyScope(
-                environment_keys = ["production","staging"]
+                environment_keys = ["production","staging"],
+                flag_tag_keys = ["frontend","backend"]
             )
         else:
             return ReleasePolicyScope(

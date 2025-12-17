@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from launchdarkly_api.models.guarded_release_config import GuardedReleaseConfig
+from launchdarkly_api.models.progressive_release_config import ProgressiveReleaseConfig
 from launchdarkly_api.models.release_method import ReleaseMethod
 from launchdarkly_api.models.release_policy_scope import ReleasePolicyScope
 from typing import Optional, Set
@@ -34,7 +35,7 @@ class PutReleasePolicyRequest(BaseModel):
     scope: Optional[ReleasePolicyScope] = None
     release_method: ReleaseMethod = Field(alias="releaseMethod")
     guarded_release_config: Optional[GuardedReleaseConfig] = Field(default=None, alias="guardedReleaseConfig")
-    progressive_release_config: Optional[Dict[str, Any]] = Field(default=None, description="Configuration for progressive releases", alias="progressiveReleaseConfig")
+    progressive_release_config: Optional[ProgressiveReleaseConfig] = Field(default=None, alias="progressiveReleaseConfig")
     name: Annotated[str, Field(strict=True, max_length=256)] = Field(description="The name of the release policy")
     __properties: ClassVar[List[str]] = ["scope", "releaseMethod", "guardedReleaseConfig", "progressiveReleaseConfig", "name"]
 
@@ -83,6 +84,9 @@ class PutReleasePolicyRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of guarded_release_config
         if self.guarded_release_config:
             _dict['guardedReleaseConfig'] = self.guarded_release_config.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of progressive_release_config
+        if self.progressive_release_config:
+            _dict['progressiveReleaseConfig'] = self.progressive_release_config.to_dict()
         return _dict
 
     @classmethod
@@ -98,7 +102,7 @@ class PutReleasePolicyRequest(BaseModel):
             "scope": ReleasePolicyScope.from_dict(obj["scope"]) if obj.get("scope") is not None else None,
             "releaseMethod": obj.get("releaseMethod"),
             "guardedReleaseConfig": GuardedReleaseConfig.from_dict(obj["guardedReleaseConfig"]) if obj.get("guardedReleaseConfig") is not None else None,
-            "progressiveReleaseConfig": obj.get("progressiveReleaseConfig"),
+            "progressiveReleaseConfig": ProgressiveReleaseConfig.from_dict(obj["progressiveReleaseConfig"]) if obj.get("progressiveReleaseConfig") is not None else None,
             "name": obj.get("name")
         })
         return _obj

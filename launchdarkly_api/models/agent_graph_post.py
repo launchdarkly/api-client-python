@@ -18,26 +18,22 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from launchdarkly_api.models.clause import Clause
-from launchdarkly_api.models.rollout import Rollout
+from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost
 from typing import Optional, Set
 from typing_extensions import Self
 
-class Rule(BaseModel):
+class AgentGraphPost(BaseModel):
     """
-    Rule
+    Request body for creating an agent graph
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="The flag rule ID", alias="_id")
-    disabled: Optional[StrictBool] = Field(default=None, description="Whether the rule is disabled")
-    variation: Optional[StrictInt] = Field(default=None, description="The index of the variation, from the array of variations for this flag")
-    rollout: Optional[Rollout] = None
-    clauses: List[Clause] = Field(description="An array of clauses used for individual targeting based on attributes")
-    track_events: StrictBool = Field(description="Whether LaunchDarkly tracks events for this rule", alias="trackEvents")
-    description: Optional[StrictStr] = Field(default=None, description="The rule description")
-    ref: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["_id", "disabled", "variation", "rollout", "clauses", "trackEvents", "description", "ref"]
+    key: StrictStr = Field(description="A unique key for the agent graph")
+    name: StrictStr = Field(description="A human-readable name for the agent graph")
+    description: Optional[StrictStr] = Field(default=None, description="A description of the agent graph")
+    root_config_key: Optional[StrictStr] = Field(default=None, description="The AI Config key of the root node. A missing root implies a newly created graph with metadata only.", alias="rootConfigKey")
+    edges: Optional[List[AgentGraphEdgePost]] = Field(default=None, description="The edges in the graph. If edges or rootConfigKey is present, both must be present.")
+    __properties: ClassVar[List[str]] = ["key", "name", "description", "rootConfigKey", "edges"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,7 +53,7 @@ class Rule(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Rule from a JSON string"""
+        """Create an instance of AgentGraphPost from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,21 +74,18 @@ class Rule(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of rollout
-        if self.rollout:
-            _dict['rollout'] = self.rollout.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in clauses (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in edges (list)
         _items = []
-        if self.clauses:
-            for _item_clauses in self.clauses:
-                if _item_clauses:
-                    _items.append(_item_clauses.to_dict())
-            _dict['clauses'] = _items
+        if self.edges:
+            for _item_edges in self.edges:
+                if _item_edges:
+                    _items.append(_item_edges.to_dict())
+            _dict['edges'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Rule from a dict"""
+        """Create an instance of AgentGraphPost from a dict"""
         if obj is None:
             return None
 
@@ -100,14 +93,11 @@ class Rule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "_id": obj.get("_id"),
-            "disabled": obj.get("disabled"),
-            "variation": obj.get("variation"),
-            "rollout": Rollout.from_dict(obj["rollout"]) if obj.get("rollout") is not None else None,
-            "clauses": [Clause.from_dict(_item) for _item in obj["clauses"]] if obj.get("clauses") is not None else None,
-            "trackEvents": obj.get("trackEvents"),
+            "key": obj.get("key"),
+            "name": obj.get("name"),
             "description": obj.get("description"),
-            "ref": obj.get("ref")
+            "rootConfigKey": obj.get("rootConfigKey"),
+            "edges": [AgentGraphEdgePost.from_dict(_item) for _item in obj["edges"]] if obj.get("edges") is not None else None
         })
         return _obj
 

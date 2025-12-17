@@ -83,10 +83,24 @@ class TestAccountUsageBetaApi(unittest.TestCase):
         """
         pass
 
+    def test_get_mau_clientside_usage(self) -> None:
+        """Test case for get_mau_clientside_usage
+
+        Get MAU clientside usage
+        """
+        pass
+
     def test_get_mau_sdks_by_type(self) -> None:
         """Test case for get_mau_sdks_by_type
 
         Get MAU SDKs by type
+        """
+        pass
+
+    def test_get_mau_total_usage(self) -> None:
+        """Test case for get_mau_total_usage
+
+        Get MAU total usage
         """
         pass
 

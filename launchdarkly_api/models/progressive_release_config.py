@@ -18,19 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.release_policy_stage import ReleasePolicyStage
 from typing import Optional, Set
 from typing_extensions import Self
 
-class CovarianceInfoRep(BaseModel):
+class ProgressiveReleaseConfig(BaseModel):
     """
-    CovarianceInfoRep
+    Configuration for progressive releases
     """ # noqa: E501
-    id: StrictStr = Field(description="The ID of the covariance matrix")
-    file_name: StrictStr = Field(description="The file name of the uploaded covariance matrix", alias="fileName")
-    created_at: StrictInt = Field(alias="createdAt")
-    __properties: ClassVar[List[str]] = ["id", "fileName", "createdAt"]
+    rollout_context_kind_key: Optional[StrictStr] = Field(default=None, description="Context kind key to use as the randomization unit for the rollout", alias="rolloutContextKindKey")
+    stages: Optional[List[ReleasePolicyStage]] = Field(default=None, description="List of stages")
+    __properties: ClassVar[List[str]] = ["rolloutContextKindKey", "stages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class CovarianceInfoRep(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of CovarianceInfoRep from a JSON string"""
+        """Create an instance of ProgressiveReleaseConfig from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +71,18 @@ class CovarianceInfoRep(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in stages (list)
+        _items = []
+        if self.stages:
+            for _item_stages in self.stages:
+                if _item_stages:
+                    _items.append(_item_stages.to_dict())
+            _dict['stages'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of CovarianceInfoRep from a dict"""
+        """Create an instance of ProgressiveReleaseConfig from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +90,8 @@ class CovarianceInfoRep(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": obj.get("id"),
-            "fileName": obj.get("fileName"),
-            "createdAt": obj.get("createdAt")
+            "rolloutContextKindKey": obj.get("rolloutContextKindKey"),
+            "stages": [ReleasePolicyStage.from_dict(_item) for _item in obj["stages"]] if obj.get("stages") is not None else None
         })
         return _obj
 

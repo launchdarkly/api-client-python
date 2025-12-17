@@ -4537,6 +4537,7 @@ class SegmentsApi:
         environment_key: Annotated[StrictStr, Field(description="The environment key")],
         segment_key: Annotated[StrictStr, Field(description="The segment key")],
         patch_with_comment: PatchWithComment,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4562,6 +4563,8 @@ class SegmentsApi:
         :type segment_key: str
         :param patch_with_comment: (required)
         :type patch_with_comment: PatchWithComment
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4589,6 +4592,7 @@ class SegmentsApi:
             environment_key=environment_key,
             segment_key=segment_key,
             patch_with_comment=patch_with_comment,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4622,6 +4626,7 @@ class SegmentsApi:
         environment_key: Annotated[StrictStr, Field(description="The environment key")],
         segment_key: Annotated[StrictStr, Field(description="The segment key")],
         patch_with_comment: PatchWithComment,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4647,6 +4652,8 @@ class SegmentsApi:
         :type segment_key: str
         :param patch_with_comment: (required)
         :type patch_with_comment: PatchWithComment
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4674,6 +4681,7 @@ class SegmentsApi:
             environment_key=environment_key,
             segment_key=segment_key,
             patch_with_comment=patch_with_comment,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4707,6 +4715,7 @@ class SegmentsApi:
         environment_key: Annotated[StrictStr, Field(description="The environment key")],
         segment_key: Annotated[StrictStr, Field(description="The segment key")],
         patch_with_comment: PatchWithComment,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -4732,6 +4741,8 @@ class SegmentsApi:
         :type segment_key: str
         :param patch_with_comment: (required)
         :type patch_with_comment: PatchWithComment
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -4759,6 +4770,7 @@ class SegmentsApi:
             environment_key=environment_key,
             segment_key=segment_key,
             patch_with_comment=patch_with_comment,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -4787,6 +4799,7 @@ class SegmentsApi:
         environment_key,
         segment_key,
         patch_with_comment,
+        dry_run,
         _request_auth,
         _content_type,
         _headers,
@@ -4815,6 +4828,10 @@ class SegmentsApi:
         if segment_key is not None:
             _path_params['segmentKey'] = segment_key
         # process the query parameters
+        if dry_run is not None:
+            
+            _query_params.append(('dryRun', dry_run))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter

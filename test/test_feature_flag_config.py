@@ -61,6 +61,7 @@ class TestFeatureFlagConfig(unittest.TestCase):
                 rules = [
                     launchdarkly_api.models.rule.Rule(
                         _id = '', 
+                        disabled = True, 
                         variation = 56, 
                         rollout = launchdarkly_api.models.rollout.Rollout(
                             variations = [

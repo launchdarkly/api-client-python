@@ -15,10 +15,10 @@
 
 import unittest
 
-from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep
+from launchdarkly_api.models.release_policy_stage import ReleasePolicyStage
 
-class TestCovarianceInfoRep(unittest.TestCase):
-    """CovarianceInfoRep unit test stubs"""
+class TestReleasePolicyStage(unittest.TestCase):
+    """ReleasePolicyStage unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,30 +26,28 @@ class TestCovarianceInfoRep(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> CovarianceInfoRep:
-        """Test CovarianceInfoRep
+    def make_instance(self, include_optional) -> ReleasePolicyStage:
+        """Test ReleasePolicyStage
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `CovarianceInfoRep`
+        # uncomment below to create an instance of `ReleasePolicyStage`
         """
-        model = CovarianceInfoRep()
+        model = ReleasePolicyStage()
         if include_optional:
-            return CovarianceInfoRep(
-                id = '74a49a2b-4834-4246-917e-5d85231d8c2a',
-                file_name = 'covariance.csv',
-                created_at = 56
+            return ReleasePolicyStage(
+                allocation = 25000,
+                duration_millis = 60000
             )
         else:
-            return CovarianceInfoRep(
-                id = '74a49a2b-4834-4246-917e-5d85231d8c2a',
-                file_name = 'covariance.csv',
-                created_at = 56,
+            return ReleasePolicyStage(
+                allocation = 25000,
+                duration_millis = 60000,
         )
         """
 
-    def testCovarianceInfoRep(self):
-        """Test CovarianceInfoRep"""
+    def testReleasePolicyStage(self):
+        """Test ReleasePolicyStage"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

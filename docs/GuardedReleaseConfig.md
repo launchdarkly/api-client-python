@@ -6,8 +6,12 @@ Configuration for guarded releases
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**rollout_context_kind_key** | **str** | Context kind key to use as the randomization unit for the rollout | [optional] 
 **min_sample_size** | **int** | The minimum number of samples required to make a decision | [optional] 
-**rollback_on_regression** | **bool** | Whether to roll back on regression | 
+**rollback_on_regression** | **bool** | Whether to roll back on regression | [optional] 
+**metric_keys** | **List[str]** | List of metric keys | [optional] 
+**metric_group_keys** | **List[str]** | List of metric group keys | [optional] 
+**stages** | [**List[ReleasePolicyStage]**](ReleasePolicyStage.md) | List of stages | [optional] 
 
 ## Example
 

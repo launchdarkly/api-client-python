@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "19.0.0"
+__version__ = "20.0.0"
 
 # Define package exports
 __all__ = [
@@ -119,6 +119,11 @@ __all__ = [
     "AccessTokenPost",
     "ActionInput",
     "ActionOutput",
+    "AgentGraph",
+    "AgentGraphEdge",
+    "AgentGraphEdgePost",
+    "AgentGraphPost",
+    "AgentGraphs",
     "AiConfigsAccess",
     "AiConfigsAccessAllowedReason",
     "AiConfigsAccessAllowedRep",
@@ -214,7 +219,6 @@ __all__ = [
     "Contexts",
     "CopiedFromEnv",
     "CoreLink",
-    "CovarianceInfoRep",
     "CreateAnnouncementBody",
     "CreateApprovalRequestRequest",
     "CreateCopyFlagConfigApprovalRequestRequest",
@@ -496,6 +500,7 @@ __all__ = [
     "PostInsightGroupParams",
     "PostReleasePolicyRequest",
     "Prerequisite",
+    "ProgressiveReleaseConfig",
     "Project",
     "ProjectPost",
     "ProjectRep",
@@ -535,6 +540,7 @@ __all__ = [
     "ReleasePoliciesResponse",
     "ReleasePolicy",
     "ReleasePolicyScope",
+    "ReleasePolicyStage",
     "ReleaseProgression",
     "ReleaseProgressionCollection",
     "ReleaserAudienceConfigInput",
@@ -773,6 +779,11 @@ from launchdarkly_api.models.access_denied_reason import AccessDeniedReason as A
 from launchdarkly_api.models.access_token_post import AccessTokenPost as AccessTokenPost
 from launchdarkly_api.models.action_input import ActionInput as ActionInput
 from launchdarkly_api.models.action_output import ActionOutput as ActionOutput
+from launchdarkly_api.models.agent_graph import AgentGraph as AgentGraph
+from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge as AgentGraphEdge
+from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost as AgentGraphEdgePost
+from launchdarkly_api.models.agent_graph_post import AgentGraphPost as AgentGraphPost
+from launchdarkly_api.models.agent_graphs import AgentGraphs as AgentGraphs
 from launchdarkly_api.models.ai_configs_access import AiConfigsAccess as AiConfigsAccess
 from launchdarkly_api.models.ai_configs_access_allowed_reason import AiConfigsAccessAllowedReason as AiConfigsAccessAllowedReason
 from launchdarkly_api.models.ai_configs_access_allowed_rep import AiConfigsAccessAllowedRep as AiConfigsAccessAllowedRep
@@ -868,7 +879,6 @@ from launchdarkly_api.models.context_search import ContextSearch as ContextSearc
 from launchdarkly_api.models.contexts import Contexts as Contexts
 from launchdarkly_api.models.copied_from_env import CopiedFromEnv as CopiedFromEnv
 from launchdarkly_api.models.core_link import CoreLink as CoreLink
-from launchdarkly_api.models.covariance_info_rep import CovarianceInfoRep as CovarianceInfoRep
 from launchdarkly_api.models.create_announcement_body import CreateAnnouncementBody as CreateAnnouncementBody
 from launchdarkly_api.models.create_approval_request_request import CreateApprovalRequestRequest as CreateApprovalRequestRequest
 from launchdarkly_api.models.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest as CreateCopyFlagConfigApprovalRequestRequest
@@ -1150,6 +1160,7 @@ from launchdarkly_api.models.post_flag_scheduled_changes_input import PostFlagSc
 from launchdarkly_api.models.post_insight_group_params import PostInsightGroupParams as PostInsightGroupParams
 from launchdarkly_api.models.post_release_policy_request import PostReleasePolicyRequest as PostReleasePolicyRequest
 from launchdarkly_api.models.prerequisite import Prerequisite as Prerequisite
+from launchdarkly_api.models.progressive_release_config import ProgressiveReleaseConfig as ProgressiveReleaseConfig
 from launchdarkly_api.models.project import Project as Project
 from launchdarkly_api.models.project_post import ProjectPost as ProjectPost
 from launchdarkly_api.models.project_rep import ProjectRep as ProjectRep
@@ -1189,6 +1200,7 @@ from launchdarkly_api.models.release_policies_access_rep import ReleasePoliciesA
 from launchdarkly_api.models.release_policies_response import ReleasePoliciesResponse as ReleasePoliciesResponse
 from launchdarkly_api.models.release_policy import ReleasePolicy as ReleasePolicy
 from launchdarkly_api.models.release_policy_scope import ReleasePolicyScope as ReleasePolicyScope
+from launchdarkly_api.models.release_policy_stage import ReleasePolicyStage as ReleasePolicyStage
 from launchdarkly_api.models.release_progression import ReleaseProgression as ReleaseProgression
 from launchdarkly_api.models.release_progression_collection import ReleaseProgressionCollection as ReleaseProgressionCollection
 from launchdarkly_api.models.releaser_audience_config_input import ReleaserAudienceConfigInput as ReleaserAudienceConfigInput

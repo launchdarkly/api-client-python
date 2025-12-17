@@ -37,6 +37,7 @@ class TestRule(unittest.TestCase):
         if include_optional:
             return Rule(
                 id = '',
+                disabled = True,
                 variation = 56,
                 rollout = launchdarkly_api.models.rollout.Rollout(
                     variations = [

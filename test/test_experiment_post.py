@@ -69,7 +69,6 @@ class TestExperimentPost(unittest.TestCase):
                             not_in_experiment_variation_id = 'e432f62b-55f6-49dd-a02f-eb24acf39d05', )
                         }, 
                     randomization_unit = 'user', 
-                    covariance_id = '', 
                     attributes = ["country","device","os"], ),
                 holdout_id = 'f3b74309-d581-44e1-8a2b-bb2933b4fe40',
                 tags = [
@@ -109,7 +108,6 @@ class TestExperimentPost(unittest.TestCase):
                             not_in_experiment_variation_id = 'e432f62b-55f6-49dd-a02f-eb24acf39d05', )
                         }, 
                     randomization_unit = 'user', 
-                    covariance_id = '', 
                     attributes = ["country","device","os"], ),
         )
         """

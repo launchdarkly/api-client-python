@@ -45,7 +45,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.TagsApi(api_client)
-    kind = ['kind_example'] # List[str] | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default. (optional)
+    kind = ['kind_example'] # List[str] | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default. (optional)
     pre = 'pre_example' # str | Return tags with the specified prefix (optional)
     archived = True # bool | Whether or not to return archived flags (optional)
     limit = 56 # int | The number of tags to return. Maximum is 1000. (optional)
@@ -68,7 +68,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **kind** | [**List[str]**](str.md)| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default. | [optional] 
+ **kind** | [**List[str]**](str.md)| Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;metric-data-source&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default. | [optional] 
  **pre** | **str**| Return tags with the specified prefix | [optional] 
  **archived** | **bool**| Whether or not to return archived flags | [optional] 
  **limit** | **int**| The number of tags to return. Maximum is 1000. | [optional] 

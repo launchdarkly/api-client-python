@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.release_policy_stage import ReleasePolicyStage
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,9 +28,13 @@ class GuardedReleaseConfig(BaseModel):
     """
     Configuration for guarded releases
     """ # noqa: E501
+    rollout_context_kind_key: Optional[StrictStr] = Field(default=None, description="Context kind key to use as the randomization unit for the rollout", alias="rolloutContextKindKey")
     min_sample_size: Optional[StrictInt] = Field(default=None, description="The minimum number of samples required to make a decision", alias="minSampleSize")
-    rollback_on_regression: StrictBool = Field(description="Whether to roll back on regression", alias="rollbackOnRegression")
-    __properties: ClassVar[List[str]] = ["minSampleSize", "rollbackOnRegression"]
+    rollback_on_regression: Optional[StrictBool] = Field(default=None, description="Whether to roll back on regression", alias="rollbackOnRegression")
+    metric_keys: Optional[List[StrictStr]] = Field(default=None, description="List of metric keys", alias="metricKeys")
+    metric_group_keys: Optional[List[StrictStr]] = Field(default=None, description="List of metric group keys", alias="metricGroupKeys")
+    stages: Optional[List[ReleasePolicyStage]] = Field(default=None, description="List of stages")
+    __properties: ClassVar[List[str]] = ["rolloutContextKindKey", "minSampleSize", "rollbackOnRegression", "metricKeys", "metricGroupKeys", "stages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -70,6 +75,13 @@ class GuardedReleaseConfig(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in stages (list)
+        _items = []
+        if self.stages:
+            for _item_stages in self.stages:
+                if _item_stages:
+                    _items.append(_item_stages.to_dict())
+            _dict['stages'] = _items
         return _dict
 
     @classmethod
@@ -82,8 +94,12 @@ class GuardedReleaseConfig(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "rolloutContextKindKey": obj.get("rolloutContextKindKey"),
             "minSampleSize": obj.get("minSampleSize"),
-            "rollbackOnRegression": obj.get("rollbackOnRegression")
+            "rollbackOnRegression": obj.get("rollbackOnRegression"),
+            "metricKeys": obj.get("metricKeys"),
+            "metricGroupKeys": obj.get("metricGroupKeys"),
+            "stages": [ReleasePolicyStage.from_dict(_item) for _item in obj["stages"]] if obj.get("stages") is not None else None
         })
         return _obj
 

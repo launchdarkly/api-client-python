@@ -43,7 +43,7 @@ class TagsApi:
     @validate_call
     def get_tags(
         self,
-        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.")] = None,
+        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.")] = None,
         pre: Annotated[Optional[StrictStr], Field(description="Return tags with the specified prefix")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Whether or not to return archived flags")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of tags to return. Maximum is 1000.")] = None,
@@ -66,7 +66,7 @@ class TagsApi:
 
         Get a list of tags.
 
-        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.
+        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.
         :type kind: List[str]
         :param pre: Return tags with the specified prefix
         :type pre: str
@@ -135,7 +135,7 @@ class TagsApi:
     @validate_call
     def get_tags_with_http_info(
         self,
-        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.")] = None,
+        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.")] = None,
         pre: Annotated[Optional[StrictStr], Field(description="Return tags with the specified prefix")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Whether or not to return archived flags")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of tags to return. Maximum is 1000.")] = None,
@@ -158,7 +158,7 @@ class TagsApi:
 
         Get a list of tags.
 
-        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.
+        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.
         :type kind: List[str]
         :param pre: Return tags with the specified prefix
         :type pre: str
@@ -227,7 +227,7 @@ class TagsApi:
     @validate_call
     def get_tags_without_preload_content(
         self,
-        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.")] = None,
+        kind: Annotated[Optional[List[StrictStr]], Field(description="Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.")] = None,
         pre: Annotated[Optional[StrictStr], Field(description="Return tags with the specified prefix")] = None,
         archived: Annotated[Optional[StrictBool], Field(description="Whether or not to return archived flags")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of tags to return. Maximum is 1000.")] = None,
@@ -250,7 +250,7 @@ class TagsApi:
 
         Get a list of tags.
 
-        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default.
+        :param kind: Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`, `aiconfig`, and `view`. Returns all types by default.
         :type kind: List[str]
         :param pre: Return tags with the specified prefix
         :type pre: str

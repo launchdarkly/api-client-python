@@ -1442,7 +1442,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_segment**
-> UserSegment patch_segment(project_key, environment_key, segment_key, patch_with_comment)
+> UserSegment patch_segment(project_key, environment_key, segment_key, patch_with_comment, dry_run=dry_run)
 
 Patch segment
 
@@ -2108,10 +2108,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = 'environment_key_example' # str | The environment key
     segment_key = 'segment_key_example' # str | The segment key
     patch_with_comment = {"patch":[{"op":"replace","path":"/description","value":"New description for this segment"},{"op":"add","path":"/tags/0","value":"example"}]} # PatchWithComment | 
+    dry_run = True # bool | If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied. (optional)
 
     try:
         # Patch segment
-        api_response = api_instance.patch_segment(project_key, environment_key, segment_key, patch_with_comment)
+        api_response = api_instance.patch_segment(project_key, environment_key, segment_key, patch_with_comment, dry_run=dry_run)
         print("The response of SegmentsApi->patch_segment:\n")
         pprint(api_response)
     except Exception as e:
@@ -2129,6 +2130,7 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key | 
  **segment_key** | **str**| The segment key | 
  **patch_with_comment** | [**PatchWithComment**](PatchWithComment.md)|  | 
+ **dry_run** | **bool**| If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied. | [optional] 
 
 ### Return type
 

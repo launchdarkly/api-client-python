@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **mode** | **str** |  | [optional] [default to 'completion']
 **name** | **str** |  | 
 **tags** | **List[str]** |  | [optional] 
+**default_variation** | [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
 
 ## Example
 

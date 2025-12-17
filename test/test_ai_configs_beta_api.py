@@ -118,6 +118,13 @@ class TestAIConfigsBetaApi(unittest.TestCase):
         """
         pass
 
+    def test_list_agent_graphs(self) -> None:
+        """Test case for list_agent_graphs
+
+        List agent graphs
+        """
+        pass
+
     def test_list_ai_tool_versions(self) -> None:
         """Test case for list_ai_tool_versions
 
@@ -164,6 +171,13 @@ class TestAIConfigsBetaApi(unittest.TestCase):
         """Test case for patch_ai_tool
 
         Update AI tool
+        """
+        pass
+
+    def test_post_agent_graph(self) -> None:
+        """Test case for post_agent_graph
+
+        Create new agent graph
         """
         pass
 

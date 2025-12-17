@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.ai_config_variation_post import AIConfigVariationPost
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -34,7 +35,8 @@ class AIConfigPost(BaseModel):
     mode: Optional[StrictStr] = 'completion'
     name: StrictStr
     tags: Optional[List[StrictStr]] = None
-    __properties: ClassVar[List[str]] = ["description", "key", "maintainerId", "maintainerTeamKey", "mode", "name", "tags"]
+    default_variation: Optional[AIConfigVariationPost] = Field(default=None, alias="defaultVariation")
+    __properties: ClassVar[List[str]] = ["description", "key", "maintainerId", "maintainerTeamKey", "mode", "name", "tags", "defaultVariation"]
 
     @field_validator('mode')
     def mode_validate_enum(cls, value):
@@ -85,6 +87,9 @@ class AIConfigPost(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of default_variation
+        if self.default_variation:
+            _dict['defaultVariation'] = self.default_variation.to_dict()
         return _dict
 
     @classmethod
@@ -103,7 +108,8 @@ class AIConfigPost(BaseModel):
             "maintainerTeamKey": obj.get("maintainerTeamKey"),
             "mode": obj.get("mode") if obj.get("mode") is not None else 'completion',
             "name": obj.get("name"),
-            "tags": obj.get("tags")
+            "tags": obj.get("tags"),
+            "defaultVariation": AIConfigVariationPost.from_dict(obj["defaultVariation"]) if obj.get("defaultVariation") is not None else None
         })
         return _obj
 

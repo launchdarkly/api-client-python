@@ -28,7 +28,8 @@ class ReleasePolicyScope(BaseModel):
     ReleasePolicyScope
     """ # noqa: E501
     environment_keys: Optional[List[StrictStr]] = Field(default=None, description="List of environment keys this policy applies to", alias="environmentKeys")
-    __properties: ClassVar[List[str]] = ["environmentKeys"]
+    flag_tag_keys: Optional[List[StrictStr]] = Field(default=None, description="List of flag tag keys this policy applies to", alias="flagTagKeys")
+    __properties: ClassVar[List[str]] = ["environmentKeys", "flagTagKeys"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,7 +82,8 @@ class ReleasePolicyScope(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "environmentKeys": obj.get("environmentKeys")
+            "environmentKeys": obj.get("environmentKeys"),
+            "flagTagKeys": obj.get("flagTagKeys")
         })
         return _obj
 

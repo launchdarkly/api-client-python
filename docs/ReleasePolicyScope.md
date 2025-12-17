@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **environment_keys** | **List[str]** | List of environment keys this policy applies to | [optional] 
+**flag_tag_keys** | **List[str]** | List of flag tag keys this policy applies to | [optional] 
 
 ## Example
 

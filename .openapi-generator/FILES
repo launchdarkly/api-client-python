@@ -44,6 +44,11 @@ docs/AccountMembersApi.md
 docs/AccountUsageBetaApi.md
 docs/ActionInput.md
 docs/ActionOutput.md
+docs/AgentGraph.md
+docs/AgentGraphEdge.md
+docs/AgentGraphEdgePost.md
+docs/AgentGraphPost.md
+docs/AgentGraphs.md
 docs/AiConfigsAccess.md
 docs/AiConfigsAccessAllowedReason.md
 docs/AiConfigsAccessAllowedRep.md
@@ -147,7 +152,6 @@ docs/Contexts.md
 docs/ContextsApi.md
 docs/CopiedFromEnv.md
 docs/CoreLink.md
-docs/CovarianceInfoRep.md
 docs/CreateAnnouncementBody.md
 docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
@@ -455,6 +459,7 @@ docs/PostFlagScheduledChangesInput.md
 docs/PostInsightGroupParams.md
 docs/PostReleasePolicyRequest.md
 docs/Prerequisite.md
+docs/ProgressiveReleaseConfig.md
 docs/Project.md
 docs/ProjectPost.md
 docs/ProjectRep.md
@@ -498,6 +503,7 @@ docs/ReleasePoliciesBetaApi.md
 docs/ReleasePoliciesResponse.md
 docs/ReleasePolicy.md
 docs/ReleasePolicyScope.md
+docs/ReleasePolicyStage.md
 docs/ReleaseProgression.md
 docs/ReleaseProgressionCollection.md
 docs/ReleaserAudienceConfigInput.md
@@ -713,6 +719,11 @@ launchdarkly_api/models/access_denied_reason.py
 launchdarkly_api/models/access_token_post.py
 launchdarkly_api/models/action_input.py
 launchdarkly_api/models/action_output.py
+launchdarkly_api/models/agent_graph.py
+launchdarkly_api/models/agent_graph_edge.py
+launchdarkly_api/models/agent_graph_edge_post.py
+launchdarkly_api/models/agent_graph_post.py
+launchdarkly_api/models/agent_graphs.py
 launchdarkly_api/models/ai_config.py
 launchdarkly_api/models/ai_config_maintainer.py
 launchdarkly_api/models/ai_config_patch.py
@@ -836,7 +847,6 @@ launchdarkly_api/models/context_search.py
 launchdarkly_api/models/contexts.py
 launchdarkly_api/models/copied_from_env.py
 launchdarkly_api/models/core_link.py
-launchdarkly_api/models/covariance_info_rep.py
 launchdarkly_api/models/create_announcement_body.py
 launchdarkly_api/models/create_approval_request_request.py
 launchdarkly_api/models/create_copy_flag_config_approval_request_request.py
@@ -1118,6 +1128,7 @@ launchdarkly_api/models/post_flag_scheduled_changes_input.py
 launchdarkly_api/models/post_insight_group_params.py
 launchdarkly_api/models/post_release_policy_request.py
 launchdarkly_api/models/prerequisite.py
+launchdarkly_api/models/progressive_release_config.py
 launchdarkly_api/models/project.py
 launchdarkly_api/models/project_post.py
 launchdarkly_api/models/project_rep.py
@@ -1157,6 +1168,7 @@ launchdarkly_api/models/release_policies_access_rep.py
 launchdarkly_api/models/release_policies_response.py
 launchdarkly_api/models/release_policy.py
 launchdarkly_api/models/release_policy_scope.py
+launchdarkly_api/models/release_policy_stage.py
 launchdarkly_api/models/release_progression.py
 launchdarkly_api/models/release_progression_collection.py
 launchdarkly_api/models/releaser_audience_config_input.py
@@ -1307,6 +1319,11 @@ test/test_account_members_api.py
 test/test_account_usage_beta_api.py
 test/test_action_input.py
 test/test_action_output.py
+test/test_agent_graph.py
+test/test_agent_graph_edge.py
+test/test_agent_graph_edge_post.py
+test/test_agent_graph_post.py
+test/test_agent_graphs.py
 test/test_ai_config.py
 test/test_ai_config_maintainer.py
 test/test_ai_config_patch.py
@@ -1439,7 +1456,6 @@ test/test_contexts.py
 test/test_contexts_api.py
 test/test_copied_from_env.py
 test/test_core_link.py
-test/test_covariance_info_rep.py
 test/test_create_announcement_body.py
 test/test_create_approval_request_request.py
 test/test_create_copy_flag_config_approval_request_request.py
@@ -1747,6 +1763,7 @@ test/test_post_flag_scheduled_changes_input.py
 test/test_post_insight_group_params.py
 test/test_post_release_policy_request.py
 test/test_prerequisite.py
+test/test_progressive_release_config.py
 test/test_project.py
 test/test_project_post.py
 test/test_project_rep.py
@@ -1790,6 +1807,7 @@ test/test_release_policies_beta_api.py
 test/test_release_policies_response.py
 test/test_release_policy.py
 test/test_release_policy_scope.py
+test/test_release_policy_stage.py
 test/test_release_progression.py
 test/test_release_progression_collection.py
 test/test_releaser_audience_config_input.py

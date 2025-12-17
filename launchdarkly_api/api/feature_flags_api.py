@@ -3606,6 +3606,7 @@ class FeatureFlagsApi:
         feature_flag_key: Annotated[StrictStr, Field(description="The feature flag key. The key identifies the flag in your code.")],
         patch_with_comment: PatchWithComment,
         ignore_conflicts: Annotated[Optional[StrictBool], Field(description="If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.")] = None,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3631,6 +3632,8 @@ class FeatureFlagsApi:
         :type patch_with_comment: PatchWithComment
         :param ignore_conflicts: If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.
         :type ignore_conflicts: bool
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3658,6 +3661,7 @@ class FeatureFlagsApi:
             feature_flag_key=feature_flag_key,
             patch_with_comment=patch_with_comment,
             ignore_conflicts=ignore_conflicts,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3691,6 +3695,7 @@ class FeatureFlagsApi:
         feature_flag_key: Annotated[StrictStr, Field(description="The feature flag key. The key identifies the flag in your code.")],
         patch_with_comment: PatchWithComment,
         ignore_conflicts: Annotated[Optional[StrictBool], Field(description="If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.")] = None,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3716,6 +3721,8 @@ class FeatureFlagsApi:
         :type patch_with_comment: PatchWithComment
         :param ignore_conflicts: If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.
         :type ignore_conflicts: bool
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3743,6 +3750,7 @@ class FeatureFlagsApi:
             feature_flag_key=feature_flag_key,
             patch_with_comment=patch_with_comment,
             ignore_conflicts=ignore_conflicts,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3776,6 +3784,7 @@ class FeatureFlagsApi:
         feature_flag_key: Annotated[StrictStr, Field(description="The feature flag key. The key identifies the flag in your code.")],
         patch_with_comment: PatchWithComment,
         ignore_conflicts: Annotated[Optional[StrictBool], Field(description="If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.")] = None,
+        dry_run: Annotated[Optional[StrictBool], Field(description="If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3801,6 +3810,8 @@ class FeatureFlagsApi:
         :type patch_with_comment: PatchWithComment
         :param ignore_conflicts: If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.
         :type ignore_conflicts: bool
+        :param dry_run: If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.
+        :type dry_run: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3828,6 +3839,7 @@ class FeatureFlagsApi:
             feature_flag_key=feature_flag_key,
             patch_with_comment=patch_with_comment,
             ignore_conflicts=ignore_conflicts,
+            dry_run=dry_run,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -3856,6 +3868,7 @@ class FeatureFlagsApi:
         feature_flag_key,
         patch_with_comment,
         ignore_conflicts,
+        dry_run,
         _request_auth,
         _content_type,
         _headers,
@@ -3885,6 +3898,10 @@ class FeatureFlagsApi:
         if ignore_conflicts is not None:
             
             _query_params.append(('ignoreConflicts', ignore_conflicts))
+            
+        if dry_run is not None:
+            
+            _query_params.append(('dryRun', dry_run))
             
         # process the header parameters
         # process the form parameters

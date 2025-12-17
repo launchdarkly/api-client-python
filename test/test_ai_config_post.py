@@ -44,7 +44,8 @@ class TestAIConfigPost(unittest.TestCase):
                 name = '',
                 tags = [
                     ''
-                    ]
+                    ],
+                default_variation = {"judgeConfiguration":{"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},"instructions":"instructions","toolKeys":["toolKeys","toolKeys"],"name":"name","description":"description","messages":[{"role":"role","content":"content"},{"role":"role","content":"content"}],"comment":"comment","model":"{}","modelConfigKey":"modelConfigKey","tools":[{"version":0,"key":"key"},{"version":0,"key":"key"}],"key":"key"}
             )
         else:
             return AIConfigPost(
