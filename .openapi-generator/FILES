@@ -47,6 +47,7 @@ docs/ActionOutput.md
 docs/AgentGraph.md
 docs/AgentGraphEdge.md
 docs/AgentGraphEdgePost.md
+docs/AgentGraphPatch.md
 docs/AgentGraphPost.md
 docs/AgentGraphs.md
 docs/AiConfigsAccess.md
@@ -722,6 +723,7 @@ launchdarkly_api/models/action_output.py
 launchdarkly_api/models/agent_graph.py
 launchdarkly_api/models/agent_graph_edge.py
 launchdarkly_api/models/agent_graph_edge_post.py
+launchdarkly_api/models/agent_graph_patch.py
 launchdarkly_api/models/agent_graph_post.py
 launchdarkly_api/models/agent_graphs.py
 launchdarkly_api/models/ai_config.py
@@ -1322,6 +1324,7 @@ test/test_action_output.py
 test/test_agent_graph.py
 test/test_agent_graph_edge.py
 test/test_agent_graph_edge_post.py
+test/test_agent_graph_patch.py
 test/test_agent_graph_post.py
 test/test_agent_graphs.py
 test/test_ai_config.py

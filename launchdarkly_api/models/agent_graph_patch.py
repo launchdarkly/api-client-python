@@ -20,18 +20,19 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge
 from typing import Optional, Set
 from typing_extensions import Self
 
-class AgentGraphEdge(BaseModel):
+class AgentGraphPatch(BaseModel):
     """
-    An edge in an agent graph connecting two AI Configs
+    Request body for updating an agent graph. If rootConfigKey or edges are present, both must be present.
     """ # noqa: E501
-    key: StrictStr = Field(description="A unique key for this edge within the graph")
-    source_config: StrictStr = Field(description="The AI Config key that is the source of this edge", alias="sourceConfig")
-    target_config: StrictStr = Field(description="The AI Config key that is the target of this edge", alias="targetConfig")
-    handoff: Optional[Dict[str, Any]] = Field(default=None, description="The handoff options from the source AI Config to the target AI Config")
-    __properties: ClassVar[List[str]] = ["key", "sourceConfig", "targetConfig", "handoff"]
+    name: Optional[StrictStr] = Field(default=None, description="A human-readable name for the agent graph")
+    description: Optional[StrictStr] = Field(default=None, description="A description of the agent graph")
+    root_config_key: Optional[StrictStr] = Field(default=None, description="The AI Config key of the root node. If present, edges must also be present.", alias="rootConfigKey")
+    edges: Optional[List[AgentGraphEdge]] = Field(default=None, description="The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.")
+    __properties: ClassVar[List[str]] = ["name", "description", "rootConfigKey", "edges"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +52,7 @@ class AgentGraphEdge(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AgentGraphEdge from a JSON string"""
+        """Create an instance of AgentGraphPatch from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,11 +73,18 @@ class AgentGraphEdge(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in edges (list)
+        _items = []
+        if self.edges:
+            for _item_edges in self.edges:
+                if _item_edges:
+                    _items.append(_item_edges.to_dict())
+            _dict['edges'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AgentGraphEdge from a dict"""
+        """Create an instance of AgentGraphPatch from a dict"""
         if obj is None:
             return None
 
@@ -84,10 +92,10 @@ class AgentGraphEdge(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "key": obj.get("key"),
-            "sourceConfig": obj.get("sourceConfig"),
-            "targetConfig": obj.get("targetConfig"),
-            "handoff": obj.get("handoff")
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "rootConfigKey": obj.get("rootConfigKey"),
+            "edges": [AgentGraphEdge.from_dict(_item) for _item in obj["edges"]] if obj.get("edges") is not None else None
         })
         return _obj
 

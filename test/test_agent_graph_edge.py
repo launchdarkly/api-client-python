@@ -36,12 +36,14 @@ class TestAgentGraphEdge(unittest.TestCase):
         model = AgentGraphEdge()
         if include_optional:
             return AgentGraphEdge(
+                key = '',
                 source_config = '',
                 target_config = '',
                 handoff = None
             )
         else:
             return AgentGraphEdge(
+                key = '',
                 source_config = '',
                 target_config = '',
         )

@@ -27,10 +27,11 @@ class AgentGraphEdgePost(BaseModel):
     """
     An edge in an agent graph connecting two AI Configs
     """ # noqa: E501
+    key: StrictStr = Field(description="A unique key for this edge within the graph")
     source_config: StrictStr = Field(description="The AI Config key that is the source of this edge", alias="sourceConfig")
     target_config: StrictStr = Field(description="The AI Config key that is the target of this edge", alias="targetConfig")
     handoff: Optional[Dict[str, Any]] = Field(default=None, description="The handoff options from the source AI Config to the target AI Config")
-    __properties: ClassVar[List[str]] = ["sourceConfig", "targetConfig", "handoff"]
+    __properties: ClassVar[List[str]] = ["key", "sourceConfig", "targetConfig", "handoff"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +84,7 @@ class AgentGraphEdgePost(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "key": obj.get("key"),
             "sourceConfig": obj.get("sourceConfig"),
             "targetConfig": obj.get("targetConfig"),
             "handoff": obj.get("handoff")

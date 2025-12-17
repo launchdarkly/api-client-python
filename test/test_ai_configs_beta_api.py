@@ -27,6 +27,13 @@ class TestAIConfigsBetaApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_delete_agent_graph(self) -> None:
+        """Test case for delete_agent_graph
+
+        Delete agent graph
+        """
+        pass
+
     def test_delete_ai_config(self) -> None:
         """Test case for delete_ai_config
 
@@ -59,6 +66,13 @@ class TestAIConfigsBetaApi(unittest.TestCase):
         """Test case for delete_restricted_models
 
         Remove AI models from the restricted list
+        """
+        pass
+
+    def test_get_agent_graph(self) -> None:
+        """Test case for get_agent_graph
+
+        Get agent graph
         """
         pass
 
@@ -143,6 +157,13 @@ class TestAIConfigsBetaApi(unittest.TestCase):
         """Test case for list_model_configs
 
         List AI model configs
+        """
+        pass
+
+    def test_patch_agent_graph(self) -> None:
+        """Test case for patch_agent_graph
+
+        Update agent graph
         """
         pass
 

@@ -41,7 +41,7 @@ class TestAgentGraph(unittest.TestCase):
                 description = '',
                 root_config_key = '',
                 edges = [
-                    {"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}"}
+                    {"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"}
                     ],
                 created_at = 56,
                 updated_at = 56

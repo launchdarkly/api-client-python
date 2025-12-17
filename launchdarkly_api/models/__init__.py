@@ -53,6 +53,7 @@ from launchdarkly_api.models.action_output import ActionOutput
 from launchdarkly_api.models.agent_graph import AgentGraph
 from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge
 from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost
+from launchdarkly_api.models.agent_graph_patch import AgentGraphPatch
 from launchdarkly_api.models.agent_graph_post import AgentGraphPost
 from launchdarkly_api.models.agent_graphs import AgentGraphs
 from launchdarkly_api.models.ai_configs_access import AiConfigsAccess

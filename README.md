@@ -522,14 +522,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'default' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | 
+    graph_key = 'graph_key_example' # str | 
 
     try:
-        # Delete AI Config
-        api_instance.delete_ai_config(ld_api_version, project_key, config_key)
+        # Delete agent graph
+        api_instance.delete_agent_graph(ld_api_version, project_key, graph_key)
     except ApiException as e:
-        print("Exception when calling AIConfigsBetaApi->delete_ai_config: %s\n" % e)
+        print("Exception when calling AIConfigsBetaApi->delete_agent_graph: %s\n" % e)
 
 ```
 
@@ -539,11 +539,13 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AIConfigsBetaApi* | [**delete_agent_graph**](docs/AIConfigsBetaApi.md#delete_agent_graph) | **DELETE** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 *AIConfigsBetaApi* | [**delete_ai_config**](docs/AIConfigsBetaApi.md#delete_ai_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
 *AIConfigsBetaApi* | [**delete_ai_config_variation**](docs/AIConfigsBetaApi.md#delete_ai_config_variation) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
 *AIConfigsBetaApi* | [**delete_ai_tool**](docs/AIConfigsBetaApi.md#delete_ai_tool) | **DELETE** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
 *AIConfigsBetaApi* | [**delete_model_config**](docs/AIConfigsBetaApi.md#delete_model_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 *AIConfigsBetaApi* | [**delete_restricted_models**](docs/AIConfigsBetaApi.md#delete_restricted_models) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
+*AIConfigsBetaApi* | [**get_agent_graph**](docs/AIConfigsBetaApi.md#get_agent_graph) | **GET** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 *AIConfigsBetaApi* | [**get_ai_config**](docs/AIConfigsBetaApi.md#get_ai_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
 *AIConfigsBetaApi* | [**get_ai_config_metrics**](docs/AIConfigsBetaApi.md#get_ai_config_metrics) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
 *AIConfigsBetaApi* | [**get_ai_config_metrics_by_variation**](docs/AIConfigsBetaApi.md#get_ai_config_metrics_by_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
@@ -556,6 +558,7 @@ Class | Method | HTTP request | Description
 *AIConfigsBetaApi* | [**list_ai_tool_versions**](docs/AIConfigsBetaApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 *AIConfigsBetaApi* | [**list_ai_tools**](docs/AIConfigsBetaApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 *AIConfigsBetaApi* | [**list_model_configs**](docs/AIConfigsBetaApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
+*AIConfigsBetaApi* | [**patch_agent_graph**](docs/AIConfigsBetaApi.md#patch_agent_graph) | **PATCH** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 *AIConfigsBetaApi* | [**patch_ai_config**](docs/AIConfigsBetaApi.md#patch_ai_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
 *AIConfigsBetaApi* | [**patch_ai_config_targeting**](docs/AIConfigsBetaApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 *AIConfigsBetaApi* | [**patch_ai_config_variation**](docs/AIConfigsBetaApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
@@ -924,6 +927,7 @@ Class | Method | HTTP request | Description
  - [AgentGraph](docs/AgentGraph.md)
  - [AgentGraphEdge](docs/AgentGraphEdge.md)
  - [AgentGraphEdgePost](docs/AgentGraphEdgePost.md)
+ - [AgentGraphPatch](docs/AgentGraphPatch.md)
  - [AgentGraphPost](docs/AgentGraphPost.md)
  - [AgentGraphs](docs/AgentGraphs.md)
  - [AiConfigsAccess](docs/AiConfigsAccess.md)

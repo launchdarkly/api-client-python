@@ -38,14 +38,14 @@ class TestAgentGraphs(unittest.TestCase):
             return AgentGraphs(
                 links = {"next":{"href":"href","type":"type"},"last":{"href":"href","type":"type"},"prev":{"href":"href","type":"type"},"self":{"href":"href","type":"type"},"first":{"href":"href","type":"type"}},
                 items = [
-                    {"createdAt":0,"rootConfigKey":"rootConfigKey","name":"name","edges":[{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}"},{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}"}],"description":"description","key":"key","updatedAt":6}
+                    {"createdAt":0,"rootConfigKey":"rootConfigKey","name":"name","edges":[{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"},{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"}],"description":"description","key":"key","updatedAt":6}
                     ],
                 total_count = 56
             )
         else:
             return AgentGraphs(
                 items = [
-                    {"createdAt":0,"rootConfigKey":"rootConfigKey","name":"name","edges":[{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}"},{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}"}],"description":"description","key":"key","updatedAt":6}
+                    {"createdAt":0,"rootConfigKey":"rootConfigKey","name":"name","edges":[{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"},{"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"}],"description":"description","key":"key","updatedAt":6}
                     ],
                 total_count = 56,
         )

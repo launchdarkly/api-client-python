@@ -4,11 +4,13 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**delete_agent_graph**](AIConfigsBetaApi.md#delete_agent_graph) | **DELETE** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 [**delete_ai_config**](AIConfigsBetaApi.md#delete_ai_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
 [**delete_ai_config_variation**](AIConfigsBetaApi.md#delete_ai_config_variation) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
 [**delete_ai_tool**](AIConfigsBetaApi.md#delete_ai_tool) | **DELETE** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
 [**delete_model_config**](AIConfigsBetaApi.md#delete_model_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 [**delete_restricted_models**](AIConfigsBetaApi.md#delete_restricted_models) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
+[**get_agent_graph**](AIConfigsBetaApi.md#get_agent_graph) | **GET** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 [**get_ai_config**](AIConfigsBetaApi.md#get_ai_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
 [**get_ai_config_metrics**](AIConfigsBetaApi.md#get_ai_config_metrics) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
 [**get_ai_config_metrics_by_variation**](AIConfigsBetaApi.md#get_ai_config_metrics_by_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
@@ -21,6 +23,7 @@ Method | HTTP request | Description
 [**list_ai_tool_versions**](AIConfigsBetaApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**list_ai_tools**](AIConfigsBetaApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 [**list_model_configs**](AIConfigsBetaApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
+[**patch_agent_graph**](AIConfigsBetaApi.md#patch_agent_graph) | **PATCH** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 [**patch_ai_config**](AIConfigsBetaApi.md#patch_ai_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
 [**patch_ai_config_targeting**](AIConfigsBetaApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 [**patch_ai_config_variation**](AIConfigsBetaApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
@@ -32,6 +35,90 @@ Method | HTTP request | Description
 [**post_model_config**](AIConfigsBetaApi.md#post_model_config) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
 [**post_restricted_models**](AIConfigsBetaApi.md#post_restricted_models) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
 
+
+# **delete_agent_graph**
+> delete_agent_graph(ld_api_version, project_key, graph_key)
+
+Delete agent graph
+
+Delete an existing agent graph and all of its edges.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    project_key = 'project_key_example' # str | 
+    graph_key = 'graph_key_example' # str | 
+
+    try:
+        # Delete agent graph
+        api_instance.delete_agent_graph(ld_api_version, project_key, graph_key)
+    except Exception as e:
+        print("Exception when calling AIConfigsBetaApi->delete_agent_graph: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ld_api_version** | **str**| Version of the endpoint. | 
+ **project_key** | **str**|  | 
+ **graph_key** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No content |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_ai_config**
 > delete_ai_config(ld_api_version, project_key, config_key)
@@ -449,6 +536,93 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | No content |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_agent_graph**
+> AgentGraph get_agent_graph(ld_api_version, project_key, graph_key)
+
+Get agent graph
+
+Retrieve a specific agent graph by its key, including its edges.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_graph import AgentGraph
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    project_key = 'project_key_example' # str | 
+    graph_key = 'graph_key_example' # str | 
+
+    try:
+        # Get agent graph
+        api_response = api_instance.get_agent_graph(ld_api_version, project_key, graph_key)
+        print("The response of AIConfigsBetaApi->get_agent_graph:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIConfigsBetaApi->get_agent_graph: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ld_api_version** | **str**| Version of the endpoint. | 
+ **project_key** | **str**|  | 
+ **graph_key** | **str**|  | 
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent graph found |  -  |
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
@@ -1523,6 +1697,101 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_agent_graph**
+> AgentGraph patch_agent_graph(ld_api_version, project_key, graph_key, agent_graph_patch=agent_graph_patch)
+
+Update agent graph
+
+Edit an existing agent graph.
+
+The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+If the update includes `rootConfigKey` or `edges`, both must be present and will be treated as full replacements.
+
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_graph import AgentGraph
+from launchdarkly_api.models.agent_graph_patch import AgentGraphPatch
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    project_key = 'project_key_example' # str | 
+    graph_key = 'graph_key_example' # str | 
+    agent_graph_patch = launchdarkly_api.AgentGraphPatch() # AgentGraphPatch | Agent graph object to update (optional)
+
+    try:
+        # Update agent graph
+        api_response = api_instance.patch_agent_graph(ld_api_version, project_key, graph_key, agent_graph_patch=agent_graph_patch)
+        print("The response of AIConfigsBetaApi->patch_agent_graph:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIConfigsBetaApi->patch_agent_graph: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ld_api_version** | **str**| Version of the endpoint. | 
+ **project_key** | **str**|  | 
+ **graph_key** | **str**|  | 
+ **agent_graph_patch** | [**AgentGraphPatch**](AgentGraphPatch.md)| Agent graph object to update | [optional] 
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent graph updated |  -  |
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |

@@ -122,6 +122,7 @@ __all__ = [
     "AgentGraph",
     "AgentGraphEdge",
     "AgentGraphEdgePost",
+    "AgentGraphPatch",
     "AgentGraphPost",
     "AgentGraphs",
     "AiConfigsAccess",
@@ -782,6 +783,7 @@ from launchdarkly_api.models.action_output import ActionOutput as ActionOutput
 from launchdarkly_api.models.agent_graph import AgentGraph as AgentGraph
 from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge as AgentGraphEdge
 from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost as AgentGraphEdgePost
+from launchdarkly_api.models.agent_graph_patch import AgentGraphPatch as AgentGraphPatch
 from launchdarkly_api.models.agent_graph_post import AgentGraphPost as AgentGraphPost
 from launchdarkly_api.models.agent_graphs import AgentGraphs as AgentGraphs
 from launchdarkly_api.models.ai_configs_access import AiConfigsAccess as AiConfigsAccess
