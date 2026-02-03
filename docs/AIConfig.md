@@ -17,7 +17,9 @@ Name | Type | Description | Notes
 **variations** | [**List[AIConfigVariation]**](AIConfigVariation.md) |  | 
 **created_at** | **int** |  | 
 **updated_at** | **int** |  | 
-**evaluation_metric_keys** | **List[str]** | List of evaluation metric keys for this AI config | [optional] 
+**evaluation_metric_key** | **str** | Evaluation metric key for this AI Config | [optional] 
+**evaluation_metric_keys** | **List[str]** | List of evaluation metric keys for this AI Config | [optional] 
+**is_inverted** | **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Example
 

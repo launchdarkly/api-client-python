@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The flag event ID | 
+**id** | **UUID** | The flag event ID | 
 **project_id** | **str** | The project ID | 
 **project_key** | **str** | The project key | 
 **environment_id** | **str** | The environment ID | [optional] 

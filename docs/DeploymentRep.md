@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The deployment ID | 
+**id** | **UUID** | The deployment ID | 
 **application_key** | **str** | The application key | 
 **application_version** | **str** | The application version | 
 **started_at** | **int** |  | 

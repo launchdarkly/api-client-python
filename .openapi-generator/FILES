@@ -27,7 +27,7 @@ docs/AIConfigVariationPatch.md
 docs/AIConfigVariationPost.md
 docs/AIConfigVariationsResponse.md
 docs/AIConfigs.md
-docs/AIConfigsBetaApi.md
+docs/AIConfigsApi.md
 docs/AIConfigsSummary.md
 docs/AITool.md
 docs/AIToolPatch.md
@@ -85,6 +85,7 @@ docs/ApplicationRep.md
 docs/ApplicationVersionRep.md
 docs/ApplicationVersionsCollectionRep.md
 docs/ApplicationsBetaApi.md
+docs/ApprovalRequestPatchInput.md
 docs/ApprovalRequestResponse.md
 docs/ApprovalRequestSetting.md
 docs/ApprovalRequestSettingWithEnvs.md
@@ -655,7 +656,7 @@ launchdarkly_api/api/__init__.py
 launchdarkly_api/api/access_tokens_api.py
 launchdarkly_api/api/account_members_api.py
 launchdarkly_api/api/account_usage_beta_api.py
-launchdarkly_api/api/ai_configs_beta_api.py
+launchdarkly_api/api/ai_configs_api.py
 launchdarkly_api/api/announcements_api.py
 launchdarkly_api/api/applications_beta_api.py
 launchdarkly_api/api/approvals_api.py
@@ -787,6 +788,7 @@ launchdarkly_api/models/application_flag_collection_rep.py
 launchdarkly_api/models/application_rep.py
 launchdarkly_api/models/application_version_rep.py
 launchdarkly_api/models/application_versions_collection_rep.py
+launchdarkly_api/models/approval_request_patch_input.py
 launchdarkly_api/models/approval_request_response.py
 launchdarkly_api/models/approval_request_setting.py
 launchdarkly_api/models/approval_request_setting_with_envs.py
@@ -1355,7 +1357,7 @@ test/test_ai_configs_access_allowed_reason.py
 test/test_ai_configs_access_allowed_rep.py
 test/test_ai_configs_access_denied.py
 test/test_ai_configs_access_denied_reason.py
-test/test_ai_configs_beta_api.py
+test/test_ai_configs_api.py
 test/test_ai_configs_experiment_enabled_period_rep.py
 test/test_ai_configs_experiment_environment_setting_rep.py
 test/test_ai_configs_experiment_info_rep.py
@@ -1391,6 +1393,7 @@ test/test_application_rep.py
 test/test_application_version_rep.py
 test/test_application_versions_collection_rep.py
 test/test_applications_beta_api.py
+test/test_approval_request_patch_input.py
 test/test_approval_request_response.py
 test/test_approval_request_setting.py
 test/test_approval_request_setting_with_envs.py

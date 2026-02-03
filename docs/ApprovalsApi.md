@@ -596,7 +596,7 @@ To create an approval for a flag specific to an environment, use [Create approva
 
 ### AI Configs
 
-If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs-beta/patch-ai-config-targeting).
+If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs/patch-ai-config-targeting).
 
 ### Segments
 

@@ -1,39 +1,39 @@
-# launchdarkly_api.AIConfigsBetaApi
+# launchdarkly_api.AIConfigsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_agent_graph**](AIConfigsBetaApi.md#delete_agent_graph) | **DELETE** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
-[**delete_ai_config**](AIConfigsBetaApi.md#delete_ai_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
-[**delete_ai_config_variation**](AIConfigsBetaApi.md#delete_ai_config_variation) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
-[**delete_ai_tool**](AIConfigsBetaApi.md#delete_ai_tool) | **DELETE** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
-[**delete_model_config**](AIConfigsBetaApi.md#delete_model_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
-[**delete_restricted_models**](AIConfigsBetaApi.md#delete_restricted_models) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
-[**get_agent_graph**](AIConfigsBetaApi.md#get_agent_graph) | **GET** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
-[**get_ai_config**](AIConfigsBetaApi.md#get_ai_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
-[**get_ai_config_metrics**](AIConfigsBetaApi.md#get_ai_config_metrics) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
-[**get_ai_config_metrics_by_variation**](AIConfigsBetaApi.md#get_ai_config_metrics_by_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
-[**get_ai_config_targeting**](AIConfigsBetaApi.md#get_ai_config_targeting) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an AI Config&#39;s targeting
-[**get_ai_config_variation**](AIConfigsBetaApi.md#get_ai_config_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
-[**get_ai_configs**](AIConfigsBetaApi.md#get_ai_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
-[**get_ai_tool**](AIConfigsBetaApi.md#get_ai_tool) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
-[**get_model_config**](AIConfigsBetaApi.md#get_model_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
-[**list_agent_graphs**](AIConfigsBetaApi.md#list_agent_graphs) | **GET** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
-[**list_ai_tool_versions**](AIConfigsBetaApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
-[**list_ai_tools**](AIConfigsBetaApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
-[**list_model_configs**](AIConfigsBetaApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
-[**patch_agent_graph**](AIConfigsBetaApi.md#patch_agent_graph) | **PATCH** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
-[**patch_ai_config**](AIConfigsBetaApi.md#patch_ai_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
-[**patch_ai_config_targeting**](AIConfigsBetaApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
-[**patch_ai_config_variation**](AIConfigsBetaApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
-[**patch_ai_tool**](AIConfigsBetaApi.md#patch_ai_tool) | **PATCH** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
-[**post_agent_graph**](AIConfigsBetaApi.md#post_agent_graph) | **POST** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
-[**post_ai_config**](AIConfigsBetaApi.md#post_ai_config) | **POST** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
-[**post_ai_config_variation**](AIConfigsBetaApi.md#post_ai_config_variation) | **POST** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
-[**post_ai_tool**](AIConfigsBetaApi.md#post_ai_tool) | **POST** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
-[**post_model_config**](AIConfigsBetaApi.md#post_model_config) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
-[**post_restricted_models**](AIConfigsBetaApi.md#post_restricted_models) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
+[**delete_agent_graph**](AIConfigsApi.md#delete_agent_graph) | **DELETE** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
+[**delete_ai_config**](AIConfigsApi.md#delete_ai_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
+[**delete_ai_config_variation**](AIConfigsApi.md#delete_ai_config_variation) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
+[**delete_ai_tool**](AIConfigsApi.md#delete_ai_tool) | **DELETE** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
+[**delete_model_config**](AIConfigsApi.md#delete_model_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
+[**delete_restricted_models**](AIConfigsApi.md#delete_restricted_models) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
+[**get_agent_graph**](AIConfigsApi.md#get_agent_graph) | **GET** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
+[**get_ai_config**](AIConfigsApi.md#get_ai_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
+[**get_ai_config_metrics**](AIConfigsApi.md#get_ai_config_metrics) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
+[**get_ai_config_metrics_by_variation**](AIConfigsApi.md#get_ai_config_metrics_by_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
+[**get_ai_config_targeting**](AIConfigsApi.md#get_ai_config_targeting) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an AI Config&#39;s targeting
+[**get_ai_config_variation**](AIConfigsApi.md#get_ai_config_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
+[**get_ai_configs**](AIConfigsApi.md#get_ai_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
+[**get_ai_tool**](AIConfigsApi.md#get_ai_tool) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
+[**get_model_config**](AIConfigsApi.md#get_model_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
+[**list_agent_graphs**](AIConfigsApi.md#list_agent_graphs) | **GET** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
+[**list_ai_tool_versions**](AIConfigsApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
+[**list_ai_tools**](AIConfigsApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
+[**list_model_configs**](AIConfigsApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
+[**patch_agent_graph**](AIConfigsApi.md#patch_agent_graph) | **PATCH** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
+[**patch_ai_config**](AIConfigsApi.md#patch_ai_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
+[**patch_ai_config_targeting**](AIConfigsApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
+[**patch_ai_config_variation**](AIConfigsApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
+[**patch_ai_tool**](AIConfigsApi.md#patch_ai_tool) | **PATCH** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+[**post_agent_graph**](AIConfigsApi.md#post_agent_graph) | **POST** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
+[**post_ai_config**](AIConfigsApi.md#post_ai_config) | **POST** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
+[**post_ai_config_variation**](AIConfigsApi.md#post_ai_config_variation) | **POST** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
+[**post_ai_tool**](AIConfigsApi.md#post_ai_tool) | **POST** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
+[**post_model_config**](AIConfigsApi.md#post_model_config) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
+[**post_restricted_models**](AIConfigsApi.md#post_restricted_models) | **POST** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
 
 
 # **delete_agent_graph**
@@ -72,7 +72,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
     project_key = 'project_key_example' # str | 
     graph_key = 'graph_key_example' # str | 
@@ -81,7 +81,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
         # Delete agent graph
         api_instance.delete_agent_graph(ld_api_version, project_key, graph_key)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_agent_graph: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_agent_graph: %s\n" % e)
 ```
 
 
@@ -121,7 +121,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_ai_config**
-> delete_ai_config(ld_api_version, project_key, config_key)
+> delete_ai_config(project_key, config_key)
 
 Delete AI Config
 
@@ -156,16 +156,15 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     config_key = 'config_key_example' # str | 
 
     try:
         # Delete AI Config
-        api_instance.delete_ai_config(ld_api_version, project_key, config_key)
+        api_instance.delete_ai_config(project_key, config_key)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_ai_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_ai_config: %s\n" % e)
 ```
 
 
@@ -175,7 +174,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
 
@@ -205,7 +203,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_ai_config_variation**
-> delete_ai_config_variation(ld_api_version, project_key, config_key, variation_key)
+> delete_ai_config_variation(project_key, config_key, variation_key)
 
 Delete AI Config variation
 
@@ -240,17 +238,16 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     variation_key = 'variation_key_example' # str | 
 
     try:
         # Delete AI Config variation
-        api_instance.delete_ai_config_variation(ld_api_version, project_key, config_key, variation_key)
+        api_instance.delete_ai_config_variation(project_key, config_key, variation_key)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_ai_config_variation: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_ai_config_variation: %s\n" % e)
 ```
 
 
@@ -260,7 +257,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **variation_key** | **str**|  | 
@@ -291,7 +287,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_ai_tool**
-> delete_ai_tool(ld_api_version, project_key, tool_key)
+> delete_ai_tool(project_key, tool_key)
 
 Delete AI tool
 
@@ -326,16 +322,15 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     tool_key = 'tool_key_example' # str | 
 
     try:
         # Delete AI tool
-        api_instance.delete_ai_tool(ld_api_version, project_key, tool_key)
+        api_instance.delete_ai_tool(project_key, tool_key)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_ai_tool: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_ai_tool: %s\n" % e)
 ```
 
 
@@ -345,7 +340,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **tool_key** | **str**|  | 
 
@@ -375,7 +369,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_model_config**
-> delete_model_config(ld_api_version, project_key, model_config_key)
+> delete_model_config(project_key, model_config_key)
 
 Delete an AI model config
 
@@ -410,16 +404,15 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     model_config_key = 'model_config_key_example' # str | 
 
     try:
         # Delete an AI model config
-        api_instance.delete_model_config(ld_api_version, project_key, model_config_key)
+        api_instance.delete_model_config(project_key, model_config_key)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_model_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_model_config: %s\n" % e)
 ```
 
 
@@ -429,7 +422,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **model_config_key** | **str**|  | 
 
@@ -459,7 +451,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_restricted_models**
-> delete_restricted_models(ld_api_version, project_key, restricted_models_request)
+> delete_restricted_models(project_key, restricted_models_request)
 
 Remove AI models from the restricted list
 
@@ -495,16 +487,15 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     restricted_models_request = launchdarkly_api.RestrictedModelsRequest() # RestrictedModelsRequest | List of AI model keys to remove from the restricted list
 
     try:
         # Remove AI models from the restricted list
-        api_instance.delete_restricted_models(ld_api_version, project_key, restricted_models_request)
+        api_instance.delete_restricted_models(project_key, restricted_models_request)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->delete_restricted_models: %s\n" % e)
+        print("Exception when calling AIConfigsApi->delete_restricted_models: %s\n" % e)
 ```
 
 
@@ -514,7 +505,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **restricted_models_request** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md)| List of AI model keys to remove from the restricted list | 
 
@@ -580,7 +570,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
     project_key = 'project_key_example' # str | 
     graph_key = 'graph_key_example' # str | 
@@ -588,10 +578,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     try:
         # Get agent graph
         api_response = api_instance.get_agent_graph(ld_api_version, project_key, graph_key)
-        print("The response of AIConfigsBetaApi->get_agent_graph:\n")
+        print("The response of AIConfigsApi->get_agent_graph:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_agent_graph: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_agent_graph: %s\n" % e)
 ```
 
 
@@ -631,7 +621,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_config**
-> AIConfig get_ai_config(ld_api_version, project_key, config_key)
+> AIConfig get_ai_config(project_key, config_key)
 
 Get AI Config
 
@@ -667,18 +657,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
 
     try:
         # Get AI Config
-        api_response = api_instance.get_ai_config(ld_api_version, project_key, config_key)
-        print("The response of AIConfigsBetaApi->get_ai_config:\n")
+        api_response = api_instance.get_ai_config(project_key, config_key)
+        print("The response of AIConfigsApi->get_ai_config:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_config: %s\n" % e)
 ```
 
 
@@ -688,7 +677,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
 
@@ -718,7 +706,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_config_metrics**
-> Metrics get_ai_config_metrics(ld_api_version, project_key, config_key, var_from, to, env)
+> Metrics get_ai_config_metrics(project_key, config_key, var_from, to, env)
 
 Get AI Config metrics
 
@@ -754,8 +742,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     var_from = 56 # int | The starting time, as milliseconds since epoch (inclusive).
@@ -764,11 +751,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # Get AI Config metrics
-        api_response = api_instance.get_ai_config_metrics(ld_api_version, project_key, config_key, var_from, to, env)
-        print("The response of AIConfigsBetaApi->get_ai_config_metrics:\n")
+        api_response = api_instance.get_ai_config_metrics(project_key, config_key, var_from, to, env)
+        print("The response of AIConfigsApi->get_ai_config_metrics:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_config_metrics: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_config_metrics: %s\n" % e)
 ```
 
 
@@ -778,7 +765,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **var_from** | **int**| The starting time, as milliseconds since epoch (inclusive). | 
@@ -811,7 +797,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_config_metrics_by_variation**
-> List[MetricByVariation] get_ai_config_metrics_by_variation(ld_api_version, project_key, config_key, var_from, to, env)
+> List[MetricByVariation] get_ai_config_metrics_by_variation(project_key, config_key, var_from, to, env)
 
 Get AI Config metrics by variation
 
@@ -847,8 +833,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     var_from = 56 # int | The starting time, as milliseconds since epoch (inclusive).
@@ -857,11 +842,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # Get AI Config metrics by variation
-        api_response = api_instance.get_ai_config_metrics_by_variation(ld_api_version, project_key, config_key, var_from, to, env)
-        print("The response of AIConfigsBetaApi->get_ai_config_metrics_by_variation:\n")
+        api_response = api_instance.get_ai_config_metrics_by_variation(project_key, config_key, var_from, to, env)
+        print("The response of AIConfigsApi->get_ai_config_metrics_by_variation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_config_metrics_by_variation: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_config_metrics_by_variation: %s\n" % e)
 ```
 
 
@@ -871,7 +856,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **var_from** | **int**| The starting time, as milliseconds since epoch (inclusive). | 
@@ -904,7 +888,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_config_targeting**
-> AIConfigTargeting get_ai_config_targeting(ld_api_version, project_key, config_key)
+> AIConfigTargeting get_ai_config_targeting(project_key, config_key)
 
 Show an AI Config's targeting
 
@@ -940,18 +924,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
 
     try:
         # Show an AI Config's targeting
-        api_response = api_instance.get_ai_config_targeting(ld_api_version, project_key, config_key)
-        print("The response of AIConfigsBetaApi->get_ai_config_targeting:\n")
+        api_response = api_instance.get_ai_config_targeting(project_key, config_key)
+        print("The response of AIConfigsApi->get_ai_config_targeting:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_config_targeting: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_config_targeting: %s\n" % e)
 ```
 
 
@@ -961,7 +944,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
 
@@ -990,7 +972,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_config_variation**
-> AIConfigVariationsResponse get_ai_config_variation(ld_api_version, project_key, config_key, variation_key)
+> AIConfigVariationsResponse get_ai_config_variation(project_key, config_key, variation_key)
 
 Get AI Config variation
 
@@ -1026,19 +1008,18 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     config_key = 'default' # str | 
     variation_key = 'default' # str | 
 
     try:
         # Get AI Config variation
-        api_response = api_instance.get_ai_config_variation(ld_api_version, project_key, config_key, variation_key)
-        print("The response of AIConfigsBetaApi->get_ai_config_variation:\n")
+        api_response = api_instance.get_ai_config_variation(project_key, config_key, variation_key)
+        print("The response of AIConfigsApi->get_ai_config_variation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_config_variation: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_config_variation: %s\n" % e)
 ```
 
 
@@ -1048,7 +1029,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **variation_key** | **str**|  | 
@@ -1079,7 +1059,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_configs**
-> AIConfigs get_ai_configs(ld_api_version, project_key, sort=sort, limit=limit, offset=offset, filter=filter)
+> AIConfigs get_ai_configs(project_key, sort=sort, limit=limit, offset=offset, filter=filter)
 
 List AI Configs
 
@@ -1115,8 +1095,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     sort = 'sort_example' # str | A sort to apply to the list of AI Configs. (optional)
     limit = 56 # int | The number of AI Configs to return. (optional)
@@ -1125,11 +1104,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # List AI Configs
-        api_response = api_instance.get_ai_configs(ld_api_version, project_key, sort=sort, limit=limit, offset=offset, filter=filter)
-        print("The response of AIConfigsBetaApi->get_ai_configs:\n")
+        api_response = api_instance.get_ai_configs(project_key, sort=sort, limit=limit, offset=offset, filter=filter)
+        print("The response of AIConfigsApi->get_ai_configs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_configs: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_configs: %s\n" % e)
 ```
 
 
@@ -1139,7 +1118,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **sort** | **str**| A sort to apply to the list of AI Configs. | [optional] 
  **limit** | **int**| The number of AI Configs to return. | [optional] 
@@ -1172,7 +1150,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ai_tool**
-> AITool get_ai_tool(ld_api_version, project_key, tool_key)
+> AITool get_ai_tool(project_key, tool_key)
 
 Get AI tool
 
@@ -1208,18 +1186,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     tool_key = 'tool_key_example' # str | 
 
     try:
         # Get AI tool
-        api_response = api_instance.get_ai_tool(ld_api_version, project_key, tool_key)
-        print("The response of AIConfigsBetaApi->get_ai_tool:\n")
+        api_response = api_instance.get_ai_tool(project_key, tool_key)
+        print("The response of AIConfigsApi->get_ai_tool:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_ai_tool: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_ai_tool: %s\n" % e)
 ```
 
 
@@ -1229,7 +1206,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **tool_key** | **str**|  | 
 
@@ -1259,7 +1235,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_model_config**
-> ModelConfig get_model_config(ld_api_version, project_key, model_config_key)
+> ModelConfig get_model_config(project_key, model_config_key)
 
 Get AI model config
 
@@ -1295,18 +1271,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     model_config_key = 'default' # str | 
 
     try:
         # Get AI model config
-        api_response = api_instance.get_model_config(ld_api_version, project_key, model_config_key)
-        print("The response of AIConfigsBetaApi->get_model_config:\n")
+        api_response = api_instance.get_model_config(project_key, model_config_key)
+        print("The response of AIConfigsApi->get_model_config:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->get_model_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->get_model_config: %s\n" % e)
 ```
 
 
@@ -1316,7 +1291,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **model_config_key** | **str**|  | 
 
@@ -1382,7 +1356,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
     project_key = 'project_key_example' # str | 
     limit = 56 # int | The number of AI Configs to return. (optional)
@@ -1391,10 +1365,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     try:
         # List agent graphs
         api_response = api_instance.list_agent_graphs(ld_api_version, project_key, limit=limit, offset=offset)
-        print("The response of AIConfigsBetaApi->list_agent_graphs:\n")
+        print("The response of AIConfigsApi->list_agent_graphs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->list_agent_graphs: %s\n" % e)
+        print("Exception when calling AIConfigsApi->list_agent_graphs: %s\n" % e)
 ```
 
 
@@ -1434,7 +1408,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_ai_tool_versions**
-> AITools list_ai_tool_versions(ld_api_version, project_key, tool_key, sort=sort, limit=limit, offset=offset)
+> AITools list_ai_tool_versions(project_key, tool_key, sort=sort, limit=limit, offset=offset)
 
 List AI tool versions
 
@@ -1470,8 +1444,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     tool_key = 'tool_key_example' # str | 
     sort = 'sort_example' # str | A sort to apply to the list of AI Configs. (optional)
@@ -1480,11 +1453,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # List AI tool versions
-        api_response = api_instance.list_ai_tool_versions(ld_api_version, project_key, tool_key, sort=sort, limit=limit, offset=offset)
-        print("The response of AIConfigsBetaApi->list_ai_tool_versions:\n")
+        api_response = api_instance.list_ai_tool_versions(project_key, tool_key, sort=sort, limit=limit, offset=offset)
+        print("The response of AIConfigsApi->list_ai_tool_versions:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->list_ai_tool_versions: %s\n" % e)
+        print("Exception when calling AIConfigsApi->list_ai_tool_versions: %s\n" % e)
 ```
 
 
@@ -1494,7 +1467,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **tool_key** | **str**|  | 
  **sort** | **str**| A sort to apply to the list of AI Configs. | [optional] 
@@ -1526,7 +1498,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_ai_tools**
-> AITools list_ai_tools(ld_api_version, project_key, sort=sort, limit=limit, offset=offset, filter=filter)
+> AITools list_ai_tools(project_key, sort=sort, limit=limit, offset=offset, filter=filter)
 
 List AI tools
 
@@ -1562,8 +1534,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     sort = 'sort_example' # str | A sort to apply to the list of AI Configs. (optional)
     limit = 56 # int | The number of AI Configs to return. (optional)
@@ -1572,11 +1543,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # List AI tools
-        api_response = api_instance.list_ai_tools(ld_api_version, project_key, sort=sort, limit=limit, offset=offset, filter=filter)
-        print("The response of AIConfigsBetaApi->list_ai_tools:\n")
+        api_response = api_instance.list_ai_tools(project_key, sort=sort, limit=limit, offset=offset, filter=filter)
+        print("The response of AIConfigsApi->list_ai_tools:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->list_ai_tools: %s\n" % e)
+        print("Exception when calling AIConfigsApi->list_ai_tools: %s\n" % e)
 ```
 
 
@@ -1586,7 +1557,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **sort** | **str**| A sort to apply to the list of AI Configs. | [optional] 
  **limit** | **int**| The number of AI Configs to return. | [optional] 
@@ -1618,7 +1588,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_model_configs**
-> List[ModelConfig] list_model_configs(ld_api_version, project_key, restricted=restricted)
+> List[ModelConfig] list_model_configs(project_key, restricted=restricted)
 
 List AI model configs
 
@@ -1654,18 +1624,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     restricted = True # bool | Whether to return only restricted models (optional)
 
     try:
         # List AI model configs
-        api_response = api_instance.list_model_configs(ld_api_version, project_key, restricted=restricted)
-        print("The response of AIConfigsBetaApi->list_model_configs:\n")
+        api_response = api_instance.list_model_configs(project_key, restricted=restricted)
+        print("The response of AIConfigsApi->list_model_configs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->list_model_configs: %s\n" % e)
+        print("Exception when calling AIConfigsApi->list_model_configs: %s\n" % e)
 ```
 
 
@@ -1675,7 +1644,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **restricted** | **bool**| Whether to return only restricted models | [optional] 
 
@@ -1747,7 +1715,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
     project_key = 'project_key_example' # str | 
     graph_key = 'graph_key_example' # str | 
@@ -1756,10 +1724,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     try:
         # Update agent graph
         api_response = api_instance.patch_agent_graph(ld_api_version, project_key, graph_key, agent_graph_patch=agent_graph_patch)
-        print("The response of AIConfigsBetaApi->patch_agent_graph:\n")
+        print("The response of AIConfigsApi->patch_agent_graph:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->patch_agent_graph: %s\n" % e)
+        print("Exception when calling AIConfigsApi->patch_agent_graph: %s\n" % e)
 ```
 
 
@@ -1800,7 +1768,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_ai_config**
-> AIConfig patch_ai_config(ld_api_version, project_key, config_key, ai_config_patch=ai_config_patch)
+> AIConfig patch_ai_config(project_key, config_key, ai_config_patch=ai_config_patch)
 
 Update AI Config
 
@@ -1848,19 +1816,18 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     ai_config_patch = launchdarkly_api.AIConfigPatch() # AIConfigPatch | AI Config object to update (optional)
 
     try:
         # Update AI Config
-        api_response = api_instance.patch_ai_config(ld_api_version, project_key, config_key, ai_config_patch=ai_config_patch)
-        print("The response of AIConfigsBetaApi->patch_ai_config:\n")
+        api_response = api_instance.patch_ai_config(project_key, config_key, ai_config_patch=ai_config_patch)
+        print("The response of AIConfigsApi->patch_ai_config:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->patch_ai_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->patch_ai_config: %s\n" % e)
 ```
 
 
@@ -1870,7 +1837,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **ai_config_patch** | [**AIConfigPatch**](AIConfigPatch.md)| AI Config object to update | [optional] 
@@ -1901,7 +1867,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_ai_config_targeting**
-> AIConfigTargeting patch_ai_config_targeting(ld_api_version, project_key, config_key, ai_config_targeting_patch=ai_config_targeting_patch)
+> AIConfigTargeting patch_ai_config_targeting(project_key, config_key, ai_config_targeting_patch=ai_config_targeting_patch)
 
 Update AI Config targeting
 
@@ -2496,19 +2462,18 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     ai_config_targeting_patch = launchdarkly_api.AIConfigTargetingPatch() # AIConfigTargetingPatch | AI Config targeting semantic patch instructions (optional)
 
     try:
         # Update AI Config targeting
-        api_response = api_instance.patch_ai_config_targeting(ld_api_version, project_key, config_key, ai_config_targeting_patch=ai_config_targeting_patch)
-        print("The response of AIConfigsBetaApi->patch_ai_config_targeting:\n")
+        api_response = api_instance.patch_ai_config_targeting(project_key, config_key, ai_config_targeting_patch=ai_config_targeting_patch)
+        print("The response of AIConfigsApi->patch_ai_config_targeting:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->patch_ai_config_targeting: %s\n" % e)
+        print("Exception when calling AIConfigsApi->patch_ai_config_targeting: %s\n" % e)
 ```
 
 
@@ -2518,7 +2483,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **ai_config_targeting_patch** | [**AIConfigTargetingPatch**](AIConfigTargetingPatch.md)| AI Config targeting semantic patch instructions | [optional] 
@@ -2549,7 +2513,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_ai_config_variation**
-> AIConfigVariation patch_ai_config_variation(ld_api_version, project_key, config_key, variation_key, ai_config_variation_patch=ai_config_variation_patch)
+> AIConfigVariation patch_ai_config_variation(project_key, config_key, variation_key, ai_config_variation_patch=ai_config_variation_patch)
 
 Update AI Config variation
 
@@ -2601,8 +2565,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     variation_key = 'variation_key_example' # str | 
@@ -2610,11 +2573,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
     try:
         # Update AI Config variation
-        api_response = api_instance.patch_ai_config_variation(ld_api_version, project_key, config_key, variation_key, ai_config_variation_patch=ai_config_variation_patch)
-        print("The response of AIConfigsBetaApi->patch_ai_config_variation:\n")
+        api_response = api_instance.patch_ai_config_variation(project_key, config_key, variation_key, ai_config_variation_patch=ai_config_variation_patch)
+        print("The response of AIConfigsApi->patch_ai_config_variation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->patch_ai_config_variation: %s\n" % e)
+        print("Exception when calling AIConfigsApi->patch_ai_config_variation: %s\n" % e)
 ```
 
 
@@ -2624,7 +2587,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **variation_key** | **str**|  | 
@@ -2656,7 +2618,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_ai_tool**
-> AITool patch_ai_tool(ld_api_version, project_key, tool_key, ai_tool_patch=ai_tool_patch)
+> AITool patch_ai_tool(project_key, tool_key, ai_tool_patch=ai_tool_patch)
 
 Update AI tool
 
@@ -2693,19 +2655,18 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     tool_key = 'tool_key_example' # str | 
     ai_tool_patch = launchdarkly_api.AIToolPatch() # AIToolPatch | AI tool object to update (optional)
 
     try:
         # Update AI tool
-        api_response = api_instance.patch_ai_tool(ld_api_version, project_key, tool_key, ai_tool_patch=ai_tool_patch)
-        print("The response of AIConfigsBetaApi->patch_ai_tool:\n")
+        api_response = api_instance.patch_ai_tool(project_key, tool_key, ai_tool_patch=ai_tool_patch)
+        print("The response of AIConfigsApi->patch_ai_tool:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->patch_ai_tool: %s\n" % e)
+        print("Exception when calling AIConfigsApi->patch_ai_tool: %s\n" % e)
 ```
 
 
@@ -2715,7 +2676,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **tool_key** | **str**|  | 
  **ai_tool_patch** | [**AIToolPatch**](AIToolPatch.md)| AI tool object to update | [optional] 
@@ -2783,7 +2743,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
     project_key = 'project_key_example' # str | 
     agent_graph_post = launchdarkly_api.AgentGraphPost() # AgentGraphPost | Agent graph object to create
@@ -2791,10 +2751,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     try:
         # Create new agent graph
         api_response = api_instance.post_agent_graph(ld_api_version, project_key, agent_graph_post)
-        print("The response of AIConfigsBetaApi->post_agent_graph:\n")
+        print("The response of AIConfigsApi->post_agent_graph:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_agent_graph: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_agent_graph: %s\n" % e)
 ```
 
 
@@ -2834,7 +2794,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_ai_config**
-> AIConfig post_ai_config(ld_api_version, project_key, ai_config_post)
+> AIConfig post_ai_config(project_key, ai_config_post)
 
 Create new AI Config
 
@@ -2871,18 +2831,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     ai_config_post = launchdarkly_api.AIConfigPost() # AIConfigPost | AI Config object to create
 
     try:
         # Create new AI Config
-        api_response = api_instance.post_ai_config(ld_api_version, project_key, ai_config_post)
-        print("The response of AIConfigsBetaApi->post_ai_config:\n")
+        api_response = api_instance.post_ai_config(project_key, ai_config_post)
+        print("The response of AIConfigsApi->post_ai_config:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_ai_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_ai_config: %s\n" % e)
 ```
 
 
@@ -2892,7 +2851,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **ai_config_post** | [**AIConfigPost**](AIConfigPost.md)| AI Config object to create | 
 
@@ -2921,7 +2879,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_ai_config_variation**
-> AIConfigVariation post_ai_config_variation(ld_api_version, project_key, config_key, ai_config_variation_post)
+> AIConfigVariation post_ai_config_variation(project_key, config_key, ai_config_variation_post)
 
 Create AI Config variation
 
@@ -2970,19 +2928,18 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     config_key = 'config_key_example' # str | 
     ai_config_variation_post = launchdarkly_api.AIConfigVariationPost() # AIConfigVariationPost | AI Config variation object to create
 
     try:
         # Create AI Config variation
-        api_response = api_instance.post_ai_config_variation(ld_api_version, project_key, config_key, ai_config_variation_post)
-        print("The response of AIConfigsBetaApi->post_ai_config_variation:\n")
+        api_response = api_instance.post_ai_config_variation(project_key, config_key, ai_config_variation_post)
+        print("The response of AIConfigsApi->post_ai_config_variation:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_ai_config_variation: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_ai_config_variation: %s\n" % e)
 ```
 
 
@@ -2992,7 +2949,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **config_key** | **str**|  | 
  **ai_config_variation_post** | [**AIConfigVariationPost**](AIConfigVariationPost.md)| AI Config variation object to create | 
@@ -3022,7 +2978,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_ai_tool**
-> AITool post_ai_tool(ld_api_version, project_key, ai_tool_post)
+> AITool post_ai_tool(project_key, ai_tool_post)
 
 Create an AI tool
 
@@ -3059,18 +3015,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'project_key_example' # str | 
     ai_tool_post = launchdarkly_api.AIToolPost() # AIToolPost | AI tool object to create
 
     try:
         # Create an AI tool
-        api_response = api_instance.post_ai_tool(ld_api_version, project_key, ai_tool_post)
-        print("The response of AIConfigsBetaApi->post_ai_tool:\n")
+        api_response = api_instance.post_ai_tool(project_key, ai_tool_post)
+        print("The response of AIConfigsApi->post_ai_tool:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_ai_tool: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_ai_tool: %s\n" % e)
 ```
 
 
@@ -3080,7 +3035,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **ai_tool_post** | [**AIToolPost**](AIToolPost.md)| AI tool object to create | 
 
@@ -3109,7 +3063,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_model_config**
-> ModelConfig post_model_config(ld_api_version, project_key, model_config_post)
+> ModelConfig post_model_config(project_key, model_config_post)
 
 Create an AI model config
 
@@ -3146,18 +3100,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     model_config_post = launchdarkly_api.ModelConfigPost() # ModelConfigPost | AI model config object to create
 
     try:
         # Create an AI model config
-        api_response = api_instance.post_model_config(ld_api_version, project_key, model_config_post)
-        print("The response of AIConfigsBetaApi->post_model_config:\n")
+        api_response = api_instance.post_model_config(project_key, model_config_post)
+        print("The response of AIConfigsApi->post_model_config:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_model_config: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_model_config: %s\n" % e)
 ```
 
 
@@ -3167,7 +3120,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **model_config_post** | [**ModelConfigPost**](ModelConfigPost.md)| AI model config object to create | 
 
@@ -3197,11 +3149,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_restricted_models**
-> RestrictedModelsResponse post_restricted_models(ld_api_version, project_key, restricted_models_request)
+> RestrictedModelsResponse post_restricted_models(project_key, restricted_models_request)
 
 Add AI models to the restricted list
 
-Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs-beta/list-model-configs) endpoint.
+Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs/list-model-configs) endpoint.
 
 ### Example
 
@@ -3234,18 +3186,17 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 # Enter a context with an instance of the API client
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = launchdarkly_api.AIConfigsBetaApi(api_client)
-    ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
+    api_instance = launchdarkly_api.AIConfigsApi(api_client)
     project_key = 'default' # str | 
     restricted_models_request = launchdarkly_api.RestrictedModelsRequest() # RestrictedModelsRequest | List of AI model keys to add to the restricted list.
 
     try:
         # Add AI models to the restricted list
-        api_response = api_instance.post_restricted_models(ld_api_version, project_key, restricted_models_request)
-        print("The response of AIConfigsBetaApi->post_restricted_models:\n")
+        api_response = api_instance.post_restricted_models(project_key, restricted_models_request)
+        print("The response of AIConfigsApi->post_restricted_models:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling AIConfigsBetaApi->post_restricted_models: %s\n" % e)
+        print("Exception when calling AIConfigsApi->post_restricted_models: %s\n" % e)
 ```
 
 
@@ -3255,7 +3206,6 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ld_api_version** | **str**| Version of the endpoint. | 
  **project_key** | **str**|  | 
  **restricted_models_request** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md)| List of AI model keys to add to the restricted list. | 
 

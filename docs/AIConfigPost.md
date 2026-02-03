@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **name** | **str** |  | 
 **tags** | **List[str]** |  | [optional] 
 **default_variation** | [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
+**evaluation_metric_key** | **str** | Evaluation metric key for this AI Config | [optional] 
+**is_inverted** | **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Example
 

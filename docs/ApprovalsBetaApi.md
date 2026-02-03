@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **patch_approval_request**
-> FlagConfigApprovalRequestResponse patch_approval_request(id)
+> FlagConfigApprovalRequestResponse patch_approval_request(id, approval_request_patch_input)
 
 Update approval request
 
@@ -112,7 +112,7 @@ To make a semantic patch request, you must append `domain-model=launchdarkly.sem
 
 ### Instructions
 
-Semantic patch requests support the following `kind` instruction for updating an approval request.
+Semantic patch requests support the following `kind` instructions for updating an approval request.
 
 #### addReviewers
 
@@ -135,6 +135,25 @@ Here's an example:
 }
 ```
 
+#### updateDescription
+
+Updates the description (title) of the approval request.
+
+##### Parameters
+
+- `value`: (Required) The new description for the approval request. Must be non-empty and no more than 5000 characters.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "updateDescription",
+    "value": "Updated approval request title"
+  }]
+}
+```
+
 
 ### Example
 
@@ -142,6 +161,7 @@ Here's an example:
 
 ```python
 import launchdarkly_api
+from launchdarkly_api.models.approval_request_patch_input import ApprovalRequestPatchInput
 from launchdarkly_api.models.flag_config_approval_request_response import FlagConfigApprovalRequestResponse
 from launchdarkly_api.rest import ApiException
 from pprint import pprint
@@ -168,10 +188,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.ApprovalsBetaApi(api_client)
     id = 'id_example' # str | The approval ID
+    approval_request_patch_input = {"instructions":[{"kind":"updateDescription","value":"New description"}]} # ApprovalRequestPatchInput | 
 
     try:
         # Update approval request
-        api_response = api_instance.patch_approval_request(id)
+        api_response = api_instance.patch_approval_request(id, approval_request_patch_input)
         print("The response of ApprovalsBetaApi->patch_approval_request:\n")
         pprint(api_response)
     except Exception as e:
@@ -186,6 +207,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| The approval ID | 
+ **approval_request_patch_input** | [**ApprovalRequestPatchInput**](ApprovalRequestPatchInput.md)|  | 
 
 ### Return type
 
@@ -197,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -311,7 +333,7 @@ To make a semantic patch request, you must append `domain-model=launchdarkly.sem
 
 ### Instructions
 
-Semantic patch requests support the following `kind` instruction for updating an approval request.
+Semantic patch requests support the following `kind` instructions for updating an approval request.
 
 #### addReviewers
 
@@ -321,6 +343,14 @@ Adds the specified members and teams to the existing list of reviewers. You must
 
 - `notifyMemberIds`: (Optional) List of member IDs.
 - `notifyTeamKeys`: (Optional) List of team keys.
+
+#### updateDescription
+
+Updates the description (title) of the approval request.
+
+##### Parameters
+
+- `value`: (Required) The new description for the approval request. Must be non-empty and no more than 5000 characters.
 
 
 ### Example

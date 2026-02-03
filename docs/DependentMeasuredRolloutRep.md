@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** | The guarded rollout measured rollout Id | 
 **flag_key** | **str** | The guarded rollout flag key  | 
 **flag_name** | **str** | The guarded rollout flag name  | 
+**flag_purpose** | **str** | The guarded rollout flag purpose | [optional] 
 **environment_key** | **str** | The guarded rollout environment key | 
 **environment_name** | **str** | The guarded rollout environment name | 
 **status** | **str** | The guarded rollout status | 

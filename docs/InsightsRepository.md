@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The repository ID | 
+**id** | **UUID** | The repository ID | 
 **version** | **int** | The repository version | 
 **key** | **str** | The repository key | 
 **type** | **str** | The repository type | 

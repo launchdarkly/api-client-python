@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** | The pull request internal ID | 
+**id** | **UUID** | The pull request internal ID | 
 **external_id** | **str** | The pull request number | 
 **title** | **str** | The pull request title | 
 **status** | **str** | The pull request status | 
