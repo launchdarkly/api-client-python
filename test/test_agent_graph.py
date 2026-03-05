@@ -36,9 +36,11 @@ class TestAgentGraph(unittest.TestCase):
         model = AgentGraph()
         if include_optional:
             return AgentGraph(
+                access = {"allowed":[{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"},{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"}],"denied":[{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"},{"reason":{"role_name":"role_name","notActions":[null,null],"notResources":["notResources","notResources"],"effect":"allow","resources":["proj/*:env/*;qa_*:/flag/*"],"actions":["*"]},"action":"action"}]},
                 key = '',
                 name = '',
                 description = '',
+                maintainer = {"kind":"kind"},
                 root_config_key = '',
                 edges = [
                     {"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"}

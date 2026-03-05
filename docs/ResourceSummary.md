@@ -7,8 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **flag_count** | **int** |  | 
 **segment_count** | **int** |  | [optional] 
-**metric_count** | **int** |  | [optional] 
-**ai_config_count** | **int** |  | [optional] 
 **total_count** | **int** |  | 
 
 ## Example

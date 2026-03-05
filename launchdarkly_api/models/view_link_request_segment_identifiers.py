@@ -29,8 +29,10 @@ class ViewLinkRequestSegmentIdentifiers(BaseModel):
     ViewLinkRequestSegmentIdentifiers
     """ # noqa: E501
     segment_identifiers: List[ViewLinkRequestSegmentIdentifier] = Field(description="Identifiers of the segments to link/unlink (environmentId and segmentKey)", alias="segmentIdentifiers")
+    filter: Optional[StrictStr] = Field(default=None, description="Optional filter string to determine which resources should be linked. Resources only need to match either the filter or explicitly-listed keys to be linked (union). Uses the same queryfilter syntax as the segments list endpoint.  Supported filters for segments: query, tags, keys, excludedKeys, unbounded, external, view, type ")
+    environment_id: Optional[StrictStr] = Field(default=None, description="Required when using filter for segment resources. Specifies which environment to query for segments matching the filter. Ignored when only using explicit segmentIdentifiers (since each identifier contains its own environmentId). ", alias="environmentId")
     comment: Optional[StrictStr] = Field(default='', description="Optional comment for the link/unlink operation")
-    __properties: ClassVar[List[str]] = ["segmentIdentifiers", "comment"]
+    __properties: ClassVar[List[str]] = ["segmentIdentifiers", "filter", "environmentId", "comment"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,6 +93,8 @@ class ViewLinkRequestSegmentIdentifiers(BaseModel):
 
         _obj = cls.model_validate({
             "segmentIdentifiers": [ViewLinkRequestSegmentIdentifier.from_dict(_item) for _item in obj["segmentIdentifiers"]] if obj.get("segmentIdentifiers") is not None else None,
+            "filter": obj.get("filter"),
+            "environmentId": obj.get("environmentId"),
             "comment": obj.get("comment") if obj.get("comment") is not None else ''
         })
         return _obj

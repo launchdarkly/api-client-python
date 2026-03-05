@@ -37,14 +37,14 @@ class TestAIConfigVariationsResponse(unittest.TestCase):
         if include_optional:
             return AIConfigVariationsResponse(
                 items = [
-                    {"judgeConfiguration":{"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},"instructions":"instructions","color":"color","_links":{"parent":{"href":"href","type":"type"}},"description":"description","modelConfigKey":"modelConfigKey","judgingConfigKeys":["judgingConfigKeys","judgingConfigKeys"],"version":1,"tools":[{"version":2,"key":"key"},{"version":2,"key":"key"}],"createdAt":6,"_publishedAt":5,"_archivedAt":5,"name":"name","messages":[{"role":"role","content":"content"},{"role":"role","content":"content"}],"comment":"comment","model":"{}","_id":"_id","state":"state","key":"key"}
+                    {"judgeConfiguration":{"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},"instructions":"instructions","color":"color","_links":{"parent":{"href":"href","type":"type"}},"description":"description","modelConfigKey":"modelConfigKey","judgingConfigKeys":["judgingConfigKeys","judgingConfigKeys"],"version":1,"tools":[{"customParameters":{"key":""},"version":2,"key":"key"},{"customParameters":{"key":""},"version":2,"key":"key"}],"createdAt":6,"_publishedAt":5,"_archivedAt":5,"name":"name","messages":[{"role":"role","content":"content"},{"role":"role","content":"content"}],"comment":"comment","model":"{}","_id":"_id","state":"state","key":"key"}
                     ],
                 total_count = 56
             )
         else:
             return AIConfigVariationsResponse(
                 items = [
-                    {"judgeConfiguration":{"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},"instructions":"instructions","color":"color","_links":{"parent":{"href":"href","type":"type"}},"description":"description","modelConfigKey":"modelConfigKey","judgingConfigKeys":["judgingConfigKeys","judgingConfigKeys"],"version":1,"tools":[{"version":2,"key":"key"},{"version":2,"key":"key"}],"createdAt":6,"_publishedAt":5,"_archivedAt":5,"name":"name","messages":[{"role":"role","content":"content"},{"role":"role","content":"content"}],"comment":"comment","model":"{}","_id":"_id","state":"state","key":"key"}
+                    {"judgeConfiguration":{"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},"instructions":"instructions","color":"color","_links":{"parent":{"href":"href","type":"type"}},"description":"description","modelConfigKey":"modelConfigKey","judgingConfigKeys":["judgingConfigKeys","judgingConfigKeys"],"version":1,"tools":[{"customParameters":{"key":""},"version":2,"key":"key"},{"customParameters":{"key":""},"version":2,"key":"key"}],"createdAt":6,"_publishedAt":5,"_archivedAt":5,"name":"name","messages":[{"role":"role","content":"content"},{"role":"role","content":"content"}],"comment":"comment","model":"{}","_id":"_id","state":"state","key":"key"}
                     ],
                 total_count = 56,
         )

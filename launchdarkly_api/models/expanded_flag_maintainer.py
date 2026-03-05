@@ -13,47 +13,97 @@
 """  # noqa: E501
 
 
-import unittest
+from __future__ import annotations
+import pprint
+import re  # noqa: F401
+import json
 
-from launchdarkly_api.models.expanded_linked_resources_ai_configs import ExpandedLinkedResourcesAIConfigs
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.views_member_summary import ViewsMemberSummary
+from launchdarkly_api.models.views_member_team_summary_rep import ViewsMemberTeamSummaryRep
+from typing import Optional, Set
+from typing_extensions import Self
 
-class TestExpandedLinkedResourcesAIConfigs(unittest.TestCase):
-    """ExpandedLinkedResourcesAIConfigs unit test stubs"""
+class ExpandedFlagMaintainer(BaseModel):
+    """
+    ExpandedFlagMaintainer
+    """ # noqa: E501
+    key: StrictStr = Field(description="The ID of the maintainer member, or the key of the maintainer team")
+    kind: StrictStr = Field(description="The type of the maintainer")
+    member: Optional[ViewsMemberSummary] = Field(default=None, alias="_member")
+    team: Optional[ViewsMemberTeamSummaryRep] = Field(default=None, alias="_team")
+    __properties: ClassVar[List[str]] = ["key", "kind", "_member", "_team"]
 
-    def setUp(self):
-        pass
+    @field_validator('kind')
+    def kind_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['member', 'team']):
+            raise ValueError("must be one of enum values ('member', 'team')")
+        return value
 
-    def tearDown(self):
-        pass
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
-    def make_instance(self, include_optional) -> ExpandedLinkedResourcesAIConfigs:
-        """Test ExpandedLinkedResourcesAIConfigs
-            include_optional is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # uncomment below to create an instance of `ExpandedLinkedResourcesAIConfigs`
+
+    def to_str(self) -> str:
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of ExpandedFlagMaintainer from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
         """
-        model = ExpandedLinkedResourcesAIConfigs()
-        if include_optional:
-            return ExpandedLinkedResourcesAIConfigs(
-                items = [
-                    {"createdAt":2,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","version":1,"key":"key","flagKey":"flagKey","tags":["tags","tags"],"updatedAt":6}
-                    ],
-                total_count = 56
-            )
-        else:
-            return ExpandedLinkedResourcesAIConfigs(
-                items = [
-                    {"createdAt":2,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","version":1,"key":"key","flagKey":"flagKey","tags":["tags","tags"],"updatedAt":6}
-                    ],
-                total_count = 56,
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
         )
-        """
+        # override the default output from pydantic by calling `to_dict()` of member
+        if self.member:
+            _dict['_member'] = self.member.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of team
+        if self.team:
+            _dict['_team'] = self.team.to_dict()
+        return _dict
 
-    def testExpandedLinkedResourcesAIConfigs(self):
-        """Test ExpandedLinkedResourcesAIConfigs"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ExpandedFlagMaintainer from a dict"""
+        if obj is None:
+            return None
 
-if __name__ == '__main__':
-    unittest.main()
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "key": obj.get("key"),
+            "kind": obj.get("kind"),
+            "_member": ViewsMemberSummary.from_dict(obj["_member"]) if obj.get("_member") is not None else None,
+            "_team": ViewsMemberTeamSummaryRep.from_dict(obj["_team"]) if obj.get("_team") is not None else None
+        })
+        return _obj
+
+

@@ -35,10 +35,11 @@ class AITool(BaseModel):
     links: Optional[ParentAndSelfLinks] = Field(default=None, alias="_links")
     maintainer: Optional[AIConfigMaintainer] = Field(default=None, alias="_maintainer")
     description: Optional[StrictStr] = None
-    var_schema: Dict[str, Any] = Field(alias="schema")
+    var_schema: Dict[str, Any] = Field(description="JSON Schema defining the tool's parameters for LLM consumption", alias="schema")
+    custom_parameters: Optional[Dict[str, Any]] = Field(default=None, description="Custom metadata and configuration for application-level use (not sent to LLM)", alias="customParameters")
     version: StrictInt
     created_at: StrictInt = Field(alias="createdAt")
-    __properties: ClassVar[List[str]] = ["key", "_access", "_links", "_maintainer", "description", "schema", "version", "createdAt"]
+    __properties: ClassVar[List[str]] = ["key", "_access", "_links", "_maintainer", "description", "schema", "customParameters", "version", "createdAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,6 +107,7 @@ class AITool(BaseModel):
             "_maintainer": AIConfigMaintainer.from_dict(obj["_maintainer"]) if obj.get("_maintainer") is not None else None,
             "description": obj.get("description"),
             "schema": obj.get("schema"),
+            "customParameters": obj.get("customParameters"),
             "version": obj.get("version"),
             "createdAt": obj.get("createdAt")
         })

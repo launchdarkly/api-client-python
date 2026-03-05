@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.expanded_flag_maintainer import ExpandedFlagMaintainer
 from launchdarkly_api.models.parent_and_self_links import ParentAndSelfLinks
 from typing import Optional, Set
 from typing_extensions import Self
@@ -32,13 +33,14 @@ class ExpandedFlag(BaseModel):
     name: StrictStr = Field(description="A human-friendly name for the flag")
     description: Optional[StrictStr] = Field(default=None, description="Description of the flag")
     creation_date: Optional[StrictInt] = Field(default=None, description="Creation date in milliseconds", alias="creationDate")
-    version: Optional[StrictInt] = Field(default=None, description="Version of the flag")
+    version: Optional[StrictInt] = Field(default=None, description="Version of the flag", alias="_version")
     archived: Optional[StrictBool] = Field(default=None, description="Whether the flag is archived")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Tags for the flag")
     temporary: Optional[StrictBool] = Field(default=None, description="Whether the flag is temporary")
     include_in_snippet: Optional[StrictBool] = Field(default=None, description="Whether to include in snippet", alias="includeInSnippet")
+    maintainer: Optional[ExpandedFlagMaintainer] = None
     links: Optional[ParentAndSelfLinks] = Field(default=None, alias="_links")
-    __properties: ClassVar[List[str]] = ["key", "name", "description", "creationDate", "version", "archived", "tags", "temporary", "includeInSnippet", "_links"]
+    __properties: ClassVar[List[str]] = ["key", "name", "description", "creationDate", "_version", "archived", "tags", "temporary", "includeInSnippet", "maintainer", "_links"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +81,9 @@ class ExpandedFlag(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of maintainer
+        if self.maintainer:
+            _dict['maintainer'] = self.maintainer.to_dict()
         # override the default output from pydantic by calling `to_dict()` of links
         if self.links:
             _dict['_links'] = self.links.to_dict()
@@ -98,11 +103,12 @@ class ExpandedFlag(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "creationDate": obj.get("creationDate"),
-            "version": obj.get("version"),
+            "_version": obj.get("_version"),
             "archived": obj.get("archived"),
             "tags": obj.get("tags"),
             "temporary": obj.get("temporary"),
             "includeInSnippet": obj.get("includeInSnippet"),
+            "maintainer": ExpandedFlagMaintainer.from_dict(obj["maintainer"]) if obj.get("maintainer") is not None else None,
             "_links": ParentAndSelfLinks.from_dict(obj["_links"]) if obj.get("_links") is not None else None
         })
         return _obj

@@ -36,10 +36,11 @@ class TestAIToolPatch(unittest.TestCase):
         model = AIToolPatch()
         if include_optional:
             return AIToolPatch(
-                maintainer_id = '',
-                maintainer_team_key = '',
+                maintainer_id = '507f1f77bcf86cd799439011',
+                maintainer_team_key = 'example-team-key',
                 description = '',
-                var_schema = None
+                var_schema = None,
+                custom_parameters = None
             )
         else:
             return AIToolPatch(

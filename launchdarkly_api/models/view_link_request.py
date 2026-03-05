@@ -18,13 +18,14 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
+from launchdarkly_api.models.view_link_request_filter import ViewLinkRequestFilter
 from launchdarkly_api.models.view_link_request_keys import ViewLinkRequestKeys
 from launchdarkly_api.models.view_link_request_segment_identifiers import ViewLinkRequestSegmentIdentifiers
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-VIEWLINKREQUEST_ONE_OF_SCHEMAS = ["ViewLinkRequestKeys", "ViewLinkRequestSegmentIdentifiers"]
+VIEWLINKREQUEST_ONE_OF_SCHEMAS = ["ViewLinkRequestFilter", "ViewLinkRequestKeys", "ViewLinkRequestSegmentIdentifiers"]
 
 class ViewLinkRequest(BaseModel):
     """
@@ -34,8 +35,10 @@ class ViewLinkRequest(BaseModel):
     oneof_schema_1_validator: Optional[ViewLinkRequestKeys] = None
     # data type: ViewLinkRequestSegmentIdentifiers
     oneof_schema_2_validator: Optional[ViewLinkRequestSegmentIdentifiers] = None
-    actual_instance: Optional[Union[ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers]] = None
-    one_of_schemas: Set[str] = { "ViewLinkRequestKeys", "ViewLinkRequestSegmentIdentifiers" }
+    # data type: ViewLinkRequestFilter
+    oneof_schema_3_validator: Optional[ViewLinkRequestFilter] = None
+    actual_instance: Optional[Union[ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers]] = None
+    one_of_schemas: Set[str] = { "ViewLinkRequestFilter", "ViewLinkRequestKeys", "ViewLinkRequestSegmentIdentifiers" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -68,12 +71,17 @@ class ViewLinkRequest(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `ViewLinkRequestSegmentIdentifiers`")
         else:
             match += 1
+        # validate data type: ViewLinkRequestFilter
+        if not isinstance(v, ViewLinkRequestFilter):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `ViewLinkRequestFilter`")
+        else:
+            match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in ViewLinkRequest with oneOf schemas: ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in ViewLinkRequest with oneOf schemas: ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in ViewLinkRequest with oneOf schemas: ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in ViewLinkRequest with oneOf schemas: ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -100,13 +108,19 @@ class ViewLinkRequest(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into ViewLinkRequestFilter
+        try:
+            instance.actual_instance = ViewLinkRequestFilter.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into ViewLinkRequest with oneOf schemas: ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into ViewLinkRequest with oneOf schemas: ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into ViewLinkRequest with oneOf schemas: ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into ViewLinkRequest with oneOf schemas: ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -120,7 +134,7 @@ class ViewLinkRequest(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], ViewLinkRequestFilter, ViewLinkRequestKeys, ViewLinkRequestSegmentIdentifiers]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**get_audit_log_entries**](AuditLogApi.md#get_audit_log_entries) | **GET** /api/v2/auditlog | List audit log entries
 [**get_audit_log_entry**](AuditLogApi.md#get_audit_log_entry) | **GET** /api/v2/auditlog/{id} | Get audit log entry
 [**post_audit_log_entries**](AuditLogApi.md#post_audit_log_entries) | **POST** /api/v2/auditlog | Search audit log entries
+[**post_audit_log_entry_counts**](AuditLogApi.md#post_audit_log_entry_counts) | **POST** /api/v2/auditlog/counts | Get audit log entry counts
 
 
 # **get_audit_log_entries**
@@ -279,6 +280,96 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Audit log entries response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_audit_log_entry_counts**
+> CountBucketsResult post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets)
+
+Get audit log entry counts
+
+Returns aggregate counts of audit log entries per time bucket. Used for dashboard overlays that show flag targeting changes.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.count_buckets_result import CountBucketsResult
+from launchdarkly_api.models.statement_post import StatementPost
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AuditLogApi(api_client)
+    after = 56 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. Required.
+    statement_post = [launchdarkly_api.StatementPost()] # List[StatementPost] | 
+    before = 56 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. (optional)
+    buckets = 56 # int | Number of time buckets to divide the range into. Default 50, max 500. (optional)
+
+    try:
+        # Get audit log entry counts
+        api_response = api_instance.post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets)
+        print("The response of AuditLogApi->post_audit_log_entry_counts:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AuditLogApi->post_audit_log_entry_counts: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. Required. | 
+ **statement_post** | [**List[StatementPost]**](StatementPost.md)|  | 
+ **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. | [optional] 
+ **buckets** | **int**| Number of time buckets to divide the range into. Default 50, max 500. | [optional] 
+
+### Return type
+
+[**CountBucketsResult**](CountBucketsResult.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Audit log entry counts response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |

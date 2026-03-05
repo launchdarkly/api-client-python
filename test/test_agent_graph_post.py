@@ -39,6 +39,8 @@ class TestAgentGraphPost(unittest.TestCase):
                 key = '',
                 name = '',
                 description = '',
+                maintainer_id = '507f1f77bcf86cd799439011',
+                maintainer_team_key = 'example-team-key',
                 root_config_key = '',
                 edges = [
                     {"sourceConfig":"sourceConfig","targetConfig":"targetConfig","handoff":"{}","key":"key"}

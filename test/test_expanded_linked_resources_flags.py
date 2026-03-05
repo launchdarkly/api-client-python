@@ -37,14 +37,14 @@ class TestExpandedLinkedResourcesFlags(unittest.TestCase):
         if include_optional:
             return ExpandedLinkedResourcesFlags(
                 items = [
-                    {"archived":true,"temporary":true,"includeInSnippet":true,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","creationDate":7,"version":1,"key":"key","tags":["tags","tags"]}
+                    {"archived":true,"temporary":true,"includeInSnippet":true,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","creationDate":7,"_version":1,"key":"key","maintainer":{"kind":"member","_member":{"firstName":"Ariel","lastName":"Flores","role":"admin","_links":{"self":{"href":"/api/v2/members/569f183514f4432160000007","type":"application/json"}},"_id":"569f183514f4432160000007","email":"ariel@acme.com"},"_team":{"_links":{"key":{"href":"href","type":"type"}},"name":"QA Team","customRoleKeys":["access-to-test-projects"],"key":"team-key-123abc"},"key":"key"},"tags":["tags","tags"]}
                     ],
                 total_count = 56
             )
         else:
             return ExpandedLinkedResourcesFlags(
                 items = [
-                    {"archived":true,"temporary":true,"includeInSnippet":true,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","creationDate":7,"version":1,"key":"key","tags":["tags","tags"]}
+                    {"archived":true,"temporary":true,"includeInSnippet":true,"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"name":"name","description":"description","creationDate":7,"_version":1,"key":"key","maintainer":{"kind":"member","_member":{"firstName":"Ariel","lastName":"Flores","role":"admin","_links":{"self":{"href":"/api/v2/members/569f183514f4432160000007","type":"application/json"}},"_id":"569f183514f4432160000007","email":"ariel@acme.com"},"_team":{"_links":{"key":{"href":"href","type":"type"}},"name":"QA Team","customRoleKeys":["access-to-test-projects"],"key":"team-key-123abc"},"key":"key"},"tags":["tags","tags"]}
                     ],
                 total_count = 56,
         )

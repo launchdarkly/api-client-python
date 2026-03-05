@@ -55,7 +55,7 @@ class TestAIConfigVariation(unittest.TestCase):
                 archived_at = 56,
                 published_at = 56,
                 tools = [
-                    {"version":2,"key":"key"}
+                    {"customParameters":{"key":""},"version":2,"key":"key"}
                     ],
                 judge_configuration = {"judges":[{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"},{"samplingRate":0.7061401,"judgeConfigKey":"judgeConfigKey"}]},
                 judging_config_keys = [

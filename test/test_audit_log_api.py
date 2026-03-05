@@ -48,6 +48,13 @@ class TestAuditLogApi(unittest.TestCase):
         """
         pass
 
+    def test_post_audit_log_entry_counts(self) -> None:
+        """Test case for post_audit_log_entry_counts
+
+        Get audit log entry counts
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -113,6 +113,7 @@ class TestMetricRep(unittest.TestCase):
                     environment_key = '', 
                     _name = '', 
                     _integration_key = '', ),
+                last_seen = 56,
                 archived = True,
                 archived_at = 56,
                 selector = '',

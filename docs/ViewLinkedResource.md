@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | 
-**resource_key** | **str** | Key of the resource (flag, segment, AI config or metric) | 
+**resource_key** | **str** | Key of the resource (flag or segment) | 
 **environment_id** | **str** | Environment ID of the resource (only present for segments) | [optional] 
 **environment_key** | **str** | Environment Key of the resource (only present for segments) | [optional] 
 **resource_type** | **str** |  | 

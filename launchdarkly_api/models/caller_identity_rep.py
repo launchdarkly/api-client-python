@@ -39,7 +39,8 @@ class CallerIdentityRep(BaseModel):
     token_id: Optional[StrictStr] = Field(default=None, alias="tokenId")
     member_id: Optional[StrictStr] = Field(default=None, alias="memberId")
     service_token: Optional[StrictBool] = Field(default=None, alias="serviceToken")
-    __properties: ClassVar[List[str]] = ["accountId", "environmentId", "projectId", "environmentName", "projectName", "authKind", "tokenKind", "clientId", "tokenName", "tokenId", "memberId", "serviceToken"]
+    scopes: Optional[List[StrictStr]] = None
+    __properties: ClassVar[List[str]] = ["accountId", "environmentId", "projectId", "environmentName", "projectName", "authKind", "tokenKind", "clientId", "tokenName", "tokenId", "memberId", "serviceToken", "scopes"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,7 +104,8 @@ class CallerIdentityRep(BaseModel):
             "tokenName": obj.get("tokenName"),
             "tokenId": obj.get("tokenId"),
             "memberId": obj.get("memberId"),
-            "serviceToken": obj.get("serviceToken")
+            "serviceToken": obj.get("serviceToken"),
+            "scopes": obj.get("scopes")
         })
         return _obj
 

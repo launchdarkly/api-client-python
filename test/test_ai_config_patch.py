@@ -37,8 +37,8 @@ class TestAIConfigPatch(unittest.TestCase):
         if include_optional:
             return AIConfigPatch(
                 description = '',
-                maintainer_id = '',
-                maintainer_team_key = '',
+                maintainer_id = '507f1f77bcf86cd799439011',
+                maintainer_team_key = 'example-team-key',
                 name = '',
                 tags = [
                     ''

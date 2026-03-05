@@ -30,7 +30,7 @@ class ViewLinkedResource(BaseModel):
     ViewLinkedResource
     """ # noqa: E501
     links: ParentAndSelfLinks = Field(alias="_links")
-    resource_key: StrictStr = Field(description="Key of the resource (flag, segment, AI config or metric)", alias="resourceKey")
+    resource_key: StrictStr = Field(description="Key of the resource (flag or segment)", alias="resourceKey")
     environment_id: Optional[StrictStr] = Field(default=None, description="Environment ID of the resource (only present for segments)", alias="environmentId")
     environment_key: Optional[StrictStr] = Field(default=None, description="Environment Key of the resource (only present for segments)", alias="environmentKey")
     resource_type: StrictStr = Field(alias="resourceType")
@@ -41,8 +41,8 @@ class ViewLinkedResource(BaseModel):
     @field_validator('resource_type')
     def resource_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['flag', 'segment', 'metric', 'aiConfig']):
-            raise ValueError("must be one of enum values ('flag', 'segment', 'metric', 'aiConfig')")
+        if value not in set(['flag', 'segment']):
+            raise ValueError("must be one of enum values ('flag', 'segment')")
         return value
 
     model_config = ConfigDict(

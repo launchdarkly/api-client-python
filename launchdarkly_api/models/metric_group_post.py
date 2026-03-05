@@ -40,8 +40,8 @@ class MetricGroupPost(BaseModel):
     @field_validator('kind')
     def kind_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['funnel', 'standard', 'guardrail']):
-            raise ValueError("must be one of enum values ('funnel', 'standard', 'guardrail')")
+        if value not in set(['funnel', 'standard']):
+            raise ValueError("must be one of enum values ('funnel', 'standard')")
         return value
 
     model_config = ConfigDict(

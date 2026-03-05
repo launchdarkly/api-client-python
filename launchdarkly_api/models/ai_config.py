@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from launchdarkly_api.models.ai_config_dependency import AIConfigDependency
 from launchdarkly_api.models.ai_config_maintainer import AIConfigMaintainer
 from launchdarkly_api.models.ai_config_variation import AIConfigVariation
 from launchdarkly_api.models.ai_configs_access import AiConfigsAccess
@@ -46,7 +47,8 @@ class AIConfig(BaseModel):
     evaluation_metric_key: Optional[StrictStr] = Field(default=None, description="Evaluation metric key for this AI Config", alias="evaluationMetricKey")
     evaluation_metric_keys: Optional[List[StrictStr]] = Field(default=None, description="List of evaluation metric keys for this AI Config", alias="evaluationMetricKeys")
     is_inverted: Optional[StrictBool] = Field(default=None, description="Whether the evaluation metric is inverted, meaning a lower value is better if set as true", alias="isInverted")
-    __properties: ClassVar[List[str]] = ["_access", "_links", "description", "key", "_maintainer", "mode", "name", "tags", "version", "variations", "createdAt", "updatedAt", "evaluationMetricKey", "evaluationMetricKeys", "isInverted"]
+    dependencies: Optional[List[AIConfigDependency]] = Field(default=None, description="Resources that depend on this AI Config, grouped by type")
+    __properties: ClassVar[List[str]] = ["_access", "_links", "description", "key", "_maintainer", "mode", "name", "tags", "version", "variations", "createdAt", "updatedAt", "evaluationMetricKey", "evaluationMetricKeys", "isInverted", "dependencies"]
 
     @field_validator('mode')
     def mode_validate_enum(cls, value):
@@ -113,6 +115,13 @@ class AIConfig(BaseModel):
                 if _item_variations:
                     _items.append(_item_variations.to_dict())
             _dict['variations'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in dependencies (list)
+        _items = []
+        if self.dependencies:
+            for _item_dependencies in self.dependencies:
+                if _item_dependencies:
+                    _items.append(_item_dependencies.to_dict())
+            _dict['dependencies'] = _items
         return _dict
 
     @classmethod
@@ -139,7 +148,8 @@ class AIConfig(BaseModel):
             "updatedAt": obj.get("updatedAt"),
             "evaluationMetricKey": obj.get("evaluationMetricKey"),
             "evaluationMetricKeys": obj.get("evaluationMetricKeys"),
-            "isInverted": obj.get("isInverted")
+            "isInverted": obj.get("isInverted"),
+            "dependencies": [AIConfigDependency.from_dict(_item) for _item in obj["dependencies"]] if obj.get("dependencies") is not None else None
         })
         return _obj
 

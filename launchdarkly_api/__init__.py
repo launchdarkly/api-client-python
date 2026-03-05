@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "21.0.0"
+__version__ = "22.0.0"
 
 # Define package exports
 __all__ = [
@@ -84,6 +84,7 @@ __all__ = [
     "ApiAttributeError",
     "ApiException",
     "AIConfig",
+    "AIConfigDependency",
     "AIConfigMaintainer",
     "AIConfigPatch",
     "AIConfigPost",
@@ -122,6 +123,7 @@ __all__ = [
     "AgentGraph",
     "AgentGraphEdge",
     "AgentGraphEdgePost",
+    "AgentGraphMaintainer",
     "AgentGraphPatch",
     "AgentGraphPost",
     "AgentGraphs",
@@ -221,6 +223,8 @@ __all__ = [
     "Contexts",
     "CopiedFromEnv",
     "CoreLink",
+    "CountBucket",
+    "CountBucketsResult",
     "CreateAnnouncementBody",
     "CreateApprovalRequestRequest",
     "CreateCopyFlagConfigApprovalRequestRequest",
@@ -274,15 +278,14 @@ __all__ = [
     "ExpandedDirectlyLinkedSegment",
     "ExpandedDirectlyLinkedSegments",
     "ExpandedFlag",
+    "ExpandedFlagMaintainer",
     "ExpandedFlagRep",
     "ExpandedLinkedAIConfigs",
     "ExpandedLinkedFlags",
     "ExpandedLinkedMetrics",
     "ExpandedLinkedResources",
-    "ExpandedLinkedResourcesAIConfigs",
     "ExpandedLinkedResourcesFlags",
     "ExpandedLinkedResourcesItems",
-    "ExpandedLinkedResourcesMetrics",
     "ExpandedLinkedResourcesSegments",
     "ExpandedLinkedSegments",
     "ExpandedMetric",
@@ -646,6 +649,7 @@ __all__ = [
     "VersionsRep",
     "View",
     "ViewLinkRequest",
+    "ViewLinkRequestFilter",
     "ViewLinkRequestKeys",
     "ViewLinkRequestSegmentIdentifier",
     "ViewLinkRequestSegmentIdentifiers",
@@ -664,6 +668,8 @@ __all__ = [
     "ViewsLink",
     "ViewsMaintainerMember",
     "ViewsMaintainerTeam",
+    "ViewsMemberSummary",
+    "ViewsMemberTeamSummaryRep",
     "ViewsPaginatedLinks",
     "ViewsSelfLink",
     "Webhook",
@@ -746,6 +752,7 @@ from launchdarkly_api.exceptions import ApiException as ApiException
 
 # import models into sdk package
 from launchdarkly_api.models.ai_config import AIConfig as AIConfig
+from launchdarkly_api.models.ai_config_dependency import AIConfigDependency as AIConfigDependency
 from launchdarkly_api.models.ai_config_maintainer import AIConfigMaintainer as AIConfigMaintainer
 from launchdarkly_api.models.ai_config_patch import AIConfigPatch as AIConfigPatch
 from launchdarkly_api.models.ai_config_post import AIConfigPost as AIConfigPost
@@ -784,6 +791,7 @@ from launchdarkly_api.models.action_output import ActionOutput as ActionOutput
 from launchdarkly_api.models.agent_graph import AgentGraph as AgentGraph
 from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge as AgentGraphEdge
 from launchdarkly_api.models.agent_graph_edge_post import AgentGraphEdgePost as AgentGraphEdgePost
+from launchdarkly_api.models.agent_graph_maintainer import AgentGraphMaintainer as AgentGraphMaintainer
 from launchdarkly_api.models.agent_graph_patch import AgentGraphPatch as AgentGraphPatch
 from launchdarkly_api.models.agent_graph_post import AgentGraphPost as AgentGraphPost
 from launchdarkly_api.models.agent_graphs import AgentGraphs as AgentGraphs
@@ -883,6 +891,8 @@ from launchdarkly_api.models.context_search import ContextSearch as ContextSearc
 from launchdarkly_api.models.contexts import Contexts as Contexts
 from launchdarkly_api.models.copied_from_env import CopiedFromEnv as CopiedFromEnv
 from launchdarkly_api.models.core_link import CoreLink as CoreLink
+from launchdarkly_api.models.count_bucket import CountBucket as CountBucket
+from launchdarkly_api.models.count_buckets_result import CountBucketsResult as CountBucketsResult
 from launchdarkly_api.models.create_announcement_body import CreateAnnouncementBody as CreateAnnouncementBody
 from launchdarkly_api.models.create_approval_request_request import CreateApprovalRequestRequest as CreateApprovalRequestRequest
 from launchdarkly_api.models.create_copy_flag_config_approval_request_request import CreateCopyFlagConfigApprovalRequestRequest as CreateCopyFlagConfigApprovalRequestRequest
@@ -936,15 +946,14 @@ from launchdarkly_api.models.expanded_directly_linked_flags import ExpandedDirec
 from launchdarkly_api.models.expanded_directly_linked_segment import ExpandedDirectlyLinkedSegment as ExpandedDirectlyLinkedSegment
 from launchdarkly_api.models.expanded_directly_linked_segments import ExpandedDirectlyLinkedSegments as ExpandedDirectlyLinkedSegments
 from launchdarkly_api.models.expanded_flag import ExpandedFlag as ExpandedFlag
+from launchdarkly_api.models.expanded_flag_maintainer import ExpandedFlagMaintainer as ExpandedFlagMaintainer
 from launchdarkly_api.models.expanded_flag_rep import ExpandedFlagRep as ExpandedFlagRep
 from launchdarkly_api.models.expanded_linked_ai_configs import ExpandedLinkedAIConfigs as ExpandedLinkedAIConfigs
 from launchdarkly_api.models.expanded_linked_flags import ExpandedLinkedFlags as ExpandedLinkedFlags
 from launchdarkly_api.models.expanded_linked_metrics import ExpandedLinkedMetrics as ExpandedLinkedMetrics
 from launchdarkly_api.models.expanded_linked_resources import ExpandedLinkedResources as ExpandedLinkedResources
-from launchdarkly_api.models.expanded_linked_resources_ai_configs import ExpandedLinkedResourcesAIConfigs as ExpandedLinkedResourcesAIConfigs
 from launchdarkly_api.models.expanded_linked_resources_flags import ExpandedLinkedResourcesFlags as ExpandedLinkedResourcesFlags
 from launchdarkly_api.models.expanded_linked_resources_items import ExpandedLinkedResourcesItems as ExpandedLinkedResourcesItems
-from launchdarkly_api.models.expanded_linked_resources_metrics import ExpandedLinkedResourcesMetrics as ExpandedLinkedResourcesMetrics
 from launchdarkly_api.models.expanded_linked_resources_segments import ExpandedLinkedResourcesSegments as ExpandedLinkedResourcesSegments
 from launchdarkly_api.models.expanded_linked_segments import ExpandedLinkedSegments as ExpandedLinkedSegments
 from launchdarkly_api.models.expanded_metric import ExpandedMetric as ExpandedMetric
@@ -1308,6 +1317,7 @@ from launchdarkly_api.models.variation_tool_post import VariationToolPost as Var
 from launchdarkly_api.models.versions_rep import VersionsRep as VersionsRep
 from launchdarkly_api.models.view import View as View
 from launchdarkly_api.models.view_link_request import ViewLinkRequest as ViewLinkRequest
+from launchdarkly_api.models.view_link_request_filter import ViewLinkRequestFilter as ViewLinkRequestFilter
 from launchdarkly_api.models.view_link_request_keys import ViewLinkRequestKeys as ViewLinkRequestKeys
 from launchdarkly_api.models.view_link_request_segment_identifier import ViewLinkRequestSegmentIdentifier as ViewLinkRequestSegmentIdentifier
 from launchdarkly_api.models.view_link_request_segment_identifiers import ViewLinkRequestSegmentIdentifiers as ViewLinkRequestSegmentIdentifiers
@@ -1326,6 +1336,8 @@ from launchdarkly_api.models.views_access_rep import ViewsAccessRep as ViewsAcce
 from launchdarkly_api.models.views_link import ViewsLink as ViewsLink
 from launchdarkly_api.models.views_maintainer_member import ViewsMaintainerMember as ViewsMaintainerMember
 from launchdarkly_api.models.views_maintainer_team import ViewsMaintainerTeam as ViewsMaintainerTeam
+from launchdarkly_api.models.views_member_summary import ViewsMemberSummary as ViewsMemberSummary
+from launchdarkly_api.models.views_member_team_summary_rep import ViewsMemberTeamSummaryRep as ViewsMemberTeamSummaryRep
 from launchdarkly_api.models.views_paginated_links import ViewsPaginatedLinks as ViewsPaginatedLinks
 from launchdarkly_api.models.views_self_link import ViewsSelfLink as ViewsSelfLink
 from launchdarkly_api.models.webhook import Webhook as Webhook

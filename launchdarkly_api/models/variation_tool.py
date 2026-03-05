@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +29,8 @@ class VariationTool(BaseModel):
     """ # noqa: E501
     key: StrictStr = Field(description="The key of the tool to use.")
     version: StrictInt = Field(description="The version of the tool.")
-    __properties: ClassVar[List[str]] = ["key", "version"]
+    custom_parameters: Optional[Dict[str, Any]] = Field(default=None, description="Custom metadata and configuration for application-level use", alias="customParameters")
+    __properties: ClassVar[List[str]] = ["key", "version", "customParameters"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,7 +84,8 @@ class VariationTool(BaseModel):
 
         _obj = cls.model_validate({
             "key": obj.get("key"),
-            "version": obj.get("version")
+            "version": obj.get("version"),
+            "customParameters": obj.get("customParameters")
         })
         return _obj
 

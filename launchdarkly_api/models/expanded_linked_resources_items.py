@@ -18,11 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from launchdarkly_api.models.expanded_linked_resources_ai_configs import ExpandedLinkedResourcesAIConfigs
 from launchdarkly_api.models.expanded_linked_resources_flags import ExpandedLinkedResourcesFlags
-from launchdarkly_api.models.expanded_linked_resources_metrics import ExpandedLinkedResourcesMetrics
 from launchdarkly_api.models.expanded_linked_resources_segments import ExpandedLinkedResourcesSegments
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,9 +31,7 @@ class ExpandedLinkedResourcesItems(BaseModel):
     """ # noqa: E501
     flags: ExpandedLinkedResourcesFlags
     segments: Optional[ExpandedLinkedResourcesSegments] = None
-    ai_configs: Optional[ExpandedLinkedResourcesAIConfigs] = Field(default=None, alias="aiConfigs")
-    metrics: Optional[ExpandedLinkedResourcesMetrics] = None
-    __properties: ClassVar[List[str]] = ["flags", "segments", "aiConfigs", "metrics"]
+    __properties: ClassVar[List[str]] = ["flags", "segments"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,12 +78,6 @@ class ExpandedLinkedResourcesItems(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of segments
         if self.segments:
             _dict['segments'] = self.segments.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of ai_configs
-        if self.ai_configs:
-            _dict['aiConfigs'] = self.ai_configs.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of metrics
-        if self.metrics:
-            _dict['metrics'] = self.metrics.to_dict()
         return _dict
 
     @classmethod
@@ -101,9 +91,7 @@ class ExpandedLinkedResourcesItems(BaseModel):
 
         _obj = cls.model_validate({
             "flags": ExpandedLinkedResourcesFlags.from_dict(obj["flags"]) if obj.get("flags") is not None else None,
-            "segments": ExpandedLinkedResourcesSegments.from_dict(obj["segments"]) if obj.get("segments") is not None else None,
-            "aiConfigs": ExpandedLinkedResourcesAIConfigs.from_dict(obj["aiConfigs"]) if obj.get("aiConfigs") is not None else None,
-            "metrics": ExpandedLinkedResourcesMetrics.from_dict(obj["metrics"]) if obj.get("metrics") is not None else None
+            "segments": ExpandedLinkedResourcesSegments.from_dict(obj["segments"]) if obj.get("segments") is not None else None
         })
         return _obj
 

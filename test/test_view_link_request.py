@@ -36,21 +36,20 @@ class TestViewLinkRequest(unittest.TestCase):
         model = ViewLinkRequest()
         if include_optional:
             return ViewLinkRequest(
-                keys = [
-                    ''
-                    ],
+                keys = [flag-1, flag-2],
+                filter = 'maintainerId:507f1f77bcf86cd799439011,tags:backend+beta',
                 comment = '',
                 segment_identifiers = [
                     launchdarkly_api.models.view_link_request_segment_identifier.ViewLinkRequestSegmentIdentifier(
                         environment_id = '', 
                         segment_key = '', )
-                    ]
+                    ],
+                environment_id = ''
             )
         else:
             return ViewLinkRequest(
-                keys = [
-                    ''
-                    ],
+                keys = [flag-1, flag-2],
+                filter = 'maintainerId:507f1f77bcf86cd799439011,tags:backend+beta',
                 segment_identifiers = [
                     launchdarkly_api.models.view_link_request_segment_identifier.ViewLinkRequestSegmentIdentifier(
                         environment_id = '', 

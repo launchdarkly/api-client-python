@@ -47,7 +47,10 @@ class TestCallerIdentityRep(unittest.TestCase):
                 token_name = '',
                 token_id = '',
                 member_id = '',
-                service_token = True
+                service_token = True,
+                scopes = [
+                    ''
+                    ]
             )
         else:
             return CallerIdentityRep(

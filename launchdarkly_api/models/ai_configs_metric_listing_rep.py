@@ -37,6 +37,7 @@ class AiConfigsMetricListingRep(BaseModel):
     experiment_count: Optional[StrictInt] = Field(default=None, description="The number of experiments using this metric", alias="experimentCount")
     metric_group_count: Optional[StrictInt] = Field(default=None, description="The number of metric groups using this metric", alias="metricGroupCount")
     guarded_rollout_count: Optional[StrictInt] = Field(default=None, description="The number of guarded rollouts using this metric", alias="guardedRolloutCount")
+    release_policy_count: Optional[StrictInt] = Field(default=None, description="The number of release policies using this metric", alias="releasePolicyCount")
     active_experiment_count: Optional[StrictInt] = Field(default=None, description="The number of active experiments using this metric", alias="activeExperimentCount")
     active_guarded_rollout_count: Optional[StrictInt] = Field(default=None, description="The number of active guarded rollouts using this metric", alias="activeGuardedRolloutCount")
     id: StrictStr = Field(description="The ID of this metric", alias="_id")
@@ -67,11 +68,12 @@ class AiConfigsMetricListingRep(BaseModel):
     percentile_value: Optional[StrictInt] = Field(default=None, description="The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.", alias="percentileValue")
     event_default: Optional[AiConfigsMetricEventDefaultRep] = Field(default=None, alias="eventDefault")
     data_source: AiConfigsMetricDataSourceRefRep = Field(alias="dataSource")
+    last_seen: Optional[StrictInt] = Field(default=None, alias="lastSeen")
     archived: Optional[StrictBool] = Field(default=None, description="Whether the metric version is archived")
     archived_at: Optional[StrictInt] = Field(default=None, alias="archivedAt")
     selector: Optional[StrictStr] = Field(default=None, description="For click metrics, the CSS selectors")
     urls: Optional[List[Dict[str, Any]]] = None
-    __properties: ClassVar[List[str]] = ["experimentCount", "metricGroupCount", "guardedRolloutCount", "activeExperimentCount", "activeGuardedRolloutCount", "_id", "_versionId", "_version", "key", "name", "kind", "_attachedFlagCount", "_links", "_site", "_access", "tags", "_creationDate", "lastModified", "maintainerId", "_maintainer", "description", "category", "isNumeric", "successCriteria", "unit", "eventKey", "randomizationUnits", "filters", "unitAggregationType", "analysisType", "percentileValue", "eventDefault", "dataSource", "archived", "archivedAt", "selector", "urls"]
+    __properties: ClassVar[List[str]] = ["experimentCount", "metricGroupCount", "guardedRolloutCount", "releasePolicyCount", "activeExperimentCount", "activeGuardedRolloutCount", "_id", "_versionId", "_version", "key", "name", "kind", "_attachedFlagCount", "_links", "_site", "_access", "tags", "_creationDate", "lastModified", "maintainerId", "_maintainer", "description", "category", "isNumeric", "successCriteria", "unit", "eventKey", "randomizationUnits", "filters", "unitAggregationType", "analysisType", "percentileValue", "eventDefault", "dataSource", "lastSeen", "archived", "archivedAt", "selector", "urls"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -192,6 +194,7 @@ class AiConfigsMetricListingRep(BaseModel):
             "experimentCount": obj.get("experimentCount"),
             "metricGroupCount": obj.get("metricGroupCount"),
             "guardedRolloutCount": obj.get("guardedRolloutCount"),
+            "releasePolicyCount": obj.get("releasePolicyCount"),
             "activeExperimentCount": obj.get("activeExperimentCount"),
             "activeGuardedRolloutCount": obj.get("activeGuardedRolloutCount"),
             "_id": obj.get("_id"),
@@ -227,6 +230,7 @@ class AiConfigsMetricListingRep(BaseModel):
             "percentileValue": obj.get("percentileValue"),
             "eventDefault": AiConfigsMetricEventDefaultRep.from_dict(obj["eventDefault"]) if obj.get("eventDefault") is not None else None,
             "dataSource": AiConfigsMetricDataSourceRefRep.from_dict(obj["dataSource"]) if obj.get("dataSource") is not None else None,
+            "lastSeen": obj.get("lastSeen"),
             "archived": obj.get("archived"),
             "archivedAt": obj.get("archivedAt"),
             "selector": obj.get("selector"),

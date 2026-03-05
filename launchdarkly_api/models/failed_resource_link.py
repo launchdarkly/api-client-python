@@ -36,8 +36,8 @@ class FailedResourceLink(BaseModel):
     @field_validator('resource_type')
     def resource_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['flag', 'segment', 'metric', 'aiConfig']):
-            raise ValueError("must be one of enum values ('flag', 'segment', 'metric', 'aiConfig')")
+        if value not in set(['flag', 'segment']):
+            raise ValueError("must be one of enum values ('flag', 'segment')")
         return value
 
     model_config = ConfigDict(

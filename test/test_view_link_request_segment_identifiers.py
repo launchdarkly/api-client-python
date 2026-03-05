@@ -41,6 +41,8 @@ class TestViewLinkRequestSegmentIdentifiers(unittest.TestCase):
                         environment_id = '', 
                         segment_key = '', )
                     ],
+                filter = 'tags anyOf ["backend"]',
+                environment_id = '',
                 comment = ''
             )
         else:

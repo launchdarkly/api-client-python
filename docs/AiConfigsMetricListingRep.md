@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **experiment_count** | **int** | The number of experiments using this metric | [optional] 
 **metric_group_count** | **int** | The number of metric groups using this metric | [optional] 
 **guarded_rollout_count** | **int** | The number of guarded rollouts using this metric | [optional] 
+**release_policy_count** | **int** | The number of release policies using this metric | [optional] 
 **active_experiment_count** | **int** | The number of active experiments using this metric | [optional] 
 **active_guarded_rollout_count** | **int** | The number of active guarded rollouts using this metric | [optional] 
 **id** | **str** | The ID of this metric | 
@@ -38,6 +39,7 @@ Name | Type | Description | Notes
 **percentile_value** | **int** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **event_default** | [**AiConfigsMetricEventDefaultRep**](AiConfigsMetricEventDefaultRep.md) |  | [optional] 
 **data_source** | [**AiConfigsMetricDataSourceRefRep**](AiConfigsMetricDataSourceRefRep.md) |  | 
+**last_seen** | **int** |  | [optional] 
 **archived** | **bool** | Whether the metric version is archived | [optional] 
 **archived_at** | **int** |  | [optional] 
 **selector** | **str** | For click metrics, the CSS selectors | [optional] 

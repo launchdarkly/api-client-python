@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **token_id** | **str** |  | [optional] 
 **member_id** | **str** |  | [optional] 
 **service_token** | **bool** |  | [optional] 
+**scopes** | **List[str]** |  | [optional] 
 
 ## Example
 

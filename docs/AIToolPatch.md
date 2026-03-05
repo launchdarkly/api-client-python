@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **maintainer_id** | **str** |  | [optional] 
 **maintainer_team_key** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**var_schema** | **object** |  | [optional] 
+**var_schema** | **object** | JSON Schema defining the tool&#39;s parameters for LLM consumption | [optional] 
+**custom_parameters** | **object** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
 
 ## Example
 

@@ -5804,6 +5804,352 @@ class AccountUsageBetaApi:
 
 
     @validate_call
+    def get_observability_metrics_usage(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SeriesListRep:
+        """Get observability metrics usage
+
+        Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_observability_metrics_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_observability_metrics_usage_with_http_info(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SeriesListRep]:
+        """Get observability metrics usage
+
+        Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_observability_metrics_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_observability_metrics_usage_without_preload_content(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get observability metrics usage
+
+        Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_observability_metrics_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_observability_metrics_usage_serialize(
+        self,
+        var_from,
+        to,
+        project_key,
+        granularity,
+        aggregation_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if var_from is not None:
+            
+            _query_params.append(('from', var_from))
+            
+        if to is not None:
+            
+            _query_params.append(('to', to))
+            
+        if project_key is not None:
+            
+            _query_params.append(('projectKey', project_key))
+            
+        if granularity is not None:
+            
+            _query_params.append(('granularity', granularity))
+            
+        if aggregation_type is not None:
+            
+            _query_params.append(('aggregationType', aggregation_type))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'ApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v2/usage/observability/metrics',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_observability_sessions_usage(
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
@@ -7903,6 +8249,352 @@ class AccountUsageBetaApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/api/v2/usage/streams/{source}/sdkversions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_vega_ai_usage(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> SeriesListRep:
+        """Get Vega AI usage
+
+        Get time-series arrays of the number of Vega AI usage. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_vega_ai_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_vega_ai_usage_with_http_info(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[SeriesListRep]:
+        """Get Vega AI usage
+
+        Get time-series arrays of the number of Vega AI usage. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_vega_ai_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_vega_ai_usage_without_preload_content(
+        self,
+        var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.")] = None,
+        to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.")] = None,
+        aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Vega AI usage
+
+        Get time-series arrays of the number of Vega AI usage. Supports `daily` and `monthly` granularity.
+
+        :param var_from: The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+        :type var_from: str
+        :param to: The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+        :type to: str
+        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :type project_key: str
+        :param granularity: Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only.
+        :type granularity: str
+        :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`.
+        :type aggregation_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_vega_ai_usage_serialize(
+            var_from=var_from,
+            to=to,
+            project_key=project_key,
+            granularity=granularity,
+            aggregation_type=aggregation_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "SeriesListRep",
+            '400': "InvalidRequestErrorRep",
+            '401': "UnauthorizedErrorRep",
+            '403': "ForbiddenErrorRep",
+            '404': "NotFoundErrorRep",
+            '429': "RateLimitedErrorRep",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_vega_ai_usage_serialize(
+        self,
+        var_from,
+        to,
+        project_key,
+        granularity,
+        aggregation_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if var_from is not None:
+            
+            _query_params.append(('from', var_from))
+            
+        if to is not None:
+            
+            _query_params.append(('to', to))
+            
+        if project_key is not None:
+            
+            _query_params.append(('projectKey', project_key))
+            
+        if granularity is not None:
+            
+            _query_params.append(('granularity', granularity))
+            
+        if aggregation_type is not None:
+            
+            _query_params.append(('aggregationType', aggregation_type))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'ApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v2/usage/vega-ai',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

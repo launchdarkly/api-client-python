@@ -30,7 +30,7 @@ class EventFilter(BaseModel):
     type: StrictStr = Field(description="Filter type. One of [contextAttribute, eventProperty, group]")
     attribute: Optional[StrictStr] = Field(default=None, description="If not a group node, the context attribute name or event property name to filter on")
     op: StrictStr
-    values: List[Any] = Field(description="The context attribute / event property values or group member nodes")
+    values: List[Any] = Field(description="The context attribute / event property values or group member nodes. Numeric values must not exceed 14 decimal places.")
     context_kind: Optional[StrictStr] = Field(default=None, description="For context attribute filters, the context kind.", alias="contextKind")
     negate: StrictBool = Field(description="If set, then take the inverse of the operator. 'in' becomes 'not in'.")
     __properties: ClassVar[List[str]] = ["type", "attribute", "op", "values", "contextKind", "negate"]

@@ -673,6 +673,9 @@ class ViewsBetaApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by. Default field is `linkedAt`, default order is ascending.")] = None,
+        query: Annotated[Optional[StrictStr], Field(description="Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. ")] = None,
+        expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -704,6 +707,12 @@ class ViewsBetaApi:
         :type offset: int
         :param sort: Field to sort by. Default field is `linkedAt`, default order is ascending.
         :type sort: str
+        :param query: Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.
+        :type query: str
+        :param filter: Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. 
+        :type filter: str
+        :param expand: A comma-separated list of fields to expand.
+        :type expand: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -734,6 +743,9 @@ class ViewsBetaApi:
             limit=limit,
             offset=offset,
             sort=sort,
+            query=query,
+            filter=filter,
+            expand=expand,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -768,6 +780,9 @@ class ViewsBetaApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by. Default field is `linkedAt`, default order is ascending.")] = None,
+        query: Annotated[Optional[StrictStr], Field(description="Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. ")] = None,
+        expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -799,6 +814,12 @@ class ViewsBetaApi:
         :type offset: int
         :param sort: Field to sort by. Default field is `linkedAt`, default order is ascending.
         :type sort: str
+        :param query: Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.
+        :type query: str
+        :param filter: Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. 
+        :type filter: str
+        :param expand: A comma-separated list of fields to expand.
+        :type expand: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -829,6 +850,9 @@ class ViewsBetaApi:
             limit=limit,
             offset=offset,
             sort=sort,
+            query=query,
+            filter=filter,
+            expand=expand,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -863,6 +887,9 @@ class ViewsBetaApi:
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
         sort: Annotated[Optional[StrictStr], Field(description="Field to sort by. Default field is `linkedAt`, default order is ascending.")] = None,
+        query: Annotated[Optional[StrictStr], Field(description="Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. ")] = None,
+        expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -894,6 +921,12 @@ class ViewsBetaApi:
         :type offset: int
         :param sort: Field to sort by. Default field is `linkedAt`, default order is ascending.
         :type sort: str
+        :param query: Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.
+        :type query: str
+        :param filter: Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided. 
+        :type filter: str
+        :param expand: A comma-separated list of fields to expand.
+        :type expand: List[str]
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -924,6 +957,9 @@ class ViewsBetaApi:
             limit=limit,
             offset=offset,
             sort=sort,
+            query=query,
+            filter=filter,
+            expand=expand,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -953,6 +989,9 @@ class ViewsBetaApi:
         limit,
         offset,
         sort,
+        query,
+        filter,
+        expand,
         _request_auth,
         _content_type,
         _headers,
@@ -962,6 +1001,7 @@ class ViewsBetaApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
+            'expand': 'csv',
         }
 
         _path_params: Dict[str, str] = {}
@@ -992,6 +1032,18 @@ class ViewsBetaApi:
         if sort is not None:
             
             _query_params.append(('sort', sort))
+            
+        if query is not None:
+            
+            _query_params.append(('query', query))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if expand is not None:
+            
+            _query_params.append(('expand', expand))
             
         # process the header parameters
         if ld_api_version is not None:
@@ -1057,7 +1109,7 @@ class ViewsBetaApi:
     ) -> Views:
         """Get linked views for a given resource
 
-        Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+        Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -1152,7 +1204,7 @@ class ViewsBetaApi:
     ) -> ApiResponse[Views]:
         """Get linked views for a given resource
 
-        Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+        Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -1247,7 +1299,7 @@ class ViewsBetaApi:
     ) -> RESTResponseType:
         """Get linked views for a given resource
 
-        Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+        Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -1410,7 +1462,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -1441,7 +1493,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -1509,7 +1561,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -1540,7 +1592,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -1608,7 +1660,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -1639,7 +1691,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -1798,7 +1850,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -1827,7 +1879,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -1893,7 +1945,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -1922,7 +1974,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -1988,7 +2040,7 @@ class ViewsBetaApi:
         sort: Annotated[Optional[StrictStr], Field(description="A sort to apply to the list of views.")] = None,
         limit: Annotated[Optional[StrictInt], Field(description="The number of views to return.")] = None,
         offset: Annotated[Optional[StrictInt], Field(description="Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.")] = None,
-        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views.")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).")] = None,
         expand: Annotated[Optional[List[StrictStr]], Field(description="A comma-separated list of fields to expand.")] = None,
         _request_timeout: Union[
             None,
@@ -2017,7 +2069,7 @@ class ViewsBetaApi:
         :type limit: int
         :param offset: Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`.
         :type offset: int
-        :param filter: A filter to apply to the list of views.
+        :param filter: A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals).
         :type filter: str
         :param expand: A comma-separated list of fields to expand.
         :type expand: List[str]
@@ -2171,7 +2223,7 @@ class ViewsBetaApi:
         project_key: StrictStr,
         view_key: StrictStr,
         resource_type: StrictStr,
-        view_link_request: Annotated[ViewLinkRequest, Field(description="The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.")],
+        view_link_request: Annotated[ViewLinkRequest, Field(description="Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2187,7 +2239,7 @@ class ViewsBetaApi:
     ) -> LinkResourceSuccessResponse:
         """Link resource
 
-        Link one or multiple resources to a view: - Link flags using flag keys - Link AI configs using AI config keys - Link metrics using metric keys - Link segments using segment IDs 
+        Link one or multiple resources to a view by keys, filters, or both: - Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query) - Link segments using segment IDs or filters (tags, query, unbounded)  When both keys and filters are provided, resources matching either condition are linked (union). 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -2197,7 +2249,7 @@ class ViewsBetaApi:
         :type view_key: str
         :param resource_type: (required)
         :type resource_type: str
-        :param view_link_request: The resource to link to the view. Flags are identified by key. Segments are identified by segment ID. (required)
+        :param view_link_request: Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded  (required)
         :type view_link_request: ViewLinkRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2258,7 +2310,7 @@ class ViewsBetaApi:
         project_key: StrictStr,
         view_key: StrictStr,
         resource_type: StrictStr,
-        view_link_request: Annotated[ViewLinkRequest, Field(description="The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.")],
+        view_link_request: Annotated[ViewLinkRequest, Field(description="Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2274,7 +2326,7 @@ class ViewsBetaApi:
     ) -> ApiResponse[LinkResourceSuccessResponse]:
         """Link resource
 
-        Link one or multiple resources to a view: - Link flags using flag keys - Link AI configs using AI config keys - Link metrics using metric keys - Link segments using segment IDs 
+        Link one or multiple resources to a view by keys, filters, or both: - Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query) - Link segments using segment IDs or filters (tags, query, unbounded)  When both keys and filters are provided, resources matching either condition are linked (union). 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -2284,7 +2336,7 @@ class ViewsBetaApi:
         :type view_key: str
         :param resource_type: (required)
         :type resource_type: str
-        :param view_link_request: The resource to link to the view. Flags are identified by key. Segments are identified by segment ID. (required)
+        :param view_link_request: Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded  (required)
         :type view_link_request: ViewLinkRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2345,7 +2397,7 @@ class ViewsBetaApi:
         project_key: StrictStr,
         view_key: StrictStr,
         resource_type: StrictStr,
-        view_link_request: Annotated[ViewLinkRequest, Field(description="The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.")],
+        view_link_request: Annotated[ViewLinkRequest, Field(description="Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded ")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2361,7 +2413,7 @@ class ViewsBetaApi:
     ) -> RESTResponseType:
         """Link resource
 
-        Link one or multiple resources to a view: - Link flags using flag keys - Link AI configs using AI config keys - Link metrics using metric keys - Link segments using segment IDs 
+        Link one or multiple resources to a view by keys, filters, or both: - Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query) - Link segments using segment IDs or filters (tags, query, unbounded)  When both keys and filters are provided, resources matching either condition are linked (union). 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -2371,7 +2423,7 @@ class ViewsBetaApi:
         :type view_key: str
         :param resource_type: (required)
         :type resource_type: str
-        :param view_link_request: The resource to link to the view. Flags are identified by key. Segments are identified by segment ID. (required)
+        :param view_link_request: Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded  (required)
         :type view_link_request: ViewLinkRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2533,7 +2585,7 @@ class ViewsBetaApi:
     ) -> UnlinkResourceSuccessResponse:
         """Unlink resource
 
-        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs - Unlink AI configs using AI config keys - Unlink metrics using metric keys 
+        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -2620,7 +2672,7 @@ class ViewsBetaApi:
     ) -> ApiResponse[UnlinkResourceSuccessResponse]:
         """Unlink resource
 
-        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs - Unlink AI configs using AI config keys - Unlink metrics using metric keys 
+        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str
@@ -2707,7 +2759,7 @@ class ViewsBetaApi:
     ) -> RESTResponseType:
         """Unlink resource
 
-        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs - Unlink AI configs using AI config keys - Unlink metrics using metric keys 
+        Unlink one or multiple resources from a view: - Unlink flags using flag keys - Unlink segments using segment IDs 
 
         :param ld_api_version: Version of the endpoint. (required)
         :type ld_api_version: str

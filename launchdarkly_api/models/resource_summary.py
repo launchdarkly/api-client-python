@@ -29,10 +29,8 @@ class ResourceSummary(BaseModel):
     """ # noqa: E501
     flag_count: StrictInt = Field(alias="flagCount")
     segment_count: Optional[StrictInt] = Field(default=None, alias="segmentCount")
-    metric_count: Optional[StrictInt] = Field(default=None, alias="metricCount")
-    ai_config_count: Optional[StrictInt] = Field(default=None, alias="aiConfigCount")
     total_count: StrictInt = Field(alias="totalCount")
-    __properties: ClassVar[List[str]] = ["flagCount", "segmentCount", "metricCount", "aiConfigCount", "totalCount"]
+    __properties: ClassVar[List[str]] = ["flagCount", "segmentCount", "totalCount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,8 +85,6 @@ class ResourceSummary(BaseModel):
         _obj = cls.model_validate({
             "flagCount": obj.get("flagCount"),
             "segmentCount": obj.get("segmentCount"),
-            "metricCount": obj.get("metricCount"),
-            "aiConfigCount": obj.get("aiConfigCount"),
             "totalCount": obj.get("totalCount")
         })
         return _obj

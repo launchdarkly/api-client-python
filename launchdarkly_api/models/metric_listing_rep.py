@@ -66,11 +66,12 @@ class MetricListingRep(BaseModel):
     percentile_value: Optional[StrictInt] = Field(default=None, description="The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.", alias="percentileValue")
     event_default: Optional[MetricEventDefaultRep] = Field(default=None, alias="eventDefault")
     data_source: MetricDataSourceRefRep = Field(alias="dataSource")
+    last_seen: Optional[StrictInt] = Field(default=None, alias="lastSeen")
     archived: Optional[StrictBool] = Field(default=None, description="Whether the metric version is archived")
     archived_at: Optional[StrictInt] = Field(default=None, alias="archivedAt")
     selector: Optional[StrictStr] = Field(default=None, description="For click metrics, the CSS selectors")
     urls: Optional[List[Dict[str, Any]]] = None
-    __properties: ClassVar[List[str]] = ["experimentCount", "metricGroupCount", "activeExperimentCount", "activeGuardedRolloutCount", "_id", "_versionId", "_version", "key", "name", "kind", "_attachedFlagCount", "_links", "_site", "_access", "tags", "_creationDate", "lastModified", "maintainerId", "_maintainer", "description", "category", "isNumeric", "successCriteria", "unit", "eventKey", "randomizationUnits", "filters", "unitAggregationType", "analysisType", "percentileValue", "eventDefault", "dataSource", "archived", "archivedAt", "selector", "urls"]
+    __properties: ClassVar[List[str]] = ["experimentCount", "metricGroupCount", "activeExperimentCount", "activeGuardedRolloutCount", "_id", "_versionId", "_version", "key", "name", "kind", "_attachedFlagCount", "_links", "_site", "_access", "tags", "_creationDate", "lastModified", "maintainerId", "_maintainer", "description", "category", "isNumeric", "successCriteria", "unit", "eventKey", "randomizationUnits", "filters", "unitAggregationType", "analysisType", "percentileValue", "eventDefault", "dataSource", "lastSeen", "archived", "archivedAt", "selector", "urls"]
 
     @field_validator('kind')
     def kind_validate_enum(cls, value):
@@ -225,6 +226,7 @@ class MetricListingRep(BaseModel):
             "percentileValue": obj.get("percentileValue"),
             "eventDefault": MetricEventDefaultRep.from_dict(obj["eventDefault"]) if obj.get("eventDefault") is not None else None,
             "dataSource": MetricDataSourceRefRep.from_dict(obj["dataSource"]) if obj.get("dataSource") is not None else None,
+            "lastSeen": obj.get("lastSeen"),
             "archived": obj.get("archived"),
             "archivedAt": obj.get("archivedAt"),
             "selector": obj.get("selector"),

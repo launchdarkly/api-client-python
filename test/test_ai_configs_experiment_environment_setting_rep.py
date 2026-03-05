@@ -39,7 +39,7 @@ class TestAiConfigsExperimentEnvironmentSettingRep(unittest.TestCase):
                 start_date = 56,
                 stop_date = 56,
                 enabled_periods = [
-                    {"startDate":1,"stopDate":4}
+                    {"startDate":4,"stopDate":5}
                     ]
             )
         else:

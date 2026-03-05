@@ -37,7 +37,8 @@ class TestVariationTool(unittest.TestCase):
         if include_optional:
             return VariationTool(
                 key = '',
-                version = 56
+                version = 56,
+                custom_parameters = { }
             )
         else:
             return VariationTool(

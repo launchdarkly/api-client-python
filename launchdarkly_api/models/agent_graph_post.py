@@ -31,9 +31,11 @@ class AgentGraphPost(BaseModel):
     key: StrictStr = Field(description="A unique key for the agent graph")
     name: StrictStr = Field(description="A human-readable name for the agent graph")
     description: Optional[StrictStr] = Field(default=None, description="A description of the agent graph")
+    maintainer_id: Optional[StrictStr] = Field(default=None, description="The ID of the member who maintains this agent graph", alias="maintainerId")
+    maintainer_team_key: Optional[StrictStr] = Field(default=None, description="The key of the team that maintains this agent graph", alias="maintainerTeamKey")
     root_config_key: Optional[StrictStr] = Field(default=None, description="The AI Config key of the root node. A missing root implies a newly created graph with metadata only.", alias="rootConfigKey")
     edges: Optional[List[AgentGraphEdgePost]] = Field(default=None, description="The edges in the graph. If edges or rootConfigKey is present, both must be present.")
-    __properties: ClassVar[List[str]] = ["key", "name", "description", "rootConfigKey", "edges"]
+    __properties: ClassVar[List[str]] = ["key", "name", "description", "maintainerId", "maintainerTeamKey", "rootConfigKey", "edges"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -96,6 +98,8 @@ class AgentGraphPost(BaseModel):
             "key": obj.get("key"),
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "maintainerId": obj.get("maintainerId"),
+            "maintainerTeamKey": obj.get("maintainerTeamKey"),
             "rootConfigKey": obj.get("rootConfigKey"),
             "edges": [AgentGraphEdgePost.from_dict(_item) for _item in obj["edges"]] if obj.get("edges") is not None else None
         })

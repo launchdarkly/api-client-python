@@ -42,6 +42,7 @@ class TestAITool(unittest.TestCase):
                 maintainer = {"kind":"kind"},
                 description = '',
                 var_schema = None,
+                custom_parameters = None,
                 version = 56,
                 created_at = 56
             )

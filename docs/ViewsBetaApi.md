@@ -187,7 +187,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_linked_resources**
-> ViewLinkedResources get_linked_resources(ld_api_version, project_key, view_key, resource_type, limit=limit, offset=offset, sort=sort)
+> ViewLinkedResources get_linked_resources(ld_api_version, project_key, view_key, resource_type, limit=limit, offset=offset, sort=sort, query=query, filter=filter, expand=expand)
 
 Get linked resources
 
@@ -231,10 +231,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     limit = 56 # int | The number of views to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     sort = linkedAt # str | Field to sort by. Default field is `linkedAt`, default order is ascending. (optional) (default to linkedAt)
+    query = 'query_example' # str | Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name. (optional)
+    filter = 'filter_example' # str | Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided.  (optional)
+    expand = ['expand_example'] # List[str] | A comma-separated list of fields to expand. (optional)
 
     try:
         # Get linked resources
-        api_response = api_instance.get_linked_resources(ld_api_version, project_key, view_key, resource_type, limit=limit, offset=offset, sort=sort)
+        api_response = api_instance.get_linked_resources(ld_api_version, project_key, view_key, resource_type, limit=limit, offset=offset, sort=sort, query=query, filter=filter, expand=expand)
         print("The response of ViewsBetaApi->get_linked_resources:\n")
         pprint(api_response)
     except Exception as e:
@@ -255,6 +258,9 @@ Name | Type | Description  | Notes
  **limit** | **int**| The number of views to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
  **sort** | **str**| Field to sort by. Default field is &#x60;linkedAt&#x60;, default order is ascending. | [optional] [default to linkedAt]
+ **query** | **str**| Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name. | [optional] 
+ **filter** | **str**| Optional resource filter expression for linked resources. - Supported for &#x60;flags&#x60; and &#x60;segments&#x60; resource types. - Uses the same syntax as link/unlink and list endpoints. - For &#x60;segments&#x60;, &#x60;environmentId&#x60; is required when &#x60;filter&#x60; is provided.  | [optional] 
+ **expand** | [**List[str]**](str.md)| A comma-separated list of fields to expand. | [optional] 
 
 ### Return type
 
@@ -286,7 +292,7 @@ Name | Type | Description  | Notes
 
 Get linked views for a given resource
 
-Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
 ### Example
 
@@ -420,7 +426,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     sort = 'sort_example' # str | A sort to apply to the list of views. (optional)
     limit = 56 # int | The number of views to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    filter = 'filter_example' # str | A filter to apply to the list of views. (optional)
+    filter = 'filter_example' # str | A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals). (optional)
     expand = ['expand_example'] # List[str] | A comma-separated list of fields to expand. (optional)
 
     try:
@@ -445,7 +451,7 @@ Name | Type | Description  | Notes
  **sort** | **str**| A sort to apply to the list of views. | [optional] 
  **limit** | **int**| The number of views to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
- **filter** | **str**| A filter to apply to the list of views. | [optional] 
+ **filter** | **str**| A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals). | [optional] 
  **expand** | [**List[str]**](str.md)| A comma-separated list of fields to expand. | [optional] 
 
 ### Return type
@@ -516,7 +522,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     sort = 'sort_example' # str | A sort to apply to the list of views. (optional)
     limit = 56 # int | The number of views to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    filter = 'filter_example' # str | A filter to apply to the list of views. (optional)
+    filter = 'filter_example' # str | A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals). (optional)
     expand = ['expand_example'] # List[str] | A comma-separated list of fields to expand. (optional)
 
     try:
@@ -540,7 +546,7 @@ Name | Type | Description  | Notes
  **sort** | **str**| A sort to apply to the list of views. | [optional] 
  **limit** | **int**| The number of views to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
- **filter** | **str**| A filter to apply to the list of views. | [optional] 
+ **filter** | **str**| A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals). | [optional] 
  **expand** | [**List[str]**](str.md)| A comma-separated list of fields to expand. | [optional] 
 
 ### Return type
@@ -573,11 +579,11 @@ Name | Type | Description  | Notes
 
 Link resource
 
-Link one or multiple resources to a view:
-- Link flags using flag keys
-- Link AI configs using AI config keys
-- Link metrics using metric keys
-- Link segments using segment IDs
+Link one or multiple resources to a view by keys, filters, or both:
+- Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query)
+- Link segments using segment IDs or filters (tags, query, unbounded)
+
+When both keys and filters are provided, resources matching either condition are linked (union).
 
 
 ### Example
@@ -616,7 +622,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = 'default' # str | 
     view_key = 'my-view' # str | 
     resource_type = 'flags' # str | 
-    view_link_request = launchdarkly_api.ViewLinkRequest() # ViewLinkRequest | The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.
+    view_link_request = launchdarkly_api.ViewLinkRequest() # ViewLinkRequest | Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded 
 
     try:
         # Link resource
@@ -638,7 +644,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**|  | 
  **view_key** | **str**|  | 
  **resource_type** | **str**|  | 
- **view_link_request** | [**ViewLinkRequest**](ViewLinkRequest.md)| The resource to link to the view. Flags are identified by key. Segments are identified by segment ID. | 
+ **view_link_request** | [**ViewLinkRequest**](ViewLinkRequest.md)| Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded  | 
 
 ### Return type
 
@@ -673,8 +679,6 @@ Unlink resource
 Unlink one or multiple resources from a view:
 - Unlink flags using flag keys
 - Unlink segments using segment IDs
-- Unlink AI configs using AI config keys
-- Unlink metrics using metric keys
 
 
 ### Example

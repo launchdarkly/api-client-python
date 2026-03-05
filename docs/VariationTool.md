@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** | The key of the tool to use. | 
 **version** | **int** | The version of the tool. | 
+**custom_parameters** | **Dict[str, object]** | Custom metadata and configuration for application-level use | [optional] 
 
 ## Example
 

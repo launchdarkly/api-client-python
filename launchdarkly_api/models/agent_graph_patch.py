@@ -30,9 +30,11 @@ class AgentGraphPatch(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, description="A human-readable name for the agent graph")
     description: Optional[StrictStr] = Field(default=None, description="A description of the agent graph")
+    maintainer_id: Optional[StrictStr] = Field(default=None, description="The ID of the member who maintains this agent graph. Pass an empty string to remove maintainer.", alias="maintainerId")
+    maintainer_team_key: Optional[StrictStr] = Field(default=None, description="The key of the team that maintains this agent graph. Pass an empty string to remove maintainer.", alias="maintainerTeamKey")
     root_config_key: Optional[StrictStr] = Field(default=None, description="The AI Config key of the root node. If present, edges must also be present.", alias="rootConfigKey")
     edges: Optional[List[AgentGraphEdge]] = Field(default=None, description="The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.")
-    __properties: ClassVar[List[str]] = ["name", "description", "rootConfigKey", "edges"]
+    __properties: ClassVar[List[str]] = ["name", "description", "maintainerId", "maintainerTeamKey", "rootConfigKey", "edges"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +96,8 @@ class AgentGraphPatch(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "maintainerId": obj.get("maintainerId"),
+            "maintainerTeamKey": obj.get("maintainerTeamKey"),
             "rootConfigKey": obj.get("rootConfigKey"),
             "edges": [AgentGraphEdge.from_dict(_item) for _item in obj["edges"]] if obj.get("edges") is not None else None
         })

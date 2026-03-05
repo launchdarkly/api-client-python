@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Tags for the flag | [optional] 
 **temporary** | **bool** | Whether the flag is temporary | [optional] 
 **include_in_snippet** | **bool** | Whether to include in snippet | [optional] 
+**maintainer** | [**ExpandedFlagMaintainer**](ExpandedFlagMaintainer.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 
 ## Example

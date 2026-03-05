@@ -37,10 +37,11 @@ class TestAIToolPost(unittest.TestCase):
         if include_optional:
             return AIToolPost(
                 key = '',
-                maintainer_id = '',
-                maintainer_team_key = '',
+                maintainer_id = '507f1f77bcf86cd799439011',
+                maintainer_team_key = 'example-team-key',
                 description = '',
-                var_schema = None
+                var_schema = None,
+                custom_parameters = None
             )
         else:
             return AIToolPost(

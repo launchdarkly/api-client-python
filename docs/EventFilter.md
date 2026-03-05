@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **type** | **str** | Filter type. One of [contextAttribute, eventProperty, group] | 
 **attribute** | **str** | If not a group node, the context attribute name or event property name to filter on | [optional] 
 **op** | **str** |  | 
-**values** | **List[object]** | The context attribute / event property values or group member nodes | 
+**values** | **List[object]** | The context attribute / event property values or group member nodes. Numeric values must not exceed 14 decimal places. | 
 **context_kind** | **str** | For context attribute filters, the context kind. | [optional] 
 **negate** | **bool** | If set, then take the inverse of the operator. &#39;in&#39; becomes &#39;not in&#39;. | 
 

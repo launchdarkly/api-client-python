@@ -38,8 +38,8 @@ class TestAIConfigPost(unittest.TestCase):
             return AIConfigPost(
                 description = '',
                 key = '',
-                maintainer_id = '',
-                maintainer_team_key = '',
+                maintainer_id = '507f1f77bcf86cd799439011',
+                maintainer_team_key = 'example-team-key',
                 mode = 'completion',
                 name = '',
                 tags = [

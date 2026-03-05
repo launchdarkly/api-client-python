@@ -38,8 +38,6 @@ class TestResourceSummary(unittest.TestCase):
             return ResourceSummary(
                 flag_count = 56,
                 segment_count = 56,
-                metric_count = 56,
-                ai_config_count = 56,
                 total_count = 56
             )
         else:

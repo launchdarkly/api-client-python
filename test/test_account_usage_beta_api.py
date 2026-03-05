@@ -132,6 +132,13 @@ class TestAccountUsageBetaApi(unittest.TestCase):
         """
         pass
 
+    def test_get_observability_metrics_usage(self) -> None:
+        """Test case for get_observability_metrics_usage
+
+        Get observability metrics usage
+        """
+        pass
+
     def test_get_observability_sessions_usage(self) -> None:
         """Test case for get_observability_sessions_usage
 
@@ -171,6 +178,13 @@ class TestAccountUsageBetaApi(unittest.TestCase):
         """Test case for get_stream_usage_sdkversion
 
         Get stream usage SDK versions
+        """
+        pass
+
+    def test_get_vega_ai_usage(self) -> None:
+        """Test case for get_vega_ai_usage
+
+        Get Vega AI usage
         """
         pass
 

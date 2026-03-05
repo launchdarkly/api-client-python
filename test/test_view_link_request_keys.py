@@ -36,16 +36,13 @@ class TestViewLinkRequestKeys(unittest.TestCase):
         model = ViewLinkRequestKeys()
         if include_optional:
             return ViewLinkRequestKeys(
-                keys = [
-                    ''
-                    ],
+                keys = ["flag-1","flag-2"],
+                filter = 'maintainerId:507f1f77bcf86cd799439011,tags:backend+beta',
                 comment = ''
             )
         else:
             return ViewLinkRequestKeys(
-                keys = [
-                    ''
-                    ],
+                keys = ["flag-1","flag-2"],
         )
         """
 

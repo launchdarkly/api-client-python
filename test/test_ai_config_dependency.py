@@ -15,10 +15,10 @@
 
 import unittest
 
-from launchdarkly_api.models.expanded_linked_resources_metrics import ExpandedLinkedResourcesMetrics
+from launchdarkly_api.models.ai_config_dependency import AIConfigDependency
 
-class TestExpandedLinkedResourcesMetrics(unittest.TestCase):
-    """ExpandedLinkedResourcesMetrics unit test stubs"""
+class TestAIConfigDependency(unittest.TestCase):
+    """AIConfigDependency unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,32 +26,28 @@ class TestExpandedLinkedResourcesMetrics(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> ExpandedLinkedResourcesMetrics:
-        """Test ExpandedLinkedResourcesMetrics
+    def make_instance(self, include_optional) -> AIConfigDependency:
+        """Test AIConfigDependency
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `ExpandedLinkedResourcesMetrics`
+        # uncomment below to create an instance of `AIConfigDependency`
         """
-        model = ExpandedLinkedResourcesMetrics()
+        model = AIConfigDependency()
         if include_optional:
-            return ExpandedLinkedResourcesMetrics(
-                items = [
-                    {"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"kind":"kind","description":"description","creationDate":9,"isActive":true,"lastSeen":3,"eventKey":"eventKey","_versionId":"_versionId","isNumeric":true,"name":"name","lastModified":6,"_id":"_id","category":"category","key":"key"}
-                    ],
-                total_count = 56
+            return AIConfigDependency(
+                type = 'agent-graph',
+                key = ''
             )
         else:
-            return ExpandedLinkedResourcesMetrics(
-                items = [
-                    {"_links":{"parent":{"href":"href","type":"type"},"self":{"href":"href","type":"type"}},"kind":"kind","description":"description","creationDate":9,"isActive":true,"lastSeen":3,"eventKey":"eventKey","_versionId":"_versionId","isNumeric":true,"name":"name","lastModified":6,"_id":"_id","category":"category","key":"key"}
-                    ],
-                total_count = 56,
+            return AIConfigDependency(
+                type = 'agent-graph',
+                key = '',
         )
         """
 
-    def testExpandedLinkedResourcesMetrics(self):
-        """Test ExpandedLinkedResourcesMetrics"""
+    def testAIConfigDependency(self):
+        """Test AIConfigDependency"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

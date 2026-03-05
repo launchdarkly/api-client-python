@@ -18,19 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List
-from launchdarkly_api.models.expanded_metric import ExpandedMetric
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ExpandedLinkedResourcesMetrics(BaseModel):
+class ViewLinkRequestFilter(BaseModel):
     """
-    ExpandedLinkedResourcesMetrics
+    ViewLinkRequestFilter
     """ # noqa: E501
-    items: List[ExpandedMetric]
-    total_count: StrictInt = Field(alias="totalCount")
-    __properties: ClassVar[List[str]] = ["items", "totalCount"]
+    filter: StrictStr = Field(description="Filter string to match resources for linking. Uses the same syntax as list endpoints: flags use comma-separated field:value filters, segments use queryfilter syntax.  Supported filters by resource type: - flags: query, tags, maintainerId, maintainerTeamKey, type, status, state, staleState, sdkAvailability, targeting, hasExperiment, hasDataExport, evaluated, creationDate, contextKindTargeted, contextKindsEvaluated, filterEnv, segmentTargeted, codeReferences.min, codeReferences.max, excludeSettings, releasePipeline, applicationEvaluated, purpose, guardedRollout, view, key, name, archived, followerId - segments (queryfilter): query, tags, keys, excludedKeys, unbounded, external, view, type Some filters are only available when the corresponding feature is enabled on your account. ")
+    environment_id: Optional[StrictStr] = Field(default=None, description="Required when using filter for segment resources. Specifies which environment to query for segments matching the filter. Ignored for flag resources (flags are global across environments). ", alias="environmentId")
+    comment: Optional[StrictStr] = Field(default='', description="Optional comment for the link/unlink operation")
+    __properties: ClassVar[List[str]] = ["filter", "environmentId", "comment"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class ExpandedLinkedResourcesMetrics(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ExpandedLinkedResourcesMetrics from a JSON string"""
+        """Create an instance of ViewLinkRequestFilter from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,18 +71,11 @@ class ExpandedLinkedResourcesMetrics(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in items (list)
-        _items = []
-        if self.items:
-            for _item_items in self.items:
-                if _item_items:
-                    _items.append(_item_items.to_dict())
-            _dict['items'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ExpandedLinkedResourcesMetrics from a dict"""
+        """Create an instance of ViewLinkRequestFilter from a dict"""
         if obj is None:
             return None
 
@@ -90,8 +83,9 @@ class ExpandedLinkedResourcesMetrics(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "items": [ExpandedMetric.from_dict(_item) for _item in obj["items"]] if obj.get("items") is not None else None,
-            "totalCount": obj.get("totalCount")
+            "filter": obj.get("filter"),
+            "environmentId": obj.get("environmentId"),
+            "comment": obj.get("comment") if obj.get("comment") is not None else ''
         })
         return _obj
 

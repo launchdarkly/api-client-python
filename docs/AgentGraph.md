@@ -6,9 +6,11 @@ An agent graph representing a directed graph of AI Configs
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **key** | **str** | A unique key for the agent graph | 
 **name** | **str** | A human-readable name for the agent graph | 
 **description** | **str** | A description of the agent graph | [optional] 
+**maintainer** | [**AgentGraphMaintainer**](AgentGraphMaintainer.md) |  | [optional] 
 **root_config_key** | **str** | The AI Config key of the root node | [optional] 
 **edges** | [**List[AgentGraphEdge]**](AgentGraphEdge.md) | The edges in the graph | [optional] 
 **created_at** | **int** |  | 

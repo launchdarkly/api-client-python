@@ -30,8 +30,9 @@ class AIToolPatch(BaseModel):
     maintainer_id: Optional[StrictStr] = Field(default=None, alias="maintainerId")
     maintainer_team_key: Optional[StrictStr] = Field(default=None, alias="maintainerTeamKey")
     description: Optional[StrictStr] = None
-    var_schema: Optional[Dict[str, Any]] = Field(default=None, alias="schema")
-    __properties: ClassVar[List[str]] = ["maintainerId", "maintainerTeamKey", "description", "schema"]
+    var_schema: Optional[Dict[str, Any]] = Field(default=None, description="JSON Schema defining the tool's parameters for LLM consumption", alias="schema")
+    custom_parameters: Optional[Dict[str, Any]] = Field(default=None, description="Custom metadata and configuration for application-level use (not sent to LLM)", alias="customParameters")
+    __properties: ClassVar[List[str]] = ["maintainerId", "maintainerTeamKey", "description", "schema", "customParameters"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -87,7 +88,8 @@ class AIToolPatch(BaseModel):
             "maintainerId": obj.get("maintainerId"),
             "maintainerTeamKey": obj.get("maintainerTeamKey"),
             "description": obj.get("description"),
-            "schema": obj.get("schema")
+            "schema": obj.get("schema"),
+            "customParameters": obj.get("customParameters")
         })
         return _obj
 

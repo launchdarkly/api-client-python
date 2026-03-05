@@ -21,6 +21,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from launchdarkly_api.models.agent_graph_edge import AgentGraphEdge
+from launchdarkly_api.models.agent_graph_maintainer import AgentGraphMaintainer
+from launchdarkly_api.models.ai_configs_access import AiConfigsAccess
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,14 +30,16 @@ class AgentGraph(BaseModel):
     """
     An agent graph representing a directed graph of AI Configs
     """ # noqa: E501
+    access: Optional[AiConfigsAccess] = Field(default=None, alias="_access")
     key: StrictStr = Field(description="A unique key for the agent graph")
     name: StrictStr = Field(description="A human-readable name for the agent graph")
     description: Optional[StrictStr] = Field(default=None, description="A description of the agent graph")
+    maintainer: Optional[AgentGraphMaintainer] = Field(default=None, alias="_maintainer")
     root_config_key: Optional[StrictStr] = Field(default=None, description="The AI Config key of the root node", alias="rootConfigKey")
     edges: Optional[List[AgentGraphEdge]] = Field(default=None, description="The edges in the graph")
     created_at: StrictInt = Field(alias="createdAt")
     updated_at: StrictInt = Field(alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["key", "name", "description", "rootConfigKey", "edges", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["_access", "key", "name", "description", "_maintainer", "rootConfigKey", "edges", "createdAt", "updatedAt"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,6 +80,12 @@ class AgentGraph(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of access
+        if self.access:
+            _dict['_access'] = self.access.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of maintainer
+        if self.maintainer:
+            _dict['_maintainer'] = self.maintainer.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in edges (list)
         _items = []
         if self.edges:
@@ -95,9 +105,11 @@ class AgentGraph(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "_access": AiConfigsAccess.from_dict(obj["_access"]) if obj.get("_access") is not None else None,
             "key": obj.get("key"),
             "name": obj.get("name"),
             "description": obj.get("description"),
+            "_maintainer": AgentGraphMaintainer.from_dict(obj["_maintainer"]) if obj.get("_maintainer") is not None else None,
             "rootConfigKey": obj.get("rootConfigKey"),
             "edges": [AgentGraphEdge.from_dict(_item) for _item in obj["edges"]] if obj.get("edges") is not None else None,
             "createdAt": obj.get("createdAt"),

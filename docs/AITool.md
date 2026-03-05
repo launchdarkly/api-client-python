@@ -10,7 +10,8 @@ Name | Type | Description | Notes
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 **maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
 **description** | **str** |  | [optional] 
-**var_schema** | **object** |  | 
+**var_schema** | **object** | JSON Schema defining the tool&#39;s parameters for LLM consumption | 
+**custom_parameters** | **object** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
 **version** | **int** |  | 
 **created_at** | **int** |  | 
 
