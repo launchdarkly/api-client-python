@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **version** | **int** |  | 
 **cost_per_input_token** | **float** | Cost per input token in USD | [optional] 
 **cost_per_output_token** | **float** | Cost per output token in USD | [optional] 
+**cost_per_cached_input_token** | **float** | Cost per cached input token in USD | [optional] 
 **is_restricted** | **bool** | Whether the model is restricted | 
 
 ## Example

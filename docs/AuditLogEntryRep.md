@@ -15,6 +15,9 @@ Name | Type | Description | Notes
 **description** | **str** | Description of the change recorded in the audit log entry | 
 **short_description** | **str** | Shorter version of the change recorded in the audit log entry | 
 **comment** | **str** | Optional comment for the audit log entry | [optional] 
+**related_flag** | [**RelatedFlag**](RelatedFlag.md) |  | [optional] 
+**related_experiment** | [**RelatedExperiment**](RelatedExperiment.md) |  | [optional] 
+**related_ai_config** | [**RelatedAIConfig**](RelatedAIConfig.md) |  | [optional] 
 **subject** | [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **member** | [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **token** | [**TokenSummary**](TokenSummary.md) |  | [optional] 

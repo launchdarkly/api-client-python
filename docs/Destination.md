@@ -12,7 +12,10 @@ Name | Type | Description | Notes
 **version** | **float** |  | [optional] 
 **config** | **object** | An object with the configuration parameters required for the destination type | [optional] 
 **on** | **bool** | Whether the export is on, that is, the status of the integration | [optional] 
+**created_at** | **int** |  | [optional] 
+**maintainer_id** | **str** | The ID of the member who maintains this Data Export destination | [optional] 
 **access** | [**Access**](Access.md) |  | [optional] 
+**completed_artifacts** | [**RedshiftDataExportCompletedArtifactsRep**](RedshiftDataExportCompletedArtifactsRep.md) |  | [optional] 
 
 ## Example
 

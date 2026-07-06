@@ -102,7 +102,7 @@ Get environment
 
 > ### Approval settings
 >
-> The `approvalSettings` key is only returned when [approvals](https://launchdarkly.com/docs/home/releases/approvals) for flags or segments are enabled.
+> The `approvalSettings` and `resourceApprovalSettings` keys are only returned when the [approvals](https://launchdarkly.com/docs/home/releases/approvals/) feature is enabled.
 
 Get an environment given a project and key.
 
@@ -313,7 +313,7 @@ To update fields in the environment object that are arrays, set the `path` to th
 
 ### Approval settings
 
-This request only returns the `approvalSettings` key if the [approvals](https://launchdarkly.com/docs/home/releases/approvals/) feature is enabled.
+This request only returns the `approvalSettings` and `resourceApprovalSettings` if the [approvals](https://launchdarkly.com/docs/home/releases/approvals/) feature is enabled.
 
 Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.
 
@@ -409,9 +409,9 @@ Create environment
 
 > ### Approval settings
 >
-> The `approvalSettings` key is only returned when the [approvals](https://launchdarkly.com/docs/home/releases/approvals/) feature is enabled.
+> You cannot configure approval settings when you create a new environment. Use [Update environment](https://launchdarkly.com/docs/api/environments/patch-environment) to update approval settings.
 >
-> You cannot update approval settings when creating new environments. Update approval settings with the [https://launchdarkly.com/docs/api/environments/patch-environment).
+> The `approvalSettings` and `resourceApprovalSettings` keys are only returned when the [approvals](https://launchdarkly.com/docs/home/releases/approvals/) feature is enabled.
 
 Create a new environment in a specified project with a given name, key, swatch color, and default TTL.
 

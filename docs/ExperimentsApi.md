@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_experiment**](ExperimentsApi.md#get_experiment) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**get_experimentation_settings**](ExperimentsApi.md#get_experimentation_settings) | **GET** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**get_experiments**](ExperimentsApi.md#get_experiments) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
+[**get_experiments_any_env**](ExperimentsApi.md#get_experiments_any_env) | **GET** /api/v2/projects/{projectKey}/experiments | Get experiments any environment
 [**patch_experiment**](ExperimentsApi.md#patch_experiment) | **PATCH** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
 [**put_experimentation_settings**](ExperimentsApi.md#put_experimentation_settings) | **PUT** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 
@@ -21,6 +22,20 @@ Create experiment
 Create an experiment.
 
 To run this experiment, you'll need to [create an iteration](https://launchdarkly.com/docs/api/experiments/create-iteration) and then [update the experiment](https://launchdarkly.com/docs/api/experiments/patch-experiment) with the `startIteration` instruction.
+
+### Experiment types
+
+Use the `type` field to specify the experiment type: `experiment` (default), `mab` (multi-armed bandit), or `holdout`.
+
+For multi-armed bandit experiments, set `reallocationFrequencyMillis` on the iteration to control how often traffic is reallocated across variations.
+
+### Results analysis
+
+Use the `methodology` field to specify the results analysis approach: `bayesian` (default) or `frequentist`.
+
+Use the `dataSource` field to specify the source of metric data: `launchdarkly` (default), `snowflake`, or `databricks`.
+
+Use the `analysisConfig` field to customize analysis settings such as the Bayesian threshold, significance threshold, or multiple comparison correction method.
 
 To learn more, read [Creating experiments](https://launchdarkly.com/docs/home/experimentation/create).
 
@@ -112,9 +127,11 @@ Name | Type | Description  | Notes
 
 Create iteration
 
+> **Deprecated**: This endpoint will be removed in a future version. Use the `updateExperimentFields` and `saveAndStartNewIteration` instructions on [Update experiment](https://launchdarkly.com/docs/api/experiments/patch-experiment) instead.
+
 Create an experiment iteration.
 
-Experiment iterations let you record experiments in individual blocks of time. Initially, iterations are created with a status of `not_started` and appear in the `draftIteration` field of an experiment. To start or stop an iteration, [update the experiment](https://launchdarkly.com/docs/api/experiments/patch-experiment) with the `startIteration` or `stopIteration` instruction. 
+Experiment iterations let you record experiments in individual blocks of time. Initially, iterations are created with a status of `not_started` and appear in the `draftIteration` field of an experiment. To start or stop an iteration, [update the experiment](https://launchdarkly.com/docs/api/experiments/patch-experiment) with the `startIteration` or `stopIteration` instruction.
 
 To learn more, read [Start experiment iterations](https://launchdarkly.com/docs/home/experimentation/create#start-an-experiment-iteration).
 
@@ -212,7 +229,7 @@ Get details about an experiment.
 
 ### Expanding the experiment response
 
-LaunchDarkly supports four fields for expanding the "Get experiment" response. By default, these fields are **not** included in the response.
+LaunchDarkly supports five fields for expanding the "Get experiment" response. By default, these fields are **not** included in the response.
 
 To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
 
@@ -220,6 +237,7 @@ To expand the response, append the `expand` query parameter and add a comma-sepa
 - `draftIteration` includes the iteration which has not been started yet, if any.
 - `secondaryMetrics` includes secondary metrics. By default only the primary metric is included in the response.
 - `treatments` includes all treatment and parameter details. By default treatment data is not included in the response.
+- `analysisConfig` includes the analysis configuration for the experiment, such as the Bayesian threshold or significance threshold.
 
 For example, `expand=draftIteration,treatments` includes the `draftIteration` and `treatments` fields in the response. If fields that you request with the `expand` query parameter are empty, they are not included in the response.
 
@@ -412,7 +430,7 @@ For example, `filter=flagKey:my-flag,status:running,metricKey:page-load-ms` filt
 
 ### Expanding the experiments response
 
-LaunchDarkly supports four fields for expanding the "Get experiments" response. By default, these fields are **not** included in the response.
+LaunchDarkly supports five fields for expanding the "Get experiments" response. By default, these fields are **not** included in the response.
 
 To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
 
@@ -420,6 +438,7 @@ To expand the response, append the `expand` query parameter and add a comma-sepa
 - `draftIteration` includes the iteration which has not been started yet, if any.
 - `secondaryMetrics` includes secondary metrics. By default only the primary metric is included in the response.
 - `treatments` includes all treatment and parameter details. By default treatment data is not included in the response.
+- `analysisConfig` includes the analysis configuration for the experiment, such as the Bayesian threshold or significance threshold.
 
 For example, `expand=draftIteration,treatments` includes the `draftIteration` and `treatments` fields in the response. If fields that you request with the `expand` query parameter are empty, they are not included in the response.
 
@@ -514,6 +533,101 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_experiments_any_env**
+> ExperimentCollectionRep get_experiments_any_env(project_key, limit=limit, offset=offset, filter=filter, expand=expand, lifecycle_state=lifecycle_state)
+
+Get experiments any environment
+
+Get a list of experiments from across all environments in the project
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.experiment_collection_rep import ExperimentCollectionRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.ExperimentsApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    limit = 56 # int | The maximum number of experiments to return. Defaults to 20. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    filter = 'filter_example' # str | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
+    lifecycle_state = 'lifecycle_state_example' # str | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments. (optional)
+
+    try:
+        # Get experiments any environment
+        api_response = api_instance.get_experiments_any_env(project_key, limit=limit, offset=offset, filter=filter, expand=expand, lifecycle_state=lifecycle_state)
+        print("The response of ExperimentsApi->get_experiments_any_env:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ExperimentsApi->get_experiments_any_env: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key | 
+ **limit** | **int**| The maximum number of experiments to return. Defaults to 20. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | [optional] 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | [optional] 
+ **lifecycle_state** | **str**| A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments. | [optional] 
+
+### Return type
+
+[**ExperimentCollectionRep**](ExperimentCollectionRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Experiment collection response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**404** | Invalid resource identifier |  -  |
+**405** | Method not allowed |  -  |
+**429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **patch_experiment**
 > Experiment patch_experiment(project_key, environment_key, experiment_key, experiment_patch_input)
 
@@ -528,6 +642,8 @@ To make a semantic patch request, you must append `domain-model=launchdarkly.sem
 Semantic patch requests support the following `kind` instructions for updating experiments.
 
 #### updateName
+
+> **Deprecated**: `updateName` will be removed in a future version. Use `updateExperimentFields` instead.
 
 Updates the experiment name.
 
@@ -548,6 +664,8 @@ Here's an example:
 
 #### updateDescription
 
+> **Deprecated**: `updateDescription` will be removed in a future version. Use `updateExperimentFields` instead.
+
 Updates the experiment description.
 
 ##### Parameters
@@ -561,6 +679,66 @@ Here's an example:
   "instructions": [{
     "kind": "updateDescription",
     "value": "Example updated description"
+  }]
+}
+```
+
+#### updateExperimentFields
+
+Updates one or more fields on an experiment or its current iteration. Each field update specifies an operation (`add`, `update`, or `remove`) and an optional value.
+
+Which fields are mutable depends on the current iteration status. To discover which fields and operations are allowed, expand `mutableFieldsByStatus` on the [Get experiment](https://launchdarkly.com/docs/api/experiments/get-experiment) response.
+
+##### Parameters
+
+- `value`: An object mapping field names to field updates. Each field update has the following properties:
+  - `operation`: The operation to perform. One of `add`, `update`, or `remove`.
+  - `value`: The new value for the field. Required for `add` and `update` operations.
+
+To find which fields are supported and which operations are allowed for each iteration status, expand `mutableFieldsByStatus` on the [Get experiment](https://launchdarkly.com/docs/api/experiments/get-experiment) response.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "updateExperimentFields",
+    "value": {
+      "name": {
+        "operation": "update",
+        "value": "Updated experiment name"
+      },
+      "tags": {
+        "operation": "add",
+        "value": ["tag1", "tag2"]
+      }
+    }
+  }]
+}
+```
+
+#### saveAndStartNewIteration
+
+Stops the current running iteration, creates a new iteration from it, optionally applies field updates, and starts the new iteration. This is a convenience instruction that combines stopping, updating, and starting in a single operation.
+
+##### Parameters
+
+- `changeJustification`: (Optional) The reason for stopping and starting a new iteration.
+- `value`: (Optional) An object mapping field names to field updates, using the same format as `updateExperimentFields`. These updates are applied to the new iteration before it is started.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "saveAndStartNewIteration",
+    "changeJustification": "Adjusting hypothesis based on early results",
+    "value": {
+      "hypothesis": {
+        "operation": "update",
+        "value": "Updated hypothesis text"
+      }
+    }
   }]
 }
 ```

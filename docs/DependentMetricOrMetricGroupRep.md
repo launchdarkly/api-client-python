@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **version_id** | **str** | The version ID of the metric or metric group | 
 **name** | **str** | A human-friendly name for the metric or metric group | 
 **kind** | **str** | If this is a metric, then it represents the kind of event the metric tracks. If this is a metric group, then it represents the group type | 
-**is_numeric** | **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**is_numeric** | **bool** | For custom and trace metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **event_key** | **str** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 **is_group** | **bool** | Whether this is a metric group or a metric | 

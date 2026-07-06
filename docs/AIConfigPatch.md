@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **maintainer_team_key** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
 **tags** | **List[str]** |  | [optional] 
-**evaluation_metric_key** | **str** | Evaluation metric key for this AI Config | [optional] 
+**evaluation_metric_key** | **str** | Evaluation metric key for this config | [optional] 
 **is_inverted** | **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Example

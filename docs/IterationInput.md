@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **treatments** | [**List[TreatmentInput]**](TreatmentInput.md) |  | 
 **flags** | [**Dict[str, FlagInput]**](FlagInput.md) |  | 
 **randomization_unit** | **str** | The unit of randomization for this iteration. Defaults to user. | [optional] 
+**reallocation_frequency_millis** | **int** | The cadence (in milliseconds) to update the allocation. | [optional] 
+**covariate_id** | **str** | The ID of the covariate CSV | [optional] 
 **attributes** | **List[str]** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 
 ## Example

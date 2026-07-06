@@ -214,6 +214,8 @@ When you search for metrics, the `filter` parameter supports the following field
 
 |<div style="width:120px">Field</div> |Description |Supported operators |
 |---|---|---|
+| `dataSourceKeys` | The data source that provides events for this metric (for example, "launchdarkly-hosted"). | `anyOf`, `notEquals` |
+| `eventKeys` | The metric event key. | `anyOf` |
 | `eventKind` | The metric event kind. One of `custom`, `pageview`, `click`. | `equals` |
 | `hasConnections` | Whether the metric has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
 | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
@@ -223,6 +225,8 @@ When you search for metrics, the `filter` parameter supports the following field
 | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
 | `tags` | The metric tags. | `contains` |
 | `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |
+| `versionIds` | The metric version number. | `anyOf` |
+| `view` | The view used to restrict access to the metric. | `equals` |
 
 For example, the filter `?filter=tags contains ["tag1", "tag2", "tag3"]` matches metrics that have all three tags.
 
@@ -275,7 +279,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     limit = 56 # int | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
     sort = 'sort_example' # str | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`. (optional)
-    filter = 'filter_example' # str | A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, `dataSourceKeys`, and `metricUsedIn`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
+    filter = 'filter_example' # str | A comma-separated list of filters. This endpoint accepts filtering by `query`, `tags`, `eventKind`, `isNumeric`, `unitAggregationType`, `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, `dataSourceKeys`, `metricUsedIn`, `eventKeys`, and `versionIds`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
 
     try:
         # List metrics
@@ -298,7 +302,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
  **sort** | **str**| A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;createdAt&#x60; or &#x60;name&#x60;. | [optional] 
- **filter** | **str**| A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#39;eventKind&#39;, &#39;isNumeric&#39;, &#39;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, &#x60;maintainerTeamKey&#x60;, &#x60;view&#x60;, &#x60;dataSourceKeys&#x60;, and &#x60;metricUsedIn&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | [optional] 
+ **filter** | **str**| A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#x60;eventKind&#x60;, &#x60;isNumeric&#x60;, &#x60;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, &#x60;maintainerTeamKey&#x60;, &#x60;view&#x60;, &#x60;dataSourceKeys&#x60;, &#x60;metricUsedIn&#x60;, &#x60;eventKeys&#x60;, and &#x60;versionIds&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | [optional] 
 
 ### Return type
 

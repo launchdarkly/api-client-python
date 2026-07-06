@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**addresses** | **List[str]** | A list of the IP addresses LaunchDarkly&#39;s service uses | 
+**addresses** | **List[str]** | A list of IP addresses used by the LaunchDarkly service | 
 **outbound_addresses** | **List[str]** | A list of the IP addresses outgoing webhook notifications use | 
 
 ## Example

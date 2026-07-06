@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **model** | **object** |  | [optional] 
 **name** | **str** |  | 
 **model_config_key** | **str** |  | [optional] 
+**output_format** | **Dict[str, object]** | JSON Schema defining the structured output format for the variation. | [optional] 
 **tools** | [**List[VariationToolPost]**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
 **tool_keys** | **List[str]** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
 **judge_configuration** | [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 

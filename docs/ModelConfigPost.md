@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **tags** | **List[str]** |  | [optional] 
 **cost_per_input_token** | **float** | Cost per input token in USD | [optional] 
 **cost_per_output_token** | **float** | Cost per output token in USD | [optional] 
+**cost_per_cached_input_token** | **float** | Cost per cached input token in USD | [optional] 
 
 ## Example
 

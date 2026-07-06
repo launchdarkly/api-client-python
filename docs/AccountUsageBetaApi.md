@@ -4,6 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_ai_runs_usage**](AccountUsageBetaApi.md#get_ai_runs_usage) | **GET** /api/v2/usage/ai-runs | Get AI runs usage
 [**get_contexts_clientside_usage**](AccountUsageBetaApi.md#get_contexts_clientside_usage) | **GET** /api/v2/usage/clientside-contexts | Get contexts clientside usage
 [**get_contexts_serverside_usage**](AccountUsageBetaApi.md#get_contexts_serverside_usage) | **GET** /api/v2/usage/serverside-contexts | Get contexts serverside usage
 [**get_contexts_total_usage**](AccountUsageBetaApi.md#get_contexts_total_usage) | **GET** /api/v2/usage/total-contexts | Get contexts total usage
@@ -22,12 +23,117 @@ Method | HTTP request | Description
 [**get_observability_metrics_usage**](AccountUsageBetaApi.md#get_observability_metrics_usage) | **GET** /api/v2/usage/observability/metrics | Get observability metrics usage
 [**get_observability_sessions_usage**](AccountUsageBetaApi.md#get_observability_sessions_usage) | **GET** /api/v2/usage/observability/sessions | Get observability sessions usage
 [**get_observability_traces_usage**](AccountUsageBetaApi.md#get_observability_traces_usage) | **GET** /api/v2/usage/observability/traces | Get observability traces usage
+[**get_sdk_all_versions**](AccountUsageBetaApi.md#get_sdk_all_versions) | **GET** /api/v2/usage/sdk-versions/all | Get usage details for all SDK versions
+[**get_sdk_versions_details**](AccountUsageBetaApi.md#get_sdk_versions_details) | **GET** /api/v2/usage/sdk-versions/details | Get SDK versions usage details
 [**get_service_connections_usage**](AccountUsageBetaApi.md#get_service_connections_usage) | **GET** /api/v2/usage/service-connections | Get service connections usage
 [**get_stream_usage**](AccountUsageBetaApi.md#get_stream_usage) | **GET** /api/v2/usage/streams/{source} | Get stream usage
 [**get_stream_usage_by_sdk_version**](AccountUsageBetaApi.md#get_stream_usage_by_sdk_version) | **GET** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
 [**get_stream_usage_sdkversion**](AccountUsageBetaApi.md#get_stream_usage_sdkversion) | **GET** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
 [**get_vega_ai_usage**](AccountUsageBetaApi.md#get_vega_ai_usage) | **GET** /api/v2/usage/vega-ai | Get Vega AI usage
+[**get_warehouse_export_usage**](AccountUsageBetaApi.md#get_warehouse_export_usage) | **GET** /api/v2/usage/warehouse-export | Get warehouse Data Export usage
 
+
+# **get_ai_runs_usage**
+> SeriesListRep get_ai_runs_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+
+Get AI runs usage
+
+Get a time series array showing the number of AI runs recorded for your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.series_list_rep import SeriesListRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AccountUsageBetaApi(api_client)
+    var_from = 'var_from_example' # str | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+    to = 'to_example' # str | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+    project_key = 'project_key_example' # str | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+    environment_key = 'environment_key_example' # str | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+    sdk_name = 'sdk_name_example' # str | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
+    sdk_version = 'sdk_version_example' # str | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. (optional)
+    sdk_type = 'sdk_type_example' # str | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. (optional)
+    group_by = 'group_by_example' # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkVersion`, `sdkType`. (optional)
+    aggregation_type = 'aggregation_type_example' # str | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
+    granularity = 'granularity_example' # str | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
+
+    try:
+        # Get AI runs usage
+        api_response = api_instance.get_ai_runs_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+        print("The response of AccountUsageBetaApi->get_ai_runs_usage:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountUsageBetaApi->get_ai_runs_usage: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **var_from** | **str**| The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | [optional] 
+ **to** | **str**| The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | [optional] 
+ **project_key** | **str**| A project key to filter results by. Can be specified multiple times, one query parameter per project key. | [optional] 
+ **environment_key** | **str**| An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | [optional] 
+ **sdk_name** | **str**| An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | [optional] 
+ **sdk_version** | **str**| An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. | [optional] 
+ **sdk_type** | **str**| An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. | [optional] 
+ **group_by** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;. | [optional] 
+ **aggregation_type** | **str**| Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | [optional] 
+ **granularity** | **str**| Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | [optional] 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_contexts_clientside_usage**
 > SeriesListRep get_contexts_clientside_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, context_kind=context_kind, sdk_name=sdk_name, anonymous=anonymous, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
@@ -1480,7 +1586,7 @@ Name | Type | Description  | Notes
 
 Get observability metrics usage
 
-Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+Get time-series arrays of the number of observability metrics. Supports `hourly`, `daily`, and `monthly` granularity.
 
 ### Example
 
@@ -1516,8 +1622,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     var_from = 'var_from_example' # str | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to = 'to_example' # str | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
     project_key = 'project_key_example' # str | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
-    granularity = 'granularity_example' # str | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
-    aggregation_type = 'aggregation_type_example' # str | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+    granularity = 'granularity_example' # str | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `hourly`, `daily`, and `monthly`; **average** supports `hourly`, `daily`, and `monthly`. (optional)
+    aggregation_type = 'aggregation_type_example' # str | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `average`. (optional)
 
     try:
         # Get observability metrics usage
@@ -1538,8 +1644,8 @@ Name | Type | Description  | Notes
  **var_from** | **str**| The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | [optional] 
  **to** | **str**| The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | [optional] 
  **project_key** | **str**| A project key to filter results by. Can be specified multiple times, one query parameter per project key. | [optional] 
- **granularity** | **str**| Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | [optional] 
- **aggregation_type** | **str**| Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | [optional] 
+ **granularity** | **str**| Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;hourly&#x60;, &#x60;daily&#x60;, and &#x60;monthly&#x60;; **average** supports &#x60;hourly&#x60;, &#x60;daily&#x60;, and &#x60;monthly&#x60;. | [optional] 
+ **aggregation_type** | **str**| Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;average&#x60;. | [optional] 
 
 ### Return type
 
@@ -1751,8 +1857,182 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_sdk_all_versions**
+> List[SdkVersionDetailsRep] get_sdk_all_versions(environment_id=environment_id, project_id=project_id, sdk_name=sdk_name, sdk_type=sdk_type, sdk_app_id=sdk_app_id, connection_type=connection_type)
+
+Get usage details for all SDK versions
+
+Get detailed SDK version usage data for all versions observed in the last 24 hours in your account. Unlike the `/details` endpoint which returns only the max version per SDK, this endpoint returns all SDK versions for the specified filters. This data is refreshed hourly.<br/><br/>All query parameters are optional, allowing you to filter results as broadly or narrowly as needed.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.sdk_version_details_rep import SdkVersionDetailsRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AccountUsageBetaApi(api_client)
+    environment_id = 'environment_id_example' # str | Filter to a specific environment ID. (optional)
+    project_id = 'project_id_example' # str | Filter to a specific project ID. (optional)
+    sdk_name = 'sdk_name_example' # str | Filter to a specific SDK name. (optional)
+    sdk_type = 'sdk_type_example' # str | Filter to a specific SDK type (for example, 'server', 'browser', 'mobile'). (optional)
+    sdk_app_id = 'sdk_app_id_example' # str | Filter to a specific SDK application ID. (optional)
+    connection_type = 'connection_type_example' # str | Filter to a specific connection type (for example, 'direct', 'proxy'). (optional)
+
+    try:
+        # Get usage details for all SDK versions
+        api_response = api_instance.get_sdk_all_versions(environment_id=environment_id, project_id=project_id, sdk_name=sdk_name, sdk_type=sdk_type, sdk_app_id=sdk_app_id, connection_type=connection_type)
+        print("The response of AccountUsageBetaApi->get_sdk_all_versions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountUsageBetaApi->get_sdk_all_versions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **environment_id** | **str**| Filter to a specific environment ID. | [optional] 
+ **project_id** | **str**| Filter to a specific project ID. | [optional] 
+ **sdk_name** | **str**| Filter to a specific SDK name. | [optional] 
+ **sdk_type** | **str**| Filter to a specific SDK type (for example, &#39;server&#39;, &#39;browser&#39;, &#39;mobile&#39;). | [optional] 
+ **sdk_app_id** | **str**| Filter to a specific SDK application ID. | [optional] 
+ **connection_type** | **str**| Filter to a specific connection type (for example, &#39;direct&#39;, &#39;proxy&#39;). | [optional] 
+
+### Return type
+
+[**List[SdkVersionDetailsRep]**](SdkVersionDetailsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | SDK versions usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_sdk_versions_details**
+> List[SdkVersionDetailsRep] get_sdk_versions_details()
+
+Get SDK versions usage details
+
+Get detailed SDK version usage data for your account, including version information, EOL status, and relay proxy metadata. Refreshed hourly, returns the max version for each SDK observed in the last 24 hours, including those without EOL metadata available.<br/><br/>This endpoint provides comprehensive information about SDK versions in use across your projects and environments.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.sdk_version_details_rep import SdkVersionDetailsRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AccountUsageBetaApi(api_client)
+
+    try:
+        # Get SDK versions usage details
+        api_response = api_instance.get_sdk_versions_details()
+        print("The response of AccountUsageBetaApi->get_sdk_versions_details:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountUsageBetaApi->get_sdk_versions_details: %s\n" % e)
+```
+
+
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List[SdkVersionDetailsRep]**](SdkVersionDetailsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | SDK versions usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_service_connections_usage**
-> SeriesListRepFloat get_service_connections_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, connection_type=connection_type, relay_version=relay_version, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+> SeriesListRepFloat get_service_connections_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, connection_type=connection_type, relay_version=relay_version, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, sdk_app_id=sdk_app_id, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
 
 Get service connections usage
 
@@ -1798,13 +2078,14 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     sdk_name = 'sdk_name_example' # str | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
     sdk_version = 'sdk_version_example' # str | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. (optional)
     sdk_type = 'sdk_type_example' # str | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. (optional)
-    group_by = 'group_by_example' # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`. (optional)
+    sdk_app_id = 'sdk_app_id_example' # str | An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID. (optional)
+    group_by = 'group_by_example' # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`. (optional)
     aggregation_type = 'aggregation_type_example' # str | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
     granularity = 'granularity_example' # str | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
 
     try:
         # Get service connections usage
-        api_response = api_instance.get_service_connections_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, connection_type=connection_type, relay_version=relay_version, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+        api_response = api_instance.get_service_connections_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, connection_type=connection_type, relay_version=relay_version, sdk_name=sdk_name, sdk_version=sdk_version, sdk_type=sdk_type, sdk_app_id=sdk_app_id, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
         print("The response of AccountUsageBetaApi->get_service_connections_usage:\n")
         pprint(api_response)
     except Exception as e:
@@ -1827,7 +2108,8 @@ Name | Type | Description  | Notes
  **sdk_name** | **str**| An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | [optional] 
  **sdk_version** | **str**| An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. | [optional] 
  **sdk_type** | **str**| An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. | [optional] 
- **group_by** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;connectionType&#x60;, &#x60;relayVersion&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;. | [optional] 
+ **sdk_app_id** | **str**| An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID. | [optional] 
+ **group_by** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;connectionType&#x60;, &#x60;relayVersion&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;, &#x60;sdkAppId&#x60;. | [optional] 
  **aggregation_type** | **str**| Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | [optional] 
  **granularity** | **str**| Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | [optional] 
 
@@ -2212,6 +2494,104 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **429** | Rate limited |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_warehouse_export_usage**
+> SeriesListRep get_warehouse_export_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, destination=destination, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+
+Get warehouse Data Export usage
+
+Get a time series array showing the number of rows exported to your warehouse Data Export destinations. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.series_list_rep import SeriesListRep
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AccountUsageBetaApi(api_client)
+    var_from = 'var_from_example' # str | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+    to = 'to_example' # str | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+    project_key = 'project_key_example' # str | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+    environment_key = 'environment_key_example' # str | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+    destination = 'destination_example' # str | A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`. (optional)
+    group_by = 'group_by_example' # str | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`. (optional)
+    aggregation_type = 'aggregation_type_example' # str | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
+    granularity = 'granularity_example' # str | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
+
+    try:
+        # Get warehouse Data Export usage
+        api_response = api_instance.get_warehouse_export_usage(var_from=var_from, to=to, project_key=project_key, environment_key=environment_key, destination=destination, group_by=group_by, aggregation_type=aggregation_type, granularity=granularity)
+        print("The response of AccountUsageBetaApi->get_warehouse_export_usage:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AccountUsageBetaApi->get_warehouse_export_usage: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **var_from** | **str**| The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | [optional] 
+ **to** | **str**| The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | [optional] 
+ **project_key** | **str**| A project key to filter results by. Can be specified multiple times, one query parameter per project key. | [optional] 
+ **environment_key** | **str**| An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | [optional] 
+ **destination** | **str**| A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.&lt;br/&gt;Valid values: &#x60;snowflake-v2&#x60;, &#x60;databricks&#x60;, &#x60;bigquery&#x60;, &#x60;redshift&#x60;, &#x60;clickhouse&#x60;. | [optional] 
+ **group_by** | **str**| If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;destination&#x60;. | [optional] 
+ **aggregation_type** | **str**| Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | [optional] 
+ **granularity** | **str**| Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | [optional] 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Usage response |  -  |
+**400** | Invalid request |  -  |
+**401** | Invalid access token |  -  |
+**403** | Forbidden |  -  |
+**429** | Rate limited |  -  |
+**503** | Service unavailable |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

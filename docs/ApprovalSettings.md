@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **service_config** | **Dict[str, object]** |  | 
 **required_approval_tags** | **List[str]** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | 
 **service_kind_configuration_id** | **str** | Optional field for integration configuration ID of a custom approval integration. This is an Enterprise-only feature. | [optional] 
-**resource_kind** | **str** | The kind of resource for which the approval settings apply, for example, flag or segment | [optional] 
 
 ## Example
 

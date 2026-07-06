@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **key** | **str** | Unique key for the view within the account/project | 
 **name** | **str** | Human-readable name for the view | 
 **description** | **str** | Optional detailed description of the view | [optional] [default to '']
-**generate_sdk_keys** | **bool** | Whether to generate SDK keys for this view | [optional] [default to False]
 **maintainer_id** | **str** | Member ID of the maintainer for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **maintainer_team_key** | **str** | Key of the maintainer team for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **tags** | **List[str]** | Tags associated with this view | [optional] 

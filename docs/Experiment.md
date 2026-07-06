@@ -12,13 +12,19 @@ Name | Type | Description | Notes
 **maintainer_id** | **str** | The ID of the member who maintains this experiment. | 
 **creation_date** | **int** |  | 
 **environment_key** | **str** |  | 
+**methodology** | **str** | The results analysis approach. | [optional] 
+**data_source** | **str** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
 **archived_date** | **int** |  | [optional] 
 **tags** | **List[str]** | Tags for the experiment | [optional] 
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 **holdout_id** | **str** | The holdout ID | [optional] 
 **current_iteration** | [**IterationRep**](IterationRep.md) |  | [optional] 
+**type** | **str** | The experiment type | [optional] 
+**access** | [**Access**](Access.md) |  | [optional] 
 **draft_iteration** | [**IterationRep**](IterationRep.md) |  | [optional] 
 **previous_iterations** | [**List[IterationRep]**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
+**analysis_config** | [**AnalysisConfigRep**](AnalysisConfigRep.md) |  | [optional] 
+**mutable_fields_by_status** | [**MutableFieldsByStatusRep**](MutableFieldsByStatusRep.md) |  | [optional] 
 
 ## Example
 

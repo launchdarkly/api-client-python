@@ -594,9 +594,9 @@ For details on using these instructions, read [Update feature flag](https://laun
 
 To create an approval for a flag specific to an environment, use [Create approval request for a flag](https://launchdarkly.com/docs/api/approvals/post-approval-request-for-flag).
 
-### AI Configs
+### AgentControl
 
-If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs/patch-ai-config-targeting).
+If you are creating an approval request for an AgentControl config, you can use the semantic patch instructions listed under [Update config targeting](https://launchdarkly.com/docs/api/agent-control/patch-ai-config-targeting).
 
 ### Segments
 

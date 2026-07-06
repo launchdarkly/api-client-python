@@ -6,12 +6,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **comment** | **str** | Human-readable description of what this patch changes | [optional] 
-**description** | **str** | Description for agent when AI Config is in agent mode. | [optional] 
-**instructions** | **str** | Instructions for agent when AI Config is in agent mode. | [optional] 
+**description** | **str** | Description for agent when the config is in agent mode. | [optional] 
+**instructions** | **str** | Instructions for agent when the config is in agent mode. | [optional] 
 **messages** | [**List[Message]**](Message.md) |  | [optional] 
 **model** | **object** |  | [optional] 
 **model_config_key** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
+**output_format** | **Dict[str, object]** | JSON Schema defining the structured output format for the variation. | [optional] 
 **published** | **bool** |  | [optional] 
 **state** | **str** | One of &#39;archived&#39;, &#39;published&#39; | [optional] 
 **tools** | [**List[VariationToolPost]**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **model** | **object** |  | 
 **model_config_key** | **str** |  | [optional] 
 **name** | **str** |  | 
+**output_format** | **Dict[str, object]** | JSON Schema defining the structured output format for the variation. | [optional] 
 **created_at** | **int** |  | 
 **version** | **int** |  | 
 **state** | **str** |  | [optional] 

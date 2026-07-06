@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **description** | **str** | The application description | [optional] 
 **key** | **str** | The unique identifier of this application | 
 **kind** | **str** | To distinguish the kind of application | 
-**maintainer** | [**MaintainerRep**](MaintainerRep.md) |  | [optional] 
+**maintainer** | [**ApplicationMaintainerRep**](ApplicationMaintainerRep.md) |  | [optional] 
 **name** | **str** | The name of the application | 
 
 ## Example

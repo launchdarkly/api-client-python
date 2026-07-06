@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **str** |  | 
 **creation_date** | **int** |  | 
 **maintainer_id** | **str** | The ID of the scheduled change maintainer | 
+**maintainer_service_token_id** | **str** | The ID of the service token that created or updated this scheduled change | [optional] 
 **version** | **int** | Version of the scheduled change | 
 **execution_date** | **int** |  | 
 **instructions** | **List[Dict[str, object]]** |  | 

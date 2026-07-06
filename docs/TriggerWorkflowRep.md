@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **maintainer_id** | **str** | The ID of the flag trigger maintainer | [optional] 
 **maintainer** | [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **enabled** | **bool** | Whether the flag trigger is currently enabled | [optional] 
+**status** | **str** | The trigger state: active, inactive, or failed | [optional] 
+**last_failed_at** | **int** |  | [optional] 
 **integration_key** | **str** | The unique identifier of the integration for your trigger | [optional] 
 **instructions** | **List[Dict[str, object]]** |  | [optional] 
 **last_triggered_at** | **int** |  | [optional] 

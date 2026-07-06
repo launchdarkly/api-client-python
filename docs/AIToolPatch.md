@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **var_schema** | **object** | JSON Schema defining the tool&#39;s parameters for LLM consumption | [optional] 
 **custom_parameters** | **object** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
+**tags** | **List[str]** |  | [optional] 
 
 ## Example
 
