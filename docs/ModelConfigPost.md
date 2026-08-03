@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **name** | **str** | Human readable name of the model | 
 **key** | **str** | Unique key for the model | 
 **id** | **str** | Identifier for the model, for use with third party providers | 
+**maintainer_id** | **str** |  | [optional] 
+**maintainer_team_key** | **str** |  | [optional] 
 **icon** | **str** | Icon for the model | [optional] 
 **provider** | **str** | Provider for the model | [optional] 
 **params** | **object** |  | [optional] 

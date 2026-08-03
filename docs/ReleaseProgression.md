@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **completed_at** | **int** |  | [optional] 
 **flag_key** | **str** | The flag key | 
 **active_phase_id** | **str** | The ID of the currently active release phase | [optional] 
+**active_phase_status** | **str** |  | [optional] 
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 
 ## Example

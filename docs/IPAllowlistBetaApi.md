@@ -180,7 +180,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_ip_allowlist**
-> IpAllowlistResponse get_ip_allowlist()
+> IpAllowlistResponse get_ip_allowlist(search=search, limit=limit, offset=offset)
 
 Get IP Allowlist
 
@@ -217,10 +217,13 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.IPAllowlistBetaApi(api_client)
+    search = 'search_example' # str | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. (optional)
+    limit = 56 # int | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. (optional)
+    offset = 56 # int | The number of entries to skip. Used for pagination. (optional)
 
     try:
         # Get IP Allowlist
-        api_response = api_instance.get_ip_allowlist()
+        api_response = api_instance.get_ip_allowlist(search=search, limit=limit, offset=offset)
         print("The response of IPAllowlistBetaApi->get_ip_allowlist:\n")
         pprint(api_response)
     except Exception as e:
@@ -231,7 +234,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **search** | **str**| A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. | [optional] 
+ **limit** | **int**| The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. | [optional] 
+ **offset** | **int**| The number of entries to skip. Used for pagination. | [optional] 
 
 ### Return type
 

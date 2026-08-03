@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 **is_group** | **bool** | Whether this is a metric group or a metric | 
 **metrics** | [**List[MetricInGroupRep]**](MetricInGroupRep.md) | An ordered list of the metrics in this metric group | [optional] 
+**analysis_type** | **str** | The method for analyzing metric events. Only set for individual metrics, not metric groups. | [optional] 
+**analysis_unit** | **str** | The context kind chosen as the analysis unit for this metric in the iteration. If null, analysis uses the iteration&#39;s randomization unit. | [optional] 
 
 ## Example
 

@@ -9,13 +9,13 @@ Name | Type | Description | Notes
 **is_numeric** | **bool** | Whether the denominator aggregates a numeric value | [optional] 
 **unit_aggregation_type** | **str** | How individual unit values are aggregated for the denominator | [optional] 
 **unit_aggregation_field** | **str** | The column to count distinct values of; required when unitAggregationType is count_distinct | [optional] 
+**value_column** | **str** | For a numeric denominator, the column holding the numeric value | [optional] 
 **data_source** | [**AiConfigsMetricDataSourceRefRep**](AiConfigsMetricDataSourceRefRep.md) |  | [optional] 
 **filters** | [**AiConfigsFilter**](AiConfigsFilter.md) |  | [optional] 
 **window_start_offset** | **int** | Start of the measurement window in milliseconds | [optional] 
 **window_end_offset** | **int** | End of the measurement window in milliseconds | [optional] 
 **winsor_lower_percentile** | **float** | Lower winsorization percentile in the open interval (0, 100) | [optional] 
 **winsor_upper_percentile** | **float** | Upper winsorization percentile in the open interval (0, 100) | [optional] 
-**winsor_exclude_imputed** | **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
 **winsor_include_imputed** | **bool** | When true, the percentile bound calculation includes imputed zeros | [optional] 
 
 ## Example

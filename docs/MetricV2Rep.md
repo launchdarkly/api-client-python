@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **unit_aggregation_type** | **str** | The type of unit aggregation to use for the metric | [optional] 
 **analysis_type** | **str** | The method for analyzing metric events | [optional] 
 **event_key** | **str** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
+**analysis_unit** | **str** | The context kind used as the analysis unit for this metric in the experiment iteration | [optional] 
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 
 ## Example

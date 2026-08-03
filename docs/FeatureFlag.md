@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **defaults** | [**Defaults**](Defaults.md) |  | [optional] 
 **purpose** | **str** |  | [optional] 
 **migration_settings** | [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
+**stale** | [**StaleFlagData**](StaleFlagData.md) |  | [optional] 
 **environments** | [**Dict[str, FeatureFlagConfig]**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | [optional] 
 
 ## Example

@@ -486,7 +486,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_context_kinds_by_project_key**
-> ContextKindsCollectionRep get_context_kinds_by_project_key(project_key)
+> ContextKindsCollectionRep get_context_kinds_by_project_key(project_key, expand=expand)
 
 Get context kinds
 
@@ -524,10 +524,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.ContextsApi(api_client)
     project_key = 'project_key_example' # str | The project key
+    expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. Options: `environmentObservations`. (optional)
 
     try:
         # Get context kinds
-        api_response = api_instance.get_context_kinds_by_project_key(project_key)
+        api_response = api_instance.get_context_kinds_by_project_key(project_key, expand=expand)
         print("The response of ContextsApi->get_context_kinds_by_project_key:\n")
         pprint(api_response)
     except Exception as e:
@@ -542,6 +543,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key | 
+ **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;environmentObservations&#x60;. | [optional] 
 
 ### Return type
 

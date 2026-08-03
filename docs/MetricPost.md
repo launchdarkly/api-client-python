@@ -29,11 +29,11 @@ Name | Type | Description | Notes
 **window_end_offset** | **int** | Not yet implemented - The end of the measurement window, in milliseconds relative to the unit&#39;s first exposure to a flag variation | [optional] 
 **winsor_lower_percentile** | **float** | Lower winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, defines a two-sided clamp range. Otherwise lower-only winsorization. | [optional] 
 **winsor_upper_percentile** | **float** | Upper winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, must be greater than winsorLowerPercentile. | [optional] 
-**winsor_exclude_imputed** | **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
 **winsor_include_imputed** | **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **trace_query** | **str** | The trace query to use for the metric. Required for trace metrics. | [optional] 
 **trace_value_location** | **str** | The location in the trace to use for numeric values. Required for numeric trace metrics. | [optional] 
 **unit_aggregation_field** | **str** | The warehouse column to use for counting distinct values. Required when the unitAggregationType is count_distinct. | [optional] 
+**value_column** | **str** | For numeric warehouse-native metrics, the column holding the numeric value. Overrides the value column mapped on the data source. | [optional] 
 **denominator** | [**DenominatorPost**](DenominatorPost.md) |  | [optional] 
 
 ## Example

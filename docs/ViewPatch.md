@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **maintainer_id** | **str** | Member ID of the maintainer for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **maintainer_team_key** | **str** | Key of the maintainer team for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **tags** | **List[str]** | Tags associated with this view | [optional] 
-**archived** | **bool** | Whether or not the view is archived | [optional] 
 
 ## Example
 

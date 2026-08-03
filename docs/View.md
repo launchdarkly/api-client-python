@@ -20,8 +20,6 @@ Name | Type | Description | Notes
 **tags** | **List[str]** | Tags associated with this view | 
 **created_at** | **int** |  | 
 **updated_at** | **int** |  | 
-**archived** | **bool** | Whether this view is archived | [default to False]
-**archived_at** | **int** |  | [optional] 
 **deleted_at** | **int** |  | [optional] 
 **deleted** | **bool** | Whether this view is deleted | [default to False]
 **maintainer** | [**Maintainer**](Maintainer.md) |  | [optional] 

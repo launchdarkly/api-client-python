@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**delete_agent_graph**](AgentControlApi.md#delete_agent_graph) | **DELETE** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 [**delete_agent_optimization**](AgentControlApi.md#delete_agent_optimization) | **DELETE** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Delete an agent optimization
 [**delete_agent_optimization_run**](AgentControlApi.md#delete_agent_optimization_run) | **DELETE** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId} | Delete an agent optimization run
+[**delete_agent_skill**](AgentControlApi.md#delete_agent_skill) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Delete an agent skill
 [**delete_ai_config**](AgentControlApi.md#delete_ai_config) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
 [**delete_ai_config_variation**](AgentControlApi.md#delete_ai_config_variation) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
 [**delete_ai_tool**](AgentControlApi.md#delete_ai_tool) | **DELETE** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
@@ -15,6 +16,7 @@ Method | HTTP request | Description
 [**delete_restricted_models**](AgentControlApi.md#delete_restricted_models) | **DELETE** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
 [**get_agent_graph**](AgentControlApi.md#get_agent_graph) | **GET** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 [**get_agent_optimization**](AgentControlApi.md#get_agent_optimization) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Get an agent optimization
+[**get_agent_skill**](AgentControlApi.md#get_agent_skill) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Get an agent skill
 [**get_ai_config**](AgentControlApi.md#get_ai_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
 [**get_ai_config_metrics**](AgentControlApi.md#get_ai_config_metrics) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
 [**get_ai_config_metrics_by_variation**](AgentControlApi.md#get_ai_config_metrics_by_variation) | **GET** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
@@ -29,9 +31,13 @@ Method | HTTP request | Description
 [**list_agent_optimization_results**](AgentControlApi.md#list_agent_optimization_results) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List agent optimization runs
 [**list_agent_optimization_results_by_run_id**](AgentControlApi.md#list_agent_optimization_results_by_run_id) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId}/results | List agent optimization results for a run
 [**list_agent_optimizations**](AgentControlApi.md#list_agent_optimizations) | **GET** /api/v2/projects/{projectKey}/agent-optimizations | List agent optimizations
+[**list_agent_skill_references**](AgentControlApi.md#list_agent_skill_references) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/references | List agent skill references
+[**list_agent_skill_versions**](AgentControlApi.md#list_agent_skill_versions) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/versions | List agent skill versions
+[**list_agent_skills**](AgentControlApi.md#list_agent_skills) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills | List agent skills
 [**list_ai_tool_versions**](AgentControlApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**list_ai_tools**](AgentControlApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 [**list_all_agent_optimization_results**](AgentControlApi.md#list_all_agent_optimization_results) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/all-results | List all agent optimization results across versions
+[**list_model_config_versions**](AgentControlApi.md#list_model_config_versions) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey}/versions | List AI model config versions
 [**list_model_configs**](AgentControlApi.md#list_model_configs) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
 [**list_prompt_snippet_references**](AgentControlApi.md#list_prompt_snippet_references) | **GET** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/references | List prompt snippet references
 [**list_prompt_snippet_versions**](AgentControlApi.md#list_prompt_snippet_versions) | **GET** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/versions | List prompt snippet versions
@@ -39,14 +45,17 @@ Method | HTTP request | Description
 [**patch_agent_graph**](AgentControlApi.md#patch_agent_graph) | **PATCH** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 [**patch_agent_optimization**](AgentControlApi.md#patch_agent_optimization) | **PATCH** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Update an agent optimization
 [**patch_agent_optimization_result**](AgentControlApi.md#patch_agent_optimization_result) | **PATCH** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results/{resultId} | Update an agent optimization result
+[**patch_agent_skill**](AgentControlApi.md#patch_agent_skill) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Update an agent skill
 [**patch_ai_config**](AgentControlApi.md#patch_ai_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
 [**patch_ai_config_targeting**](AgentControlApi.md#patch_ai_config_targeting) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 [**patch_ai_config_variation**](AgentControlApi.md#patch_ai_config_variation) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
 [**patch_ai_tool**](AgentControlApi.md#patch_ai_tool) | **PATCH** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+[**patch_model_config**](AgentControlApi.md#patch_model_config) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Update an AI model config
 [**patch_prompt_snippet**](AgentControlApi.md#patch_prompt_snippet) | **PATCH** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Update a prompt snippet
 [**post_agent_graph**](AgentControlApi.md#post_agent_graph) | **POST** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 [**post_agent_optimization**](AgentControlApi.md#post_agent_optimization) | **POST** /api/v2/projects/{projectKey}/agent-optimizations | Create agent optimization
 [**post_agent_optimization_result**](AgentControlApi.md#post_agent_optimization_result) | **POST** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | Create agent optimization result
+[**post_agent_skill**](AgentControlApi.md#post_agent_skill) | **POST** /api/v2/projects/{projectKey}/ai-configs/skills | Create an agent skill
 [**post_ai_config**](AgentControlApi.md#post_ai_config) | **POST** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 [**post_ai_config_variation**](AgentControlApi.md#post_ai_config_variation) | **POST** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
 [**post_ai_tool**](AgentControlApi.md#post_ai_tool) | **POST** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
@@ -301,6 +310,88 @@ void (empty response body)
 **204** | No content |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_agent_skill**
+> delete_agent_skill(project_key, skill_key)
+
+Delete an agent skill
+
+Delete an agent skill, including all of its versions.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    skill_key = 'skill_key_example' # str | 
+
+    try:
+        # Delete an agent skill
+        api_instance.delete_agent_skill(project_key, skill_key)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->delete_agent_skill: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **skill_key** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No content |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -964,6 +1055,90 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Agent optimization found |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_agent_skill**
+> AgentSkill get_agent_skill(project_key, skill_key)
+
+Get an agent skill
+
+Retrieve a specific agent skill by its key.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skill import AgentSkill
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    skill_key = 'skill_key_example' # str | 
+
+    try:
+        # Get an agent skill
+        api_response = api_instance.get_agent_skill(project_key, skill_key)
+        print("The response of AgentControlApi->get_agent_skill:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->get_agent_skill: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **skill_key** | **str**|  | 
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent skill found |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
 **500** | Internal server error |  -  |
@@ -1678,11 +1853,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_model_config**
-> ModelConfig get_model_config(project_key, model_config_key)
+> ModelConfig get_model_config(project_key, model_config_key, version=version)
 
 Get AI model config
 
-Get an AI model config by key.
+Get an AI model config by key. Specify a version to retrieve a historical custom model config version. Global model configs accept version 0 or 1 and return their current representation.
 
 ### Example
 
@@ -1717,10 +1892,11 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     project_key = 'default' # str | 
     model_config_key = 'default' # str | 
+    version = 56 # int | Specific model config version to return. Omit to return the latest version. (optional)
 
     try:
         # Get AI model config
-        api_response = api_instance.get_model_config(project_key, model_config_key)
+        api_response = api_instance.get_model_config(project_key, model_config_key, version=version)
         print("The response of AgentControlApi->get_model_config:\n")
         pprint(api_response)
     except Exception as e:
@@ -1736,6 +1912,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**|  | 
  **model_config_key** | **str**|  | 
+ **version** | **int**| Specific model config version to return. Omit to return the latest version. | [optional] 
 
 ### Return type
 
@@ -2199,6 +2376,272 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_agent_skill_references**
+> AgentSkillReferences list_agent_skill_references(project_key, skill_key, limit=limit, offset=offset)
+
+List agent skill references
+
+Get all config variations that currently reference this agent skill.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skill_references import AgentSkillReferences
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    skill_key = 'skill_key_example' # str | 
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List agent skill references
+        api_response = api_instance.list_agent_skill_references(project_key, skill_key, limit=limit, offset=offset)
+        print("The response of AgentControlApi->list_agent_skill_references:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_agent_skill_references: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **skill_key** | **str**|  | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**AgentSkillReferences**](AgentSkillReferences.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent skill references |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_agent_skill_versions**
+> AgentSkills list_agent_skill_versions(project_key, skill_key, limit=limit, offset=offset)
+
+List agent skill versions
+
+Get all versions of an agent skill in the given project, ordered by version descending.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skills import AgentSkills
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    skill_key = 'skill_key_example' # str | 
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List agent skill versions
+        api_response = api_instance.list_agent_skill_versions(project_key, skill_key, limit=limit, offset=offset)
+        print("The response of AgentControlApi->list_agent_skill_versions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_agent_skill_versions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **skill_key** | **str**|  | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**AgentSkills**](AgentSkills.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_agent_skills**
+> AgentSkills list_agent_skills(project_key, limit=limit, offset=offset, filter=filter)
+
+List agent skills
+
+Get a list of all agent skills in the given project.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skills import AgentSkills
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    filter = 'filter_example' # str | A filter to apply to the list. (optional)
+
+    try:
+        # List agent skills
+        api_response = api_instance.list_agent_skills(project_key, limit=limit, offset=offset, filter=filter)
+        print("The response of AgentControlApi->list_agent_skills:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_agent_skills: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+ **filter** | **str**| A filter to apply to the list. | [optional] 
+
+### Return type
+
+[**AgentSkills**](AgentSkills.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent skills list |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_ai_tool_versions**
 > AITools list_ai_tool_versions(project_key, tool_key, sort=sort, limit=limit, offset=offset)
 
@@ -2461,6 +2904,95 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Agent optimization results list |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_model_config_versions**
+> ModelConfigs list_model_config_versions(project_key, model_config_key, limit=limit, offset=offset)
+
+List AI model config versions
+
+Get a paginated list of all available versions of an AI model config, ordered from newest to oldest. Global model configs return their single current representation.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.model_configs import ModelConfigs
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'default' # str | 
+    model_config_key = 'default' # str | 
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List AI model config versions
+        api_response = api_instance.list_model_config_versions(project_key, model_config_key, limit=limit, offset=offset)
+        print("The response of AgentControlApi->list_model_config_versions:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_model_config_versions: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **model_config_key** | **str**|  | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**ModelConfigs**](ModelConfigs.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
 **500** | Internal server error |  -  |
@@ -3088,6 +3620,95 @@ Name | Type | Description  | Notes
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_agent_skill**
+> AgentSkill patch_agent_skill(project_key, skill_key, agent_skill_patch)
+
+Update an agent skill
+
+Update an existing agent skill. Creates a new version of the skill.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skill import AgentSkill
+from launchdarkly_api.models.agent_skill_patch import AgentSkillPatch
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    skill_key = 'skill_key_example' # str | 
+    agent_skill_patch = launchdarkly_api.AgentSkillPatch() # AgentSkillPatch | Agent skill fields to update
+
+    try:
+        # Update an agent skill
+        api_response = api_instance.patch_agent_skill(project_key, skill_key, agent_skill_patch)
+        print("The response of AgentControlApi->patch_agent_skill:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->patch_agent_skill: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **skill_key** | **str**|  | 
+ **agent_skill_patch** | [**AgentSkillPatch**](AgentSkillPatch.md)| Agent skill fields to update | 
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent skill updated |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -4030,6 +4651,94 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **patch_model_config**
+> ModelConfig patch_model_config(project_key, model_config_key, model_config_patch)
+
+Update an AI model config
+
+Update an AI model config.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.model_config import ModelConfig
+from launchdarkly_api.models.model_config_patch import ModelConfigPatch
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'default' # str | 
+    model_config_key = 'model_config_key_example' # str | 
+    model_config_patch = launchdarkly_api.ModelConfigPatch() # ModelConfigPatch | AI model config object to update
+
+    try:
+        # Update an AI model config
+        api_response = api_instance.patch_model_config(project_key, model_config_key, model_config_patch)
+        print("The response of AgentControlApi->patch_model_config:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->patch_model_config: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **model_config_key** | **str**|  | 
+ **model_config_patch** | [**ModelConfigPatch**](ModelConfigPatch.md)| AI model config object to update | 
+
+### Return type
+
+[**ModelConfig**](ModelConfig.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **patch_prompt_snippet**
 > PromptSnippet patch_prompt_snippet(project_key, snippet_key, prompt_snippet_patch)
 
@@ -4378,6 +5087,93 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **409** | Conflict |  -  |
 **429** | Rate Limited |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_agent_skill**
+> AgentSkill post_agent_skill(project_key, agent_skill_post)
+
+Create an agent skill
+
+Create a new agent skill within the given project.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_skill import AgentSkill
+from launchdarkly_api.models.agent_skill_post import AgentSkillPost
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | 
+    agent_skill_post = launchdarkly_api.AgentSkillPost() # AgentSkillPost | Agent skill object to create
+
+    try:
+        # Create an agent skill
+        api_response = api_instance.post_agent_skill(project_key, agent_skill_post)
+        print("The response of AgentControlApi->post_agent_skill:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->post_agent_skill: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**|  | 
+ **agent_skill_post** | [**AgentSkillPost**](AgentSkillPost.md)| Agent skill object to create | 
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Agent skill created |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

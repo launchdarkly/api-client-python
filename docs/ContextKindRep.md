@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **creation_date** | **int** |  | 
 **last_modified** | **int** |  | 
 **last_seen** | **int** |  | [optional] 
+**environment_observations** | [**List[ContextKindEnvironmentObservation]**](ContextKindEnvironmentObservation.md) | Recent environment observations retained from flag evaluations. This is not a complete historical record. | [optional] 
 **created_from** | **str** |  | 
 **hide_in_targeting** | **bool** | Alias for archived. | [optional] 
 **archived** | **bool** | Whether the context kind is archived. Archived context kinds are unavailable for targeting. | [optional] 

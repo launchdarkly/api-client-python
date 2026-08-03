@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **state** | **str** | One of &#39;archived&#39;, &#39;published&#39; | [optional] 
 **tools** | [**List[VariationToolPost]**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
 **tool_keys** | **List[str]** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
+**skills** | [**List[VariationSkillPost]**](VariationSkillPost.md) | List of agent skills to attach to this variation. Replaces the current attachments. | [optional] 
 **judge_configuration** | [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
 
 ## Example

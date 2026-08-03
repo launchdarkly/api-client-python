@@ -398,7 +398,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = launchdarkly_api.DataExportDestinationsApi(api_client)
     proj_key = 'proj_key_example' # str | The project key
     env_key = 'env_key_example' # str | The environment key
-    kind = 'kind_example' # str | The destination kind (snowflake-v2, bigquery, clickhouse, redshift)
+    kind = 'kind_example' # str | The destination kind (snowflake-v2, bigquery, clickhouse, redshift, databricks)
     complete_setup_post_body = launchdarkly_api.CompleteSetupPostBody() # CompleteSetupPostBody | 
 
     try:
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **proj_key** | **str**| The project key | 
  **env_key** | **str**| The environment key | 
- **kind** | **str**| The destination kind (snowflake-v2, bigquery, clickhouse, redshift) | 
+ **kind** | **str**| The destination kind (snowflake-v2, bigquery, clickhouse, redshift, databricks) | 
  **complete_setup_post_body** | [**CompleteSetupPostBody**](CompleteSetupPostBody.md)|  | 
 
 ### Return type

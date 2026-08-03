@@ -5,8 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**links** | [**IPAllowlistSelfLink**](IPAllowlistSelfLink.md) |  | [optional] 
 **session_allowlist_enabled** | **bool** |  | 
 **api_token_allowlist_enabled** | **bool** |  | 
+**total_count** | **int** | The total number of entries matching the query, before pagination. | [optional] 
 **entries** | [**List[IpAllowlistEntryResponse]**](IpAllowlistEntryResponse.md) |  | 
 
 ## Example

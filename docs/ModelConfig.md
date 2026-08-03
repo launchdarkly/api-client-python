@@ -6,7 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
-**name** | **str** | Human readable name of the model | 
+**maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
+**name** | **str** | Human-readable name of the model | 
 **key** | **str** | Unique key for the model | 
 **id** | **str** | Identifier for the model, for use with third party providers | 
 **icon** | **str** | Icon for the model | [optional] 

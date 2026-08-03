@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **click_house_include_host_restriction** | **bool** |  | [optional] 
 **click_house_service_role_arn** | **str** |  | [optional] 
 **click_house_password** | **str** |  | [optional] 
+**s3_bucket_name** | **str** |  | [optional] 
 
 ## Example
 

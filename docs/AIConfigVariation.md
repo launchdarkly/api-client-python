@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **archived_at** | **int** |  | [optional] 
 **published_at** | **int** |  | [optional] 
 **tools** | [**List[VariationTool]**](VariationTool.md) |  | [optional] 
+**skills** | [**List[VariationSkill]**](VariationSkill.md) |  | [optional] 
 **judge_configuration** | [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
 **judging_config_keys** | **List[str]** |  | [optional] 
 

@@ -17,7 +17,6 @@ Name | Type | Description | Notes
 **created_at** | **int** |  | 
 **updated_at** | **int** |  | 
 **version** | **int** | The auto-incremented version number of the SDK key. | 
-**view_summaries** | [**List[ViewSummary]**](ViewSummary.md) | Summaries of views associated with the SDK key. | [optional] 
 
 ## Example
 

@@ -67,6 +67,12 @@ docs/AgentOptimizationResults.md
 docs/AgentOptimizationRun.md
 docs/AgentOptimizationRuns.md
 docs/AgentOptimizations.md
+docs/AgentSkill.md
+docs/AgentSkillPatch.md
+docs/AgentSkillPost.md
+docs/AgentSkillReference.md
+docs/AgentSkillReferences.md
+docs/AgentSkills.md
 docs/AiConfigsAccess.md
 docs/AiConfigsAccessAllowedReason.md
 docs/AiConfigsAccessAllowedRep.md
@@ -167,6 +173,7 @@ docs/ContextInstanceSearch.md
 docs/ContextInstanceSegmentMembership.md
 docs/ContextInstanceSegmentMemberships.md
 docs/ContextInstances.md
+docs/ContextKindEnvironmentObservation.md
 docs/ContextKindRep.md
 docs/ContextKindsCollectionRep.md
 docs/ContextRecord.md
@@ -346,6 +353,7 @@ docs/HoldoutsApi.md
 docs/HoldoutsCollectionRep.md
 docs/HunkRep.md
 docs/IPAllowlistBetaApi.md
+docs/IPAllowlistSelfLink.md
 docs/InitiatorRep.md
 docs/InsightGroup.md
 docs/InsightGroupCollection.md
@@ -454,7 +462,9 @@ docs/MetricsSummary.md
 docs/MigrationSafetyIssueRep.md
 docs/MigrationSettingsPost.md
 docs/ModelConfig.md
+docs/ModelConfigPatch.md
 docs/ModelConfigPost.md
+docs/ModelConfigs.md
 docs/ModelImport.md
 docs/Modification.md
 docs/MultiEnvironmentDependentFlag.md
@@ -572,9 +582,14 @@ docs/RuleClause.md
 docs/SDKKeysBetaApi.md
 docs/ScheduledChangesApi.md
 docs/SdkKey.md
+docs/SdkKeyForPutSdkKeyViews.md
 docs/SdkKeyKind.md
+docs/SdkKeyListItem.md
 docs/SdkKeyPatch.md
 docs/SdkKeyPost.md
+docs/SdkKeysEnvironmentSummary.md
+docs/SdkKeysForGetSdkKeys.md
+docs/SdkKeysSelfLink.md
 docs/SdkListRep.md
 docs/SdkVersionDetailsRep.md
 docs/SdkVersionListRep.md
@@ -595,6 +610,7 @@ docs/SourceEnv.md
 docs/SourceFlag.md
 docs/StageInput.md
 docs/StageOutput.md
+docs/StaleFlagData.md
 docs/Statement.md
 docs/StatementPost.md
 docs/StatisticCollectionRep.md
@@ -663,6 +679,8 @@ docs/ValuePut.md
 docs/Variation.md
 docs/VariationEvalSummary.md
 docs/VariationOrRolloutRep.md
+docs/VariationSkill.md
+docs/VariationSkillPost.md
 docs/VariationSummary.md
 docs/VariationTool.md
 docs/VariationToolPost.md
@@ -802,6 +820,12 @@ launchdarkly_api/models/agent_optimization_results.py
 launchdarkly_api/models/agent_optimization_run.py
 launchdarkly_api/models/agent_optimization_runs.py
 launchdarkly_api/models/agent_optimizations.py
+launchdarkly_api/models/agent_skill.py
+launchdarkly_api/models/agent_skill_patch.py
+launchdarkly_api/models/agent_skill_post.py
+launchdarkly_api/models/agent_skill_reference.py
+launchdarkly_api/models/agent_skill_references.py
+launchdarkly_api/models/agent_skills.py
 launchdarkly_api/models/ai_config.py
 launchdarkly_api/models/ai_config_dependency.py
 launchdarkly_api/models/ai_config_maintainer.py
@@ -925,6 +949,7 @@ launchdarkly_api/models/context_instance_search.py
 launchdarkly_api/models/context_instance_segment_membership.py
 launchdarkly_api/models/context_instance_segment_memberships.py
 launchdarkly_api/models/context_instances.py
+launchdarkly_api/models/context_kind_environment_observation.py
 launchdarkly_api/models/context_kind_rep.py
 launchdarkly_api/models/context_kinds_collection_rep.py
 launchdarkly_api/models/context_record.py
@@ -1134,6 +1159,7 @@ launchdarkly_api/models/integrations.py
 launchdarkly_api/models/invalid_request_error_rep.py
 launchdarkly_api/models/ip_allowlist_entry_response.py
 launchdarkly_api/models/ip_allowlist_response.py
+launchdarkly_api/models/ip_allowlist_self_link.py
 launchdarkly_api/models/ip_list.py
 launchdarkly_api/models/iteration_input.py
 launchdarkly_api/models/iteration_rep.py
@@ -1186,7 +1212,9 @@ launchdarkly_api/models/metrics_summary.py
 launchdarkly_api/models/migration_safety_issue_rep.py
 launchdarkly_api/models/migration_settings_post.py
 launchdarkly_api/models/model_config.py
+launchdarkly_api/models/model_config_patch.py
 launchdarkly_api/models/model_config_post.py
+launchdarkly_api/models/model_configs.py
 launchdarkly_api/models/model_import.py
 launchdarkly_api/models/modification.py
 launchdarkly_api/models/multi_environment_dependent_flag.py
@@ -1294,9 +1322,14 @@ launchdarkly_api/models/root_response.py
 launchdarkly_api/models/rule.py
 launchdarkly_api/models/rule_clause.py
 launchdarkly_api/models/sdk_key.py
+launchdarkly_api/models/sdk_key_for_put_sdk_key_views.py
 launchdarkly_api/models/sdk_key_kind.py
+launchdarkly_api/models/sdk_key_list_item.py
 launchdarkly_api/models/sdk_key_patch.py
 launchdarkly_api/models/sdk_key_post.py
+launchdarkly_api/models/sdk_keys_environment_summary.py
+launchdarkly_api/models/sdk_keys_for_get_sdk_keys.py
+launchdarkly_api/models/sdk_keys_self_link.py
 launchdarkly_api/models/sdk_list_rep.py
 launchdarkly_api/models/sdk_version_details_rep.py
 launchdarkly_api/models/sdk_version_list_rep.py
@@ -1316,6 +1349,7 @@ launchdarkly_api/models/source_env.py
 launchdarkly_api/models/source_flag.py
 launchdarkly_api/models/stage_input.py
 launchdarkly_api/models/stage_output.py
+launchdarkly_api/models/stale_flag_data.py
 launchdarkly_api/models/statement.py
 launchdarkly_api/models/statement_post.py
 launchdarkly_api/models/statistic_collection_rep.py
@@ -1379,6 +1413,8 @@ launchdarkly_api/models/value_put.py
 launchdarkly_api/models/variation.py
 launchdarkly_api/models/variation_eval_summary.py
 launchdarkly_api/models/variation_or_rollout_rep.py
+launchdarkly_api/models/variation_skill.py
+launchdarkly_api/models/variation_skill_post.py
 launchdarkly_api/models/variation_summary.py
 launchdarkly_api/models/variation_tool.py
 launchdarkly_api/models/variation_tool_post.py
@@ -1461,6 +1497,12 @@ test/test_agent_optimization_results.py
 test/test_agent_optimization_run.py
 test/test_agent_optimization_runs.py
 test/test_agent_optimizations.py
+test/test_agent_skill.py
+test/test_agent_skill_patch.py
+test/test_agent_skill_post.py
+test/test_agent_skill_reference.py
+test/test_agent_skill_references.py
+test/test_agent_skills.py
 test/test_ai_config.py
 test/test_ai_config_dependency.py
 test/test_ai_config_maintainer.py
@@ -1591,6 +1633,7 @@ test/test_context_instance_search.py
 test/test_context_instance_segment_membership.py
 test/test_context_instance_segment_memberships.py
 test/test_context_instances.py
+test/test_context_kind_environment_observation.py
 test/test_context_kind_rep.py
 test/test_context_kinds_collection_rep.py
 test/test_context_record.py
@@ -1823,6 +1866,7 @@ test/test_invalid_request_error_rep.py
 test/test_ip_allowlist_beta_api.py
 test/test_ip_allowlist_entry_response.py
 test/test_ip_allowlist_response.py
+test/test_ip_allowlist_self_link.py
 test/test_ip_list.py
 test/test_iteration_input.py
 test/test_iteration_rep.py
@@ -1878,7 +1922,9 @@ test/test_metrics_summary.py
 test/test_migration_safety_issue_rep.py
 test/test_migration_settings_post.py
 test/test_model_config.py
+test/test_model_config_patch.py
 test/test_model_config_post.py
+test/test_model_configs.py
 test/test_model_import.py
 test/test_modification.py
 test/test_multi_environment_dependent_flag.py
@@ -1995,10 +2041,15 @@ test/test_rule.py
 test/test_rule_clause.py
 test/test_scheduled_changes_api.py
 test/test_sdk_key.py
+test/test_sdk_key_for_put_sdk_key_views.py
 test/test_sdk_key_kind.py
+test/test_sdk_key_list_item.py
 test/test_sdk_key_patch.py
 test/test_sdk_key_post.py
 test/test_sdk_keys_beta_api.py
+test/test_sdk_keys_environment_summary.py
+test/test_sdk_keys_for_get_sdk_keys.py
+test/test_sdk_keys_self_link.py
 test/test_sdk_list_rep.py
 test/test_sdk_version_details_rep.py
 test/test_sdk_version_list_rep.py
@@ -2019,6 +2070,7 @@ test/test_source_env.py
 test/test_source_flag.py
 test/test_stage_input.py
 test/test_stage_output.py
+test/test_stale_flag_data.py
 test/test_statement.py
 test/test_statement_post.py
 test/test_statistic_collection_rep.py
@@ -2087,6 +2139,8 @@ test/test_value_put.py
 test/test_variation.py
 test/test_variation_eval_summary.py
 test/test_variation_or_rollout_rep.py
+test/test_variation_skill.py
+test/test_variation_skill_post.py
 test/test_variation_summary.py
 test/test_variation_tool.py
 test/test_variation_tool_post.py
