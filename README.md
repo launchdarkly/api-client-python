@@ -468,7 +468,7 @@ For more information, please visit [https://support.launchdarkly.com](https://su
 
 ## Requirements.
 
-Python 3.9+
+Python 3.10+
 
 ## Installation & Usage
 ### pip install
