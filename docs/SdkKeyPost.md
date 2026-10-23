@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **name** | **str** | The human-readable name of the SDK key. | 
 **description** | **str** | The optional description of the SDK key. | [optional] 
 **expiry** | **int** |  | [optional] 
+**view_keys** | **List[str]** | List of view keys to associate with the SDK key. | [optional] 
 
 ## Example
 

@@ -5,8 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**allow_unknown_value** | **bool** |  | [optional] 
 **endpoint** | [**Endpoint**](Endpoint.md) |  | [optional] 
+**filters** | [**List[DynamicOptionFiltersItems]**](DynamicOptionFiltersItems.md) |  | [optional] 
 **parser** | [**DynamicOptionsParser**](DynamicOptionsParser.md) |  | [optional] 
+**source** | [**DynamicOptionsSource**](DynamicOptionsSource.md) |  | [optional] 
 
 ## Example
 

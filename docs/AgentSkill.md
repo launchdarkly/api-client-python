@@ -5,15 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
+**key** | **str** | The agent skill key | 
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 **maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**name** | **str** |  | 
-**description** | **str** |  | [optional] 
+**name** | **str** | Human-readable name of the agent skill. | 
+**description** | **str** | Human-readable description of what the agent skill does. | [optional] 
 **markdown** | **str** | The verbatim SKILL.md content of the agent skill | 
-**tags** | **List[str]** |  | 
-**version** | **int** |  | 
+**tags** | **List[str]** | Tags for the agent skill. Tags can be used in custom role policies. | 
+**version** | **int** | Version of the agent skill. Starts at 1, and each update that changes the name, description, or markdown creates a new version. Pass this value with &#x60;key&#x60; in a variation&#39;s &#x60;skills: [{key, version}]&#x60;. | 
 **created_at** | **int** |  | 
 
 ## Example

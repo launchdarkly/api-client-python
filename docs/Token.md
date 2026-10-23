@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **links** | [**Dict[str, Link]**](Link.md) | The location and content type of related resources | 
 **default_api_version** | **int** | The default API version for this token | [optional] 
 **last_used** | **int** |  | [optional] 
+**expiry** | **int** |  | [optional] 
 
 ## Example
 

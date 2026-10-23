@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
-**name** | **str** |  | 
-**description** | **str** |  | [optional] 
+**key** | **str** | A unique key for the prompt snippet | 
+**name** | **str** | A human-readable name for the prompt snippet | 
+**description** | **str** | A description of the prompt snippet | [optional] 
 **text** | **str** | The text content of the prompt snippet | 
-**maintainer_id** | **str** |  | [optional] 
-**maintainer_team_key** | **str** |  | [optional] 
-**tags** | **List[str]** |  | [optional] 
+**maintainer_id** | **str** | The ID of the member who maintains this resource | [optional] 
+**maintainer_team_key** | **str** | The key of the team that maintains this resource | [optional] 
+**tags** | **List[str]** | Tags for this resource | [optional] 
 
 ## Example
 

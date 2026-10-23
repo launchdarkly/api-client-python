@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **str** |  | 
-**role** | **str** |  | 
+**content** | **str** | The message text | 
+**role** | **str** | The message role, such as system, user, or assistant | 
 
 ## Example
 

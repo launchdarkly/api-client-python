@@ -3,7 +3,7 @@
 """
     LaunchDarkly REST API
 
-    This documentation describes LaunchDarkly's REST API. To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  To learn how to use LaunchDarkly using the user interface (UI) instead, read our [product documentation](https://launchdarkly.com/docs/home).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  Depending on the permissions granted as part of your [role](https://launchdarkly.com/docs/home/account/roles), you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, Cross-Origin Resource Sharing (CORS) extensions used during development can modify the Origin header and cause the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate-limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code and include headers to indicate the current rate limit status. The specific headers returned depend on the API route that was called. Limits differ based on the route, authentication mechanism, and other factors.  Each set of headers below appears only when the corresponding limit is being enforced for your call. A given route may be subject to any combination of these limits, so a response can include one, several, or none of these headers. A missing header indicates that the limit was not applied to this specific call; it does not necessarily indicate that the limit does not exist. To reduce usage before hitting a `429` status, program against whichever rate limit headers are present rather than expecting a specific header.  We do not publicly document the specific number of calls permitted by any of these limits, and these limits may change. We encourage clients to program against the specification and rely on the headers described below, rather than hardcoding the current limits.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Limit`     | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Global-Remaining` | The number of requests remaining in the current global rate limit window.        | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Limit`     | The maximum number of requests to the current route permitted per ten seconds.           | | `X-Ratelimit-Route-Remaining` | The number of requests remaining for the current route in the current rate limit window. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.            |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  ### Access token rate limits  Some calls are rate limited per access token. Unlike the global and route-level limits, this limit applies to a single service or personal access token on its own. Exceeding a limit with one access token does not affect other tokens on the account. Calls that are subject to access token rate limits return these headers:  | Header name                        | Description                                                                             | | ---------------------------------- | --------------------------------------------------------------------------------------- | | `X-Ratelimit-Auth-Token-Limit`     | The maximum number of requests the access token can make per ten seconds.               | | `X-Ratelimit-Auth-Token-Remaining` | The number of requests remaining for the access token in the current rate limit window. | | `X-Ratelimit-Auth-Token-Reset`     | The time at which the current rate limit window resets in epoch milliseconds.           |  Unlike the other rate limits, access token rate limits report their own reset time in the `X-Ratelimit-Auth-Token-Reset` header instead of in `X-Ratelimit-Reset`.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). Alternatively, you can use the specification to generate client libraries to interact with our REST API in your language of choice. Or, you can refer to our API endpoints' documentation for guidance on how to make requests with a common HTTP library in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal and EU environments  In addition to the commercial versions, LaunchDarkly offers instances for federal agencies and those based in the European Union (EU).  ### Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ### EU environments  The version of LaunchDarkly that is available in the EU is different from the version of LaunchDarkly available to other regions. If you are based in the EU, you likely use the EU instance of LaunchDarkly. The LaunchDarkly EU instance complies with EU data residency principles, including the protection and confidentiality of EU customer information.  If you are working in the EU instance of LaunchDarkly, the base URI for each request is `https://app.eu.launchdarkly.com`.  To learn more, read [LaunchDarkly in the European Union (EU)](https://launchdarkly.com/docs/home/infrastructure/eu).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
+    This documentation describes LaunchDarkly's REST API. To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  To learn how to use LaunchDarkly using the user interface (UI) instead, read our [product documentation](https://launchdarkly.com/docs/home).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  Depending on the permissions granted as part of your [role](https://launchdarkly.com/docs/home/account/roles), you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, Cross-Origin Resource Sharing (CORS) extensions used during development can modify the Origin header and cause the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  Unless an endpoint's documentation says otherwise, the API ignores request body fields that are not part of that endpoint's request schema, and does not return an error for them. A successful response does not mean that every field you sent was applied. To confirm the result, check the response body.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate-limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code and include headers to indicate the current rate limit status. The specific headers returned depend on the API route that was called. Limits differ based on the route, authentication mechanism, and other factors.  Each set of headers below appears only when the corresponding limit is being enforced for your call. A given route may be subject to any combination of these limits, so a response can include one, several, or none of these headers. A missing header indicates that the limit was not applied to this specific call; it does not necessarily indicate that the limit does not exist. To reduce usage before hitting a `429` status, program against whichever rate limit headers are present rather than expecting a specific header.  We do not publicly document the specific number of calls permitted by any of these limits, and these limits may change. We encourage clients to program against the specification and rely on the headers described below, rather than hardcoding the current limits.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Limit`     | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Global-Remaining` | The number of requests remaining in the current global rate limit window.        | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Limit`     | The maximum number of requests to the current route permitted per ten seconds.           | | `X-Ratelimit-Route-Remaining` | The number of requests remaining for the current route in the current rate limit window. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.            |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  ### Access token rate limits  Some calls are rate limited per access token. Unlike the global and route-level limits, this limit applies to a single service or personal access token on its own. Exceeding a limit with one access token does not affect other tokens on the account. Calls that are subject to access token rate limits return these headers:  | Header name                        | Description                                                                             | | ---------------------------------- | --------------------------------------------------------------------------------------- | | `X-Ratelimit-Auth-Token-Limit`     | The maximum number of requests the access token can make per ten seconds.               | | `X-Ratelimit-Auth-Token-Remaining` | The number of requests remaining for the access token in the current rate limit window. | | `X-Ratelimit-Auth-Token-Reset`     | The time at which the current rate limit window resets in epoch milliseconds.           |  Unlike the other rate limits, access token rate limits report their own reset time in the `X-Ratelimit-Auth-Token-Reset` header instead of in `X-Ratelimit-Reset`.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). Alternatively, you can use the specification to generate client libraries to interact with our REST API in your language of choice. Or, you can refer to our API endpoints' documentation for guidance on how to make requests with a common HTTP library in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal and EU environments  In addition to the commercial versions, LaunchDarkly offers instances for federal agencies and those based in the European Union (EU).  ### Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ### EU environments  The version of LaunchDarkly that is available in the EU is different from the version of LaunchDarkly available to other regions. If you are based in the EU, you likely use the EU instance of LaunchDarkly. The LaunchDarkly EU instance complies with EU data residency principles, including the protection and confidentiality of EU customer information.  If you are working in the EU instance of LaunchDarkly, the base URI for each request is `https://app.eu.launchdarkly.com`.  To learn more, read [LaunchDarkly in the European Union (EU)](https://launchdarkly.com/docs/home/infrastructure/eu).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
 
     The version of the OpenAPI document: 2.0
     Contact: support@launchdarkly.com
@@ -17,9 +17,11 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictInt, StrictStr
 from typing import List, Optional
 from typing_extensions import Annotated
+from launchdarkly_api.models.data_export_project_ranking_rep import DataExportProjectRankingRep
+from launchdarkly_api.models.data_export_series_list_rep import DataExportSeriesListRep
 from launchdarkly_api.models.sdk_list_rep import SdkListRep
 from launchdarkly_api.models.sdk_version_details_rep import SdkVersionDetailsRep
 from launchdarkly_api.models.sdk_version_list_rep import SdkVersionListRep
@@ -1790,10 +1792,11 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -1808,22 +1811,24 @@ class AccountUsageBetaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> SeriesListRep:
+    ) -> DataExportSeriesListRep:
         """Get data export events usage
 
-        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days. `groupBy=projectId` resolves legacy rows through the account's current environment-to-project mapping and returns `409` instead of a partial series when any successful row remains unattributed. Plain project filtering keeps its current-environment compatibility behavior.
 
         :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
         :param event_kind: An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.
         :type event_kind: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.
+        :param destination_kind: A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.
+        :type destination_kind: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -1857,6 +1862,7 @@ class AccountUsageBetaApi:
             project_key=project_key,
             environment_key=environment_key,
             event_kind=event_kind,
+            destination_kind=destination_kind,
             group_by=group_by,
             aggregation_type=aggregation_type,
             granularity=granularity,
@@ -1867,10 +1873,11 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
+            '409': "DataExportProjectIdentityIncompleteErrorRep",
             '429': "RateLimitedErrorRep",
             '503': "StatusServiceUnavailable",
         }
@@ -1890,10 +1897,11 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -1908,22 +1916,24 @@ class AccountUsageBetaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SeriesListRep]:
+    ) -> ApiResponse[DataExportSeriesListRep]:
         """Get data export events usage
 
-        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days. `groupBy=projectId` resolves legacy rows through the account's current environment-to-project mapping and returns `409` instead of a partial series when any successful row remains unattributed. Plain project filtering keeps its current-environment compatibility behavior.
 
         :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
         :param event_kind: An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.
         :type event_kind: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.
+        :param destination_kind: A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.
+        :type destination_kind: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -1957,6 +1967,7 @@ class AccountUsageBetaApi:
             project_key=project_key,
             environment_key=environment_key,
             event_kind=event_kind,
+            destination_kind=destination_kind,
             group_by=group_by,
             aggregation_type=aggregation_type,
             granularity=granularity,
@@ -1967,10 +1978,11 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
+            '409': "DataExportProjectIdentityIncompleteErrorRep",
             '429': "RateLimitedErrorRep",
             '503': "StatusServiceUnavailable",
         }
@@ -1990,10 +2002,11 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -2011,19 +2024,21 @@ class AccountUsageBetaApi:
     ) -> RESTResponseType:
         """Get data export events usage
 
-        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+        Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days. `groupBy=projectId` resolves legacy rows through the account's current environment-to-project mapping and returns `409` instead of a partial series when any successful row remains unattributed. Plain project filtering keeps its current-environment compatibility behavior.
 
         :param var_from: The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `groupBy=projectId`, filters to the project's current environments so retained pre-materialization usage remains visible. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
         :param event_kind: An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.
         :type event_kind: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `environmentId`, `eventKind`.
+        :param destination_kind: A Streaming configuration kind to filter results by. Values preserve raw product identity; `snowflake` is legacy Streaming Snowflake and is distinct from Warehouse `snowflake-v2`. Can be specified multiple times.<br/>Valid values: `kinesis`, `google-pubsub`, `mparticle`, `segment`, `azure-event-hubs`, `snowflake`, `unknown`.
+        :type destination_kind: str
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension. `projectId` requires one or more explicit `projectKey` filters and is capped at 100 selected projects. `destinationId` returns one series per streaming destination with `destinationName` metadata, plus `destinationViewable` when the destination is in the current configuration. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. A destination ID absent from the current configuration is named `Unknown historical destination`. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.<br/>Valid values: `projectId`, `environmentId`, `eventKind`, `destinationKind`, `destinationId`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -2057,6 +2072,7 @@ class AccountUsageBetaApi:
             project_key=project_key,
             environment_key=environment_key,
             event_kind=event_kind,
+            destination_kind=destination_kind,
             group_by=group_by,
             aggregation_type=aggregation_type,
             granularity=granularity,
@@ -2067,10 +2083,11 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
+            '409': "DataExportProjectIdentityIncompleteErrorRep",
             '429': "RateLimitedErrorRep",
             '503': "StatusServiceUnavailable",
         }
@@ -2088,6 +2105,7 @@ class AccountUsageBetaApi:
         project_key,
         environment_key,
         event_kind,
+        destination_kind,
         group_by,
         aggregation_type,
         granularity,
@@ -2132,6 +2150,10 @@ class AccountUsageBetaApi:
         if event_kind is not None:
             
             _query_params.append(('eventKind', event_kind))
+            
+        if destination_kind is not None:
+            
+            _query_params.append(('destinationKind', destination_kind))
             
         if group_by is not None:
             
@@ -2183,6 +2205,407 @@ class AccountUsageBetaApi:
 
 
     @validate_call
+    def get_data_export_project_ranking(
+        self,
+        var_from: Annotated[StrictInt, Field(description="Inclusive UTC range start in Unix milliseconds.")],
+        to: Annotated[StrictInt, Field(description="Exclusive UTC range end in Unix milliseconds.")],
+        source: Annotated[Optional[StrictStr], Field(description="The source scope. Only `streaming` is supported.")] = None,
+        dimension: Annotated[Optional[StrictStr], Field(description="The ranking dimension. Only `project` is supported.")] = None,
+        project_key: Annotated[Optional[List[StrictStr]], Field(description="A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.")] = None,
+        cursor: Annotated[Optional[StrictStr], Field(description="An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> DataExportProjectRankingRep:
+        """Rank Streaming usage by project
+
+        Rank projects with usage in the requested range by successful Streaming transfers. Legacy rows are attributed through the account's complete current environment-to-project mapping. If any successful row remains unattributed after resolution, the operation returns `409` instead of a partial ranking. The result limit does not cap the account-wide project universe or environment mapping. This source-specific operation does not provide Combined or Warehouse ranking.
+
+        :param var_from: Inclusive UTC range start in Unix milliseconds. (required)
+        :type var_from: int
+        :param to: Exclusive UTC range end in Unix milliseconds. (required)
+        :type to: int
+        :param source: The source scope. Only `streaming` is supported.
+        :type source: str
+        :param dimension: The ranking dimension. Only `project` is supported.
+        :type dimension: str
+        :param project_key: A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.
+        :type project_key: List[str]
+        :param search: A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.
+        :type search: str
+        :param cursor: An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.
+        :type cursor: str
+        :param limit: The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.
+        :type limit: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_data_export_project_ranking_serialize(
+            var_from=var_from,
+            to=to,
+            source=source,
+            dimension=dimension,
+            project_key=project_key,
+            search=search,
+            cursor=cursor,
+            limit=limit,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DataExportProjectRankingRep",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '409': "DataExportProjectIdentityIncompleteError",
+            '429': "Error",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_data_export_project_ranking_with_http_info(
+        self,
+        var_from: Annotated[StrictInt, Field(description="Inclusive UTC range start in Unix milliseconds.")],
+        to: Annotated[StrictInt, Field(description="Exclusive UTC range end in Unix milliseconds.")],
+        source: Annotated[Optional[StrictStr], Field(description="The source scope. Only `streaming` is supported.")] = None,
+        dimension: Annotated[Optional[StrictStr], Field(description="The ranking dimension. Only `project` is supported.")] = None,
+        project_key: Annotated[Optional[List[StrictStr]], Field(description="A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.")] = None,
+        cursor: Annotated[Optional[StrictStr], Field(description="An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[DataExportProjectRankingRep]:
+        """Rank Streaming usage by project
+
+        Rank projects with usage in the requested range by successful Streaming transfers. Legacy rows are attributed through the account's complete current environment-to-project mapping. If any successful row remains unattributed after resolution, the operation returns `409` instead of a partial ranking. The result limit does not cap the account-wide project universe or environment mapping. This source-specific operation does not provide Combined or Warehouse ranking.
+
+        :param var_from: Inclusive UTC range start in Unix milliseconds. (required)
+        :type var_from: int
+        :param to: Exclusive UTC range end in Unix milliseconds. (required)
+        :type to: int
+        :param source: The source scope. Only `streaming` is supported.
+        :type source: str
+        :param dimension: The ranking dimension. Only `project` is supported.
+        :type dimension: str
+        :param project_key: A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.
+        :type project_key: List[str]
+        :param search: A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.
+        :type search: str
+        :param cursor: An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.
+        :type cursor: str
+        :param limit: The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.
+        :type limit: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_data_export_project_ranking_serialize(
+            var_from=var_from,
+            to=to,
+            source=source,
+            dimension=dimension,
+            project_key=project_key,
+            search=search,
+            cursor=cursor,
+            limit=limit,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DataExportProjectRankingRep",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '409': "DataExportProjectIdentityIncompleteError",
+            '429': "Error",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_data_export_project_ranking_without_preload_content(
+        self,
+        var_from: Annotated[StrictInt, Field(description="Inclusive UTC range start in Unix milliseconds.")],
+        to: Annotated[StrictInt, Field(description="Exclusive UTC range end in Unix milliseconds.")],
+        source: Annotated[Optional[StrictStr], Field(description="The source scope. Only `streaming` is supported.")] = None,
+        dimension: Annotated[Optional[StrictStr], Field(description="The ranking dimension. Only `project` is supported.")] = None,
+        project_key: Annotated[Optional[List[StrictStr]], Field(description="A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.")] = None,
+        search: Annotated[Optional[StrictStr], Field(description="A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.")] = None,
+        cursor: Annotated[Optional[StrictStr], Field(description="An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Rank Streaming usage by project
+
+        Rank projects with usage in the requested range by successful Streaming transfers. Legacy rows are attributed through the account's complete current environment-to-project mapping. If any successful row remains unattributed after resolution, the operation returns `409` instead of a partial ranking. The result limit does not cap the account-wide project universe or environment mapping. This source-specific operation does not provide Combined or Warehouse ranking.
+
+        :param var_from: Inclusive UTC range start in Unix milliseconds. (required)
+        :type var_from: int
+        :param to: Exclusive UTC range end in Unix milliseconds. (required)
+        :type to: int
+        :param source: The source scope. Only `streaming` is supported.
+        :type source: str
+        :param dimension: The ranking dimension. Only `project` is supported.
+        :type dimension: str
+        :param project_key: A canonical project key to include. Can be specified multiple times, with at most 100 unique explicit selections; duplicates do not consume the limit. When omitted, all account projects with usage in the requested range are ranked.
+        :type project_key: List[str]
+        :param search: A case-insensitive substring matched against canonical project keys before querying usage. Project names are not searched.
+        :type search: str
+        :param cursor: An opaque cursor returned by a previous response. Cursors are bound to the account and ranking inputs.
+        :type cursor: str
+        :param limit: The maximum number of ranked projects to return. This bounds response rows and look-ahead, not the account-wide candidate universe.
+        :type limit: int
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_data_export_project_ranking_serialize(
+            var_from=var_from,
+            to=to,
+            source=source,
+            dimension=dimension,
+            project_key=project_key,
+            search=search,
+            cursor=cursor,
+            limit=limit,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DataExportProjectRankingRep",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+            '409': "DataExportProjectIdentityIncompleteError",
+            '429': "Error",
+            '500': "Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_data_export_project_ranking_serialize(
+        self,
+        var_from,
+        to,
+        source,
+        dimension,
+        project_key,
+        search,
+        cursor,
+        limit,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'projectKey': 'multi',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if var_from is not None:
+            
+            _query_params.append(('from', var_from))
+            
+        if to is not None:
+            
+            _query_params.append(('to', to))
+            
+        if source is not None:
+            
+            _query_params.append(('source', source))
+            
+        if dimension is not None:
+            
+            _query_params.append(('dimension', dimension))
+            
+        if project_key is not None:
+            
+            _query_params.append(('projectKey', project_key))
+            
+        if search is not None:
+            
+            _query_params.append(('search', search))
+            
+        if cursor is not None:
+            
+            _query_params.append(('cursor', cursor))
+            
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'ApiKey'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/api/v2/usage/data-export-events/projects/ranking',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_evaluations_usage(
         self,
         project_key: Annotated[StrictStr, Field(description="The project key")],
@@ -2206,7 +2629,7 @@ class AccountUsageBetaApi:
     ) -> SeriesListRep:
         """Get evaluations usage
 
-        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the data depends on the age of the data requested. If the requested range is within the past two hours, minutely data is returned. If it is within the last two days, hourly data is returned. Otherwise, daily data is returned.
+        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the returned data depends on the length of the requested time range: ranges shorter than two hours return minutely data, ranges shorter than two days return hourly data, and ranges of two days or longer return daily data. Minutely data is retained for 70 days; a range shorter than two hours that starts before then is returned at hourly granularity instead, with the start of the range widened to the containing hour. Ranges that predate available data return an empty series list. If a flag has served many distinct variation values in the requested range, the least recently seen values may be aggregated into a single additional series labeled \"Other Variations\".
 
         :param project_key: The project key (required)
         :type project_key: str
@@ -2298,7 +2721,7 @@ class AccountUsageBetaApi:
     ) -> ApiResponse[SeriesListRep]:
         """Get evaluations usage
 
-        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the data depends on the age of the data requested. If the requested range is within the past two hours, minutely data is returned. If it is within the last two days, hourly data is returned. Otherwise, daily data is returned.
+        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the returned data depends on the length of the requested time range: ranges shorter than two hours return minutely data, ranges shorter than two days return hourly data, and ranges of two days or longer return daily data. Minutely data is retained for 70 days; a range shorter than two hours that starts before then is returned at hourly granularity instead, with the start of the range widened to the containing hour. Ranges that predate available data return an empty series list. If a flag has served many distinct variation values in the requested range, the least recently seen values may be aggregated into a single additional series labeled \"Other Variations\".
 
         :param project_key: The project key (required)
         :type project_key: str
@@ -2390,7 +2813,7 @@ class AccountUsageBetaApi:
     ) -> RESTResponseType:
         """Get evaluations usage
 
-        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the data depends on the age of the data requested. If the requested range is within the past two hours, minutely data is returned. If it is within the last two days, hourly data is returned. Otherwise, daily data is returned.
+        Get time-series arrays of the number of times a flag is evaluated, broken down by the variation that resulted from that evaluation. The granularity of the returned data depends on the length of the requested time range: ranges shorter than two hours return minutely data, ranges shorter than two days return hourly data, and ranges of two days or longer return daily data. Minutely data is retained for 70 days; a range shorter than two hours that starts before then is returned at hourly granularity instead, with the start of the range widened to the containing hour. Ranges that predate available data return an empty series list. If a flag has served many distinct variation values in the requested range, the least recently seen values may be aggregated into a single additional series labeled \"Other Variations\".
 
         :param project_key: The project key (required)
         :type project_key: str
@@ -2854,7 +3277,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_key: Annotated[Optional[StrictStr], Field(description="An event key to filter results by. Can be specified multiple times, one query parameter per event key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
@@ -2882,7 +3305,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -2958,7 +3381,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_key: Annotated[Optional[StrictStr], Field(description="An event key to filter results by. Can be specified multiple times, one query parameter per event key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
@@ -2986,7 +3409,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -3062,7 +3485,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         event_key: Annotated[Optional[StrictStr], Field(description="An event key to filter results by. Can be specified multiple times, one query parameter per event key.")] = None,
         event_kind: Annotated[Optional[StrictStr], Field(description="An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.")] = None,
@@ -3090,7 +3513,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters to the project's current environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -3268,7 +3691,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         experiment_id: Annotated[Optional[StrictStr], Field(description="An experiment ID to filter results by. Can be specified multiple times, one query parameter per experiment ID.")] = None,
         group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `experimentId`.")] = None,
@@ -3295,7 +3718,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -3368,7 +3791,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         experiment_id: Annotated[Optional[StrictStr], Field(description="An experiment ID to filter results by. Can be specified multiple times, one query parameter per experiment ID.")] = None,
         group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `experimentId`.")] = None,
@@ -3395,7 +3818,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -3468,7 +3891,7 @@ class AccountUsageBetaApi:
         self,
         var_from: Annotated[Optional[StrictStr], Field(description="The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.")] = None,
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
-        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
+        project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
         experiment_id: Annotated[Optional[StrictStr], Field(description="An experiment ID to filter results by. Can be specified multiple times, one query parameter per experiment ID.")] = None,
         group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `experimentId`.")] = None,
@@ -3495,7 +3918,7 @@ class AccountUsageBetaApi:
         :type var_from: str
         :param to: The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
         :type to: str
-        :param project_key: A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+        :param project_key: A project key to filter results by. Without `environmentKey`, filters by project, including projects that currently have no environments. Can be specified multiple times, one query parameter per project key.
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
@@ -7908,9 +8331,9 @@ class AccountUsageBetaApi:
         relay_version: Annotated[Optional[StrictStr], Field(description="A relay version to filter results by. Can be specified multiple times, one query parameter per relay version.")] = None,
         sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
         sdk_version: Annotated[Optional[StrictStr], Field(description="An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.")] = None,
-        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.")] = None,
         sdk_app_id: Annotated[Optional[StrictStr], Field(description="An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -7946,11 +8369,11 @@ class AccountUsageBetaApi:
         :type sdk_name: str
         :param sdk_version: An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.
         :type sdk_version: str
-        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :param sdk_type: Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.
         :type sdk_type: str
         :param sdk_app_id: An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.
         :type sdk_app_id: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -8028,9 +8451,9 @@ class AccountUsageBetaApi:
         relay_version: Annotated[Optional[StrictStr], Field(description="A relay version to filter results by. Can be specified multiple times, one query parameter per relay version.")] = None,
         sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
         sdk_version: Annotated[Optional[StrictStr], Field(description="An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.")] = None,
-        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.")] = None,
         sdk_app_id: Annotated[Optional[StrictStr], Field(description="An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -8066,11 +8489,11 @@ class AccountUsageBetaApi:
         :type sdk_name: str
         :param sdk_version: An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.
         :type sdk_version: str
-        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :param sdk_type: Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.
         :type sdk_type: str
         :param sdk_app_id: An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.
         :type sdk_app_id: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -8148,9 +8571,9 @@ class AccountUsageBetaApi:
         relay_version: Annotated[Optional[StrictStr], Field(description="A relay version to filter results by. Can be specified multiple times, one query parameter per relay version.")] = None,
         sdk_name: Annotated[Optional[StrictStr], Field(description="An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.")] = None,
         sdk_version: Annotated[Optional[StrictStr], Field(description="An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.")] = None,
-        sdk_type: Annotated[Optional[StrictStr], Field(description="An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.")] = None,
+        sdk_type: Annotated[Optional[StrictStr], Field(description="Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.")] = None,
         sdk_app_id: Annotated[Optional[StrictStr], Field(description="An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -8186,11 +8609,11 @@ class AccountUsageBetaApi:
         :type sdk_name: str
         :param sdk_version: An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.
         :type sdk_version: str
-        :param sdk_type: An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+        :param sdk_type: Deprecated. This endpoint reports server-side connections only, so `server` is the only value that returns data and omitting the parameter is equivalent. Any other value returns an empty series. To report client-side connections, use `GET /api/v2/usage/streams/{source}`.
         :type sdk_type: str
         :param sdk_app_id: An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID.
         :type sdk_app_id: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkAppId`.<br/>`sdkType` is no longer offered: this endpoint reports server-side connections only, so grouping by it returns a single group. It is still accepted, for compatibility.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -9690,8 +10113,9 @@ class AccountUsageBetaApi:
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
         project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
-        destination: Annotated[Optional[StrictStr], Field(description="A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.")] = None,
+        destination: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -9706,7 +10130,7 @@ class AccountUsageBetaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> SeriesListRep:
+    ) -> DataExportSeriesListRep:
         """Get warehouse Data Export usage
 
         Get a time series array showing the number of rows exported to your warehouse Data Export destinations. The supported granularity varies by aggregation type. The maximum time range is 365 days.
@@ -9719,9 +10143,11 @@ class AccountUsageBetaApi:
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
-        :param destination: A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
+        :param destination_kind: A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.
+        :type destination_kind: str
+        :param destination: A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
         :type destination: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -9754,6 +10180,7 @@ class AccountUsageBetaApi:
             to=to,
             project_key=project_key,
             environment_key=environment_key,
+            destination_kind=destination_kind,
             destination=destination,
             group_by=group_by,
             aggregation_type=aggregation_type,
@@ -9765,7 +10192,7 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
@@ -9790,8 +10217,9 @@ class AccountUsageBetaApi:
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
         project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
-        destination: Annotated[Optional[StrictStr], Field(description="A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.")] = None,
+        destination: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -9806,7 +10234,7 @@ class AccountUsageBetaApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[SeriesListRep]:
+    ) -> ApiResponse[DataExportSeriesListRep]:
         """Get warehouse Data Export usage
 
         Get a time series array showing the number of rows exported to your warehouse Data Export destinations. The supported granularity varies by aggregation type. The maximum time range is 365 days.
@@ -9819,9 +10247,11 @@ class AccountUsageBetaApi:
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
-        :param destination: A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
+        :param destination_kind: A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.
+        :type destination_kind: str
+        :param destination: A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
         :type destination: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -9854,6 +10284,7 @@ class AccountUsageBetaApi:
             to=to,
             project_key=project_key,
             environment_key=environment_key,
+            destination_kind=destination_kind,
             destination=destination,
             group_by=group_by,
             aggregation_type=aggregation_type,
@@ -9865,7 +10296,7 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
@@ -9890,8 +10321,9 @@ class AccountUsageBetaApi:
         to: Annotated[Optional[StrictStr], Field(description="The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.")] = None,
         project_key: Annotated[Optional[StrictStr], Field(description="A project key to filter results by. Can be specified multiple times, one query parameter per project key.")] = None,
         environment_key: Annotated[Optional[StrictStr], Field(description="An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.")] = None,
-        destination: Annotated[Optional[StrictStr], Field(description="A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
-        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.")] = None,
+        destination_kind: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.")] = None,
+        destination: Annotated[Optional[StrictStr], Field(description="A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.")] = None,
         aggregation_type: Annotated[Optional[StrictStr], Field(description="Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.")] = None,
         granularity: Annotated[Optional[StrictStr], Field(description="Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`.")] = None,
         _request_timeout: Union[
@@ -9919,9 +10351,11 @@ class AccountUsageBetaApi:
         :type project_key: str
         :param environment_key: An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key.
         :type environment_key: str
-        :param destination: A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
+        :param destination_kind: A Warehouse configuration kind to filter results by. Cannot be combined with `destination`. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`, `s3`.
+        :type destination_kind: str
+        :param destination: A Warehouse configuration kind to filter results by. Cannot be combined with `destinationKind`. Existing behavior is unchanged. Can be specified multiple times.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`.
         :type destination: str
-        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`.
+        :param group_by: If specified, returns data for each distinct value of the given field. Can be specified multiple times.<br/>Valid values: `projectId`, `environmentId`, `destination`, `destinationKind`, `destinationId`. `destination` and `destinationKind` return the same raw Warehouse configuration kinds. `destinationId` returns one series per warehouse destination with `destinationName` metadata. When a current destination you can view matches, its `destinationId` is the LaunchDarkly destination ID, with `destinationViewable`. Otherwise, it is the warehouse provider's destination ID, named `Unknown destination`. The destination's own kind is added as `destinationKind` only when you can view the destination. A kind requested with `groupBy=destinationKind` is returned unchanged. Destinations you cannot view are reported together in one `Unknown destination` series with `destinationId` `hidden` and `destinationViewable` `false`, one per combination of the other requested dimensions, such as `destinationKind`. Usage without a destination ID is one series with an empty `destinationId` named `Unattributed`.
         :type group_by: str
         :param aggregation_type: Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`.
         :type aggregation_type: str
@@ -9954,6 +10388,7 @@ class AccountUsageBetaApi:
             to=to,
             project_key=project_key,
             environment_key=environment_key,
+            destination_kind=destination_kind,
             destination=destination,
             group_by=group_by,
             aggregation_type=aggregation_type,
@@ -9965,7 +10400,7 @@ class AccountUsageBetaApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "SeriesListRep",
+            '200': "DataExportSeriesListRep",
             '400': "InvalidRequestErrorRep",
             '401': "UnauthorizedErrorRep",
             '403': "ForbiddenErrorRep",
@@ -9985,6 +10420,7 @@ class AccountUsageBetaApi:
         to,
         project_key,
         environment_key,
+        destination_kind,
         destination,
         group_by,
         aggregation_type,
@@ -10026,6 +10462,10 @@ class AccountUsageBetaApi:
         if environment_key is not None:
             
             _query_params.append(('environmentKey', environment_key))
+            
+        if destination_kind is not None:
+            
+            _query_params.append(('destinationKind', destination_kind))
             
         if destination is not None:
             

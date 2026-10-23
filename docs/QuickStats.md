@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**active_configs** | **int** |  | 
-**active_experiments** | **int** |  | 
-**average_satisfaction7_d** | **float** |  | [optional] 
-**spend_month_to_date** | **float** |  | [optional] 
+**active_configs** | **int** | Number of active AI Configs | 
+**active_experiments** | **int** | Number of active experiments on AI Configs | 
+**average_satisfaction7_d** | **float** | Average satisfaction rating over the last 7 days | [optional] 
+**spend_month_to_date** | **float** | Spend so far this month | [optional] 
 
 ## Example
 

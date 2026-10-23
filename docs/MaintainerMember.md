@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | 
-**email** | **str** |  | 
-**first_name** | **str** |  | [optional] 
-**last_name** | **str** |  | [optional] 
-**role** | **str** |  | 
+**id** | **str** | The member ID | 
+**email** | **str** | The member email address | 
+**first_name** | **str** | The member first name | [optional] 
+**last_name** | **str** | The member last name | [optional] 
+**role** | **str** | The member role | 
 
 ## Example
 

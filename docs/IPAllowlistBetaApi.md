@@ -218,7 +218,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.IPAllowlistBetaApi(api_client)
     search = 'search_example' # str | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. (optional)
-    limit = 56 # int | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. (optional)
+    limit = 56 # int | The number of entries to return. Defaults to 20. Maximum is 100. (optional)
     offset = 56 # int | The number of entries to skip. Used for pagination. (optional)
 
     try:
@@ -238,7 +238,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **search** | **str**| A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. | [optional] 
- **limit** | **int**| The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. | [optional] 
+ **limit** | **int**| The number of entries to return. Defaults to 20. Maximum is 100. | [optional] 
  **offset** | **int**| The number of entries to skip. Used for pagination. | [optional] 
 
 ### Return type

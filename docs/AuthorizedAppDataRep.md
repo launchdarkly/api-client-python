@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **id** | **str** | The ID of the authorized application | [optional] 
 **is_scim** | **bool** | Whether the application is authorized through SCIM | [optional] 
 **name** | **str** | The authorized application name | [optional] 
+**icon_url** | **str** | The icon for this authorized application, if it has one | [optional] 
 **maintainer_name** | **str** | The name of the maintainer for this authorized application | [optional] 
+**is_agent** | **bool** | Whether this application acted on behalf of the member in this entry. When true, the member and the application are co-authors of the change rather than the member acting alone. Omitted for applications that act on their own. | [optional] 
 
 ## Example
 

@@ -28,12 +28,14 @@ Method | HTTP request | Description
 [**get_model_config**](AgentControlApi.md#get_model_config) | **GET** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 [**get_prompt_snippet**](AgentControlApi.md#get_prompt_snippet) | **GET** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Get a prompt snippet
 [**list_agent_graphs**](AgentControlApi.md#list_agent_graphs) | **GET** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
-[**list_agent_optimization_results**](AgentControlApi.md#list_agent_optimization_results) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List agent optimization runs
+[**list_agent_optimization_results**](AgentControlApi.md#list_agent_optimization_results) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List latest agent optimization result per run
 [**list_agent_optimization_results_by_run_id**](AgentControlApi.md#list_agent_optimization_results_by_run_id) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId}/results | List agent optimization results for a run
+[**list_agent_optimization_runs**](AgentControlApi.md#list_agent_optimization_runs) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs | List agent optimization runs
 [**list_agent_optimizations**](AgentControlApi.md#list_agent_optimizations) | **GET** /api/v2/projects/{projectKey}/agent-optimizations | List agent optimizations
 [**list_agent_skill_references**](AgentControlApi.md#list_agent_skill_references) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/references | List agent skill references
 [**list_agent_skill_versions**](AgentControlApi.md#list_agent_skill_versions) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/versions | List agent skill versions
 [**list_agent_skills**](AgentControlApi.md#list_agent_skills) | **GET** /api/v2/projects/{projectKey}/ai-configs/skills | List agent skills
+[**list_ai_tool_references**](AgentControlApi.md#list_ai_tool_references) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/references | List AI tool references
 [**list_ai_tool_versions**](AgentControlApi.md#list_ai_tool_versions) | **GET** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**list_ai_tools**](AgentControlApi.md#list_ai_tools) | **GET** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 [**list_all_agent_optimization_results**](AgentControlApi.md#list_all_agent_optimization_results) | **GET** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/all-results | List all agent optimization results across versions
@@ -102,8 +104,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
-    graph_key = 'graph_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    graph_key = 'graph_key_example' # str | The agent graph key
 
     try:
         # Delete agent graph
@@ -120,8 +122,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
- **graph_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **graph_key** | **str**| The agent graph key | 
 
 ### Return type
 
@@ -185,8 +187,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
 
     try:
         # Delete an agent optimization
@@ -202,8 +204,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
 
 ### Return type
 
@@ -267,9 +269,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
-    run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
+    run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | The agent optimization run ID
 
     try:
         # Delete an agent optimization run
@@ -286,9 +288,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
- **run_id** | **UUID**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
+ **run_id** | **UUID**| The agent optimization run ID | 
 
 ### Return type
 
@@ -351,8 +353,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    skill_key = 'skill_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    skill_key = 'skill_key_example' # str | The agent skill key
 
     try:
         # Delete an agent skill
@@ -368,8 +370,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **skill_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **skill_key** | **str**| The agent skill key | 
 
 ### Return type
 
@@ -433,8 +435,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'default' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
 
     try:
         # Delete AI Config
@@ -450,8 +452,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
 
 ### Return type
 
@@ -515,9 +517,9 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
-    variation_key = 'variation_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
+    variation_key = 'variation_key_example' # str | The AI Config variation key
 
     try:
         # Delete AI Config variation
@@ -533,9 +535,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
- **variation_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
+ **variation_key** | **str**| The AI Config variation key | 
 
 ### Return type
 
@@ -599,8 +601,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    tool_key = 'tool_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    tool_key = 'tool_key_example' # str | The AI tool key
 
     try:
         # Delete AI tool
@@ -616,8 +618,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **tool_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **tool_key** | **str**| The AI tool key | 
 
 ### Return type
 
@@ -681,8 +683,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    model_config_key = 'model_config_key_example' # str | 
+    project_key = 'default' # str | The project key
+    model_config_key = 'model_config_key_example' # str | The AI model config key
 
     try:
         # Delete an AI model config
@@ -698,8 +700,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **model_config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **model_config_key** | **str**| The AI model config key | 
 
 ### Return type
 
@@ -763,8 +765,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    snippet_key = 'snippet_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    snippet_key = 'snippet_key_example' # str | The prompt snippet key
 
     try:
         # Delete a prompt snippet
@@ -780,8 +782,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **snippet_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **snippet_key** | **str**| The prompt snippet key | 
 
 ### Return type
 
@@ -845,7 +847,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
+    project_key = 'default' # str | The project key
     restricted_models_request = launchdarkly_api.RestrictedModelsRequest() # RestrictedModelsRequest | List of AI model keys to remove from the restricted list
 
     try:
@@ -862,7 +864,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **restricted_models_request** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md)| List of AI model keys to remove from the restricted list | 
 
 ### Return type
@@ -929,8 +931,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
-    graph_key = 'graph_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    graph_key = 'graph_key_example' # str | The agent graph key
 
     try:
         # Get agent graph
@@ -949,8 +951,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
- **graph_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **graph_key** | **str**| The agent graph key | 
 
 ### Return type
 
@@ -1015,8 +1017,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
 
     try:
         # Get an agent optimization
@@ -1034,8 +1036,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
 
 ### Return type
 
@@ -1099,8 +1101,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    skill_key = 'skill_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    skill_key = 'skill_key_example' # str | The agent skill key
 
     try:
         # Get an agent skill
@@ -1118,8 +1120,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **skill_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **skill_key** | **str**| The agent skill key | 
 
 ### Return type
 
@@ -1183,8 +1185,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
 
     try:
         # Get AI Config
@@ -1202,8 +1204,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
 
 ### Return type
 
@@ -1268,8 +1270,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
     var_from = 56 # int | The starting time, as milliseconds since epoch (inclusive).
     to = 56 # int | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
     env = 'env_example' # str | An environment key. Only metrics from this environment will be included.
@@ -1292,8 +1294,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
  **var_from** | **int**| The starting time, as milliseconds since epoch (inclusive). | 
  **to** | **int**| The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after &#x60;from&#x60;. | 
  **env** | **str**| An environment key. Only metrics from this environment will be included. | 
@@ -1363,8 +1365,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
     var_from = 56 # int | The starting time, as milliseconds since epoch (inclusive).
     to = 56 # int | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
     env = 'env_example' # str | An environment key. Only metrics from this environment will be included.
@@ -1387,8 +1389,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
  **var_from** | **int**| The starting time, as milliseconds since epoch (inclusive). | 
  **to** | **int**| The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after &#x60;from&#x60;. | 
  **env** | **str**| An environment key. Only metrics from this environment will be included. | 
@@ -1458,7 +1460,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     env = 'env_example' # str | An environment key. Only metrics from this environment will be included.
 
     try:
@@ -1477,7 +1479,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **env** | **str**| An environment key. Only metrics from this environment will be included. | 
 
 ### Return type
@@ -1543,8 +1545,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
 
     try:
         # Show an AI Config's targeting
@@ -1562,8 +1564,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
 
 ### Return type
 
@@ -1627,9 +1629,9 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    config_key = 'default' # str | 
-    variation_key = 'default' # str | 
+    project_key = 'default' # str | The project key
+    config_key = 'default' # str | The AI Config key
+    variation_key = 'default' # str | The AI Config variation key
 
     try:
         # Get AI Config variation
@@ -1647,9 +1649,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
- **variation_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
+ **variation_key** | **str**| The AI Config variation key | 
 
 ### Return type
 
@@ -1714,7 +1716,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
+    project_key = 'default' # str | The project key
     sort = 'sort_example' # str | A sort to apply to the list of AgentControl configs. (optional)
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -1736,7 +1738,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **sort** | **str**| A sort to apply to the list of AgentControl configs. | [optional] 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
@@ -1805,8 +1807,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    tool_key = 'tool_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    tool_key = 'tool_key_example' # str | The AI tool key
 
     try:
         # Get AI tool
@@ -1824,8 +1826,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **tool_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **tool_key** | **str**| The AI tool key | 
 
 ### Return type
 
@@ -1890,8 +1892,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    model_config_key = 'default' # str | 
+    project_key = 'default' # str | The project key
+    model_config_key = 'default' # str | The AI model config key
     version = 56 # int | Specific model config version to return. Omit to return the latest version. (optional)
 
     try:
@@ -1910,8 +1912,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **model_config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **model_config_key** | **str**| The AI model config key | 
  **version** | **int**| Specific model config version to return. Omit to return the latest version. | [optional] 
 
 ### Return type
@@ -1977,8 +1979,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    snippet_key = 'snippet_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    snippet_key = 'snippet_key_example' # str | The prompt snippet key
 
     try:
         # Get a prompt snippet
@@ -1996,8 +1998,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **snippet_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **snippet_key** | **str**| The prompt snippet key | 
 
 ### Return type
 
@@ -2062,7 +2064,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter = 'filter_example' # str | A filter to apply to the list. (optional)
@@ -2084,7 +2086,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
  **filter** | **str**| A filter to apply to the list. | [optional] 
@@ -2116,7 +2118,7 @@ Name | Type | Description  | Notes
 # **list_agent_optimization_results**
 > AgentOptimizationResults list_agent_optimization_results(project_key, optimization_key, limit=limit, offset=offset)
 
-List agent optimization runs
+List latest agent optimization result per run
 
 Get the most recent result for each unique run of an agent optimization.
 
@@ -2151,13 +2153,13 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     try:
-        # List agent optimization runs
+        # List latest agent optimization result per run
         api_response = api_instance.list_agent_optimization_results(project_key, optimization_key, limit=limit, offset=offset)
         print("The response of AgentControlApi->list_agent_optimization_results:\n")
         pprint(api_response)
@@ -2172,8 +2174,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -2239,9 +2241,9 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
-    run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
+    run_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | The agent optimization run ID
 
     try:
         # List agent optimization results for a run
@@ -2259,9 +2261,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
- **run_id** | **UUID**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
+ **run_id** | **UUID**| The agent optimization run ID | 
 
 ### Return type
 
@@ -2281,6 +2283,95 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Agent optimization results for run |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_agent_optimization_runs**
+> AgentOptimizationRuns list_agent_optimization_runs(project_key, optimization_key, limit=limit, offset=offset)
+
+List agent optimization runs
+
+Get one run summary per distinct run_id across all versions of an agent optimization config, ordered by created_at DESC.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.agent_optimization_runs import AgentOptimizationRuns
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List agent optimization runs
+        api_response = api_instance.list_agent_optimization_runs(project_key, optimization_key, limit=limit, offset=offset)
+        print("The response of AgentControlApi->list_agent_optimization_runs:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_agent_optimization_runs: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**AgentOptimizationRuns**](AgentOptimizationRuns.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Agent optimization run list |  -  |
+**400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
 **500** | Internal server error |  -  |
@@ -2325,7 +2416,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter = 'filter_example' # str | A filter to apply to the list. (optional)
@@ -2346,7 +2437,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
  **filter** | **str**| A filter to apply to the list. | [optional] 
@@ -2414,8 +2505,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    skill_key = 'skill_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    skill_key = 'skill_key_example' # str | The agent skill key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2435,8 +2526,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **skill_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **skill_key** | **str**| The agent skill key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -2502,8 +2593,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    skill_key = 'skill_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    skill_key = 'skill_key_example' # str | The agent skill key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2523,8 +2614,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **skill_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **skill_key** | **str**| The agent skill key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -2591,7 +2682,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter = 'filter_example' # str | A filter to apply to the list. (optional)
@@ -2612,7 +2703,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
  **filter** | **str**| A filter to apply to the list. | [optional] 
@@ -2635,6 +2726,95 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Agent skills list |  -  |
+**400** | Bad request |  -  |
+**403** | Forbidden |  -  |
+**404** | Not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_ai_tool_references**
+> ToolReferences list_ai_tool_references(project_key, tool_key, limit=limit, offset=offset)
+
+List AI tool references
+
+Get all AgentControl config variations that currently reference this tool.
+
+### Example
+
+* Api Key Authentication (ApiKey):
+
+```python
+import launchdarkly_api
+from launchdarkly_api.models.tool_references import ToolReferences
+from launchdarkly_api.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://app.launchdarkly.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = launchdarkly_api.Configuration(
+    host = "https://app.launchdarkly.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: ApiKey
+configuration.api_key['ApiKey'] = os.environ["API_KEY"]
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['ApiKey'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with launchdarkly_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = launchdarkly_api.AgentControlApi(api_client)
+    project_key = 'project_key_example' # str | The project key
+    tool_key = 'tool_key_example' # str | The AI tool key
+    limit = 56 # int | The number of resources to return. (optional)
+    offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+    try:
+        # List AI tool references
+        api_response = api_instance.list_ai_tool_references(project_key, tool_key, limit=limit, offset=offset)
+        print("The response of AgentControlApi->list_ai_tool_references:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AgentControlApi->list_ai_tool_references: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_key** | **str**| The project key | 
+ **tool_key** | **str**| The AI tool key | 
+ **limit** | **int**| The number of resources to return. | [optional] 
+ **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
+
+### Return type
+
+[**ToolReferences**](ToolReferences.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | AI tool references |  -  |
 **400** | Bad request |  -  |
 **403** | Forbidden |  -  |
 **404** | Not found |  -  |
@@ -2680,8 +2860,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    tool_key = 'tool_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    tool_key = 'tool_key_example' # str | The AI tool key
     sort = 'sort_example' # str | A sort to apply to the list of AgentControl configs. (optional)
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -2702,8 +2882,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **tool_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **tool_key** | **str**| The AI tool key | 
  **sort** | **str**| A sort to apply to the list of AgentControl configs. | [optional] 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
@@ -2770,7 +2950,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     sort = 'sort_example' # str | A sort to apply to the list of AgentControl configs. (optional)
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -2792,7 +2972,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **sort** | **str**| A sort to apply to the list of AgentControl configs. | [optional] 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
@@ -2860,8 +3040,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2881,8 +3061,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -2948,8 +3128,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    model_config_key = 'default' # str | 
+    project_key = 'default' # str | The project key
+    model_config_key = 'default' # str | The AI model config key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2969,8 +3149,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **model_config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **model_config_key** | **str**| The AI model config key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -3000,7 +3180,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_model_configs**
-> List[ModelConfig] list_model_configs(project_key, restricted=restricted)
+> List[ModelConfig] list_model_configs(project_key, restricted=restricted, sort=sort, filter=filter)
 
 List AI model configs
 
@@ -3037,12 +3217,14 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
+    project_key = 'default' # str | The project key
     restricted = True # bool | Whether to return only restricted models (optional)
+    sort = 'sort_example' # str | A sort to apply to the list of AgentControl configs. (optional)
+    filter = 'filter_example' # str | A filter to apply to the list. (optional)
 
     try:
         # List AI model configs
-        api_response = api_instance.list_model_configs(project_key, restricted=restricted)
+        api_response = api_instance.list_model_configs(project_key, restricted=restricted, sort=sort, filter=filter)
         print("The response of AgentControlApi->list_model_configs:\n")
         pprint(api_response)
     except Exception as e:
@@ -3056,8 +3238,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **restricted** | **bool**| Whether to return only restricted models | [optional] 
+ **sort** | **str**| A sort to apply to the list of AgentControl configs. | [optional] 
+ **filter** | **str**| A filter to apply to the list. | [optional] 
 
 ### Return type
 
@@ -3122,8 +3306,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    snippet_key = 'snippet_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    snippet_key = 'snippet_key_example' # str | The prompt snippet key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -3143,8 +3327,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **snippet_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **snippet_key** | **str**| The prompt snippet key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -3210,8 +3394,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    snippet_key = 'snippet_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    snippet_key = 'snippet_key_example' # str | The prompt snippet key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -3231,8 +3415,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **snippet_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **snippet_key** | **str**| The prompt snippet key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
 
@@ -3299,7 +3483,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     limit = 56 # int | The number of resources to return. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter = 'filter_example' # str | A filter to apply to the list. (optional)
@@ -3320,7 +3504,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **limit** | **int**| The number of resources to return. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | [optional] 
  **filter** | **str**| A filter to apply to the list. | [optional] 
@@ -3395,8 +3579,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
-    graph_key = 'graph_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    graph_key = 'graph_key_example' # str | The agent graph key
     agent_graph_patch = launchdarkly_api.AgentGraphPatch() # AgentGraphPatch | Agent graph object to update (optional)
 
     try:
@@ -3416,8 +3600,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
- **graph_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **graph_key** | **str**| The agent graph key | 
  **agent_graph_patch** | [**AgentGraphPatch**](AgentGraphPatch.md)| Agent graph object to update | [optional] 
 
 ### Return type
@@ -3484,8 +3668,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
     agent_optimization_patch = launchdarkly_api.AgentOptimizationPatch() # AgentOptimizationPatch | Agent optimization fields to update
 
     try:
@@ -3504,8 +3688,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
  **agent_optimization_patch** | [**AgentOptimizationPatch**](AgentOptimizationPatch.md)| Agent optimization fields to update | 
 
 ### Return type
@@ -3573,9 +3757,9 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
-    result_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
+    result_id = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | The agent optimization result ID
     agent_optimization_result_patch = launchdarkly_api.AgentOptimizationResultPatch() # AgentOptimizationResultPatch | Agent optimization result fields to update
 
     try:
@@ -3594,9 +3778,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
- **result_id** | **UUID**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
+ **result_id** | **UUID**| The agent optimization result ID | 
  **agent_optimization_result_patch** | [**AgentOptimizationResultPatch**](AgentOptimizationResultPatch.md)| Agent optimization result fields to update | 
 
 ### Return type
@@ -3663,8 +3847,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    skill_key = 'skill_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    skill_key = 'skill_key_example' # str | The agent skill key
     agent_skill_patch = launchdarkly_api.AgentSkillPatch() # AgentSkillPatch | Agent skill fields to update
 
     try:
@@ -3683,8 +3867,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **skill_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **skill_key** | **str**| The agent skill key | 
  **agent_skill_patch** | [**AgentSkillPatch**](AgentSkillPatch.md)| Agent skill fields to update | 
 
 ### Return type
@@ -3763,8 +3947,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
     ai_config_patch = launchdarkly_api.AIConfigPatch() # AIConfigPatch | AI Config object to update (optional)
 
     try:
@@ -3783,8 +3967,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
  **ai_config_patch** | [**AIConfigPatch**](AIConfigPatch.md)| AI Config object to update | [optional] 
 
 ### Return type
@@ -4409,8 +4593,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
     ai_config_targeting_patch = launchdarkly_api.AIConfigTargetingPatch() # AIConfigTargetingPatch | AI Config targeting semantic patch instructions (optional)
 
     try:
@@ -4429,8 +4613,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
  **ai_config_targeting_patch** | [**AIConfigTargetingPatch**](AIConfigTargetingPatch.md)| AI Config targeting semantic patch instructions | [optional] 
 
 ### Return type
@@ -4466,6 +4650,8 @@ Update AI Config variation
 Edit an existing variation of an AI Config. This creates a new version of the variation.
 
 The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+If the variation is in use in a project environment where approval settings require review for this AI Config, this endpoint returns 403 and the change must be submitted through an approval request.
 
 Here's an example:
 ```
@@ -4512,9 +4698,9 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
-    variation_key = 'variation_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
+    variation_key = 'variation_key_example' # str | The AI Config variation key
     ai_config_variation_patch = launchdarkly_api.AIConfigVariationPatch() # AIConfigVariationPatch | AI Config variation object to update (optional)
 
     try:
@@ -4533,9 +4719,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
- **variation_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
+ **variation_key** | **str**| The AI Config variation key | 
  **ai_config_variation_patch** | [**AIConfigVariationPatch**](AIConfigVariationPatch.md)| AI Config variation object to update | [optional] 
 
 ### Return type
@@ -4602,8 +4788,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    tool_key = 'tool_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    tool_key = 'tool_key_example' # str | The AI tool key
     ai_tool_patch = launchdarkly_api.AIToolPatch() # AIToolPatch | AI tool object to update (optional)
 
     try:
@@ -4622,8 +4808,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **tool_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **tool_key** | **str**| The AI tool key | 
  **ai_tool_patch** | [**AIToolPatch**](AIToolPatch.md)| AI tool object to update | [optional] 
 
 ### Return type
@@ -4690,8 +4876,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
-    model_config_key = 'model_config_key_example' # str | 
+    project_key = 'default' # str | The project key
+    model_config_key = 'model_config_key_example' # str | The AI model config key
     model_config_patch = launchdarkly_api.ModelConfigPatch() # ModelConfigPatch | AI model config object to update
 
     try:
@@ -4710,8 +4896,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **model_config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **model_config_key** | **str**| The AI model config key | 
  **model_config_patch** | [**ModelConfigPatch**](ModelConfigPatch.md)| AI model config object to update | 
 
 ### Return type
@@ -4778,8 +4964,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    snippet_key = 'snippet_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    snippet_key = 'snippet_key_example' # str | The prompt snippet key
     prompt_snippet_patch = launchdarkly_api.PromptSnippetPatch() # PromptSnippetPatch | Prompt snippet fields to update
 
     try:
@@ -4798,8 +4984,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **snippet_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **snippet_key** | **str**| The prompt snippet key | 
  **prompt_snippet_patch** | [**PromptSnippetPatch**](PromptSnippetPatch.md)| Prompt snippet fields to update | 
 
 ### Return type
@@ -4868,7 +5054,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
     ld_api_version = 'ld_api_version_example' # str | Version of the endpoint.
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     agent_graph_post = launchdarkly_api.AgentGraphPost() # AgentGraphPost | Agent graph object to create
 
     try:
@@ -4888,7 +5074,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ld_api_version** | **str**| Version of the endpoint. | 
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **agent_graph_post** | [**AgentGraphPost**](AgentGraphPost.md)| Agent graph object to create | 
 
 ### Return type
@@ -4955,7 +5141,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     agent_optimization_post = launchdarkly_api.AgentOptimizationPost() # AgentOptimizationPost | Agent optimization object to create
 
     try:
@@ -4974,7 +5160,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **agent_optimization_post** | [**AgentOptimizationPost**](AgentOptimizationPost.md)| Agent optimization object to create | 
 
 ### Return type
@@ -5041,8 +5227,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    optimization_key = 'optimization_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    optimization_key = 'optimization_key_example' # str | The agent optimization key
     agent_optimization_result_post = launchdarkly_api.AgentOptimizationResultPost() # AgentOptimizationResultPost | Agent optimization result to create
 
     try:
@@ -5061,8 +5247,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **optimization_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **optimization_key** | **str**| The agent optimization key | 
  **agent_optimization_result_post** | [**AgentOptimizationResultPost**](AgentOptimizationResultPost.md)| Agent optimization result to create | 
 
 ### Return type
@@ -5130,7 +5316,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     agent_skill_post = launchdarkly_api.AgentSkillPost() # AgentSkillPost | Agent skill object to create
 
     try:
@@ -5149,7 +5335,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **agent_skill_post** | [**AgentSkillPost**](AgentSkillPost.md)| Agent skill object to create | 
 
 ### Return type
@@ -5217,7 +5403,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     ai_config_post = launchdarkly_api.AIConfigPost() # AIConfigPost | AI Config object to create
 
     try:
@@ -5236,7 +5422,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **ai_config_post** | [**AIConfigPost**](AIConfigPost.md)| AI Config object to create | 
 
 ### Return type
@@ -5315,8 +5501,8 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
-    config_key = 'config_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
+    config_key = 'config_key_example' # str | The AI Config key
     ai_config_variation_post = launchdarkly_api.AIConfigVariationPost() # AIConfigVariationPost | AI Config variation object to create
 
     try:
@@ -5335,8 +5521,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
- **config_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
+ **config_key** | **str**| The AI Config key | 
  **ai_config_variation_post** | [**AIConfigVariationPost**](AIConfigVariationPost.md)| AI Config variation object to create | 
 
 ### Return type
@@ -5403,7 +5589,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     ai_tool_post = launchdarkly_api.AIToolPost() # AIToolPost | AI tool object to create
 
     try:
@@ -5422,7 +5608,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **ai_tool_post** | [**AIToolPost**](AIToolPost.md)| AI tool object to create | 
 
 ### Return type
@@ -5489,7 +5675,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
+    project_key = 'default' # str | The project key
     model_config_post = launchdarkly_api.ModelConfigPost() # ModelConfigPost | AI model config object to create
 
     try:
@@ -5508,7 +5694,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **model_config_post** | [**ModelConfigPost**](ModelConfigPost.md)| AI model config object to create | 
 
 ### Return type
@@ -5575,7 +5761,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'project_key_example' # str | 
+    project_key = 'project_key_example' # str | The project key
     prompt_snippet_post = launchdarkly_api.PromptSnippetPost() # PromptSnippetPost | Prompt snippet object to create
 
     try:
@@ -5594,7 +5780,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **prompt_snippet_post** | [**PromptSnippetPost**](PromptSnippetPost.md)| Prompt snippet object to create | 
 
 ### Return type
@@ -5662,7 +5848,7 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.AgentControlApi(api_client)
-    project_key = 'default' # str | 
+    project_key = 'default' # str | The project key
     restricted_models_request = launchdarkly_api.RestrictedModelsRequest() # RestrictedModelsRequest | List of AI model keys to add to the restricted list.
 
     try:
@@ -5681,7 +5867,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_key** | **str**|  | 
+ **project_key** | **str**| The project key | 
  **restricted_models_request** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md)| List of AI model keys to add to the restricted list. | 
 
 ### Return type

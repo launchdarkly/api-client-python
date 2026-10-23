@@ -373,7 +373,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_teams**
-> Teams get_teams(limit=limit, offset=offset, filter=filter, expand=expand)
+> Teams get_teams(limit=limit, offset=offset, filter=filter, sort=sort, expand=expand)
 
 List teams
 
@@ -390,6 +390,15 @@ LaunchDarkly supports the following fields for filters:
 - `nomembers` is a boolean that filters the list of teams who have 0 members
   - A request with `nomembers:true` returns teams that have 0 members
   - A request with `nomembers:false` returns teams that have 1 or more members
+
+### Sorting teams
+
+LaunchDarkly supports the following fields for sorting:
+
+- `name` sorts by team name. It is not case-sensitive.
+- `memberCount` sorts by the number of members on the team.
+
+By default, the sort is in ascending order. Use `-` to sort in descending order. For example, `?sort=name` sorts the response by team name in ascending order, and `?sort=-memberCount` sorts by member count from largest to smallest. Combine fields with a comma to break ties, for example `?sort=-memberCount,name`.
 
 ### Expanding the teams response
 LaunchDarkly supports expanding several fields in the "List teams" response. By default, these fields are **not** included in the response.
@@ -439,11 +448,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     limit = 56 # int | The number of teams to return in the response. Defaults to 20. (optional)
     offset = 56 # int | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
     filter = 'filter_example' # str | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
+    sort = 'sort_example' # str | A comma-separated list of fields to sort by. Fields are sorted in ascending order by default. Prefix a field with `-` to sort in descending order. Supported fields: `name`, `memberCount`. (optional)
     expand = 'expand_example' # str | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     try:
         # List teams
-        api_response = api_instance.get_teams(limit=limit, offset=offset, filter=filter, expand=expand)
+        api_response = api_instance.get_teams(limit=limit, offset=offset, filter=filter, sort=sort, expand=expand)
         print("The response of TeamsApi->get_teams:\n")
         pprint(api_response)
     except Exception as e:
@@ -460,6 +470,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| The number of teams to return in the response. Defaults to 20. | [optional] 
  **offset** | **int**| Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | [optional] 
  **filter** | **str**| A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;. | [optional] 
+ **sort** | **str**| A comma-separated list of fields to sort by. Fields are sorted in ascending order by default. Prefix a field with &#x60;-&#x60; to sort in descending order. Supported fields: &#x60;name&#x60;, &#x60;memberCount&#x60;. | [optional] 
  **expand** | **str**| A comma-separated list of properties that can reveal additional information in the response. | [optional] 
 
 ### Return type

@@ -7,27 +7,27 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
-**id** | **UUID** |  | 
-**run_id** | **UUID** |  | 
-**agent_optimization_id** | **UUID** |  | 
-**agent_optimization_version** | **int** |  | 
+**id** | **UUID** | The result ID | 
+**run_id** | **UUID** | The ID of the run this result belongs to | 
+**agent_optimization_id** | **UUID** | The agent optimization ID | 
+**agent_optimization_version** | **int** | The version of the agent optimization used | 
 **status** | [**AgentOptimizationResultStatus**](AgentOptimizationResultStatus.md) |  | 
 **activity** | [**AgentOptimizationResultActivity**](AgentOptimizationResultActivity.md) |  | 
-**iteration** | **int** |  | 
-**instructions** | **str** |  | 
-**parameters** | **Dict[str, object]** |  | [optional] 
-**user_input** | **str** |  | 
-**completion_response** | **str** |  | [optional] 
-**variation** | **Dict[str, object]** |  | [optional] 
-**scores** | **Dict[str, object]** |  | [optional] 
-**generation_tokens** | **Dict[str, object]** |  | [optional] 
-**evaluation_tokens** | **Dict[str, object]** |  | [optional] 
-**generation_latency** | **int** |  | [optional] 
-**evaluation_latencies** | **Dict[str, object]** |  | [optional] 
-**completed_at** | **int** |  | [optional] 
-**created_variation_key** | **str** |  | [optional] 
-**created_at** | **int** |  | 
-**updated_at** | **int** |  | 
+**iteration** | **int** | The iteration number within the run | 
+**instructions** | **str** | The instructions used for this attempt | 
+**parameters** | **Dict[str, object]** | The model parameters used for this attempt | [optional] 
+**user_input** | **str** | The user input used for this attempt | 
+**completion_response** | **str** | The model response | [optional] 
+**variation** | **Dict[str, object]** | The variation that was tested | [optional] 
+**scores** | **Dict[str, object]** | The scores for the response | [optional] 
+**generation_tokens** | **Dict[str, object]** | Token usage for generating the response | [optional] 
+**evaluation_tokens** | **Dict[str, object]** | Token usage for judging the response | [optional] 
+**generation_latency** | **int** | How long the response took to generate | [optional] 
+**evaluation_latencies** | **Dict[str, object]** | How long each evaluation took | [optional] 
+**completed_at** | **int** | When this finished, in Unix milliseconds | [optional] 
+**created_variation_key** | **str** | The key of the variation created from this result | [optional] 
+**created_at** | **int** | When this resource was created, in Unix milliseconds | 
+**updated_at** | **int** | When this resource was last updated, in Unix milliseconds | 
 
 ## Example
 

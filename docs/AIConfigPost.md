@@ -5,14 +5,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **str** |  | [optional] [default to '']
-**key** | **str** |  | 
-**maintainer_id** | **str** |  | [optional] 
-**maintainer_team_key** | **str** |  | [optional] 
-**mode** | **str** |  | [optional] [default to 'completion']
-**name** | **str** |  | 
-**tags** | **List[str]** |  | [optional] 
-**view_keys** | **List[str]** |  | [optional] 
+**description** | **str** | A description of the AI Config | [optional] [default to '']
+**key** | **str** | A unique key for the AI Config | 
+**maintainer_id** | **str** | The ID of the member who maintains this resource | [optional] 
+**maintainer_team_key** | **str** | The key of the team that maintains this resource | [optional] 
+**mode** | **str** | The AI Config mode | [optional] [default to 'completion']
+**name** | **str** | A human-readable name for the AI Config | 
+**tags** | **List[str]** | Tags for this resource | [optional] 
+**view_keys** | **List[str]** | Keys of the views to add the AI Config to | [optional] 
 **default_variation** | [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
 **evaluation_metric_key** | **str** | Evaluation metric key for this config | [optional] 
 **is_inverted** | **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 

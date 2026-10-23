@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**run_id** | **UUID** |  | 
-**agent_optimization_version** | **int** |  | 
-**iteration** | **int** |  | 
-**instructions** | **str** |  | 
-**user_input** | **str** |  | 
-**parameters** | **Dict[str, object]** |  | [optional] 
+**run_id** | **UUID** | The ID of the run this result belongs to | 
+**agent_optimization_version** | **int** | The version of the agent optimization used | 
+**iteration** | **int** | The iteration number within the run | 
+**instructions** | **str** | The instructions used for this attempt | 
+**user_input** | **str** | The user input used for this attempt | 
+**parameters** | **Dict[str, object]** | The model parameters used for this attempt | [optional] 
 
 ## Example
 

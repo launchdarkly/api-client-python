@@ -6,8 +6,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**items** | [**List[AgentOptimizationResult]**](AgentOptimizationResult.md) |  | 
-**total_count** | **int** |  | [optional] 
+**items** | [**List[AgentOptimizationResult]**](AgentOptimizationResult.md) | The items on this page | 
+**total_count** | **int** | The total number of items | [optional] 
 
 ## Example
 

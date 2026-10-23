@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
-**name** | **str** |  | 
+**key** | **str** | The team key | 
+**name** | **str** | The team name | 
 
 ## Example
 

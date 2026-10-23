@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**attribute** | **str** |  | 
-**id** | **str** |  | 
-**negate** | **bool** |  | 
-**op** | **str** |  | 
-**values** | **List[object]** |  | 
+**attribute** | **str** | The context attribute to match | 
+**id** | **str** | The clause ID | 
+**negate** | **bool** | Whether to negate the match | 
+**op** | **str** | The operator to use | 
+**values** | **List[object]** | The values to match against | 
 
 ## Example
 

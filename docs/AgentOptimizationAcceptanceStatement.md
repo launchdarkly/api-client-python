@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**statement** | **str** |  | 
-**threshold** | **float** |  | 
+**statement** | **str** | A statement the response must satisfy | 
+**threshold** | **float** | The minimum score needed to pass | 
 
 ## Example
 

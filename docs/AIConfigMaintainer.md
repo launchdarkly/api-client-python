@@ -1,18 +1,19 @@
 # AIConfigMaintainer
 
+The member or team that maintains this resource
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **kind** | **str** |  | 
-**id** | **str** |  | 
-**email** | **str** |  | 
-**first_name** | **str** |  | [optional] 
-**last_name** | **str** |  | [optional] 
-**role** | **str** |  | 
-**key** | **str** |  | 
-**name** | **str** |  | 
+**id** | **str** | The member ID | 
+**email** | **str** | The member email address | 
+**first_name** | **str** | The member first name | [optional] 
+**last_name** | **str** | The member last name | [optional] 
+**role** | **str** | The member role | 
+**key** | **str** | The team key | 
+**name** | **str** | The team name | 
 
 ## Example
 

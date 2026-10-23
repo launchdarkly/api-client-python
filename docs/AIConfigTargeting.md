@@ -7,13 +7,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **created_at** | **int** | Unix timestamp in milliseconds | 
 **defaults** | [**AIConfigTargetingDefaults**](AIConfigTargetingDefaults.md) |  | [optional] 
-**environments** | [**Dict[str, AIConfigTargetingEnvironment]**](AIConfigTargetingEnvironment.md) |  | 
+**environments** | [**Dict[str, AIConfigTargetingEnvironment]**](AIConfigTargetingEnvironment.md) | Targeting for each environment, keyed by environment key | 
 **experiments** | [**AiConfigsExperimentInfoRep**](AiConfigsExperimentInfoRep.md) |  | 
-**key** | **str** |  | 
-**name** | **str** |  | 
-**tags** | **List[str]** |  | 
-**variations** | [**List[AIConfigTargetingVariation]**](AIConfigTargetingVariation.md) |  | 
-**version** | **int** |  | 
+**key** | **str** | The AI Config key | 
+**name** | **str** | The AI Config name | 
+**tags** | **List[str]** | Tags for this resource | 
+**variations** | [**List[AIConfigTargetingVariation]**](AIConfigTargetingVariation.md) | The variations of this AI Config | 
+**version** | **int** | The version number of this resource | 
 
 ## Example
 

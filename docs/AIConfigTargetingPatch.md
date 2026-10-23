@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**comment** | **str** |  | [optional] 
-**environment_key** | **str** |  | 
-**instructions** | **List[Dict[str, object]]** |  | 
+**comment** | **str** | A comment describing the change | [optional] 
+**environment_key** | **str** | The environment key | 
+**instructions** | **List[Dict[str, object]]** | The semantic patch instructions to apply | 
 
 ## Example
 

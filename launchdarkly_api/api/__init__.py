@@ -1,10 +1,10 @@
 # flake8: noqa
 
 # import apis into api package
-from launchdarkly_api.api.ai_configs_api import AIConfigsApi
 from launchdarkly_api.api.access_tokens_api import AccessTokensApi
 from launchdarkly_api.api.account_members_api import AccountMembersApi
 from launchdarkly_api.api.account_usage_beta_api import AccountUsageBetaApi
+from launchdarkly_api.api.adaptive_triggers_api import AdaptiveTriggersApi
 from launchdarkly_api.api.agent_control_api import AgentControlApi
 from launchdarkly_api.api.announcements_api import AnnouncementsApi
 from launchdarkly_api.api.applications_beta_api import ApplicationsBetaApi
@@ -16,6 +16,7 @@ from launchdarkly_api.api.context_settings_api import ContextSettingsApi
 from launchdarkly_api.api.contexts_api import ContextsApi
 from launchdarkly_api.api.custom_roles_api import CustomRolesApi
 from launchdarkly_api.api.data_export_destinations_api import DataExportDestinationsApi
+from launchdarkly_api.api.environment_releases_beta_api import EnvironmentReleasesBetaApi
 from launchdarkly_api.api.environments_api import EnvironmentsApi
 from launchdarkly_api.api.experiments_api import ExperimentsApi
 from launchdarkly_api.api.feature_flags_api import FeatureFlagsApi
@@ -43,9 +44,8 @@ from launchdarkly_api.api.other_api import OtherApi
 from launchdarkly_api.api.persistent_store_integrations_beta_api import PersistentStoreIntegrationsBetaApi
 from launchdarkly_api.api.projects_api import ProjectsApi
 from launchdarkly_api.api.relay_proxy_configurations_api import RelayProxyConfigurationsApi
-from launchdarkly_api.api.release_pipelines_beta_api import ReleasePipelinesBetaApi
+from launchdarkly_api.api.release_pipelines_deprecated_api import ReleasePipelinesDeprecatedApi
 from launchdarkly_api.api.release_policies_beta_api import ReleasePoliciesBetaApi
-from launchdarkly_api.api.releases_beta_api import ReleasesBetaApi
 from launchdarkly_api.api.sdk_keys_beta_api import SDKKeysBetaApi
 from launchdarkly_api.api.scheduled_changes_api import ScheduledChangesApi
 from launchdarkly_api.api.segments_api import SegmentsApi
@@ -54,7 +54,7 @@ from launchdarkly_api.api.teams_api import TeamsApi
 from launchdarkly_api.api.teams_beta_api import TeamsBetaApi
 from launchdarkly_api.api.user_settings_api import UserSettingsApi
 from launchdarkly_api.api.users_api import UsersApi
-from launchdarkly_api.api.views_beta_api import ViewsBetaApi
+from launchdarkly_api.api.views_api import ViewsApi
 from launchdarkly_api.api.webhooks_api import WebhooksApi
 from launchdarkly_api.api.workflow_templates_api import WorkflowTemplatesApi
 from launchdarkly_api.api.workflows_api import WorkflowsApi

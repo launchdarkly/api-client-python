@@ -766,6 +766,8 @@ If you are using the `customRoles` field instead, you can provide the key for an
 
 Requests to create account members will not work if SCIM is enabled for the account.
 
+You can assign new members to teams with the `teamKeys` field. Teams are available only on Enterprise plans. If your plan does not include teams, a request that includes a non-empty `teamKeys` field returns an HTTP response code of 403 (Forbidden). Omit `teamKeys` to invite members without assigning them to a team.
+
 _No more than 50 members may be created per request._
 
 A request may also fail because of conflicts with existing members. These conflicts are reported using the additional `code` and `invalid_emails` response fields with the following possible values for `code`:
