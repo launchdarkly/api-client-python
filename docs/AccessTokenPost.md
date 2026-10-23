@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **inline_role** | [**List[StatementPost]**](StatementPost.md) | A JSON array of statements represented as JSON objects with three attributes: effect, resources, actions. May be used in place of a role. | [optional] 
 **service_token** | **bool** | Whether the token is a service token | [optional] 
 **default_api_version** | **int** | The default API version for this token | [optional] 
+**expiry** | **int** |  | [optional] 
 
 ## Example
 

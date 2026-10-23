@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**AgentOptimizationResultStatus**](AgentOptimizationResultStatus.md) |  | [optional] 
 **activity** | [**AgentOptimizationResultActivity**](AgentOptimizationResultActivity.md) |  | [optional] 
-**completion_response** | **str** |  | [optional] 
-**variation** | **Dict[str, object]** |  | [optional] 
-**scores** | **Dict[str, object]** |  | [optional] 
-**generation_tokens** | **Dict[str, object]** |  | [optional] 
-**evaluation_tokens** | **Dict[str, object]** |  | [optional] 
-**generation_latency** | **int** |  | [optional] 
-**evaluation_latencies** | **Dict[str, object]** |  | [optional] 
-**created_variation_key** | **str** |  | [optional] 
+**completion_response** | **str** | The model response | [optional] 
+**variation** | **Dict[str, object]** | The variation that was tested | [optional] 
+**scores** | **Dict[str, object]** | The scores for the response | [optional] 
+**generation_tokens** | **Dict[str, object]** | Token usage for generating the response | [optional] 
+**evaluation_tokens** | **Dict[str, object]** | Token usage for judging the response | [optional] 
+**generation_latency** | **int** | How long the response took to generate | [optional] 
+**evaluation_latencies** | **Dict[str, object]** | How long each evaluation took | [optional] 
+**created_variation_key** | **str** | The key of the variation created from this result | [optional] 
 
 ## Example
 

@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**successes** | **List[str]** |  | 
-**errors** | [**List[RestrictedModelError]**](RestrictedModelError.md) |  | 
+**successes** | **List[str]** | Model config keys that were added to the restricted list | 
+**errors** | [**List[RestrictedModelError]**](RestrictedModelError.md) | Model config keys that were not added, with the reason for each key | 
 
 ## Example
 

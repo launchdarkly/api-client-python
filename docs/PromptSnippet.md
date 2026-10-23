@@ -5,15 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
+**key** | **str** | The prompt snippet key | 
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
+**site** | [**CoreLink**](CoreLink.md) |  | [optional] 
 **maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**name** | **str** |  | 
-**description** | **str** |  | [optional] 
+**name** | **str** | The prompt snippet name | 
+**description** | **str** | A description of the prompt snippet | [optional] 
 **text** | **str** | The text content of the prompt snippet | 
-**tags** | **List[str]** |  | 
-**version** | **int** |  | 
+**tags** | **List[str]** | Tags for this resource | 
+**version** | **int** | The version number of this resource | 
 **created_at** | **int** |  | 
 
 ## Example

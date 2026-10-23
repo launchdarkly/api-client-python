@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**untracked** | **bool** |  | [optional] 
-**variation** | **int** |  | 
-**weight** | **int** |  | 
+**untracked** | **bool** | Whether this variation is excluded from experiment tracking | [optional] 
+**variation** | **int** | Index of the variation | 
+**weight** | **int** | The weight of this variation, in thousandths of a percent | 
 
 ## Example
 

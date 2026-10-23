@@ -16,7 +16,7 @@ Find users
 
 > ### Use contexts instead
 >
-> After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Search for context instances](https://launchdarkly.com/docs/api/contexts/search-context-instances) instead of this endpoint.
+> After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Search for contexts](https://launchdarkly.com/docs/api/contexts/search-contexts) instead of this endpoint.
 
 Search users in LaunchDarkly based on their last active date, a user attribute filter set, or a search query.
 
@@ -119,7 +119,7 @@ Get user
 
 > ### Use contexts instead
 >
-> After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get context instances](https://launchdarkly.com/docs/api/contexts/get-context-instances) instead of this endpoint.
+> After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should use [Get contexts](https://launchdarkly.com/docs/api/contexts/get-contexts) instead of this endpoint.
 
 Get a user by key. The `user` object contains all attributes sent in `variation` calls for that key.
 

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **links** | [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
 **resource_key** | **str** | The key of the prompt snippet. | 
 **resource_type** | **str** | The type of the resource being referenced. | 
-**items** | [**List[SnippetReference]**](SnippetReference.md) |  | 
+**items** | [**List[SnippetReference]**](SnippetReference.md) | The resources that reference this prompt snippet | 
 **total_count** | **int** | The total number of references. | 
 
 ## Example

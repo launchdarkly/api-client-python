@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **review_status** | **str** | Current status of the review of this approval request | 
 **all_reviews** | [**List[ReviewResponse]**](ReviewResponse.md) | An array of individual reviews of this approval request | 
 **notify_member_ids** | **List[str]** | An array of member IDs. These members are notified to review the approval request. | 
+**notify_team_keys** | **List[str]** | An array of team keys, if teams were specified when the approval request was created. The members of these teams are listed in &lt;code&gt;notifyMemberIds&lt;/code&gt;, resolved when the request was made. Team membership may have changed since then. | [optional] 
 **applied_date** | **int** |  | [optional] 
 **applied_by_member_id** | **str** | The member ID of the member who applied the approval request | [optional] 
 **applied_by_service_token_id** | **str** | The service token ID of the service token which applied the approval request | [optional] 

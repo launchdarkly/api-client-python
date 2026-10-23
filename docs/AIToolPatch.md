@@ -5,12 +5,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**maintainer_id** | **str** |  | [optional] 
-**maintainer_team_key** | **str** |  | [optional] 
-**description** | **str** |  | [optional] 
+**maintainer_id** | **str** | The ID of the member who maintains this resource | [optional] 
+**maintainer_team_key** | **str** | The key of the team that maintains this resource | [optional] 
+**description** | **str** | A description of the tool | [optional] 
 **var_schema** | **object** | JSON Schema defining the tool&#39;s parameters for LLM consumption | [optional] 
 **custom_parameters** | **object** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
-**tags** | **List[str]** |  | [optional] 
+**tags** | **List[str]** | Replaces the tags on the tool. Tags can be used in custom role policies. | [optional] 
 
 ## Example
 

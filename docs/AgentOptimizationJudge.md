@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | 
-**threshold** | **float** |  | 
+**key** | **str** | The key of the judge AI Config | 
+**threshold** | **float** | The minimum score needed to pass | 
 
 ## Example
 

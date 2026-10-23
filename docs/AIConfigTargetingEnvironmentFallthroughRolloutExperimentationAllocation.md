@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**can_reshuffle** | **bool** |  | 
-**default_variation** | **int** |  | 
-**type** | **str** |  | 
+**can_reshuffle** | **bool** | Whether contexts can be reassigned to new buckets | 
+**default_variation** | **int** | Index of the default variation | 
+**type** | **str** | The allocation type | 
 
 ## Example
 

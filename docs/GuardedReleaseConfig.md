@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **rollback_on_regression** | **bool** | Whether to roll back on regression | [optional] 
 **metric_keys** | **List[str]** | List of metric keys | [optional] 
 **metric_group_keys** | **List[str]** | List of metric group keys | [optional] 
-**stages** | [**List[ReleasePolicyStage]**](ReleasePolicyStage.md) | List of stages | [optional] 
+**stages** | [**List[ReleasePolicyStage]**](ReleasePolicyStage.md) | List of stages. At most 10 stages by default; the server enforces the per-account limit, which is never more than 20. | [optional] 
 
 ## Example
 

@@ -4,103 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_context_instances**](ContextsApi.md#delete_context_instances) | **DELETE** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Delete context instances
 [**evaluate_context_instance**](ContextsApi.md#evaluate_context_instance) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate | Evaluate flags for context instance
 [**get_context_attribute_names**](ContextsApi.md#get_context_attribute_names) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes | Get context attribute names
 [**get_context_attribute_values**](ContextsApi.md#get_context_attribute_values) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes/{attributeName} | Get context attribute values
-[**get_context_instances**](ContextsApi.md#get_context_instances) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Get context instances
 [**get_context_kinds_by_project_key**](ContextsApi.md#get_context_kinds_by_project_key) | **GET** /api/v2/projects/{projectKey}/context-kinds | Get context kinds
 [**get_contexts**](ContextsApi.md#get_contexts) | **GET** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{kind}/{key} | Get contexts
 [**put_context_kind**](ContextsApi.md#put_context_kind) | **PUT** /api/v2/projects/{projectKey}/context-kinds/{key} | Create or update context kind
-[**search_context_instances**](ContextsApi.md#search_context_instances) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/search | Search for context instances
 [**search_contexts**](ContextsApi.md#search_contexts) | **POST** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/search | Search for contexts
 
-
-# **delete_context_instances**
-> delete_context_instances(project_key, environment_key, id)
-
-Delete context instances
-
-Delete context instances by ID.
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import launchdarkly_api
-from launchdarkly_api.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = launchdarkly_api.ContextsApi(api_client)
-    project_key = 'project_key_example' # str | The project key
-    environment_key = 'environment_key_example' # str | The environment key
-    id = 'id_example' # str | The context instance ID
-
-    try:
-        # Delete context instances
-        api_instance.delete_context_instances(project_key, environment_key, id)
-    except Exception as e:
-        print("Exception when calling ContextsApi->delete_context_instances: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key | 
- **environment_key** | **str**| The environment key | 
- **id** | **str**| The context instance ID | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | Action succeeded |  -  |
-**400** | Invalid request |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**404** | Invalid resource identifier |  -  |
-**410** | Endpoint deprecated |  -  |
-**429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **evaluate_context_instance**
 > ContextInstanceEvaluations evaluate_context_instance(project_key, environment_key, request_body, limit=limit, offset=offset, sort=sort, filter=filter)
@@ -248,7 +159,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     api_instance = launchdarkly_api.ContextsApi(api_client)
     project_key = 'project_key_example' # str | The project key
     environment_key = 'environment_key_example' # str | The environment key
-    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `name` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
+    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `name` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). (optional)
     limit = 56 # int | Specifies the maximum number of items in the collection to return (max: 100, default: 100) (optional)
 
     try:
@@ -269,7 +180,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_key** | **str**| The project key | 
  **environment_key** | **str**| The environment key | 
- **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;name&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
+ **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;name&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). | [optional] 
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 100, default: 100) | [optional] 
 
 ### Return type
@@ -338,7 +249,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     project_key = 'project_key_example' # str | The project key
     environment_key = 'environment_key_example' # str | The environment key
     attribute_name = 'attribute_name_example' # str | The attribute name
-    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `value` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
+    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint requires a `kind` filter, with the `equals` operator, and also accepts a `value` filter, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). (optional)
     limit = 56 # int | Specifies the maximum number of items in the collection to return (max: 100, default: 50) (optional)
 
     try:
@@ -360,7 +271,7 @@ Name | Type | Description  | Notes
  **project_key** | **str**| The project key | 
  **environment_key** | **str**| The environment key | 
  **attribute_name** | **str**| The attribute name | 
- **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;value&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
+ **filter** | **str**| A comma-separated list of context filters. This endpoint requires a &#x60;kind&#x60; filter, with the &#x60;equals&#x60; operator, and also accepts a &#x60;value&#x60; filter, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). | [optional] 
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 100, default: 50) | [optional] 
 
 ### Return type
@@ -381,103 +292,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Context attribute values collection response |  -  |
-**400** | Invalid request |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_context_instances**
-> ContextInstances get_context_instances(project_key, environment_key, id, limit=limit, continuation_token=continuation_token, sort=sort, filter=filter, include_total_count=include_total_count)
-
-Get context instances
-
-Get context instances by ID.
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import launchdarkly_api
-from launchdarkly_api.models.context_instances import ContextInstances
-from launchdarkly_api.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = launchdarkly_api.ContextsApi(api_client)
-    project_key = 'project_key_example' # str | The project key
-    environment_key = 'environment_key_example' # str | The environment key
-    id = 'id_example' # str | The context instance ID
-    limit = 56 # int | Specifies the maximum number of context instances to return (max: 50, default: 20) (optional)
-    continuation_token = 'continuation_token_example' # str | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
-    sort = 'sort_example' # str | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
-    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
-    include_total_count = True # bool | Specifies whether to include or omit the total count of matching context instances. Defaults to true. (optional)
-
-    try:
-        # Get context instances
-        api_response = api_instance.get_context_instances(project_key, environment_key, id, limit=limit, continuation_token=continuation_token, sort=sort, filter=filter, include_total_count=include_total_count)
-        print("The response of ContextsApi->get_context_instances:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ContextsApi->get_context_instances: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key | 
- **environment_key** | **str**| The environment key | 
- **id** | **str**| The context instance ID | 
- **limit** | **int**| Specifies the maximum number of context instances to return (max: 50, default: 20) | [optional] 
- **continuation_token** | **str**| Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
- **sort** | **str**| Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | [optional] 
- **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
- **include_total_count** | **bool**| Specifies whether to include or omit the total count of matching context instances. Defaults to true. | [optional] 
-
-### Return type
-
-[**ContextInstances**](ContextInstances.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Context instances collection response |  -  |
 **400** | Invalid request |  -  |
 **401** | Invalid access token |  -  |
 **403** | Forbidden |  -  |
@@ -574,7 +388,7 @@ Name | Type | Description  | Notes
 
 Get contexts
 
-Get contexts based on kind and key.
+Get contexts based on kind and key. Returns one item for each application from which LaunchDarkly has received the context, with the `applicationId` field populated.
 
 ### Example
 
@@ -612,9 +426,9 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     kind = 'kind_example' # str | The context kind
     key = 'key_example' # str | The context key
     limit = 56 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
-    continuation_token = 'continuation_token_example' # str | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
-    sort = 'sort_example' # str | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
-    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
+    continuation_token = 'continuation_token_example' # str | An opaque cursor that identifies the next page of results. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
+    sort = 'sort_example' # str | Deprecated. This endpoint does not support sorting. Requests that include this parameter are rejected with a `400` response, so omit it. Results are always sorted by context kind and key. (optional)
+    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). (optional)
     include_total_count = True # bool | Specifies whether to include or omit the total count of matching contexts. Defaults to true. (optional)
 
     try:
@@ -638,9 +452,9 @@ Name | Type | Description  | Notes
  **kind** | **str**| The context kind | 
  **key** | **str**| The context key | 
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional] 
- **continuation_token** | **str**| Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
- **sort** | **str**| Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | [optional] 
- **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
+ **continuation_token** | **str**| An opaque cursor that identifies the next page of results. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
+ **sort** | **str**| Deprecated. This endpoint does not support sorting. Requests that include this parameter are rejected with a &#x60;400&#x60; response, so omit it. Results are always sorted by context kind and key. | [optional] 
+ **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). | [optional] 
  **include_total_count** | **bool**| Specifies whether to include or omit the total count of matching contexts. Defaults to true. | [optional] 
 
 ### Return type
@@ -756,110 +570,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search_context_instances**
-> ContextInstances search_context_instances(project_key, environment_key, context_instance_search, limit=limit, continuation_token=continuation_token, sort=sort, filter=filter, include_total_count=include_total_count)
-
-Search for context instances
-
-
-Search for context instances.
-
-You can use either the query parameters or the request body parameters. If both are provided, there is an error.
-
-To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/api/contexts#filtering-contexts-and-context-instances). To learn more about context instances, read [Context instances](https://launchdarkly.com/docs/home/observability/multi-contexts#context-instances).
-
-
-### Example
-
-* Api Key Authentication (ApiKey):
-
-```python
-import launchdarkly_api
-from launchdarkly_api.models.context_instance_search import ContextInstanceSearch
-from launchdarkly_api.models.context_instances import ContextInstances
-from launchdarkly_api.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://app.launchdarkly.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = launchdarkly_api.Configuration(
-    host = "https://app.launchdarkly.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: ApiKey
-configuration.api_key['ApiKey'] = os.environ["API_KEY"]
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['ApiKey'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with launchdarkly_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = launchdarkly_api.ContextsApi(api_client)
-    project_key = 'project_key_example' # str | The project key
-    environment_key = 'environment_key_example' # str | The environment key
-    context_instance_search = launchdarkly_api.ContextInstanceSearch() # ContextInstanceSearch | 
-    limit = 56 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
-    continuation_token = 'continuation_token_example' # str | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
-    sort = 'sort_example' # str | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
-    filter = 'filter_example' # str | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
-    include_total_count = True # bool | Specifies whether to include or omit the total count of matching context instances. Defaults to true. (optional)
-
-    try:
-        # Search for context instances
-        api_response = api_instance.search_context_instances(project_key, environment_key, context_instance_search, limit=limit, continuation_token=continuation_token, sort=sort, filter=filter, include_total_count=include_total_count)
-        print("The response of ContextsApi->search_context_instances:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling ContextsApi->search_context_instances: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_key** | **str**| The project key | 
- **environment_key** | **str**| The environment key | 
- **context_instance_search** | [**ContextInstanceSearch**](ContextInstanceSearch.md)|  | 
- **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional] 
- **continuation_token** | **str**| Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
- **sort** | **str**| Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | [optional] 
- **filter** | **str**| A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
- **include_total_count** | **bool**| Specifies whether to include or omit the total count of matching context instances. Defaults to true. | [optional] 
-
-### Return type
-
-[**ContextInstances**](ContextInstances.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Context instances collection response |  -  |
-**400** | Invalid request |  -  |
-**401** | Invalid access token |  -  |
-**403** | Forbidden |  -  |
-**429** | Rate limited |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **search_contexts**
 > Contexts search_contexts(project_key, environment_key, context_search, limit=limit, continuation_token=continuation_token, sort=sort, filter=filter, include_total_count=include_total_count)
 
@@ -870,7 +580,9 @@ Search for contexts.
 
 You can use either the query parameters or the request body parameters. If both are provided, there is an error.
 
-To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/api/contexts#filtering-contexts-and-context-instances). To learn more about contexts, read [Contexts and context kinds](https://launchdarkly.com/docs/home/observability/contexts#contexts-and-context-kinds).
+Results are sorted by context kind and key. Each context appears once, with its most recently reported attributes. Results include contexts that LaunchDarkly has received within the last 30 days.
+
+To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/api/contexts#filtering-contexts). To learn more about contexts, read [Contexts](https://launchdarkly.com/docs/home/flags/contexts).
 
 
 ### Example
@@ -909,10 +621,10 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     environment_key = 'environment_key_example' # str | The environment key
     context_search = launchdarkly_api.ContextSearch() # ContextSearch | 
     limit = 56 # int | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
-    continuation_token = 'continuation_token_example' # str | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
-    sort = 'sort_example' # str | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
-    filter = 'filter_example' # str | A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). (optional)
-    include_total_count = True # bool | Specifies whether to include or omit the total count of matching contexts. Defaults to true. (optional)
+    continuation_token = 'continuation_token_example' # str | An opaque cursor that identifies the next page of results. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
+    sort = 'sort_example' # str | Deprecated. This endpoint does not support sorting. Requests that include this parameter are rejected with a `400` response, so omit it. Results are always sorted by context kind and key. (optional)
+    filter = 'filter_example' # str | A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). (optional)
+    include_total_count = True # bool | Specifies whether to include or omit the total count of matching contexts. Defaults to true. The total count is approximate and may be omitted if it is unavailable. (optional)
 
     try:
         # Search for contexts
@@ -934,10 +646,10 @@ Name | Type | Description  | Notes
  **environment_key** | **str**| The environment key | 
  **context_search** | [**ContextSearch**](ContextSearch.md)|  | 
  **limit** | **int**| Specifies the maximum number of items in the collection to return (max: 50, default: 20) | [optional] 
- **continuation_token** | **str**| Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
- **sort** | **str**| Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | [optional] 
- **filter** | **str**| A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts and context instances](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts-and-context-instances). | [optional] 
- **include_total_count** | **bool**| Specifies whether to include or omit the total count of matching contexts. Defaults to true. | [optional] 
+ **continuation_token** | **str**| An opaque cursor that identifies the next page of results. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | [optional] 
+ **sort** | **str**| Deprecated. This endpoint does not support sorting. Requests that include this parameter are rejected with a &#x60;400&#x60; response, so omit it. Results are always sorted by context kind and key. | [optional] 
+ **filter** | **str**| A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts](https://launchdarkly.com/docs/ld-docs/api/contexts#filtering-contexts). | [optional] 
+ **include_total_count** | **bool**| Specifies whether to include or omit the total count of matching contexts. Defaults to true. The total count is approximate and may be omitted if it is unavailable. | [optional] 
 
 ### Return type
 

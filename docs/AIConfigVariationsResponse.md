@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**List[AIConfigVariation]**](AIConfigVariation.md) |  | 
-**total_count** | **int** |  | 
+**items** | [**List[AIConfigVariation]**](AIConfigVariation.md) | The items on this page | 
+**total_count** | **int** | The total number of items | 
 
 ## Example
 

@@ -7,8 +7,8 @@ A collection of agent graphs
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **links** | [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**items** | [**List[AgentGraph]**](AgentGraph.md) |  | 
-**total_count** | **int** |  | 
+**items** | [**List[AgentGraph]**](AgentGraph.md) | The items on this page | 
+**total_count** | **int** | The total number of items | 
 
 ## Example
 

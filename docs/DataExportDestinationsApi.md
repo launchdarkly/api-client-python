@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 Delete Data Export destination
 
-Delete a Data Export destination by ID.
+Delete a Data Export destination by ID. The destination must belong to the environment in the URL. Otherwise, the response is 404.
 
 ### Example
 
@@ -105,7 +105,7 @@ void (empty response body)
 
 Get destination
 
-Get a single Data Export destination by ID.
+Get a single Data Export destination by ID. The destination must belong to the environment in the URL. Otherwise, the response is 404.
 
 ### Example
 
@@ -270,7 +270,7 @@ This endpoint does not need any parameter.
 
 Update Data Export destination
 
-Update a Data Export destination. Updating a destination uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](https://launchdarkly.com/docs/api#updates).
+Update a Data Export destination. The destination must belong to the environment in the URL. Otherwise, the response is 404. Updating a destination uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes. To learn more, read [Updates](https://launchdarkly.com/docs/api#updates).
 
 ### Example
 

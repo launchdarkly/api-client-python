@@ -50,11 +50,12 @@ Name | Type | Description | Notes
 **winsor_include_imputed** | **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **trace_query** | **str** | For trace metrics, the trace query to use for the metric. | [optional] 
 **trace_value_location** | **str** | For trace metrics, the location in the trace to use for numeric values. | [optional] 
+**unit_aggregation_field** | **str** | For count_distinct metrics, the column to count distinct values of | [optional] 
 **denominator** | [**MetricDenominatorRep**](MetricDenominatorRep.md) |  | [optional] 
 **experiments** | [**List[DependentExperimentRep]**](DependentExperimentRep.md) |  | [optional] 
 **metric_groups** | [**List[DependentMetricGroupRep]**](DependentMetricGroupRep.md) | Metric groups that use this metric | [optional] 
 **last_used_in_experiment** | [**DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
-**last_used_in_guarded_rollout** | [**DependentMeasuredRolloutRep**](DependentMeasuredRolloutRep.md) |  | [optional] 
+**last_used_in_guarded_rollout** | [**DependentReleasePhaseRep**](DependentReleasePhaseRep.md) |  | [optional] 
 **is_active** | **bool** | Whether the metric is active | [optional] 
 **attached_features** | [**List[FlagListingRep]**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
 

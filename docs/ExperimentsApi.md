@@ -31,7 +31,7 @@ For multi-armed bandit experiments, set `reallocationFrequencyMillis` on the ite
 
 ### Results analysis
 
-Use the `methodology` field to specify the results analysis approach: `bayesian` (default) or `frequentist`.
+Use the `methodology` field to specify the results analysis approach: `frequentist` (default) or `bayesian`. Multi-armed bandit experiments support only `bayesian`, which is their default.
 
 Use the `dataSource` field to specify the source of metric data: `launchdarkly` (default), `snowflake`, or `databricks`.
 
@@ -895,6 +895,7 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Invalid resource identifier |  -  |
 **409** | Conflict |  -  |
+**422** | The patch cannot be applied |  -  |
 **429** | Rate limited |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

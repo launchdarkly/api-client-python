@@ -11,13 +11,13 @@ Method | HTTP request | Description
 
 
 # **get_audit_log_entries**
-> AuditLogEntryListingRepCollection get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
+> AuditLogEntryListingRepCollection get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec, member=member, token=token)
 
 List audit log entries
 
 Get a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
 
-LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax).
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [Specifying resources in the advanced editor](https://launchdarkly.com/docs/home/account/roles/role-resources#specifying-resources-in-the-advanced-editor).
 
 
 ### Example
@@ -56,10 +56,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     q = 'q_example' # str | Text to search for. You can search for the full or partial name of the resource. (optional)
     limit = 56 # int | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
     spec = 'spec_example' # str | A resource specifier that lets you filter audit log listings by resource (optional)
+    member = 'member_example' # str | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. (optional)
+    token = 'token_example' # str | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. (optional)
 
     try:
         # List audit log entries
-        api_response = api_instance.get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec)
+        api_response = api_instance.get_audit_log_entries(before=before, after=after, q=q, limit=limit, spec=spec, member=member, token=token)
         print("The response of AuditLogApi->get_audit_log_entries:\n")
         pprint(api_response)
     except Exception as e:
@@ -78,6 +80,8 @@ Name | Type | Description  | Notes
  **q** | **str**| Text to search for. You can search for the full or partial name of the resource. | [optional] 
  **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | [optional] 
  **spec** | **str**| A resource specifier that lets you filter audit log listings by resource | [optional] 
+ **member** | **str**| A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. | [optional] 
+ **token** | **str**| An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. | [optional] 
 
 ### Return type
 
@@ -193,13 +197,13 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_audit_log_entries**
-> AuditLogEntryListingRepCollection post_audit_log_entries(before=before, after=after, q=q, limit=limit, statement_post=statement_post)
+> AuditLogEntryListingRepCollection post_audit_log_entries(before=before, after=after, q=q, limit=limit, member=member, token=token, statement_post=statement_post)
 
 Search audit log entries
 
 Search your audit log entries. The query parameters let you restrict the results that return by date ranges, or a full-text search query. The request body lets you restrict the results that return by resource specifiers.
 
-LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [About the resource specifier syntax](https://launchdarkly.com/docs/home/account/role-resources#about-the-resource-specifier-syntax).
+LaunchDarkly uses a resource specifier syntax to name resources or collections of resources. To learn more, read [Specifying resources in the advanced editor](https://launchdarkly.com/docs/home/account/roles/role-resources#specifying-resources-in-the-advanced-editor).
 
 
 ### Example
@@ -238,11 +242,13 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     after = 56 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. (optional)
     q = 'q_example' # str | Text to search for. You can search for the full or partial name of the resource. (optional)
     limit = 56 # int | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
+    member = 'member_example' # str | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. (optional)
+    token = 'token_example' # str | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. (optional)
     statement_post = [launchdarkly_api.StatementPost()] # List[StatementPost] |  (optional)
 
     try:
         # Search audit log entries
-        api_response = api_instance.post_audit_log_entries(before=before, after=after, q=q, limit=limit, statement_post=statement_post)
+        api_response = api_instance.post_audit_log_entries(before=before, after=after, q=q, limit=limit, member=member, token=token, statement_post=statement_post)
         print("The response of AuditLogApi->post_audit_log_entries:\n")
         pprint(api_response)
     except Exception as e:
@@ -260,6 +266,8 @@ Name | Type | Description  | Notes
  **after** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. | [optional] 
  **q** | **str**| Text to search for. You can search for the full or partial name of the resource. | [optional] 
  **limit** | **int**| A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | [optional] 
+ **member** | **str**| A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. | [optional] 
+ **token** | **str**| An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. | [optional] 
  **statement_post** | [**List[StatementPost]**](StatementPost.md)|  | [optional] 
 
 ### Return type
@@ -288,7 +296,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_audit_log_entry_counts**
-> CountBucketsResult post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets)
+> CountBucketsResult post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets, member=member, token=token)
 
 Get audit log entry counts
 
@@ -330,10 +338,12 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     statement_post = [launchdarkly_api.StatementPost()] # List[StatementPost] | 
     before = 56 # int | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. (optional)
     buckets = 56 # int | Number of time buckets to divide the range into. Default 50, max 500. (optional)
+    member = 'member_example' # str | A member ID that lets you filter counts to changes made by that member. Repeat the parameter to filter by multiple members. (optional)
+    token = 'token_example' # str | An access token ID that lets you filter counts to changes made by that token. Repeat the parameter to filter by multiple tokens. (optional)
 
     try:
         # Get audit log entry counts
-        api_response = api_instance.post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets)
+        api_response = api_instance.post_audit_log_entry_counts(after, statement_post, before=before, buckets=buckets, member=member, token=token)
         print("The response of AuditLogApi->post_audit_log_entry_counts:\n")
         pprint(api_response)
     except Exception as e:
@@ -351,6 +361,8 @@ Name | Type | Description  | Notes
  **statement_post** | [**List[StatementPost]**](StatementPost.md)|  | 
  **before** | **int**| A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. | [optional] 
  **buckets** | **int**| Number of time buckets to divide the range into. Default 50, max 500. | [optional] 
+ **member** | **str**| A member ID that lets you filter counts to changes made by that member. Repeat the parameter to filter by multiple members. | [optional] 
+ **token** | **str**| An access token ID that lets you filter counts to changes made by that token. Repeat the parameter to filter by multiple tokens. | [optional] 
 
 ### Return type
 

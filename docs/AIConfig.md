@@ -7,14 +7,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **access** | [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **links** | [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
-**description** | **str** |  | 
-**key** | **str** |  | 
+**site** | [**CoreLink**](CoreLink.md) |  | [optional] 
+**description** | **str** | A description of the AI Config | 
+**key** | **str** | The AI Config key | 
 **maintainer** | [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**mode** | **str** |  | [optional] [default to 'completion']
-**name** | **str** |  | 
-**tags** | **List[str]** |  | 
-**version** | **int** |  | 
-**variations** | [**List[AIConfigVariation]**](AIConfigVariation.md) |  | 
+**mode** | **str** | The AI Config mode | [optional] [default to 'completion']
+**name** | **str** | The AI Config name | 
+**tags** | **List[str]** | Tags for this resource | 
+**version** | **int** | The version number of this resource | 
+**variations** | [**List[AIConfigVariation]**](AIConfigVariation.md) | The variations of this AI Config | 
 **created_at** | **int** |  | 
 **updated_at** | **int** |  | 
 **evaluation_metric_key** | **str** | Evaluation metric key for this config | [optional] 

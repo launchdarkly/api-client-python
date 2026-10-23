@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **iteration** | [**IterationInput**](IterationInput.md) |  | 
 **holdout_id** | **str** | The ID of the holdout | [optional] 
 **tags** | **List[str]** | Tags for the experiment | [optional] 
-**methodology** | **str** | The results analysis approach. | [optional] 
+**methodology** | **str** | The results analysis approach. Defaults to \&quot;frequentist\&quot; when not provided, or \&quot;bayesian\&quot; for multi-armed bandit experiments. | [optional] 
 **analysis_config** | [**AnalysisConfigInput**](AnalysisConfigInput.md) |  | [optional] 
 **data_source** | **str** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
 **type** | **str** | The type of experiment. | [optional] 

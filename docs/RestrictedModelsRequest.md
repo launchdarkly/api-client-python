@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**keys** | **List[str]** |  | 
+**keys** | **List[str]** | Model config keys, not provider model IDs. Get keys from the list AI model configs endpoint. | 
 
 ## Example
 

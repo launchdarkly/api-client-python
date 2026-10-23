@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**context_kind** | **str** |  | 
-**values** | **List[str]** |  | 
-**variation** | **int** |  | 
+**context_kind** | **str** | The context kind | 
+**values** | **List[str]** | The context keys to target | 
+**variation** | **int** | Index of the variation to serve | 
 
 ## Example
 

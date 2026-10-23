@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**on_variation** | **int** |  | 
-**off_variation** | **int** |  | 
+**on_variation** | **int** | Index of the variation served when targeting is on | 
+**off_variation** | **int** | Index of the variation served when targeting is off | 
 
 ## Example
 

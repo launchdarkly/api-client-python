@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**get_tokens**](AccessTokensApi.md#get_tokens) | **GET** /api/v2/tokens | List access tokens
 [**patch_token**](AccessTokensApi.md#patch_token) | **PATCH** /api/v2/tokens/{id} | Patch access token
 [**post_token**](AccessTokensApi.md#post_token) | **POST** /api/v2/tokens | Create access token
-[**reset_token**](AccessTokensApi.md#reset_token) | **POST** /api/v2/tokens/{id}/reset | Reset access token
+[**reset_token**](AccessTokensApi.md#reset_token) | **POST** /api/v2/tokens/{id}/reset | Reset access token (legacy)
 
 
 # **delete_token**
@@ -437,9 +437,9 @@ Name | Type | Description  | Notes
 # **reset_token**
 > Token reset_token(id, expiry=expiry)
 
-Reset access token
+Reset access token (legacy)
 
-Reset an access token's secret key with an optional expiry time for the old key.
+Reset an access token's secret key with an optional expiry time for the old key. Use of this legacy handler is discouraged. Patch the `expiry` field on the token directly instead.
 
 ### Example
 
@@ -476,7 +476,7 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
     expiry = 56 # int | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
 
     try:
-        # Reset access token
+        # Reset access token (legacy)
         api_response = api_instance.reset_token(id, expiry=expiry)
         print("The response of AccessTokensApi->reset_token:\n")
         pprint(api_response)

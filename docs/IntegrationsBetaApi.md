@@ -181,7 +181,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_all_integration_configurations**
-> IntegrationConfigurationCollectionRep get_all_integration_configurations(integration_key)
+> IntegrationConfigurationCollectionRep get_all_integration_configurations(integration_key, include_pending=include_pending)
 
 Get all configurations for the integration
 
@@ -218,11 +218,12 @@ configuration.api_key['ApiKey'] = os.environ["API_KEY"]
 with launchdarkly_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = launchdarkly_api.IntegrationsBetaApi(api_client)
-    integration_key = 'integration_key_example' # str | Integration key
+    integration_key = 'integration_key_example' # str | A key that corresponds to the third-party integration you are configuring. For example, `mezmo`.
+    include_pending = True # bool | When `true`, includes pending two-step setup drafts that were created using `/setup` but are not yet finalized. Defaults to `false`, which returns only active configurations. (optional)
 
     try:
         # Get all configurations for the integration
-        api_response = api_instance.get_all_integration_configurations(integration_key)
+        api_response = api_instance.get_all_integration_configurations(integration_key, include_pending=include_pending)
         print("The response of IntegrationsBetaApi->get_all_integration_configurations:\n")
         pprint(api_response)
     except Exception as e:
@@ -236,7 +237,8 @@ with launchdarkly_api.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **integration_key** | **str**| Integration key | 
+ **integration_key** | **str**| A key that corresponds to the third-party integration you are configuring. For example, &#x60;mezmo&#x60;. | 
+ **include_pending** | **bool**| When &#x60;true&#x60;, includes pending two-step setup drafts that were created using &#x60;/setup&#x60; but are not yet finalized. Defaults to &#x60;false&#x60;, which returns only active configurations. | [optional] 
 
 ### Return type
 
